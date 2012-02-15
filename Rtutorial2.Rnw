@@ -1,0 +1,149 @@
+% Introduction to R for Teaching / Advising
+
+
+\documentclass{beamer}
+\usetheme{CambridgeUS}
+\usepackage{array}
+
+
+\title{Using R to Analyze and Visualize Education Data}
+
+\author{Jared Knowles}
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[DPI] % (optional, but mostly needed)
+{
+  Policy Research Advisor\\
+  Wisconsin Department of Public Instruction
+}
+\date[MIS] % (optional)
+{January 20, 2012 / MIS Conference}
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+%\pgfdeclareimage[height=0.5cm]{university-logo}{OHSU_H_4C_POS_RGB}
+%\logo{\pgfuseimage{university-logo}}
+
+\usepackage{Sweave}
+\usepackage{dcolumn, multirow}
+\usepackage{epsfig,graphicx}
+\usepackage{verbatim, rotating, paralist,hyperref}
+\usepackage{float}
+\graphicspath{{./img/}} %additional graphics directory
+\SweaveOpts{pdf=TRUE, echo=FALSE, fig=FALSE, eps=FALSE, tidy=T, width=4, height=4, keep.source=TRUE}
+
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\AtBeginDocument{ 
+\DefineVerbatimEnvironment{Sinput}{Verbatim} {xleftmargin=2em,fontsize= 
+\footnotesize} 
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{xleftmargin=2em,fontsize= 
+\footnotesize} 
+\DefineVerbatimEnvironment{Scode}{Verbatim}{xleftmargin=2em,fontsize= 
+\footnotesize} 
+}
+
+\begin{document}
+
+
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+<<echo=FALSE>>=
+library("ggplot2") #load packages
+#load("C:/git/LDS_TOOLS/packagedata.rda") # load data sets
+#source('C:/git/LDS_TOOLS/mosaicplotdraft.R') # source R scripts
+#load("~/LDS_TOOLS/packagedata.rda") # Alternate directory
+#source('~/LDS_TOOLS/mosaicplotdraft.R') #Alternate directory for Linux
+options(width=60) # make verbatim R code fit
+@
+
+%% Some intro content about R
+
+\section{What is R?}
+
+\begin{frame}
+\frametitle{\textbf{R}}
+  \begin{itemize}
+  \item R is an Open Source (and freely available) environment for statistical computinga nd graphics
+  \item Available for Windows, Mac OS X, and Linux
+  \item R is being actively developed with two major releases per year and dozens of releases of add on packages
+  \item R can be extended with 'packages' that contain data, code, and documentation to add new functionality
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{R Advantages}
+  \item R is a common tool among data experts at major universities
+  \item No need to go through procurement, R can be installed in any environment on any machine and used with no licensing or agreements needed
+  \item R source code is very readable to increase transparency of processes
+  \item R code is easily borrowed from and shared with others
+  \item R is incredibly flexible and can be adapted to specific local needs
+  \item R is under incredibly active development, improving greatly, and supported wildly by both professional and academic developers
+  \end{itemize}
+\end{frame}
+
+
+\section{Using R}
+\subsection{The Basics}
+\begin{frame}[containsverbatim]
+\frametitle{R as a Calculator}
+<<echo=T,results=verbatim>>=
+2+2 # add numbers
+
+2*pi #multiply by a constant
+
+7+runif(1,min=0,max=1) #add a random variable
+
+4^4 # powers
+
+sqrt(4^4) # functions
+@
+\end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Using the Workspace}
+  \begin{itemize}
+  \item To do more we need to learn how to manipulate the 'workspace'.
+  \item This includes all the scalars, vectors, datasets, and functions stored in memory.
+  \item All R objects are stored in the memory of the computer, limiting the available space for calculation to the size of the RAM on your machine.
+  \item R makes organizing the workspace easy.
+  \end{itemize}
+<<echo=T, results=verbatim>>=
+x<-5 #store a variable with <-
+x    #print the variable
+z<-3 
+ls() #list all variables
+ls.str() #list and describe variables
+rm(x)    # delete a variable
+ls()
+@
+\end{frame}
+
+\begin{frame}
+\frametitle{Some Notes}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+
+
+\end{document}
