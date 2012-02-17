@@ -403,6 +403,3 @@ student_long$race<-factor(student_long$race,levels=c('W','B','H','I','A'))
 student_wide <- reshape(student_long,timevar="year",idvar="stuid",direction="wide")
 
 rm(quants,newstud,student,student_new,student_temp,student_temp2)
-
-
-

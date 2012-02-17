@@ -137,12 +137,37 @@ ls()
 @
 \end{frame}
 
-\begin{frame}
-\frametitle{Some Notes}
+\begin{frame}[containsverbatim]
+\frametitle{Reading Data}
 \begin{itemize}
-  \item 
+  \item To read data in we have to tell R where it currently is on the filesystem
+  \item Then we have to tell it where to look for the dataset and how to read it
+  \item CSV files are simplest for beginning use cases, but R is flexible
 \end{itemize}
+<<echo=T,results=verbatim>>=
+# Set working directory to the tutorial director
+# In RStudio can do this in "Tools" tab
+setwd('~/r_tutorial_ed')
+#Load some data
+df<-read.csv('data/smalldata.csv')
+# Note if we don't assign data to 'df'
+# R just prints contents of table
+@
 \end{frame}
+
+\begin{frame}[containsverbatim]
+\frametitle{Objects}
+\begin{itemize}
+  \item Everything in R is an object--even functions
+  \item Objects can be manipulated many ways
+  \item A common example is applying the `summary' function to a variety of object types and seeing how it adapts
+\end{itemize}
+<<echo=T,results=verbatim>>=
+summary(df[,28:31]) #summary look at df object
+summary(df$readSS) #summary of a single column
+@
+\end{frame}
+
 
 
 
