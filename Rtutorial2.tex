@@ -34,7 +34,7 @@
 \usepackage{verbatim, rotating, paralist,hyperref}
 \usepackage{float}
 \graphicspath{{./img/}} %additional graphics directory
-\SweaveOpts{pdf=TRUE, echo=FALSE, fig=FALSE, eps=FALSE, tidy=T, width=4, height=4, keep.source=TRUE}
+
 
 
 
@@ -66,14 +66,6 @@
   \tableofcontents
 \end{frame}
 
-<<echo=FALSE>>=
-library("ggplot2") #load packages
-#load("C:/git/LDS_TOOLS/packagedata.rda") # load data sets
-#source('C:/git/LDS_TOOLS/mosaicplotdraft.R') # source R scripts
-#load("~/LDS_TOOLS/packagedata.rda") # Alternate directory
-#source('~/LDS_TOOLS/mosaicplotdraft.R') #Alternate directory for Linux
-options(width=60) # make verbatim R code fit
-@
 
 %% Some intro content about R
 
@@ -174,17 +166,38 @@ options(width=60) # make verbatim R code fit
 \subsection{The Basics}
 \begin{frame}[containsverbatim]
 \frametitle{R as a Calculator}
-<<echo=T,results=verbatim>>=
-2+2 # add numbers
-
-2*pi #multiply by a constant
-
-7+runif(1,min=0,max=1) #add a random variable
-
-4^4 # powers
-
-sqrt(4^4) # functions
-@
+\begin{Schunk}
+\begin{Sinput}
+> 2+2 # add numbers
+\end{Sinput}
+\begin{Soutput}
+[1] 4
+\end{Soutput}
+\begin{Sinput}
+> 2*pi #multiply by a constant
+\end{Sinput}
+\begin{Soutput}
+[1] 6.283185
+\end{Soutput}
+\begin{Sinput}
+> 7+runif(1,min=0,max=1) #add a random variable
+\end{Sinput}
+\begin{Soutput}
+[1] 7.59793
+\end{Soutput}
+\begin{Sinput}
+> 4^4 # powers
+\end{Sinput}
+\begin{Soutput}
+[1] 256
+\end{Soutput}
+\begin{Sinput}
+> sqrt(4^4) # functions
+\end{Sinput}
+\begin{Soutput}
+[1] 16
+\end{Soutput}
+\end{Schunk}
 \end{frame}
 
 \begin{frame}[containsverbatim]
@@ -195,15 +208,36 @@ sqrt(4^4) # functions
   \item All R objects are stored in the memory of the computer, limiting the available space for calculation to the size of the RAM on your machine.
   \item R makes organizing the workspace easy.
   \end{itemize}
-<<echo=T, results=verbatim>>=
-x<-5 #store a variable with <-
-x    #print the variable
-z<-3 
-ls() #list all variables
-ls.str() #list and describe variables
-rm(x)    # delete a variable
-ls()
-@
+\begin{Schunk}
+\begin{Sinput}
+> x<-5 #store a variable with <-
+> x    #print the variable
+\end{Sinput}
+\begin{Soutput}
+[1] 5
+\end{Soutput}
+\begin{Sinput}
+> z<-3 
+> ls() #list all variables
+\end{Sinput}
+\begin{Soutput}
+[1] "x" "z"
+\end{Soutput}
+\begin{Sinput}
+> ls.str() #list and describe variables
+\end{Sinput}
+\begin{Soutput}
+x :  num 5
+z :  num 3
+\end{Soutput}
+\begin{Sinput}
+> rm(x)    # delete a variable
+> ls()
+\end{Sinput}
+\begin{Soutput}
+[1] "z"
+\end{Soutput}
+\end{Schunk}
 \end{frame}
 
 \section{Getting Data In}
@@ -214,15 +248,17 @@ ls()
   \item Then we have to tell it where to look for the dataset and how to read it
   \item CSV files are simplest for beginning use cases, but R is flexible
 \end{itemize}
-<<echo=T,results=verbatim>>=
-# Set working directory to the tutorial director
-# In RStudio can do this in "Tools" tab
-setwd('~/r_tutorial_ed')
-#Load some data
-df<-read.csv('data/smalldata.csv')
-# Note if we don't assign data to 'df'
-# R just prints contents of table
-@
+\begin{Schunk}
+\begin{Sinput}
+> # Set working directory to the tutorial director
+> # In RStudio can do this in "Tools" tab
+> setwd('~/r_tutorial_ed')
+> #Load some data
+> df<-read.csv('data/smalldata.csv')
+> # Note if we don't assign data to 'df'
+> # R just prints contents of table
+\end{Sinput}
+\end{Schunk}
 \end{frame}
 
 \begin{frame}[containsverbatim]
@@ -232,10 +268,32 @@ df<-read.csv('data/smalldata.csv')
   \item Objects can be manipulated many ways
   \item A common example is applying the `summary' function to a variety of object types and seeing how it adapts
 \end{itemize}
-<<echo=T,results=verbatim>>=
-summary(df[,28:31]) #summary look at df object
-summary(df$readSS) #summary of a single column
-@
+\begin{Schunk}
+\begin{Sinput}
+> summary(df[,28:31]) #summary look at df object
+\end{Sinput}
+\begin{Soutput}
+   schoollow          readSS          mathSS     
+ Min.   :0.0000   Min.   :251.5   Min.   :210.2  
+ 1st Qu.:0.0000   1st Qu.:430.0   1st Qu.:418.3  
+ Median :0.0000   Median :495.3   Median :480.1  
+ Mean   :0.2422   Mean   :496.2   Mean   :483.4  
+ 3rd Qu.:0.0000   3rd Qu.:562.5   3rd Qu.:543.2  
+ Max.   :1.0000   Max.   :833.2   Max.   :828.4  
+        proflvl    
+ advanced   : 788  
+ basic      : 523  
+ below basic: 210  
+ proficient :1179  
+\end{Soutput}
+\begin{Sinput}
+> summary(df$readSS) #summary of a single column
+\end{Sinput}
+\begin{Soutput}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  251.5   430.0   495.3   496.2   562.5   833.2 
+\end{Soutput}
+\end{Schunk}
 \end{frame}
 
 
