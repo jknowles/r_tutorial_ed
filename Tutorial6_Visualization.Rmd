@@ -1,0 +1,11 @@
+% Tutorial 6: Visualizations
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+In this lesson we hope to learn:
+- How to draw diagnostic plots in base graphics
+- `ggplot2' 
+- Basic geoms
+- Layering and faceting plots
+- Putting it together

@@ -1,0 +1,10 @@
+% Tutorial 2: Getting Data In
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+Getting data in is the highest hurdle in R
+- Data import is incredibly flexible and once you are used to it, it is easy
+- Load a CSV file
+- Organize an analysis project
+- Query a database

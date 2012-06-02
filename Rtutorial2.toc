@@ -1,7 +1,0 @@
-\beamer@endinputifotherversion {3.17pt}
-\beamer@sectionintoc {1}{Introduction to R?}{3}{0}{1}
-\beamer@subsectionintoc {1}{1}{Why Use R?}{4}{0}{1}
-\beamer@subsectionintoc {1}{2}{R Setup}{10}{0}{1}
-\beamer@sectionintoc {2}{Using R}{12}{0}{2}
-\beamer@subsectionintoc {2}{1}{The Basics}{12}{0}{2}
-\beamer@sectionintoc {3}{Getting Data In}{14}{0}{3}

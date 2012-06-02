@@ -1,0 +1,10 @@
+% Tutorial 3: Manipulating Data in R
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+In this lesson we hope to learn:
+- What vectors are and why we use them?
+- Manipulating vectors
+- Object attributes
+- Dealing with missing data

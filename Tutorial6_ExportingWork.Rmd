@@ -1,0 +1,10 @@
+% Tutorial 7: Exporting Your Work
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+In this lesson we hope to learn:
+- Quick and basic export of results
+- Writing a basic report
+- Exporting graphics for use in other documents
+- Reproducible research

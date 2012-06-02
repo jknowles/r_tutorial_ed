@@ -1,0 +1,10 @@
+% Tutorial 8: Advanced Topics
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+In this lesson we hope to learn:
+- Git, GitHub, and add-on packages
+- Write a `for' loop
+- Write a basic function
+- Finding addons

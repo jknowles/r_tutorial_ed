@@ -1,0 +1,10 @@
+% Tutorial 5: Analytics
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+In this lesson we hope to learn:
+- How to use summary statistics to look at data
+- How to run basic statistical tests on a dataset
+- How to use formulas to build a statistical model
+- Analyze subsets of data

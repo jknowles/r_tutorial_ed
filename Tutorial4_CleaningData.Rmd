@@ -1,0 +1,11 @@
+% Tutorial 4: Cleaning and Merging Data
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Overview
+In this lesson we hope to learn:
+- The Strategic Data Project
+- Checking data for errors
+- Recoding data and changing data types
+- Diagnostics and error checks
+
