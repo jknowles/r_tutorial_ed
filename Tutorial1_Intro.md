@@ -1,7 +1,6 @@
 % Tutorial 1: Getting Started
 % R Bootcamp HTML Slides
 % Jared Knowles
-% 05/13/2012
 
 
 
@@ -57,6 +56,29 @@ Usage of the R listserv for help has really exploded recently
 
 <p align="center"><img src="img/rlistserv.png" height="500" width="700"></p>
 
+# R Vocabulary
+- **packages** are add on features to R that include data, new functions and methods, and extended capabilities. Think of them as ``apps'' on your phone.
+- **terminal** this is the main window of R where you enter commands
+- **scripts** these are where you store commands to be run in the terminal later, like syntax in SPSS or .do files in Stata
+- **functions** commands that do something to an object in R
+- **dataframe** the main element for statistical purposes, an object with rows and columns that includes numbers, factors, and other data types
+- **workspace** the working memory of R where all objects in the current session are stored
+- **vector** the basic unit of data in R
+
+# Components of an R Setup
+- **R** - obviously we need R. R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
+- **RStudio** - a much better way to work in R that allows editing of scripts, operation of R, viewing of the workspace, and R help all on one screen [download](http://rstudio.org/download/)
+- **LaTeX** - for producing documents using R this is less necessary, but still useful. download [WIN](http://miktex.org/2.9/setup) [MAC](http://www.tug.org/mactex/2011/)
+
+** ADVANCED **
+
+- **Dev Tools for R** - on Windows this is Rtools, on Linux and Mac it is installing the development mode of R download [WIN](http://www.stats.ox.ac.uk/pub/Rtools/R215x.html) [MAC](http://cran.r-project.org/bin/macosx/tools/)
+- **Git** - for version control, sharing code, and collaboration this is essential. It integrates well with RStudio. [download](http://git-scm.com/download)
+- **pandoc** - for converting output into other formats for sharing with non-user**R**s! [download](http://johnmacfarlane.net/pandoc/installing.html)
+
+# Installing R on Windows
+<p align='center'><iframe src="http://www.screenr.com/embed/kzT8" width="650" height="396" frameborder="0"></iframe></p>
+
 
 # R As A Calculator
 
@@ -93,7 +115,7 @@ Usage of the R listserv for help has really exploded recently
 
 
 ```
-## [1] 7.609
+## [1] 7.552
 ```
 
 
@@ -225,6 +247,123 @@ print(A)
 
   * **c** stands for concatenate and allows vectors to have multiple elements
 
+# Data Modes in R
+- R allows users to implement a number of different types of data
+- The three basic data types are numeric data, character data, and logical data
+-**numeric** includes valid numbers
+
+
+```r
+is.numeric(A)
+```
+
+
+
+```
+## [1] TRUE
+```
+
+
+
+```r
+print(A)
+```
+
+
+
+```
+## [1] 3 4
+```
+
+
+
+-**character** is known as strings in other software, any characters that have no numeric meaning
+
+
+```r
+b <- c("one", "two", "three")
+print(b)
+```
+
+
+
+```
+## [1] "one"   "two"   "three"
+```
+
+
+
+```r
+is.numeric(b)
+```
+
+
+
+```
+## [1] FALSE
+```
+
+
+
+```r
+print(b)
+```
+
+
+
+```
+## [1] "one"   "two"   "three"
+```
+
+
+
+-**logical** is TRUE or FALSE values, useful for logical testing and programming
+
+
+```r
+c <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)
+is.numeric(c)
+```
+
+
+
+```
+## [1] FALSE
+```
+
+
+
+```r
+is.character(c)
+```
+
+
+
+```
+## [1] FALSE
+```
+
+
+
+```r
+is.logical(c)  # Results in a logical value
+```
+
+
+
+```
+## [1] TRUE
+```
+
+
+
+
+# Data Structures in R
+- R has a number of basic data classes as well as arbitrary specialized object types for various purposes
+-**vectors** are the basic data class in R and can be thought of as a single column of data (even a column of length 1)
+-**matrices** are rows and columns of all the same mode data
+-**dataframes** are rows and columns where the columns can represent different data types
+
 # Vectors 
 - Everything is a vector in R, even single numbers
 
@@ -308,7 +447,6 @@ length(LETTERS[6])
   *  <font color ="blue">The cat was chased by the dog.</font>
   *  <font color ="red">By the dog, the cat was chased.</font>
 - Some ways are more elegant than others, all convey the same message. 
-
 
 
 ```r
@@ -407,10 +545,11 @@ summary(df$readSS)  #summary of a single column
 
 ```r
 library(ggplot2)  # Load graphics Package
-qplot(readSS, mathSS, data = df, geom = "hex") + theme_bw() + opts(title = "Test Score Relationship")
+qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) + 
+    theme_bw() + opts(title = "Test Score Relationship") + geom_smooth()
 ```
 
-![Student Test Scores](http://i.imgur.com/6TK13.png) 
+![Student Test Scores](figure/slides-graphics1.svg) 
 
 
 # Handling Data in R
@@ -445,19 +584,6 @@ length(unique(df$stuid))
 - Results of function calls can be stored
 
 
-# How
-- source editor: [RStudio](http://www.rstudio.org/) (perfect integration with [**knitr**](http://yihui.name/knitr/); one-click compilation); currently you have to use the [preview version](http://www.rstudio.org/download/preview) (>= 0.96.109)
-- HTML5 slides converter: [pandoc](http://johnmacfarlane.net/pandoc/); this document was generated by: `pandoc -s -S -i -t dzslides --mathjax knitr-slides.md -o knitr-slides.html`
-- the file [`knitr-slides.md`](https://github.com/yihui/knitr/blob/master/inst/examples/knitr-slides.md) is the markdown output from its [source](https://github.com/yihui/knitr/blob/master/inst/examples/knitr-slides.Rmd): `library(knitr); knitr('knitr-slides.Rmd')`
-- or simple click the button `Knit HTML` in RStudio
-
-# For ninjas
-
-- you should tweak the default style; why not try some [Google web fonts](http://www.google.com/webfonts)? (think how painful it is to wrestle with fonts in LaTeX)
-- pandoc provides 3 types of HTML5 slides (dzslides is one of them)
-- you can tweak the default template to get better appearances
-
-
 # Reproducible research
 
 It is good to include the session info, e.g. this document is produced with **knitr** version `0.5`. Here is my session info:
@@ -472,7 +598,7 @@ print(sessionInfo(), locale = FALSE)
 
 ```
 ## R version 2.15.0 (2012-03-30)
-## Platform: x86_64-pc-mingw32/x64 (64-bit)
+## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
 ## [1] grid      stats     graphics  grDevices utils     datasets  methods  
