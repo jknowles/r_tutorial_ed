@@ -68,6 +68,7 @@ Usage of the R listserv for help has really exploded recently
 - **dataframe** the main element for statistical purposes, an object with rows and columns that includes numbers, factors, and other data types
 - **workspace** the working memory of R where all objects in the current session are stored
 - **vector** the basic unit of data in R
+- **symbols** anything not starting with a digit, can be used to name and store objects or to designate operations/functions
 
 # Components of an R Setup
 - **R** - obviously we need R. R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
@@ -84,7 +85,9 @@ Usage of the R listserv for help has really exploded recently
 <p align='center'><iframe src="http://www.screenr.com/embed/kzT8" width="650" height="396" frameborder="0"></iframe></p>
 
 # Some Notes about Maintaining R
-
+- Adding packages onto R means you also have to update them with the `update.packages()` command
+- Upgrading R, which is on a 6 month release cycle, is not straightforward
+- We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported
 
 # R As A Calculator
 
@@ -94,6 +97,18 @@ Usage of the R listserv for help has really exploded recently
 7+runif(1,min=0,max=1) #add a random variable
 4^4 # powers
 sqrt(4^4) # functions
+```
+
+# Arithmetic Operators
+- In addition to the obvious `+` `-` `=` `/` `*` and exponential `^`, there is also integer division `%/%` and remainder in integer division (known as modulo arithmetic) `%%`
+```{r arithmetic}
+2+2
+2/2
+2*2
+2^2
+2=2
+23 %/% 2 
+23 %% 2
 ```
 
 # Using the Workspace
@@ -232,6 +247,12 @@ length(unique(df$school))
 length(unique(df$stuid))
 ```
 - Results of function calls can be stored
+
+# Exercises
+1. 
+2. 
+3. 
+  * Blah
 
 
 # Reproducible research

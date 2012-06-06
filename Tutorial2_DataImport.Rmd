@@ -8,3 +8,38 @@ Getting data in is the highest hurdle in R
 - Load a CSV file
 - Organize an analysis project
 - Query a database
+
+# Ground Rules
+- Get used to plain text input files
+  * R can handle other formats, but your error rate increases as does the tweaking necessary
+- R has a limited set of special characters (symbols) you can use in your data input to be translated correctly 
+- These symbols are reserved and will be interpreted in strange ways if you include them in your plain text
+- Most of them are fairly obvious operators, see [Paul Murrell's excellent summary](http://www.stat.auckland.ac.nz/~paul/ItDT/HTML/node75.html)
+
+
+# Missing Data Symbols
+- Missing data has the symbols `NA` or `NaN` or `NULL` depending on the context.
+- Consider:
+```{r missing}
+a<-c(1,2,3)  # a is a vector with three elements
+# Ask R for element 4
+print(a[4])
+```
+- But what is the difference between `NA` and `NULL`?
+```{r nulldata}
+ls() # get objects
+a<-c(a,NULL) # Append NULL onto a
+print(a)
+# Notic eno change
+a<-c(a,NA)
+print(a)
+# NA can hold a place, NULL cannot
+```
+- `NaN` is even more special, and only holds things like imaginary numbers
+```{r nan}
+b<-1
+b<-sqrt(-b)
+print(b)
+```
+
+
