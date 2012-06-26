@@ -69,6 +69,7 @@ Usage of the R listserv for help has really exploded recently
 - **workspace** the working memory of R where all objects in the current session are stored
 - **vector** the basic unit of data in R
 - **symbols** anything not starting with a digit, can be used to name and store objects or to designate operations/functions
+- **attributes** determine how functions act on objects
 
 # Components of an R Setup
 - **R** - obviously we need R. R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
@@ -117,6 +118,21 @@ sqrt(4^4) # functions
 23 %% 2
 ```
 
+# Other Key Symbols
+- **<-** is the assignment operator, it declares something is something else
+```{r}
+foo<-3
+foo
+```
+- **:** is the sequence operator
+```{r}
+1:10
+# it increments by one
+a<-100:120
+a
+```
+- **This is handy**
+
 # Using the Workspace
 - To do more we need to learn how to manipulate the 'workspace'.
 - This includes all the vectors, datasets, and functions stored in memory.
@@ -151,50 +167,6 @@ A<-c(3,4)
 print(A)
 ```
   * **c** stands for concatenate and allows vectors to have multiple elements
-
-# Data Modes in R
-- R allows users to implement a number of different types of data
-- The three basic data types are numeric data, character data, and logical data
--**numeric** includes valid numbers
-```{r}
-is.numeric(A)
-print(A)
-```
--**character** is known as strings in other software, any characters that have no numeric meaning
-```{r}
-b<-c('one','two','three')
-print(b)
-is.numeric(b)
-print(b)
-```
--**logical** is TRUE or FALSE values, useful for logical testing and programming
-```{r}
-c<-c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE)
-is.numeric(c)
-is.character(c)
-is.logical(c) # Results in a logical value
-```
-
-# Data Structures in R
-- R has a number of basic data classes as well as arbitrary specialized object types for various purposes
-- **vectors** are the basic data class in R and can be thought of as a single column of data (even a column of length 1)
-- **matrices** are rows and columns of all the same mode data
-- **dataframes** are rows and columns where the columns can represent different data types
-
-# Vectors 
-- Everything is a vector in R, even single numbers
-```{r vectors}
-print(1)
-# The 1 in braces means this element is a vector of length 1
-print("This tutorial is awesome")
-# This is a vector of length 1 consisting of a single "string of characters"
-print(LETTERS) 
-# This vector has 26 character elements
-print(LETTERS[6])
-# The sixth element of this vector has length 1
-length(LETTERS[6])
-# The length of that element is a number with length 1
-```
 
 # Language
 - In language there are a number of ways to say the same thing
