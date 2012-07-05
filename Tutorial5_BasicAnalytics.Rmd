@@ -8,3 +8,5 @@ In this lesson we hope to learn:
 - How to run basic statistical tests on a dataset
 - How to use formulas to build a statistical model
 - Analyze subsets of data
+
+% Consider using the AJC project for this

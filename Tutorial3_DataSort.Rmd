@@ -4,7 +4,10 @@
 
 # Overview
 In this lesson we hope to learn:
-- What vectors are and why we use them?
+- Organizing and cleaning our data
 - Manipulating vectors
 - Object attributes
 - Dealing with missing data
+- Aggregating data
+
+

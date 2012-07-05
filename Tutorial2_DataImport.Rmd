@@ -137,13 +137,33 @@ length(LETTERS[6])
 # Matrices
 - Matrices are combinations of vectors of the same length and data type
 
+```{r matrix}
+foo.mat<-matrix(c(rnorm(100),runif(100),runif(100),rpois(100,2)),ncol=4)
+head(foo.mat)
+cor(foo.mat)
+```
 
 # Dataframes
 - Dataframes are combinations of vectors of the same length, but can be of different types
 
 
 # Lists
-- Lists 
+- Lists are arbitrary collections of objects. 
+- The objects do not have to be of the same type or same element
+
+# Arrays
+- Arrays are matrices of k dimensions
+
+
+# Beginning Analysis
+- Now let's set up our analysis project
+- It is best to keep projects discrete in directories
+- Create a few subdirectories
+  - Data
+  - Functions / R src
+  - Figures / Plots
+  - Cleaned Data
+- See the ProjectTemplate package for a more detailed philosophy about organizing projects
 
 # Read in Data
 - Reading in data is one of the trickiest issues for R
@@ -170,3 +190,25 @@ df<-read.csv('data/smalldata.csv')
 str(df[22:32])
 ```
 
+# Always Check Your Data
+- A few great commands:
+  - ```{r dim}
+  dim(df)
+  ```
+  - ```{r summary}
+  summary(df[,1:5])
+    ```
+  -```{r attributes}
+  names(attributes(df))
+```
+  
+
+# Some Slide on RODBC
+- Do you have data in a warehouse? 
+  - RODBC can help
+- You can query the data directly and bring it into R, saving time and hassle
+- Makes your work reproducible, always start with a clean slate of data
+- At DPI this can allow us to pull data directly from LDS or other databases
+
+# Now we have the data
+- What next?
