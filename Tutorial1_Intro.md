@@ -64,79 +64,73 @@ Usage of the R listserv for help has really exploded recently
 - **dataframe** the main element for statistical purposes, an object with rows and columns that includes numbers, factors, and other data types
 - **workspace** the working memory of R where all objects in the current session are stored
 - **vector** the basic unit of data in R
+- **symbols** anything not starting with a digit, can be used to name and store objects or to designate operations/functions
+- **attributes** determine how functions act on objects
 
 # Components of an R Setup
 - **R** - obviously we need R. R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
 - **RStudio** - a much better way to work in R that allows editing of scripts, operation of R, viewing of the workspace, and R help all on one screen [download](http://rstudio.org/download/)
 - **LaTeX** - for producing documents using R this is less necessary, but still useful. download [WIN](http://miktex.org/2.9/setup) [MAC](http://www.tug.org/mactex/2011/)
 
-** ADVANCED **
+**ADVANCED**
 
 - **Dev Tools for R** - on Windows this is Rtools, on Linux and Mac it is installing the development mode of R download [WIN](http://www.stats.ox.ac.uk/pub/Rtools/R215x.html) [MAC](http://cran.r-project.org/bin/macosx/tools/)
 - **Git** - for version control, sharing code, and collaboration this is essential. It integrates well with RStudio. [download](http://git-scm.com/download)
 - **pandoc** - for converting output into other formats for sharing with non-user**R**s! [download](http://johnmacfarlane.net/pandoc/installing.html)
+- **ImageMagick** - for creating more flexible graphics in R, including animations! [download](http://www.imagemagick.org/script/index.php) [alternate](http://www.graphicsmagick.org/
+
+# Open Source Toolchain
+- This really represents a completely open source toolchain to going from a data analysis idea, to a full fledged professional report
+- These tools are free, updated regularly, and available on **any** platform **today**
+
 
 # Installing R on Windows
 <p align='center'><iframe src="http://www.screenr.com/embed/kzT8" width="650" height="396" frameborder="0"></iframe></p>
 
+# Some Notes about Maintaining R
+- Adding packages onto R means you also have to update them with the `update.packages()` command
+- Upgrading R, which is on a 6 month release cycle, is not straightforward
+- We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported
 
 # R As A Calculator
 
 
 
 ```r
-2 + 2  # add numbers
+2+2 # add numbers
 ```
-
-
 
 ```
 ## [1] 4
 ```
 
-
-
 ```r
-2 * pi  #multiply by a constant
+2*pi #multiply by a constant
 ```
-
-
 
 ```
 ## [1] 6.283
 ```
 
+```r
+7+runif(1,min=0,max=1) #add a random variable
+```
 
+```
+## [1] 7.71
+```
 
 ```r
-7 + runif(1, min = 0, max = 1)  #add a random variable
+4^4 # powers
 ```
-
-
-
-```
-## [1] 7.552
-```
-
-
-
-```r
-4^4  # powers
-```
-
-
 
 ```
 ## [1] 256
 ```
 
-
-
 ```r
-sqrt(4^4)  # functions
+sqrt(4^4) # functions
 ```
-
-
 
 ```
 ## [1] 16
@@ -145,58 +139,148 @@ sqrt(4^4)  # functions
 
 
 
+# Arithmetic Operators
+- In addition to the obvious `+` `-` `=` `/` `*` and exponential `^`, there is also integer division `%/%` and remainder in integer division (known as modulo arithmetic) `%%`
+
+
+```r
+2+2
+```
+
+```
+## [1] 4
+```
+
+```r
+2/2
+```
+
+```
+## [1] 1
+```
+
+```r
+2*2
+```
+
+```
+## [1] 4
+```
+
+```r
+2^2
+```
+
+```
+## [1] 4
+```
+
+```r
+2=2
+```
+
+```
+## Error: invalid (do_set) left-hand side to assignment
+```
+
+```r
+23 %/% 2 
+```
+
+```
+## [1] 11
+```
+
+```r
+23 %% 2
+```
+
+```
+## [1] 1
+```
+
+
+
+
+# Other Key Symbols
+- **<-** is the assignment operator, it declares something is something else
+
+
+```r
+foo<-3
+foo
+```
+
+```
+## [1] 3
+```
+
+
+
+- **:** is the sequence operator
+
+
+```r
+1:10
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+# it increments by one
+a<-100:120
+a
+```
+
+```
+##  [1] 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116
+## [18] 117 118 119 120
+```
+
+
+
+- **This is handy**
+
 # Using the Workspace
 - To do more we need to learn how to manipulate the 'workspace'.
-- This includes all the scalars, vectors, datasets, and functions stored in memory.
+- This includes all the vectors, datasets, and functions stored in memory.
 - All R objects are stored in the memory of the computer, limiting the available space for calculation to the size of the RAM on your machine.
 - R makes organizing the workspace easy.
 
 
 ```r
-x <- 5  #store a variable with <-
-x  #print the variable
+x<-5 #store a variable with <-
+x    #print the variable
 ```
-
-
 
 ```
 ## [1] 5
 ```
 
-
-
 ```r
-z <- 3
-ls()  #list all variables
+z<-3 
+ls() #list all variables
 ```
-
-
 
 ```
 ## [1] "x" "z"
 ```
 
-
-
 ```r
-ls.str()  #list and describe variables
+ls.str() #list and describe variables
 ```
-
-
 
 ```
 ## x :  num 5
 ## z :  num 3
 ```
 
-
-
 ```r
-rm(x)  # delete a variable
+rm(x)    # delete a variable
 ls()
 ```
-
-
 
 ```
 ## [1] "z"
@@ -214,12 +298,10 @@ ls()
 
 
 ```r
-a <- 3
-A <- 4
-print(c(a, A))
+a<-3
+A<-4
+print(c(a,A))
 ```
-
-
 
 ```
 ## [1] 3 4
@@ -233,11 +315,9 @@ print(c(a, A))
 
 
 ```r
-A <- c(3, 4)
+A<-c(3,4)
 print(A)
 ```
-
-
 
 ```
 ## [1] 3 4
@@ -246,200 +326,6 @@ print(A)
 
 
   * **c** stands for concatenate and allows vectors to have multiple elements
-
-# Data Modes in R
-- R allows users to implement a number of different types of data
-- The three basic data types are numeric data, character data, and logical data
--**numeric** includes valid numbers
-
-
-```r
-is.numeric(A)
-```
-
-
-
-```
-## [1] TRUE
-```
-
-
-
-```r
-print(A)
-```
-
-
-
-```
-## [1] 3 4
-```
-
-
-
--**character** is known as strings in other software, any characters that have no numeric meaning
-
-
-```r
-b <- c("one", "two", "three")
-print(b)
-```
-
-
-
-```
-## [1] "one"   "two"   "three"
-```
-
-
-
-```r
-is.numeric(b)
-```
-
-
-
-```
-## [1] FALSE
-```
-
-
-
-```r
-print(b)
-```
-
-
-
-```
-## [1] "one"   "two"   "three"
-```
-
-
-
--**logical** is TRUE or FALSE values, useful for logical testing and programming
-
-
-```r
-c <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)
-is.numeric(c)
-```
-
-
-
-```
-## [1] FALSE
-```
-
-
-
-```r
-is.character(c)
-```
-
-
-
-```
-## [1] FALSE
-```
-
-
-
-```r
-is.logical(c)  # Results in a logical value
-```
-
-
-
-```
-## [1] TRUE
-```
-
-
-
-
-# Data Structures in R
-- R has a number of basic data classes as well as arbitrary specialized object types for various purposes
--**vectors** are the basic data class in R and can be thought of as a single column of data (even a column of length 1)
--**matrices** are rows and columns of all the same mode data
--**dataframes** are rows and columns where the columns can represent different data types
-
-# Vectors 
-- Everything is a vector in R, even single numbers
-
-
-```r
-print(1)
-```
-
-
-
-```
-## [1] 1
-```
-
-
-
-```r
-# The 1 in braces means this element is a vector of length 1
-print("This tutorial is awesome")
-```
-
-
-
-```
-## [1] "This tutorial is awesome"
-```
-
-
-
-```r
-# This is a vector of length 1 consisting of a single 'string of
-# characters'
-print(LETTERS)
-```
-
-
-
-```
-##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q"
-## [18] "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
-```
-
-
-
-```r
-# This vector has 26 character elements
-print(LETTERS[6])
-```
-
-
-
-```
-## [1] "F"
-```
-
-
-
-```r
-# The sixth element of this vector has length 1
-length(LETTERS[6])
-```
-
-
-
-```
-## [1] 1
-```
-
-
-
-```r
-# The length of that element is a number with length 1
-```
-
-
-
 
 # Language
 - In language there are a number of ways to say the same thing
@@ -450,18 +336,15 @@ length(LETTERS[6])
 
 
 ```r
-a <- runif(100)  # Generate 100 random numbers
-b <- runif(100)  # 100 more
-c <- NULL  # Setup for loop (declare variables)
-for (i in 1:100) {
-    # Loop just like in Java or C
-    c[i] <- a[i] * b[i]
+a<-runif(100) # Generate 100 random numbers
+b<-runif(100) # 100 more
+c<-NULL       # Setup for loop (declare variables)
+for(i in 1:100){  # Loop just like in Java or C
+c[i]<-a[i]*b[i]
 }
-d <- a * b
-identical(c, d)  # Test equality
+d<-a*b
+identical(c,d) # Test equality
 ```
-
-
 
 ```
 ## [1] TRUE
@@ -478,23 +361,20 @@ identical(c, d)  # Test equality
 
 
 ```r
-# Set working directory to the tutorial director In RStudio can do this in
-# 'Tools' tab
-setwd("~/r_tutorial_ed")
+# Set working directory to the tutorial director
+# In RStudio can do this in "Tools" tab
+setwd('~/r_tutorial_ed')
 ```
-
-
 
 ```
 ## Error: cannot change working directory
 ```
 
-
-
 ```r
-# Load some data
-df <- read.csv("data/smalldata.csv")
-# Note if we don't assign data to 'df' R just prints contents of table
+#Load some data
+df<-read.csv('data/smalldata.csv')
+# Note if we don't assign data to 'df'
+# R just prints contents of table
 ```
 
 
@@ -507,10 +387,8 @@ df <- read.csv("data/smalldata.csv")
 
 
 ```r
-summary(df[, 28:31])  #summary look at df object
+summary(df[,28:31]) #summary look at df object
 ```
-
-
 
 ```
 ##    schoollow         readSS        mathSS           proflvl    
@@ -522,13 +400,9 @@ summary(df[, 28:31])  #summary look at df object
 ##  Max.   :1.000   Max.   :833   Max.   :828                     
 ```
 
-
-
 ```r
-summary(df$readSS)  #summary of a single column
+summary(df$readSS) #summary of a single column
 ```
-
-
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -544,9 +418,8 @@ summary(df$readSS)  #summary of a single column
 
 
 ```r
-library(ggplot2)  # Load graphics Package
-qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) + 
-    theme_bw() + opts(title = "Test Score Relationship") + geom_smooth()
+library(ggplot2) # Load graphics Package
+qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_bw()+opts(title='Test Score Relationship')+geom_smooth()
 ```
 
 ![Student Test Scores](figure/slides-graphics1.svg) 
@@ -561,19 +434,13 @@ qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) +
 length(unique(df$school))
 ```
 
-
-
 ```
 ## [1] 173
 ```
 
-
-
 ```r
 length(unique(df$stuid))
 ```
-
-
 
 ```
 ## [1] 1200
@@ -584,38 +451,345 @@ length(unique(df$stuid))
 - Results of function calls can be stored
 
 
-# Reproducible research
+# Special Operators
+- The comparison operators <, >, <=, >=, ==, and != are used to compare values across vectors
 
-It is good to include the session info, e.g. this document is produced with **knitr** version `0.5`. Here is my session info:
+
+```r
+big<-c(9,12,15,25)
+small<-c(9,3,4,2)
+big>small
+```
+
+```
+## [1] FALSE  TRUE  TRUE  TRUE
+```
+
+```r
+# Gives us a nice vector of logical values
+big=small
+# Oops--don't do this, reassigns big to small
+print(big)
+```
+
+```
+## [1] 9 3 4 2
+```
+
+```r
+print(small)
+```
+
+```
+## [1] 9 3 4 2
+```
+
+
+
+- The best way to evaluate these objects is to use brackets
+
+
+```r
+big<-c(9,12,15,25)
+big[big==small]
+```
+
+```
+## [1] 9
+```
+
+```r
+# Returns values where the logical vector is true
+```
+
+
+
+
+# Special operators (II)
+- The %in% operator determines whether each value in the left operand can be matched with one of the values in the right operand.
+
+
+```r
+big<-c(9,12,15,25)
+small<-c(9,12,15,25,9,1,3)
+big[small%in%big]
+```
+
+```
+## [1]  9 12 15 25 NA
+```
+
+
+
+
+
+# Special operators (III)
+- The logical operators || (or) and && (and) can be used to combine two logical values and produce another logical value as the result. The operator ! (not) negates a logical value. These operators allow complex conditions to be constructed.
+
+
+
+# Special operators (IV)
+- The operators | and & are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
+
+
+# Data Modes in R
+- R allows users to implement a number of different types of data
+- The three basic data types are numeric data, character data, and logical data
+-**numeric** includes valid numbers
+
+
+```r
+is.numeric(A)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+print(A)
+```
+
+```
+## [1] 3 4
+```
+
+
+
+-**character** is known as strings in other software, any characters that have no numeric meaning
+
+
+```r
+b<-c('one','two','three')
+print(b)
+```
+
+```
+## [1] "one"   "two"   "three"
+```
+
+```r
+is.numeric(b)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+print(b)
+```
+
+```
+## [1] "one"   "two"   "three"
+```
+
+
+
+-**logical** is TRUE or FALSE values, useful for logical testing and programming
+
+
+```r
+c<-c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE)
+is.numeric(c)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.character(c)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.logical(c) # Results in a logical value
+```
+
+```
+## [1] TRUE
+```
+
+
+
+
+# Factor
+- A factor is a very special and sometimes frustrating data type in R
+
+# Other Classes
+- R classes can be specified for any special purpose
+
+
+# Data Structures in R
+- R has a number of basic data classes as well as arbitrary specialized object types for various purposes
+- **vectors** are the basic data class in R and can be thought of as a single column of data (even a column of length 1)
+- **matrices and arrays** are rows and columns of all the same mode data
+- **dataframes** are rows and columns where the columns can represent different data types
+- **lists** are arbitrary combinations of disparate object types in R
+
+# Vectors 
+- Everything is a vector in R, even single numbers
+
+
+```r
+print(1)
+```
+
+```
+## [1] 1
+```
+
+```r
+# The 1 in braces means this element is a vector of length 1
+print("This tutorial is awesome")
+```
+
+```
+## [1] "This tutorial is awesome"
+```
+
+```r
+# This is a vector of length 1 consisting of a single "string of characters"
+print(LETTERS) 
+```
+
+```
+##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q"
+## [18] "R" "S" "T" "U" "V" "W" "X" "Y" "Z"
+```
+
+```r
+# This vector has 26 character elements
+print(LETTERS[6])
+```
+
+```
+## [1] "F"
+```
+
+```r
+# The sixth element of this vector has length 1
+length(LETTERS[6])
+```
+
+```
+## [1] 1
+```
+
+```r
+# The length of that element is a number with length 1
+```
+
+
+
+
+
+# Matrices
+- Matrices are combinations of vectors of the same length and data type
 
 
 
 ```r
-print(sessionInfo(), locale = FALSE)
+foo.mat<-matrix(c(rnorm(100),runif(100),runif(100),rpois(100,2)),ncol=4)
+head(foo.mat)
+```
+
+```
+##         [,1]   [,2]    [,3] [,4]
+## [1,]  0.3786 0.5999 0.61578    3
+## [2,] -0.3616 0.4697 0.01633    4
+## [3,] -1.5881 0.7546 0.73921    5
+## [4,] -1.6828 0.3460 0.33248    2
+## [5,] -1.2539 0.1857 0.67948    0
+## [6,] -0.5503 0.5268 0.56171    2
+```
+
+```r
+cor(foo.mat)
+```
+
+```
+##          [,1]    [,2]     [,3]     [,4]
+## [1,]  1.00000 0.08619  0.07679 -0.07773
+## [2,]  0.08619 1.00000  0.16524  0.12562
+## [3,]  0.07679 0.16524  1.00000 -0.06428
+## [4,] -0.07773 0.12562 -0.06428  1.00000
 ```
 
 
+
+
+# Dataframes
+- Dataframes are combinations of vectors of the same length, but can be of different types
+
+
+```r
+str(df[,25:32])
+```
+
+```
+## 'data.frame':	2700 obs. of  8 variables:
+##  $ district  : int  3 3 3 3 3 3 3 3 3 3 ...
+##  $ schoolhigh: int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ schoolavg : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ schoollow : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ readSS    : num  357 264 370 347 373 ...
+##  $ mathSS    : num  387 303 365 344 441 ...
+##  $ proflvl   : Factor w/ 4 levels "advanced","basic",..: 2 3 2 2 2 4 4 4 3 2 ...
+##  $ race      : Factor w/ 5 levels "A","B","H","I",..: 2 2 2 2 2 2 2 2 2 2 ...
+```
+
+
+
+- Blah blah
+
+# Lists
+- Lists are arbitrary collections of objects. 
+- The objects do not have to be of the same type or same element
+
+# Arrays
+- Arrays are matrices of k dimensions
+
+
+# Exercises
+1. 
+2. 
+3. 
+  * Blah
+
+
+# Reproducible research
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `0.6.3`. Here is my session info:
+
+
+
+```r
+print(sessionInfo(), locale=FALSE)
+```
 
 ```
 ## R version 2.15.0 (2012-03-30)
 ## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] hexbin_1.26.0  lattice_0.20-6 ggplot2_0.9.1  knitr_0.5     
+## [1] mgcv_1.7-13   ggplot2_0.9.1 knitr_0.6.3  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] codetools_0.2-8    colorspace_1.1-1   dichromat_1.2-4   
-##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.4       
-##  [7] highlight_0.3.1    labeling_0.1       MASS_7.3-18       
-## [10] memoise_0.1        munsell_0.3        parser_0.0-14     
-## [13] plyr_1.7.1         proto_0.3-9.2      RColorBrewer_1.0-5
-## [16] Rcpp_0.9.10        RCurl_1.91-1.1     reshape2_1.2.1    
-## [19] scales_0.2.1       stringr_0.6        tools_2.15.0      
-## [22] XML_3.9-4.1       
+##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
+##  [4] evaluate_0.4.2     formatR_0.5        grid_2.15.0       
+##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-17       
+## [10] Matrix_1.0-6       memoise_0.1        munsell_0.3       
+## [13] nlme_3.1-103       plyr_1.7.1         proto_0.3-9.2     
+## [16] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [19] stringr_0.6        tools_2.15.0      
 ```
 
 

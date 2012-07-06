@@ -43,118 +43,6 @@ b<-sqrt(-b)
 print(b)
 ```
 
-# Special Operators
-- The comparison operators <, >, <=, >=, ==, and != are used to compare values across vectors
-```{r vectorcomp}
-big<-c(9,12,15,25)
-small<-c(9,3,4,2)
-big>small
-# Gives us a nice vector of logical values
-big=small
-# Oops--don't do this, reassigns big to small
-print(big)
-print(small)
-```
-- The best way to evaluate these objects is to use brackets
-```{r brackets}
-big<-c(9,12,15,25)
-big[big==small]
-# Returns values where the logical vector is true
-```
-
-# Special operators (II)
-- The %in% operator determines whether each value in the left operand can be matched with one of the values in the right operand.
-```{r specialoperand}
-big<-c(9,12,15,25)
-small<-c(9,12,15,25,9,1,3)
-big[small%in%big]
-```
-
-
-# Special operators (III)
-- The logical operators || (or) and && (and) can be used to combine two logical values and produce another logical value as the result. The operator ! (not) negates a logical value. These operators allow complex conditions to be constructed.
-```{r vectorlogic}
-
-```
-
-# Special operators (IV)
-- The operators | and & are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
-
-
-# Data Modes in R
-- R allows users to implement a number of different types of data
-- The three basic data types are numeric data, character data, and logical data
--**numeric** includes valid numbers
-```{r}
-is.numeric(A)
-print(A)
-```
--**character** is known as strings in other software, any characters that have no numeric meaning
-```{r}
-b<-c('one','two','three')
-print(b)
-is.numeric(b)
-print(b)
-```
--**logical** is TRUE or FALSE values, useful for logical testing and programming
-```{r}
-c<-c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE)
-is.numeric(c)
-is.character(c)
-is.logical(c) # Results in a logical value
-```
-
-# Factor
-- A factor is a very special and sometimes frustrating data type in R
-
-# Other Classes
-- R classes can be specified for any special purpose
-
-
-# Data Structures in R
-- R has a number of basic data classes as well as arbitrary specialized object types for various purposes
-- **vectors** are the basic data class in R and can be thought of as a single column of data (even a column of length 1)
-- **matrices and arrays** are rows and columns of all the same mode data
-- **dataframes** are rows and columns where the columns can represent different data types
-- **lists** are arbitrary combinations of disparate object types in R
-
-# Vectors 
-- Everything is a vector in R, even single numbers
-```{r vectors}
-print(1)
-# The 1 in braces means this element is a vector of length 1
-print("This tutorial is awesome")
-# This is a vector of length 1 consisting of a single "string of characters"
-print(LETTERS) 
-# This vector has 26 character elements
-print(LETTERS[6])
-# The sixth element of this vector has length 1
-length(LETTERS[6])
-# The length of that element is a number with length 1
-```
-
-
-# Matrices
-- Matrices are combinations of vectors of the same length and data type
-
-```{r matrix}
-foo.mat<-matrix(c(rnorm(100),runif(100),runif(100),rpois(100,2)),ncol=4)
-head(foo.mat)
-cor(foo.mat)
-```
-
-# Dataframes
-- Dataframes are combinations of vectors of the same length, but can be of different types
-
-
-# Lists
-- Lists are arbitrary collections of objects. 
-- The objects do not have to be of the same type or same element
-
-# Arrays
-- Arrays are matrices of k dimensions
-
-
 # Beginning Analysis
 - Now let's set up our analysis project
 - It is best to keep projects discrete in directories
@@ -164,6 +52,12 @@ cor(foo.mat)
   - Figures / Plots
   - Cleaned Data
 - See the ProjectTemplate package for a more detailed philosophy about organizing projects
+
+# Organization of a project is key
+- Separate data from scripts
+- Separate automatic scripts from interactive scripts
+- Put figures apart from both of these
+- **Always keep your raw data**
 
 # Read in Data
 - Reading in data is one of the trickiest issues for R
