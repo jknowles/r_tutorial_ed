@@ -6,7 +6,7 @@
 
 
 # R
-- R is an Open Source (and freely available) environment for statistical computinga nd graphics
+- R is an Open Source (and freely available) environment for statistical computing and graphics
 - Available for Windows, Mac OS X, and Linux
 - R is being actively developed with two major releases per year and dozens of releases of add on packages
 - R can be extended with 'packages' that contain data, code, and documentation to add new functionality
@@ -77,20 +77,23 @@ Usage of the R listserv for help has really exploded recently
 - **Dev Tools for R** - on Windows this is Rtools, on Linux and Mac it is installing the development mode of R download [WIN](http://www.stats.ox.ac.uk/pub/Rtools/R215x.html) [MAC](http://cran.r-project.org/bin/macosx/tools/)
 - **Git** - for version control, sharing code, and collaboration this is essential. It integrates well with RStudio. [download](http://git-scm.com/download)
 - **pandoc** - for converting output into other formats for sharing with non-user**R**s! [download](http://johnmacfarlane.net/pandoc/installing.html)
-- **ImageMagick** - for creating more flexible graphics in R, including animations! [download](http://www.imagemagick.org/script/index.php) [alternate](http://www.graphicsmagick.org/
+- **ImageMagick** - for creating more flexible graphics in R, including animations! [download](http://www.imagemagick.org/script/index.php) [alternate](http://www.graphicsmagick.org/)
 
 # Open Source Toolchain
 - This really represents a completely open source toolchain to going from a data analysis idea, to a full fledged professional report
 - These tools are free, updated regularly, and available on **any** platform **today**
 
-
-# Installing R on Windows
-<p align='center'><iframe src="http://www.screenr.com/embed/kzT8" width="650" height="396" frameborder="0"></iframe></p>
-
 # Some Notes about Maintaining R
 - Adding packages onto R means you also have to update them with the `update.packages()` command
 - Upgrading R, which is on a 6 month release cycle, is not straightforward
 - We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported
+
+# Self-help
+- In the spirit of open-source R is very much a self-guided tool
+- Let's see, type: `?summary`
+- Now type: `??regression`
+- For tricky questions, funky error messages (there are many), and other issues, use Google (include "in R" to the end of your query)
+
 
 # R As A Calculator
 
@@ -203,7 +206,7 @@ sqrt(4^4) # functions
 
 
 # Other Key Symbols
-- **<-** is the assignment operator, it declares something is something else
+- `<-` is the assignment operator, it declares something is something else
 
 
 ```r
@@ -217,7 +220,7 @@ foo
 
 
 
-- **:** is the sequence operator
+- `:` is the sequence operator
 
 
 ```r
@@ -243,11 +246,20 @@ a
 
 - **This is handy**
 
+# R Advanced Math
+- R also supports advanced mathematical features and expressions
+- R can take integrals and derivatives and express complex functions
+- Easiest of all, R can generate distributions of data very easily
+- This comes in handy when writing examples and building analyses
+
+
 # Using the Workspace
 - To do more we need to learn how to manipulate the 'workspace'.
 - This includes all the vectors, datasets, and functions stored in memory.
 - All R objects are stored in the memory of the computer, limiting the available space for calculation to the size of the RAM on your machine.
 - R makes organizing the workspace easy.
+
+# Using the Workspace (2)
 
 
 ```r
@@ -311,7 +323,9 @@ print(c(a,A))
 
   * <font color="red">**a** &#8800; **A**</font> 
 2. What happens if I type **print(a,A)**?
-  * So what does **c** do?
+
+# `c` is our friend
+- So what does **c** do?
 
 
 ```r
@@ -325,7 +339,7 @@ print(A)
 
 
 
-  * **c** stands for concatenate and allows vectors to have multiple elements
+- `c` stands for concatenate and allows vectors to have multiple elements
 
 # Language
 - In language there are a number of ways to say the same thing
@@ -353,6 +367,12 @@ identical(c,d) # Test equality
 
 
 - Which is nicer?
+
+# More Language ~~Bugs~~ Features
+- R is maddeningly inconsistent
+  * Some functions are `camelCase`; others `are.dot.separated`; others `use_underscores`
+  * Function results are stored in a variety of ways across function implementations
+  * R has multiple graphics packages that different functions use for default plot construction (`base`, `grid`, `lattice`, and `ggplot2`)
 
 # Reading Data In
 - To read data in we have to tell R where it currently is on the filesystem by setting a working directory
@@ -411,15 +431,16 @@ summary(df$readSS) #summary of a single column
 
 
 
--The **$** says to look for object **readSS** in object **df**
+-The `$` says to look for object **readSS** in object **df**
 
 # Graphics too
 
 
 
 ```r
-library(ggplot2) # Load graphics Package
-qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_bw()+opts(title='Test Score Relationship')+geom_smooth()
+library(ggplot2)  # Load graphics Package
+qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) + 
+    theme_bw() + opts(title = "Test Score Relationship") + geom_smooth()
 ```
 
 ![Student Test Scores](figure/slides-graphics1.svg) 
@@ -446,13 +467,22 @@ length(unique(df$stuid))
 ## [1] 1200
 ```
 
+```r
+uniqstu <- length(unique(df$stuid))
+uniqstu
+```
+
+```
+## [1] 1200
+```
+
 
 
 - Results of function calls can be stored
 
 
 # Special Operators
-- The comparison operators <, >, <=, >=, ==, and != are used to compare values across vectors
+- The comparison operators `<`, `>`, `<=`, `>=`, `==`, and `!=` are used to compare values across vectors
 
 
 ```r
@@ -486,12 +516,15 @@ print(small)
 
 
 
-- The best way to evaluate these objects is to use brackets
+
+# Special Operators II
+- The best way to evaluate these objects is to use brackets `[]`
+
 
 
 ```r
-big<-c(9,12,15,25)
-big[big==small]
+big <- c(9, 12, 15, 25)
+big[big == small]
 ```
 
 ```
@@ -500,13 +533,26 @@ big[big==small]
 
 ```r
 # Returns values where the logical vector is true
+big[big > small]
+```
+
+```
+## [1] 12 15 25
+```
+
+```r
+big[big < small]  # Returns an empty set
+```
+
+```
+## numeric(0)
 ```
 
 
 
 
-# Special operators (II)
-- The %in% operator determines whether each value in the left operand can be matched with one of the values in the right operand.
+# Special operators (III)
+- The `%in%` operator determines whether each value in the left operand can be matched with one of the values in the right operand.
 
 
 ```r
@@ -523,13 +569,73 @@ big[small%in%big]
 
 
 
-# Special operators (III)
-- The logical operators || (or) and && (and) can be used to combine two logical values and produce another logical value as the result. The operator ! (not) negates a logical value. These operators allow complex conditions to be constructed.
-
-
-
 # Special operators (IV)
-- The operators | and & are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
+- The logical operators `||` (or) and `&&` (and) can be used to combine two logical values and produce another logical value as the result. The operator `!` (not) negates a logical value. These operators allow complex conditions to be constructed.
+
+
+```r
+foo <- c("a", NA, 4, 9, 8.7)
+!is.na(foo)  # Returns TRUE for non-NA
+```
+
+```
+## [1]  TRUE FALSE  TRUE  TRUE  TRUE
+```
+
+```r
+class(foo)
+```
+
+```
+## [1] "character"
+```
+
+```r
+a <- foo[!is.na(foo)]
+class(a)
+```
+
+```
+## [1] "character"
+```
+
+
+
+
+# Simple Data Cleaning Function
+- What if we want to extract the numeric elements out of `foo`?
+
+
+
+```r
+extractN <- function(x) {
+    x <- x[!is.na(x)]
+    x <- suppressWarnings(as.numeric(x))
+    # ignore warnings because we don't care
+    x <- x[!is.na(x)]
+    x
+}
+extractN(foo)
+```
+
+```
+## [1] 4.0 9.0 8.7
+```
+
+```r
+A <- extractN(foo)
+```
+
+
+
+
+
+# Special operators (V)
+- The operators `|` and `&` are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
+
+# Regular Expressions
+- R also supports a full suite of regular expressions
+- This could be material for a full tutorial and another time
 
 
 # Data Modes in R
@@ -547,11 +653,19 @@ is.numeric(A)
 ```
 
 ```r
+class(A)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
 print(A)
 ```
 
 ```
-## [1] 3 4
+## [1] 4.0 9.0 8.7
 ```
 
 
@@ -560,7 +674,7 @@ print(A)
 
 
 ```r
-b<-c('one','two','three')
+b <- c("one", "two", "three")
 print(b)
 ```
 
@@ -574,14 +688,6 @@ is.numeric(b)
 
 ```
 ## [1] FALSE
-```
-
-```r
-print(b)
-```
-
-```
-## [1] "one"   "two"   "three"
 ```
 
 
@@ -617,12 +723,228 @@ is.logical(c) # Results in a logical value
 
 
 
+# Easier way
+- Just ask R using the `class` function
+
+
+
+```r
+class(A)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+class(b)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(c)
+```
+
+```
+## [1] "logical"
+```
+
+
+
+
 # Factor
 - A factor is a very special and sometimes frustrating data type in R
+
+
+
+```r
+myfac <- factor(c("basic", "proficient", "advanced", "minimal"))
+class(myfac)
+```
+
+```
+## [1] "factor"
+```
+
+```r
+myfac  # What order are the factors in?
+```
+
+```
+## [1] basic      proficient advanced   minimal   
+## Levels: advanced basic minimal proficient
+```
+
+```r
+myfac <- ordered(myfac, levels = c("minimal", "basic", "proficient", 
+    "advanced"))
+myfac
+```
+
+```
+## [1] basic      proficient advanced   minimal   
+## Levels: minimal < basic < proficient < advanced
+```
+
+```r
+summary(myfac)
+```
+
+```
+##    minimal      basic proficient   advanced 
+##          1          1          1          1 
+```
+
+
+
+
+# Ordering and More
+- Factors can be ordered. This is useful when doing ordered logistic regression, or organizing output. 
+- Turning factors into other data types can be tricky. All factor levels have an underlying numeric structure.
+
+
+
+```r
+class(myfac)
+```
+
+```
+## [1] "ordered" "factor" 
+```
+
+```r
+unclass(myfac)
+```
+
+```
+## [1] 2 3 4 1
+## attr(,"levels")
+## [1] "minimal"    "basic"      "proficient" "advanced"  
+```
+
+```r
+defac <- unclass(myfac)
+defac
+```
+
+```
+## [1] 2 3 4 1
+## attr(,"levels")
+## [1] "minimal"    "basic"      "proficient" "advanced"  
+```
+
+
+
+
+- Be careful! The best way to unpack a factor is to convert it to a character first.
+
+# Defactor
+
+
+```r
+destring <- function(x) {
+    x <- as.character(x)
+    x
+}
+destring(myfac)
+```
+
+```
+## [1] "basic"      "proficient" "advanced"   "minimal"   
+```
+
+
+
+
+# Dates
+- R has built-in ways to handle dates
+- See `lubridate` package for more advanced functionality
+
+
+
+```r
+mydate <- as.Date("7/20/2012", format = "%m/%d/%Y")
+# Input is a character string and a parser
+class(mydate)  # this is date
+```
+
+```
+## [1] "Date"
+```
+
+```r
+weekdays(mydate)  # what day of the week is it?
+```
+
+```
+## [1] "Friday"
+```
+
+```r
+mydate + 30  # Operate on dates
+```
+
+```
+## [1] "2012-08-19"
+```
+
+```r
+# We can parse other formats of dates
+mydate2 <- as.Date("8-5-1988", format = "%d-%m-%Y")
+mydate2
+```
+
+```
+## [1] "1988-05-08"
+```
+
+```r
+mydate - mydate2
+```
+
+```
+## Time difference of 8839 days
+```
+
+
+
+
+# A few notes on dates
+- R converts all dates to numeric values, like Excel and other languages
+- The origin date in R is January 1, 1970
+
+
+
+```r
+as.numeric(mydate)  # days since 1-1-1970
+```
+
+```
+## [1] 15541
+```
+
+```r
+as.Date(56, origin = "2013-4-29")  # we can set our own origin
+```
+
+```
+## [1] "2013-06-24"
+```
+
+
+
 
 # Other Classes
 - R classes can be specified for any special purpose
 
+# Why care so much about classes?
+- Classes determine what you can and can't do with objects
+- Classes have different computational times associated with them, for optimization
+- Classes allow you to keep projects/data organized and following business rules
+- **Because R makes you care**
 
 # Data Structures in R
 - R has a number of basic data classes as well as arbitrary specialized object types for various purposes
@@ -633,6 +955,8 @@ is.logical(c) # Results in a logical value
 
 # Vectors 
 - Everything is a vector in R, even single numbers
+- Single objects are "atomic" vectors
+
 
 
 ```r
@@ -687,25 +1011,117 @@ length(LETTERS[6])
 
 
 
-
 # Matrices
 - Matrices are combinations of vectors of the same length and data type
+- We can have numeric matrices, character matrices, or logical matrices
+- Can't mix types
 
 
 
 ```r
-foo.mat<-matrix(c(rnorm(100),runif(100),runif(100),rpois(100,2)),ncol=4)
+mymat <- matrix(1:36, nrow = 6, ncol = 6)
+rownames(mymat) <- LETTERS[1:6]
+colnames(mymat) <- LETTERS[7:12]
+class(mymat)
+```
+
+```
+## [1] "matrix"
+```
+
+```r
+rownames(mymat)
+```
+
+```
+## [1] "A" "B" "C" "D" "E" "F"
+```
+
+```r
+colnames(mymat)
+```
+
+```
+## [1] "G" "H" "I" "J" "K" "L"
+```
+
+```r
+mymat
+```
+
+```
+##   G  H  I  J  K  L
+## A 1  7 13 19 25 31
+## B 2  8 14 20 26 32
+## C 3  9 15 21 27 33
+## D 4 10 16 22 28 34
+## E 5 11 17 23 29 35
+## F 6 12 18 24 30 36
+```
+
+
+
+
+
+# More Matrices
+- We can add to matrices
+
+
+
+```r
+dim(mymat)  # We have 6 rows and 6 columns
+```
+
+```
+## [1] 6 6
+```
+
+```r
+myvec <- c(5, 3, 5, 6, 1, 2)
+length(myvec)  # What happens when you do dim(myvec)?
+```
+
+```
+## [1] 6
+```
+
+```r
+newmat <- cbind(mymat, myvec)
+newmat
+```
+
+```
+##   G  H  I  J  K  L myvec
+## A 1  7 13 19 25 31     5
+## B 2  8 14 20 26 32     3
+## C 3  9 15 21 27 33     5
+## D 4 10 16 22 28 34     6
+## E 5 11 17 23 29 35     1
+## F 6 12 18 24 30 36     2
+```
+
+
+
+- Dataframes works similar
+
+# Unsure
+
+
+
+```r
+foo.mat <- matrix(c(rnorm(100), runif(100), runif(100), rpois(100, 
+    2)), ncol = 4)
 head(foo.mat)
 ```
 
 ```
-##         [,1]   [,2]    [,3] [,4]
-## [1,]  0.3786 0.5999 0.61578    3
-## [2,] -0.3616 0.4697 0.01633    4
-## [3,] -1.5881 0.7546 0.73921    5
-## [4,] -1.6828 0.3460 0.33248    2
-## [5,] -1.2539 0.1857 0.67948    0
-## [6,] -0.5503 0.5268 0.56171    2
+##         [,1]    [,2]   [,3] [,4]
+## [1,]  1.7470 0.24505 0.6762    3
+## [2,] -0.4735 0.80681 0.3749    1
+## [3,] -0.1612 0.96265 0.2645    6
+## [4,]  0.7073 0.04242 0.4413    2
+## [5,]  0.2149 0.45026 0.4486    4
+## [6,] -0.8833 0.91402 0.6467    0
 ```
 
 ```r
@@ -713,14 +1129,213 @@ cor(foo.mat)
 ```
 
 ```
-##          [,1]    [,2]     [,3]     [,4]
-## [1,]  1.00000 0.08619  0.07679 -0.07773
-## [2,]  0.08619 1.00000  0.16524  0.12562
-## [3,]  0.07679 0.16524  1.00000 -0.06428
-## [4,] -0.07773 0.12562 -0.06428  1.00000
+##          [,1]     [,2]      [,3]      [,4]
+## [1,]  1.00000 -0.19536 -0.115657 -0.043075
+## [2,] -0.19536  1.00000  0.025575  0.017624
+## [3,] -0.11566  0.02557  1.000000 -0.001956
+## [4,] -0.04308  0.01762 -0.001956  1.000000
 ```
 
 
+
+
+# Arrays
+- Arrays are a set of matrices of the same `dim` and `class`
+- Arrays allow dimensions to be named
+
+
+
+```r
+myarray <- array(1:42, dim = c(7, 3, 2), dimnames = list(c("tiny", 
+    "small", "medium", "medium-ish", "large", "big", "huge"), c("slow", "moderate", 
+    "fast"), c("boring", "fun")))
+class(myarray)
+```
+
+```
+## [1] "array"
+```
+
+```r
+dim(myarray)
+```
+
+```
+## [1] 7 3 2
+```
+
+```r
+dimnames(myarray)
+```
+
+```
+## [[1]]
+## [1] "tiny"       "small"      "medium"     "medium-ish" "large"     
+## [6] "big"        "huge"      
+## 
+## [[2]]
+## [1] "slow"     "moderate" "fast"    
+## 
+## [[3]]
+## [1] "boring" "fun"   
+## 
+```
+
+```r
+myarray
+```
+
+```
+## , , boring
+## 
+##            slow moderate fast
+## tiny          1        8   15
+## small         2        9   16
+## medium        3       10   17
+## medium-ish    4       11   18
+## large         5       12   19
+## big           6       13   20
+## huge          7       14   21
+## 
+## , , fun
+## 
+##            slow moderate fast
+## tiny         22       29   36
+## small        23       30   37
+## medium       24       31   38
+## medium-ish   25       32   39
+## large        26       33   40
+## big          27       34   41
+## huge         28       35   42
+## 
+```
+
+
+
+
+
+# Lists
+- Lists are arbitrary collections of objects. 
+- The objects do not have to be of the same type or same element or same dimensions
+
+
+
+```r
+mylist <- list(vec = myvec, mat = mymat, arr = myarray, date = mydate)
+class(mylist)
+```
+
+```
+## [1] "list"
+```
+
+```r
+length(mylist)
+```
+
+```
+## [1] 4
+```
+
+```r
+names(mylist)
+```
+
+```
+## [1] "vec"  "mat"  "arr"  "date"
+```
+
+```r
+str(mylist)
+```
+
+```
+## List of 4
+##  $ vec : num [1:6] 5 3 5 6 1 2
+##  $ mat : int [1:6, 1:6] 1 2 3 4 5 6 7 8 9 10 ...
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : chr [1:6] "A" "B" "C" "D" ...
+##   .. ..$ : chr [1:6] "G" "H" "I" "J" ...
+##  $ arr : int [1:7, 1:3, 1:2] 1 2 3 4 5 6 7 8 9 10 ...
+##   ..- attr(*, "dimnames")=List of 3
+##   .. ..$ : chr [1:7] "tiny" "small" "medium" "medium-ish" ...
+##   .. ..$ : chr [1:3] "slow" "moderate" "fast"
+##   .. ..$ : chr [1:2] "boring" "fun"
+##  $ date: Date[1:1], format: "2012-07-20"
+```
+
+
+
+
+# Lists (II)
+- R has two object classification schemes S3 and S4
+  - For S3 use `$` or `[[]]` to extract elements
+  - For S4 use `@` to extract elements
+
+
+
+```r
+mylist$vec
+```
+
+```
+## [1] 5 3 5 6 1 2
+```
+
+```r
+mylist[[2]][1, 3]
+```
+
+```
+## [1] 13
+```
+
+
+
+
+# So what?
+- Matrices, lists, and arrays are useful for storing analyses results, generating reports, and doing analysis on many objects types
+- We'll see examples of list and array manipulation later
+- A useful tip is to use the `attributes` function to learn about the object
+
+
+
+```r
+attributes(mylist)
+```
+
+```
+## $names
+## [1] "vec"  "mat"  "arr"  "date"
+## 
+```
+
+```r
+attributes(myarray)
+```
+
+```
+## $dim
+## [1] 7 3 2
+## 
+## $dimnames
+## $dimnames[[1]]
+## [1] "tiny"       "small"      "medium"     "medium-ish" "large"     
+## [6] "big"        "huge"      
+## 
+## $dimnames[[2]]
+## [1] "slow"     "moderate" "fast"    
+## 
+## $dimnames[[3]]
+## [1] "boring" "fun"   
+## 
+## 
+```
+
+
+
+
+- They also provide simplified ways to get used to operating on dataframes by reducing complexity
 
 
 # Dataframes
@@ -745,24 +1360,31 @@ str(df[,25:32])
 
 
 
-- Blah blah
+- Data frames must have consistent dimensions
+- Dataframes are what we use most commonly as a "dataset" for analysis
 
-# Lists
-- Lists are arbitrary collections of objects. 
-- The objects do not have to be of the same type or same element
-
-# Arrays
-- Arrays are matrices of k dimensions
+# Summing it Up
+- Vectors are used to store bits of data
+- Matrices are combinations of vectors of the same length and type
+- Matrices are most commonly used in statistical models (in the background), and for computation
+- Arrays are stacks of matrices and are used in building multiple models or for storing complex data structures
+- Lists are groups of R objects commonly used to combine function output in useful ways (like store model results and model data together)
 
 
 # Exercises
-1. 
-2. 
+1. Create a matrix of 5x6 dimensions. Add a vector to it (as either a row or column). Identify element 2,3. 
+
+2. Read in the sample datafile. Find the `readSS` (reading scale score) for student 205 in grade 4. 
+
 3. 
-  * Blah
+
+# Other References
+- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
+- [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
+- [Video Tutorials](http://www.twotorials.com/)
 
 
-# Reproducible research
+# Session Info
 
 It is good to include the session info, e.g. this document is produced with **knitr** version `0.6.3`. Here is my session info:
 
