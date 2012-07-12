@@ -14,7 +14,7 @@ Getting data in is the highest hurdle in R
 - Get used to plain text input files
   * R can handle other formats, but your error rate increases as does the tweaking necessary
 - R has a limited set of special characters (symbols) you can use in your data input to be translated correctly 
-- These symbols are reserved and will be interpreted in strange ways if you include them in your plain text
+- These symbols are reserved and will be interpreted in strange ways if you include them in your plain text data file
 - Most of them are fairly obvious operators, see [Paul Murrell's excellent summary](http://www.stat.auckland.ac.nz/~paul/ItDT/HTML/node75.html)
 
 
@@ -31,10 +31,10 @@ print(a[4])
 ls() # get objects
 a<-c(a,NULL) # Append NULL onto a
 print(a)
-# Notic eno change
+# Notice no change
 a<-c(a,NA)
 print(a)
-# NA can hold a place, NULL cannot
+# NA can hold a place in a vector, NULL cannot
 ```
 - `NaN` is even more special, and only holds things like imaginary numbers
 ```{r nan}
@@ -67,7 +67,7 @@ print(b)
 
 # CSV is Our Friend
 - The easiest data type is .csv though Excel files can be read as well
-```{r}
+```{r readdata}
 # Set working directory to the tutorial director
 # In RStudio can do this in "Tools" tab
 setwd('~/GitHub/r_tutorial_ed')
@@ -81,7 +81,7 @@ df<-read.csv('data/smalldata.csv')
 ```{r checkresults,echo=FALSE}
 # Let's see what object types 
 # R assigned to our dataset
-str(df[22:32])
+str(df[27:32])
 ```
 
 # Always Check Your Data
@@ -92,8 +92,12 @@ str(df[22:32])
   - ```{r summary}
   summary(df[,1:5])
     ```
+  - ```{r names}
+  names(df)
+  ```
   -```{r attributes}
   names(attributes(df))
+  class(df)
 ```
   
 

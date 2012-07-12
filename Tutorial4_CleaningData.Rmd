@@ -9,3 +9,24 @@ In this lesson we hope to learn:
 - Recoding data and changing data types
 - Diagnostics and error checks
 
+```{r setup, include=FALSE}
+# set global chunk options
+opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=NA,error=NA,warning=NA,echo=TRUE)
+```
+
+
+
+# Data Setup
+- Let's read in a new dataset now that has some messiness to it
+
+```{r dataread}
+library(foreign)
+mydat<-read.dta("data/Student_Attributes.dta")
+head(mydat,7)
+```
+- What's wrong with this?
+
+# How can R help correct this?
+- Identify problems
+- Enforce business rules for messy data consistently
+

@@ -9,4 +9,160 @@ In this lesson we hope to learn:
 - How to use formulas to build a statistical model
 - Analyze subsets of data
 
-% Consider using the AJC project for this
+```{r setup, include=FALSE}
+# set global chunk options
+opts_chunk$set(fig.path='figure/slides5-', cache.path='cache/slides5-',fig.width=8,fig.height=6,message=NA,error=NA,warning=NA,echo=TRUE)
+source('ggplot2themes.R')
+```
+
+
+# Datasets
+In this tutorial we will use a number of datasets of different types:
+- `stulong`: student-level assessment and demographics data (simulated and research ready)
+- `midwest_schools.csv`: aggregate school level test score averages from a large Midwest state
+
+# Reading Data In
+- We start with the aggregate school level data
+```{r readschdata}
+midsch<-read.csv('data/midwest_schools.csv')
+str(midsch)
+head(midsch[,1:12])
+```
+
+#  What do we have then?
+- We have unique identifiers for districts and schools
+- For each school/district combination we have a row of test scores in year 1 and year 2 by test_year (of year 1); grade; and subject
+- How can we use R to ask this?
+```{r datastruc}
+table(midsch$test_year,midsch$grade)
+length(unique(midsch$district_id))
+length(unique(midsch$school_id))
+```
+- What's wrong with this?
+  * We need to create a unique school ID
+  
+
+# Explore Data Structure (II)
+```{r datastruc2}
+table(midsch$subject,midsch$grade)
+```
+- Why don't we want to do `table(midsch$district_id,midsch$grade)`
+- What else do we want to know?
+
+# Diagnostic Plots Perhaps
+```{r diag1}
+library(ggplot2)
+qplot(ss1,ss2,data=midsch,alpha=I(.07))+theme_dpi()+geom_smooth()+
+  geom_smooth(method='lm',se=FALSE,color='purple')
+```
+
+# What questions do we have?
+- Let's imagine that a journalist has used this dataset to detect testing "irregularities" using publicly available aggregate test data
+- The journalist's methodology is to regress test scores for a school/grade/subject in one year on a school/grade/subject aggregate test score in the next year
+- For example, 2005-06, 3rd grade, reading scores are regressed on 2006-07, 4th grade, reading scores
+- Where the observed gains are higher or lower than predicted by this statistical model, "irregularities" are suspected
+
+# Regression 101
+- What is wrong with this approach? 
+- What are the five assumptions of simple linear regression?
+  1. Dependent variable has a linear relationship to a combination of independent variables + a disturbance term (no variables omitted)
+  2. The expected value of the disturbance term is zero.
+  3. Disturbance terms have the same variance and are not correlated with one another.
+  4. The observations of the independent variables are considered fixed in repeated samples.
+  5. The number of observations exceeds the number of independent variables and no fixed linear combination exists among the independent variables (perfect collinearity)
+- What are other concerns?
+  1. Sensitivity of the model to outliers
+  2. Confidence interval around predictions
+  3. Validity of the model on key subsets
+
+
+# How to approach this?
+- This is a perfect case for exploring the power of R for doing analysis on data and for checking accuracy of results
+- Two approaches
+  1. Work on one test,grade,school_year combination and validate that
+  2. Test model assumptions across all combinations
+  3. Build one mega model from full data and control for year, grade, and subject
+
+
+# First Step
+- How many unique combinations are there of `test_year`, `grade`, and `subject`?
+
+```{r uniq}
+nrow(unique(midsch[,c(5,6,16)]))
+```
+
+# Let's look at one subset to start
+5th grade, 2011, math scores
+```{r drawsubset}
+midsch_sub<-subset(midsch,midsch$grade==5 &
+                   midsch$test_year==2011 &
+                   midsch$subject=='math')
+```
+- How many observations in `midsch_sub`?
+
+# How to specify a regression in R
+`my_mod<-lm(ss2~ss1,data=midsch_sub)`
+- OLS regression is done by the trusty `lm` function
+- The `~` character divides the dependent variable `ss2` from the independent variable `ss1`
+- We want to store the results of our function so we can capture it by `my_mod<-`
+- `data` means we don't have to write: `lm(midsch_sub$ss2~midsch_sub$ss1)`
+- Hooray
+
+# Run the regression
+- To implement the regression described above is simple in this framework
+```{r basicreg}
+ss_mod<-lm(ss2~ss1,data=midsch_sub)
+summary(ss_mod)
+```
+
+# Explore the Model Output
+```{r exploremod}
+objects(ss_mod)
+```
+
+# Omitted Variable
+- What other data elements do we have available that might be omitted from our model specification?
+  * What about the class size?
+- Class size is attractive since class size probably correlates with the variability in the change of scores from year 1 to year 2--big classes swing less than small classes
+
+```{r diagn}
+qplot(n2,ss2-ss1,data=midsch,alpha=I(.1))+theme_dpi()+geom_smooth()
+```
+- Group size might matter
+- Another type of omitted variable are non-linear terms (polynomials) of the independent variable
+
+
+# How to check formally
+```{r basicregn}
+ssN1_mod<-lm(ss2~ss1+n1,data=midsch_sub)
+summary(ssN1_mod)
+ssN2_mod<-lm(ss2~ss1+n2,data=midsch_sub)
+summary(ssN2_mod)
+anova(ss_mod,ssN1_mod,ssN2_mod)
+AIC(ssN2_mod)
+AIC(ssN1_mod)
+```
+
+# Diagnostic Check for Polynomials
+```{r regdiagreset}
+library(lmtest)
+resettest(ss_mod,power=2:4)
+```
+
+
+# Megamodel I
+```{r megamodel2}
+my_megamod<-lm(ss2~ss1+grade+test_year+subject,data=midsch)
+summary(my_megamod)
+```
+- What's wrong with this?
+
+# Megamodel II
+```{r megamodel2}
+my_megamod2<-lm(ss2~ss1+as.factor(grade)+
+  as.factor(test_year)+subject,data=midsch)
+summary(my_megamod2)
+```
+
+
+

@@ -4,10 +4,104 @@
 
 # Overview
 In this lesson we hope to learn:
-- Organizing and cleaning our data
-- Manipulating vectors
-- Object attributes
-- Dealing with missing data
 - Aggregating data
+- Organizing our data
+- Manipulating vectors
+- Dealing with missing data
 
+
+```{r setup, include=FALSE}
+# set global chunk options
+opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=NA,error=NA,warning=NA,echo=TRUE)
+```
+
+
+# Again, read in our dataset
+```{r readdata}
+# Set working directory to the tutorial directory
+# In RStudio can do this in "Tools" tab
+setwd('~/GitHub/r_tutorial_ed')
+#Load some data
+df<-read.csv('data/smalldata.csv')
+# Note if we don't assign data to 'df'
+# R just prints contents of table
+```
+
+# Aggregation
+- Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset
+- To do this quickly and easily--the `table` function is our friend
+- Let's look at our observations by year and grade
+```{r table}
+table(df$grade,df$year)
+```
+- The first command gives the rows, the second gives the columns
+
+# Aggregation can be more complex
+- Let's aggregate by race and year
+
+```{r table2}
+table(df$year,df$race)
+```
+
+- Race is consistent across years, interesting
+- What if we want to only look at 3rd graders that year?
+
+# More complicated still
+
+```{r table3}
+with(df[df$grade==3,],{table(year,race)})
+```
+- `with` specifies a data object to work on, in this case all elements of `df` where `grade==3`
+- `table` is the same command as above, but since we specified the data object in the `with` statement, we don't need the `df$` in front of the variables of interest
+
+# Tables cont.
+- This is really powerful for looking at the descriptive dimensions of the data, we can ask questions like:
+- how many students are at each proficiency level each year?
+```{r proftable}
+table(df$year,df$proflvl)
+```
+- how many students are at each proficiency level by race?
+```{r raceproftable}
+table(df$race,df$proflvl)
+```
+
+# Proportional Tables
+- What if we aren't interested in counts? 
+- R makes it really easy to calculate proportions
+```{r proptable1}
+prop.table(table(df$race,df$proflvl))
+```
+- Hmmm, this is goofy. This tells us the proportion of each cell out of the total. Also, the digits are distracting. How can we fix this?
+```{r proptable2}
+round(prop.table(table(df$race,df$proflvl),1),digits=3)
+```
+- The `1` tells R we want proportions rowise, a `2` goes columnwise
+- A few more problems arise--this pools all observations, including students across years
+
+# Sorting
+- A key way to explore data in tabular form is to sort data
+- Sorting data in R can be dangerous as you can reorder the vectors of a dataframe
+- We use the `order` function to sort data
+
+```{r sortwrong}
+df.badsort<-order(df$readSS,df$mathSS)
+head(df.badsort)
+```
+- Why is this wrong?
+- What is R giving us?
+- Rownames...
+
+# Correct Example
+- To fix it, we need to tell R to reorder the rownames in the order we want
+
+```{r sortright}
+df.sort<-df[ order(df$readSS,df$mathSS,df$attday),]
+head(df[,c(3,23,29,30)])
+head(df.sort[,c(3,23,29,30)])
+```
+
+
+
+# Exercises
+1. Sort `df` on `measerr` and `mathss`. What are the highest 5 values of each. 
 
