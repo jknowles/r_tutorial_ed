@@ -78,6 +78,90 @@ round(prop.table(table(df$race,df$proflvl),1),digits=3)
 - The `1` tells R we want proportions rowise, a `2` goes columnwise
 - A few more problems arise--this pools all observations, including students across years
 
+# Aggregating Data
+- One of the most common questions will be to compute aggregates of data
+- R has an `aggregate` function that can be used
+- This works great for simple aggregation like scale score by race, we just need a `formula` (think I want variable X **by** grouping factor Y) and the statistic we want to compute
+
+```{r aggregate1}
+# Reading Scores by Race
+aggregate(readSS~race,FUN=mean,data=df)
+```
+
+# Aggregate (II)
+- `aggregate` can take us a little further, we can use aggregate multiple variables at a time
+```{r aggregate2}
+aggregate(cbind(readSS,mathSS)~race,data=df,mean)
+```
+- We can add multiple grouping varialbes using the `formula` syntax
+```{r aggregate3}
+head(aggregate(cbind(readSS,mathSS)~race+grade,data=df,mean),8)
+```
+- We can build a systematic cross-tab now
+```{r crosstab}
+ag<-aggregate(readSS~race+grade,data=df,mean)
+xtabs(readSS~., data=ag)
+```
+- And prettier output
+```{r crosstabpretty}
+ftable(xtabs(readSS~.,data=ag))
+```
+
+# Aggregate Isn't Enough
+- `aggregate` is cool, but it isn't very flexible
+- We can only use aggregate output as a table, which we have to convert to a data frame
+- There is a better way; the `plyr` package
+- `plyr` is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type
+- We will focus here on summarizing and aggregating a data frame, but later in the bootcamp we'll apply functions to lists and turn lists into data frames as well
+- This is cool!
+
+# School Means
+- Consider the case we want to turn our student level data into school level data
+- Who hasn't had to do this?!?
+- In `aggregate` we do:
+```{r aggregate2}
+z<-aggregate(readSS~dist,FUN=mean,data=df)
+z
+```
+- But I want more! I want to aggregate multiple variables. I want to do it across multiple groups. I want the output to be a dataframe I can work on.
+- Thank you `plyr`
+
+# Using plyr
+- `plyr` has a straightforward syntax
+- All `plyr` functions are in the format **XX**ply. The two X's specify what the input file we are applying a function to is, and then what way we would like it outputted.
+- In `plyr` d = dataframe, l= list, m=matrix, and a=array. By far the most common usage is `ddply`
+- From a dataframe, to a dataframe.
+
+# plyr in Action
+```{r plyr1}
+library(plyr)
+myag<-ddply(df, .(dist,grade),summarize,
+            mean_read=mean(readSS,na.rm=T),
+            mean_math=mean(mathSS,na.rm=T),
+            sd_read=sd(readSS,na.rm=T),
+            sd_math=sd(mathSS,na.rm=T),
+            count_read=length(readSS),
+            count_math=length(mathSS))
+head(myag)
+```
+
+# More plyr
+- This is great, we can quickly build a summary dataset from individual records
+- A few advanced tricks. How do we build counts and percentages into our dataset?
+```{r plyr3}
+myag<-ddply(df, .(dist,grade),summarize,
+            mean_read=mean(readSS,na.rm=T),
+            mean_math=mean(mathSS,na.rm=T),
+            sd_read=sd(readSS,na.rm=T),
+            sd_math=sd(mathSS,na.rm=T),
+            count_read=length(readSS),
+            count_math=length(mathSS),
+            count_black=length(race[race=='B']),
+            per_black=length(race[race=='B'])/length(readSS))
+summary(myag[,7:10])            
+```
+
+
 # Sorting
 - A key way to explore data in tabular form is to sort data
 - Sorting data in R can be dangerous as you can reorder the vectors of a dataframe

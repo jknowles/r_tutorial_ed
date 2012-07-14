@@ -165,4 +165,21 @@ summary(my_megamod2)
 ```
 
 
+# Exercises
+1. 
+2. 
+3. 
 
+# Other References
+- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
+- [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
+- [Video Tutorials](http://www.twotorials.com/)
+
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `r packageVersion('knitr')`. Here is my session info:
+
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+```

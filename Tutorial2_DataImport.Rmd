@@ -3,12 +3,52 @@
 % Jared Knowles
 
 # Overview
-Getting data in is the highest hurdle in R
+- Loading Packages
 - Data import is incredibly flexible and once you are used to it, it is easy
 - Understand data types
 - Load a CSV file
 - Organize an analysis project
 - Query a database
+
+# A quick note on R `packages`
+- `packages` are essentially free and open source add-ons for R
+- There are over 3,000 packages available for R that add all sorts of functionality
+- A few examples (from the mundane to the crazy)
+  * Additional graphics capabilities from the `ggplot2` package
+  * Advanced regression techniques from the `lme4` package for mixed effects models
+  * 3d graphics from the `scatterplot3d` package (also `webGL`)
+  * GIS analytics and mapping functionality with `sp`
+  * Text mining analytics with `tm`
+  * Predictive modeling frameworks with `caret`
+  * Interfaces to other programming languages like Python, Java, and C and C++
+  * A web server: `Rserve`
+  * And Minesweeper from the `fun` package
+  
+
+# I can haz packages?
+```{r eval=FALSE,echo=TRUE}
+# You can find and install packages within R
+install.packages('foo') # Name must be in quotes
+install.packages(c('foo','foo1','foo2'))
+# Packages get updated FREQUENTLY
+update.packages() # Gonna update them all
+```
+- Note, on Windows Vista and later R either needs to be run as an administrator to install packages, or you have to fiddle with where the packages are installed
+- Packages are stored in something called the **library** which is just a collection of packages
+  * Sometimes folks call packages **libraries**
+
+# Finding Packages
+- Official packages are found on CRAN (Comprehensive R A Network)
+- Unofficial packages or **beta** versions of packages are found on RForge and GitHub mostly
+- To find out what packages are out there that do a specific function, try:
+  * Google "doing X in R package"
+  * Look at CRAN taskviews
+- CRAN taskviews are great to find a bunch of packages related to a problem you are trying to solve
+
+# Some Must Have Packages
+`plyr` `ggplot2` `lme4` `sp` `knitr`
+
+# Data Management
 
 # Ground Rules
 - Get used to plain text input files
@@ -110,3 +150,22 @@ str(df[27:32])
 
 # Now we have the data
 - What next?
+
+# Exercises
+1.
+2.
+3. 
+
+# Other References
+- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
+- [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
+- [Video Tutorials](http://www.twotorials.com/)
+
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `r packageVersion('knitr')`. Here is my session info:
+
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+```

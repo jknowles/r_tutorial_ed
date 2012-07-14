@@ -535,6 +535,8 @@ str(df[,25:32])
 ```
 - Data frames must have consistent dimensions
 - Dataframes are what we use most commonly as a "dataset" for analysis
+- Dataframes are what sets R apart from other programming languages like C, C++, Python, and Perl. 
+- The dataframe structure is much more complex and much easier to use than any datastructure in these languages--though Python is catching up!
 
 # Summing it Up
 - Vectors are used to store bits of data
