@@ -20,6 +20,33 @@ The R workspace in RStudio
 
 <p align="center"><img src="img/workspacescreen.png" height="500" width="700"></p>
 
+# A Bit of Histo**R**y
+- R is a flavor of the **S** computer language
+- S was developed by John Chambers at Bell Labs in the late 1970s
+- In 1988 it was rewritten from a Fortran base to a C base
+- Version 4 of S, the latest version, was finished in 1998, and won several awards
+
+# The Philosophy
+John Chambers, in describing the logic behind the S language said:
+
+> [W]e wanted users to be able to begin in an interactive
+> environment, where they did not consciously think of
+> themselves as programming. Then as their needs became
+> clearer and their sophistication increased, they should be
+> able to slide gradually into programming, when the
+> language and system aspects would become more
+> important.
+
+
+# R is Born
+- 1991 in New Zealand Ross Ihaka and Robert Gentleman create R
+- Named for their first initials
+- R is made public in 1993, and in 1995 Martin Maechler convinces the creators to make it open source with the GNU General Public License
+- 1997 R Core Group is formed--the maintainers and main developers of R (about 14 members today)
+- 2000 version 1.0.0 ships
+- 2012 version 2.15.1 is available
+
+
 # Why Use R
 - R is a common tool among data experts at major universities
 - No need to go through procurement, R can be installed in any environment on any machine and used with no licensing or agreements needed
@@ -27,6 +54,14 @@ The R workspace in RStudio
 - R code is easily borrowed from and shared with others
 - R is incredibly flexible and can be adapted to specific local needs
 - R is under incredibly active development, improving greatly, and supported wildly by both professional and academic developers
+
+# Thoughts on Free
+- R is free in many senses
+  1. R can be run and used for any purpose, commercial or non-commercial, profit or not-for-profit
+  2. R's source code is freely available so you can study how it works and adapt it to your needs.
+  3. R is free to redistribute so you can share it with your ~~enemies~~  friends
+  4. R is free to modify and those modifications are free to redistribute and may be adopted by the rest of the community!
+
 
 # R Advantages Continued
 - R is platform agnostic--Linux, Mac, PC, server, desktop, etc.
@@ -39,6 +74,12 @@ R Can Compliment Other Tools
 - R can check work, produce output, visualize results from other programs
 - R can do bleeding edge analysis that aren't available in proprietary packages yet
 - R is becoming more prevalent in undergraduate statistics courses
+
+# R's Drawbacks
+- R is based on S, which is close to 40 years old
+- R only has features that the community contributes
+- Not the ideal solution to all problems
+- R is a programming language and not a software package--steeper learning curve
 
 # Google Scholar Hits
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS

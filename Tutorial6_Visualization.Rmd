@@ -5,6 +5,7 @@
 # Overview
 In this lesson we hope to learn:
 - How to draw diagnostic plots in base graphics
+- Colors
 - `ggplot2' 
 - Basic geoms
 - Layering and faceting plots
@@ -12,6 +13,12 @@ In this lesson we hope to learn:
 
 ```{r setup, message=FALSE,warning=FALSE,echo=FALSE,comment=FALSE}
 df<-read.csv('data/smalldata.csv')
+dropbox_source<-function(myurl){
+  require(stringr)
+  s<-str_extract(myurl,"[/][a-z][/]\\d+[/][a-z]*.*")
+  new_url<-paste("http://dl.dropbox.com",s,sep="")
+  source(new_url)
+}
 ```
 
 # Graphics Matter
@@ -37,6 +44,7 @@ qplot(readSS,mathSS,data=df,alpha=I(0.3))
 qplot(readSS,mathSS,data=df)+xlab('Reading Score')+ylab('Math Score')
 qplot(readSS,mathSS,data=df,color=race)+scale_color_brewer(type='qual',palette=2)
 ```
+
 # Visualization Philosophy
 - Visualization is about thinking about what objects in our dataset map with what visual cues for the viewer
   - liberal use of `names(object)` helps
@@ -65,7 +73,13 @@ qplot(readSS,mathSS,data=df,color=race)+scale_color_brewer(type='qual',palette=2
 
 
 # Draw a Colorwheel to show this problem
-
+```{r colorwheel}
+colwheel<-"https://dl.dropbox.com/u/1811289/colorwheel.R"
+dropbox_source(colwheel)
+col.wheel("magenta",nearby=2)
+col.wheel("orange",nearby=2)
+col.wheel("brown",nearby=2)
+```
 
 # Start with a great example
 ```{r premier}
