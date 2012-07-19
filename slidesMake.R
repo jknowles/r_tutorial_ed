@@ -21,6 +21,7 @@ system("pandoc -s -S -i -t slidy Tutorial7_ExportingWork.md -o Tutorial7_Exporti
 system("pandoc -s -S -i -t slidy Tutorial8_AdvancedTopics.md -o Tutorial8_AdvancedTopics.html --self-contained")
 
 
+system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
 
 
 
