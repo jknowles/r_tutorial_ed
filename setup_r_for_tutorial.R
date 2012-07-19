@@ -33,5 +33,14 @@ dropbox_source(colwheel)
 
 # Read in and download Data
 
+library(foreign)
+mystatadata<-read.dta("https://github.com/jknowles/r_tutorial_ed/raw/master/data/Student_Attributes.dta")
+mydata<-read.csv('https://github.com/jknowles/r_tutorial_ed/raw/master/data/smalldata.csv')
+
+midwestschools<-read.csv("https://github.com/jknowles/r_tutorial_ed/raw/master/data/midwest_schools.csv")
+
+midwestdist<-read.csv("https://raw.github.com/jknowles/r_tutorial_ed/master/data/midwest_district_probability.csv")
 
 
+# Generate Student Data
+source("https://raw.github.com/jknowles/r_tutorial_ed/master/data/simulate_data.R")

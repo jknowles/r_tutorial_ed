@@ -16,6 +16,33 @@ The R workspace in RStudio
 
 <p align="center"><img src="img/workspacescreen.png" height="500" width="700"></p>
 
+# A Bit of Histo**R**y
+- R is a flavor of the **S** computer language
+- S was developed by John Chambers at Bell Labs in the late 1970s
+- In 1988 it was rewritten from a Fortran base to a C base
+- Version 4 of S, the latest version, was finished in 1998, and won several awards
+
+# The Philosophy
+John Chambers, in describing the logic behind the S language said:
+
+> [W]e wanted users to be able to begin in an interactive
+> environment, where they did not consciously think of
+> themselves as programming. Then as their needs became
+> clearer and their sophistication increased, they should be
+> able to slide gradually into programming, when the
+> language and system aspects would become more
+> important.
+
+
+# R is Born
+- 1991 in New Zealand Ross Ihaka and Robert Gentleman create R
+- Named for their first initials
+- R is made public in 1993, and in 1995 Martin Maechler convinces the creators to make it open source with the GNU General Public License
+- 1997 R Core Group is formed--the maintainers and main developers of R (about 14 members today)
+- 2000 version 1.0.0 ships
+- 2012 version 2.15.1 is available
+
+
 # Why Use R
 - R is a common tool among data experts at major universities
 - No need to go through procurement, R can be installed in any environment on any machine and used with no licensing or agreements needed
@@ -23,6 +50,14 @@ The R workspace in RStudio
 - R code is easily borrowed from and shared with others
 - R is incredibly flexible and can be adapted to specific local needs
 - R is under incredibly active development, improving greatly, and supported wildly by both professional and academic developers
+
+# Thoughts on Free
+- R is free in many senses
+  1. R can be run and used for any purpose, commercial or non-commercial, profit or not-for-profit
+  2. R's source code is freely available so you can study how it works and adapt it to your needs.
+  3. R is free to redistribute so you can share it with your ~~enemies~~  friends
+  4. R is free to modify and those modifications are free to redistribute and may be adopted by the rest of the community!
+
 
 # R Advantages Continued
 - R is platform agnostic--Linux, Mac, PC, server, desktop, etc.
@@ -35,6 +70,12 @@ R Can Compliment Other Tools
 - R can check work, produce output, visualize results from other programs
 - R can do bleeding edge analysis that aren't available in proprietary packages yet
 - R is becoming more prevalent in undergraduate statistics courses
+
+# R's Drawbacks
+- R is based on S, which is close to 40 years old
+- R only has features that the community contributes
+- Not the ideal solution to all problems
+- R is a programming language and not a software package--steeper learning curve
 
 # Google Scholar Hits
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS
@@ -98,9 +139,8 @@ Usage of the R listserv for help has really exploded recently
 # R As A Calculator
 
 
-
 ```r
-2+2 # add numbers
+2 + 2  # add numbers
 ```
 
 ```
@@ -108,7 +148,7 @@ Usage of the R listserv for help has really exploded recently
 ```
 
 ```r
-2*pi #multiply by a constant
+2 * pi  #multiply by a constant
 ```
 
 ```
@@ -116,15 +156,15 @@ Usage of the R listserv for help has really exploded recently
 ```
 
 ```r
-7+runif(1,min=0,max=1) #add a random variable
+7 + runif(1, min = 0, max = 1)  #add a random variable
 ```
 
 ```
-## [1] 7.71
+## [1] 7.378
 ```
 
 ```r
-4^4 # powers
+4^4  # powers
 ```
 
 ```
@@ -132,7 +172,7 @@ Usage of the R listserv for help has really exploded recently
 ```
 
 ```r
-sqrt(4^4) # functions
+sqrt(4^4)  # functions
 ```
 
 ```
@@ -140,14 +180,11 @@ sqrt(4^4) # functions
 ```
 
 
-
-
 # Arithmetic Operators
 - In addition to the obvious `+` `-` `=` `/` `*` and exponential `^`, there is also integer division `%/%` and remainder in integer division (known as modulo arithmetic) `%%`
 
-
 ```r
-2+2
+2 + 2
 ```
 
 ```
@@ -163,7 +200,7 @@ sqrt(4^4) # functions
 ```
 
 ```r
-2*2
+2 * 2
 ```
 
 ```
@@ -179,7 +216,7 @@ sqrt(4^4) # functions
 ```
 
 ```r
-2=2
+2 = 2
 ```
 
 ```
@@ -187,7 +224,7 @@ sqrt(4^4) # functions
 ```
 
 ```r
-23 %/% 2 
+23%/%2
 ```
 
 ```
@@ -195,7 +232,7 @@ sqrt(4^4) # functions
 ```
 
 ```r
-23 %% 2
+23%%2
 ```
 
 ```
@@ -203,14 +240,11 @@ sqrt(4^4) # functions
 ```
 
 
-
-
 # Other Key Symbols
 - `<-` is the assignment operator, it declares something is something else
 
-
 ```r
-foo<-3
+foo <- 3
 foo
 ```
 
@@ -218,10 +252,7 @@ foo
 ## [1] 3
 ```
 
-
-
 - `:` is the sequence operator
-
 
 ```r
 1:10
@@ -233,7 +264,7 @@ foo
 
 ```r
 # it increments by one
-a<-100:120
+a <- 100:120
 a
 ```
 
@@ -241,8 +272,6 @@ a
 ##  [1] 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116
 ## [18] 117 118 119 120
 ```
-
-
 
 - **This is handy**
 
@@ -261,10 +290,9 @@ a
 
 # Using the Workspace (2)
 
-
 ```r
-x<-5 #store a variable with <-
-x    #print the variable
+x <- 5  #store a variable with <-
+x  #print the variable
 ```
 
 ```
@@ -272,8 +300,8 @@ x    #print the variable
 ```
 
 ```r
-z<-3 
-ls() #list all variables
+z <- 3
+ls()  #list all variables
 ```
 
 ```
@@ -281,7 +309,7 @@ ls() #list all variables
 ```
 
 ```r
-ls.str() #list and describe variables
+ls.str()  #list and describe variables
 ```
 
 ```
@@ -290,15 +318,13 @@ ls.str() #list and describe variables
 ```
 
 ```r
-rm(x)    # delete a variable
+rm(x)  # delete a variable
 ls()
 ```
 
 ```
 ## [1] "z"
 ```
-
-
 
 
 # R as a Language
@@ -308,18 +334,15 @@ ls()
 
 1. Case sensitivity matters
 
-
 ```r
-a<-3
-A<-4
-print(c(a,A))
+a <- 3
+A <- 4
+print(c(a, A))
 ```
 
 ```
 ## [1] 3 4
 ```
-
-
 
   * <font color="red">**a** &#8800; **A**</font> 
 2. What happens if I type **print(a,A)**?
@@ -327,17 +350,14 @@ print(c(a,A))
 # `c` is our friend
 - So what does **c** do?
 
-
 ```r
-A<-c(3,4)
+A <- c(3, 4)
 print(A)
 ```
 
 ```
 ## [1] 3 4
 ```
-
-
 
 - `c` stands for concatenate and allows vectors to have multiple elements
 
@@ -348,23 +368,21 @@ print(A)
   *  <font color ="red">By the dog, the cat was chased.</font>
 - Some ways are more elegant than others, all convey the same message. 
 
-
 ```r
-a<-runif(100) # Generate 100 random numbers
-b<-runif(100) # 100 more
-c<-NULL       # Setup for loop (declare variables)
-for(i in 1:100){  # Loop just like in Java or C
-c[i]<-a[i]*b[i]
+a <- runif(100)  # Generate 100 random numbers
+b <- runif(100)  # 100 more
+c <- NULL  # Setup for loop (declare variables)
+for (i in 1:100) {
+    # Loop just like in Java or C
+    c[i] <- a[i] * b[i]
 }
-d<-a*b
-identical(c,d) # Test equality
+d <- a * b
+identical(c, d)  # Test equality
 ```
 
 ```
 ## [1] TRUE
 ```
-
-
 
 - Which is nicer?
 
@@ -379,11 +397,10 @@ identical(c,d) # Test equality
 - Then we have to tell it where to look for the dataset and what format that dataset is in
 - CSV files are **simplest** for beginning use cases, but R is flexible
 
-
 ```r
-# Set working directory to the tutorial director
-# In RStudio can do this in "Tools" tab
-setwd('~/r_tutorial_ed')
+# Set working directory to the tutorial director In RStudio can do this in
+# 'Tools' tab
+setwd("~/r_tutorial_ed")
 ```
 
 ```
@@ -391,13 +408,10 @@ setwd('~/r_tutorial_ed')
 ```
 
 ```r
-#Load some data
-df<-read.csv('data/smalldata.csv')
-# Note if we don't assign data to 'df'
-# R just prints contents of table
+# Load some data
+df <- read.csv("data/smalldata.csv")
+# Note if we don't assign data to 'df' R just prints contents of table
 ```
-
-
 
 
 # Objects
@@ -405,9 +419,8 @@ df<-read.csv('data/smalldata.csv')
 - Objects can be manipulated many ways
 - A common example is applying the `summary' function to a variety of object types and seeing how it adapts
 
-
 ```r
-summary(df[,28:31]) #summary look at df object
+summary(df[, 28:31])  #summary look at df object
 ```
 
 ```
@@ -421,7 +434,7 @@ summary(df[,28:31]) #summary look at df object
 ```
 
 ```r
-summary(df$readSS) #summary of a single column
+summary(df$readSS)  #summary of a single column
 ```
 
 ```
@@ -429,18 +442,15 @@ summary(df$readSS) #summary of a single column
 ##     252     430     495     496     562     833 
 ```
 
-
-
 -The `$` says to look for object **readSS** in object **df**
 
 # Graphics too
 
 
-
 ```r
 library(ggplot2)  # Load graphics Package
-qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) + 
-    theme_bw() + opts(title = "Test Score Relationship") + geom_smooth()
+qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) + theme_bw() + 
+    opts(title = "Test Score Relationship") + geom_smooth()
 ```
 
 ![Student Test Scores](figure/slides-graphics1.svg) 
@@ -449,7 +459,6 @@ qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) +
 # Handling Data in R
 - R handles data differently than many other statistical packages
 - In R, all elements are objects
-
 
 ```r
 length(unique(df$school))
@@ -476,19 +485,16 @@ uniqstu
 ## [1] 1200
 ```
 
-
-
 - Results of function calls can be stored
 
 
 # Special Operators
 - The comparison operators `<`, `>`, `<=`, `>=`, `==`, and `!=` are used to compare values across vectors
 
-
 ```r
-big<-c(9,12,15,25)
-small<-c(9,3,4,2)
-big>small
+big <- c(9, 12, 15, 25)
+small <- c(9, 3, 4, 2)
+big > small
 ```
 
 ```
@@ -497,7 +503,7 @@ big>small
 
 ```r
 # Gives us a nice vector of logical values
-big=small
+big = small
 # Oops--don't do this, reassigns big to small
 print(big)
 ```
@@ -515,11 +521,8 @@ print(small)
 ```
 
 
-
-
 # Special Operators II
 - The best way to evaluate these objects is to use brackets `[]`
-
 
 
 ```r
@@ -549,16 +552,13 @@ big[big < small]  # Returns an empty set
 ```
 
 
-
-
 # Special operators (III)
 - The `%in%` operator determines whether each value in the left operand can be matched with one of the values in the right operand.
 
-
 ```r
-big<-c(9,12,15,25)
-small<-c(9,12,15,25,9,1,3)
-big[small%in%big]
+big <- c(9, 12, 15, 25)
+small <- c(9, 12, 15, 25, 9, 1, 3)
+big[small %in% big]
 ```
 
 ```
@@ -567,11 +567,8 @@ big[small%in%big]
 
 
 
-
-
 # Special operators (IV)
 - The logical operators `||` (or) and `&&` (and) can be used to combine two logical values and produce another logical value as the result. The operator `!` (not) negates a logical value. These operators allow complex conditions to be constructed.
-
 
 ```r
 foo <- c("a", NA, 4, 9, 8.7)
@@ -600,11 +597,8 @@ class(a)
 ```
 
 
-
-
 # Simple Data Cleaning Function
 - What if we want to extract the numeric elements out of `foo`?
-
 
 
 ```r
@@ -628,8 +622,6 @@ A <- extractN(foo)
 
 
 
-
-
 # Special operators (V)
 - The operators `|` and `&` are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
 
@@ -642,7 +634,6 @@ A <- extractN(foo)
 - R allows users to implement a number of different types of data
 - The three basic data types are numeric data, character data, and logical data
 -**numeric** includes valid numbers
-
 
 ```r
 is.numeric(A)
@@ -668,10 +659,7 @@ print(A)
 ## [1] 4.0 9.0 8.7
 ```
 
-
-
 -**character** is known as strings in other software, any characters that have no numeric meaning
-
 
 ```r
 b <- c("one", "two", "three")
@@ -690,13 +678,10 @@ is.numeric(b)
 ## [1] FALSE
 ```
 
-
-
 -**logical** is TRUE or FALSE values, useful for logical testing and programming
 
-
 ```r
-c<-c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE)
+c <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)
 is.numeric(c)
 ```
 
@@ -713,7 +698,7 @@ is.character(c)
 ```
 
 ```r
-is.logical(c) # Results in a logical value
+is.logical(c)  # Results in a logical value
 ```
 
 ```
@@ -721,11 +706,8 @@ is.logical(c) # Results in a logical value
 ```
 
 
-
-
 # Easier way
 - Just ask R using the `class` function
-
 
 
 ```r
@@ -753,11 +735,8 @@ class(c)
 ```
 
 
-
-
 # Factor
 - A factor is a very special and sometimes frustrating data type in R
-
 
 
 ```r
@@ -779,8 +758,7 @@ myfac  # What order are the factors in?
 ```
 
 ```r
-myfac <- ordered(myfac, levels = c("minimal", "basic", "proficient", 
-    "advanced"))
+myfac <- ordered(myfac, levels = c("minimal", "basic", "proficient", "advanced"))
 myfac
 ```
 
@@ -799,12 +777,9 @@ summary(myfac)
 ```
 
 
-
-
 # Ordering and More
 - Factors can be ordered. This is useful when doing ordered logistic regression, or organizing output. 
 - Turning factors into other data types can be tricky. All factor levels have an underlying numeric structure.
-
 
 
 ```r
@@ -837,12 +812,9 @@ defac
 ```
 
 
-
-
 - Be careful! The best way to unpack a factor is to convert it to a character first.
 
 # Defactor
-
 
 ```r
 destring <- function(x) {
@@ -857,12 +829,9 @@ destring(myfac)
 ```
 
 
-
-
 # Dates
 - R has built-in ways to handle dates
 - See `lubridate` package for more advanced functionality
-
 
 
 ```r
@@ -910,12 +879,9 @@ mydate - mydate2
 ```
 
 
-
-
 # A few notes on dates
 - R converts all dates to numeric values, like Excel and other languages
 - The origin date in R is January 1, 1970
-
 
 
 ```r
@@ -933,8 +899,6 @@ as.Date(56, origin = "2013-4-29")  # we can set our own origin
 ```
 ## [1] "2013-06-24"
 ```
-
-
 
 
 # Other Classes
@@ -958,7 +922,6 @@ as.Date(56, origin = "2013-4-29")  # we can set our own origin
 - Single objects are "atomic" vectors
 
 
-
 ```r
 print(1)
 ```
@@ -977,8 +940,9 @@ print("This tutorial is awesome")
 ```
 
 ```r
-# This is a vector of length 1 consisting of a single "string of characters"
-print(LETTERS) 
+# This is a vector of length 1 consisting of a single 'string of
+# characters'
+print(LETTERS)
 ```
 
 ```
@@ -1009,13 +973,10 @@ length(LETTERS[6])
 ```
 
 
-
-
 # Matrices
 - Matrices are combinations of vectors of the same length and data type
 - We can have numeric matrices, character matrices, or logical matrices
 - Can't mix types
-
 
 
 ```r
@@ -1061,11 +1022,8 @@ mymat
 
 
 
-
-
 # More Matrices
 - We can add to matrices
-
 
 
 ```r
@@ -1100,28 +1058,24 @@ newmat
 ## F 6 12 18 24 30 36     2
 ```
 
-
-
 - Dataframes works similar
 
 # Unsure
 
 
-
 ```r
-foo.mat <- matrix(c(rnorm(100), runif(100), runif(100), rpois(100, 
-    2)), ncol = 4)
+foo.mat <- matrix(c(rnorm(100), runif(100), runif(100), rpois(100, 2)), ncol = 4)
 head(foo.mat)
 ```
 
 ```
-##         [,1]    [,2]   [,3] [,4]
-## [1,]  1.7470 0.24505 0.6762    3
-## [2,] -0.4735 0.80681 0.3749    1
-## [3,] -0.1612 0.96265 0.2645    6
-## [4,]  0.7073 0.04242 0.4413    2
-## [5,]  0.2149 0.45026 0.4486    4
-## [6,] -0.8833 0.91402 0.6467    0
+##          [,1]   [,2]    [,3] [,4]
+## [1,] -0.96662 0.6482 0.70849    3
+## [2,] -0.03917 0.1237 0.07748    3
+## [3,]  1.00540 0.7265 0.63849    1
+## [4,]  0.37477 0.3728 0.33395    1
+## [5,] -0.11520 0.5562 0.71539    3
+## [6,]  1.18498 0.9190 0.98694    3
 ```
 
 ```r
@@ -1129,14 +1083,12 @@ cor(foo.mat)
 ```
 
 ```
-##          [,1]     [,2]      [,3]      [,4]
-## [1,]  1.00000 -0.19536 -0.115657 -0.043075
-## [2,] -0.19536  1.00000  0.025575  0.017624
-## [3,] -0.11566  0.02557  1.000000 -0.001956
-## [4,] -0.04308  0.01762 -0.001956  1.000000
+##          [,1]    [,2]    [,3]     [,4]
+## [1,]  1.00000 0.03762 0.01870 -0.01632
+## [2,]  0.03762 1.00000 0.03326  0.03788
+## [3,]  0.01870 0.03326 1.00000  0.15642
+## [4,] -0.01632 0.03788 0.15642  1.00000
 ```
-
-
 
 
 # Arrays
@@ -1144,11 +1096,10 @@ cor(foo.mat)
 - Arrays allow dimensions to be named
 
 
-
 ```r
-myarray <- array(1:42, dim = c(7, 3, 2), dimnames = list(c("tiny", 
-    "small", "medium", "medium-ish", "large", "big", "huge"), c("slow", "moderate", 
-    "fast"), c("boring", "fun")))
+myarray <- array(1:42, dim = c(7, 3, 2), dimnames = list(c("tiny", "small", 
+    "medium", "medium-ish", "large", "big", "huge"), c("slow", "moderate", "fast"), 
+    c("boring", "fun")))
 class(myarray)
 ```
 
@@ -1212,12 +1163,9 @@ myarray
 
 
 
-
-
 # Lists
 - Lists are arbitrary collections of objects. 
 - The objects do not have to be of the same type or same element or same dimensions
-
 
 
 ```r
@@ -1265,13 +1213,10 @@ str(mylist)
 ```
 
 
-
-
 # Lists (II)
 - R has two object classification schemes S3 and S4
   - For S3 use `$` or `[[]]` to extract elements
   - For S4 use `@` to extract elements
-
 
 
 ```r
@@ -1291,13 +1236,10 @@ mylist[[2]][1, 3]
 ```
 
 
-
-
 # So what?
 - Matrices, lists, and arrays are useful for storing analyses results, generating reports, and doing analysis on many objects types
 - We'll see examples of list and array manipulation later
 - A useful tip is to use the `attributes` function to learn about the object
-
 
 
 ```r
@@ -1333,17 +1275,14 @@ attributes(myarray)
 ```
 
 
-
-
 - They also provide simplified ways to get used to operating on dataframes by reducing complexity
 
 
 # Dataframes
 - Dataframes are combinations of vectors of the same length, but can be of different types
 
-
 ```r
-str(df[,25:32])
+str(df[, 25:32])
 ```
 
 ```
@@ -1358,10 +1297,10 @@ str(df[,25:32])
 ##  $ race      : Factor w/ 5 levels "A","B","H","I",..: 2 2 2 2 2 2 2 2 2 2 ...
 ```
 
-
-
 - Data frames must have consistent dimensions
 - Dataframes are what we use most commonly as a "dataset" for analysis
+- Dataframes are what sets R apart from other programming languages like C, C++, Python, and Perl. 
+- The dataframe structure is much more complex and much easier to use than any datastructure in these languages--though Python is catching up!
 
 # Summing it Up
 - Vectors are used to store bits of data
@@ -1386,33 +1325,30 @@ str(df[,25:32])
 
 # Session Info
 
-It is good to include the session info, e.g. this document is produced with **knitr** version `0.6.3`. Here is my session info:
-
+It is good to include the session info, e.g. this document is produced with **knitr** version `0.7`. Here is my session info:
 
 
 ```r
-print(sessionInfo(), locale=FALSE)
+print(sessionInfo(), locale = FALSE)
 ```
 
 ```
-## R version 2.15.0 (2012-03-30)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## R version 2.15.1 (2012-06-22)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] mgcv_1.7-13   ggplot2_0.9.1 knitr_0.6.3  
+## [1] mgcv_1.7-18   ggplot2_0.9.1 knitr_0.7    
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.5        grid_2.15.0       
-##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-17       
+##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.1       
+##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-19       
 ## [10] Matrix_1.0-6       memoise_0.1        munsell_0.3       
-## [13] nlme_3.1-103       plyr_1.7.1         proto_0.3-9.2     
+## [13] nlme_3.1-104       plyr_1.7.1         proto_0.3-9.2     
 ## [16] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [19] stringr_0.6        tools_2.15.0      
+## [19] stringr_0.6        tools_2.15.1      
 ```
-
-
 

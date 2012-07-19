@@ -11,7 +11,7 @@ In this lesson we hope to learn:
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides5-', cache.path='cache/slides5-',fig.width=8,fig.height=6,message=NA,error=NA,warning=NA,echo=TRUE)
+opts_chunk$set(fig.path='figure/slides5-', cache.path='cache/slides5-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE)
 source('ggplot2themes.R')
 ```
 
@@ -158,7 +158,7 @@ summary(my_megamod)
 - What's wrong with this?
 
 # Megamodel II
-```{r megamodel2}
+```{r megamodel3}
 my_megamod2<-lm(ss2~ss1+as.factor(grade)+
   as.factor(test_year)+subject,data=midsch)
 summary(my_megamod2)
