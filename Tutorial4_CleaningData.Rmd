@@ -11,18 +11,15 @@ In this lesson we hope to learn:
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=NA,error=NA,warning=NA,echo=TRUE)
+opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides4-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE)
 ```
-
-
 
 # Data Setup
 - Let's read in a new dataset now that has some messiness to it
 
 ```{r dataread}
-library(foreign)
-mydat<-read.dta("data/Student_Attributes.dta")
-head(mydat,7)
+load('data/Student_Attributes.rda')
+head(mydat[,1:4],7)
 ```
 - What's wrong with this?
 
