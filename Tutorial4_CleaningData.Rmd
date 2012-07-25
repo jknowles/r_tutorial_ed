@@ -19,11 +19,23 @@ opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides4-',fig.width
 
 ```{r dataread}
 load('data/Student_Attributes.rda')
-head(mydat[,1:4],7)
+head(stuatt[,1:4],7)
 ```
 - What's wrong with this?
 
 # How can R help correct this?
 - Identify problems
 - Enforce business rules for messy data consistently
+- Build data cleaning into all analyses tasks across the workflow
+- Analyze inconsistencies and do reports
+
+# Strategic Data Project
+- The Strategic Data Project is 
+- 
+
+# Toolkit--Data Cleaning
+- The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data
+- This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here
+
+
 

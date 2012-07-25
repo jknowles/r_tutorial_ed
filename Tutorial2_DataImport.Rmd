@@ -49,6 +49,13 @@ update.packages() # Gonna update them all
 `plyr` `ggplot2` `lme4` `sp` `knitr`
 
 # Data Management
+- Data management in R used to be managed by the `ls()` command 
+- Go ahead, type it. 
+- Now you can look at the Workspace tab in RStudio and have a complete list of the data in R's memory that is accessible to you
+- All data objects have names
+- All object names are unique (not strictly so, but let's not violate this)
+- To reference items within an object type we need to give it an address like in `mydata$thingIwant` or `mydata@thingIwant`
+- The `$` and `@` distinction depends on whether this is an S3 or an S4 class
 
 # Ground Rules
 - Get used to plain text input files
@@ -148,6 +155,9 @@ str(df[27:32])
 - Makes your work reproducible, always start with a clean slate of data
 - At DPI this can allow us to pull data directly from LDS or other databases
 
+# Checking for Missing Data
+
+
 # Now we have the data
 - What next?
 
@@ -157,8 +167,9 @@ str(df[27:32])
 3. 
 
 # Other References
+- [UCLA Academic Technology Services: Reading in Raw Data](http://www.ats.ucla.edu/stat/r/pages/raw_data.htm)
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
-- [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
+- [Quick-R: Data Import](http://www.statmethods.net/input/importingdata.html)
 - [Video Tutorials](http://www.twotorials.com/)
 
 

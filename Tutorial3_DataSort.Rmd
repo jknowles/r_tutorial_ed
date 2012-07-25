@@ -12,7 +12,7 @@ In this lesson we hope to learn:
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE)
+opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg',size='tiny')
 ```
 
 
@@ -22,7 +22,9 @@ opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width
 # In RStudio can do this in "Tools" tab
 setwd('~/GitHub/r_tutorial_ed')
 #Load some data
-df<-read.csv('data/smalldata.csv')
+load("data/smalldata.rda")
+df<-mydat
+rm(mydat)
 # Note if we don't assign data to 'df'
 # R just prints contents of table
 ```
@@ -54,6 +56,20 @@ with(df[df$grade==3,],{table(year,race)})
 - `with` specifies a data object to work on, in this case all elements of `df` where `grade==3`
 - `table` is the same command as above, but since we specified the data object in the `with` statement, we don't need the `df$` in front of the variables of interest
 
+# Quick exercise
+- Can you find the number of black students in each grade in each year?
+- hint: `with(df[df$___=="B",]...)`
+- How many in year 2002, grade 6?
+  * 48
+- How many in 2001, grade 7?
+  * 39
+
+
+# Answer
+```{r table4}
+with(df[df$race=="B",],{table(year,grade)})
+```
+
 # Tables cont.
 - This is really powerful for looking at the descriptive dimensions of the data, we can ask questions like:
 - how many students are at each proficiency level each year?
@@ -72,6 +88,8 @@ table(df$race,df$proflvl)
 prop.table(table(df$race,df$proflvl))
 ```
 - Hmmm, this is goofy. This tells us the proportion of each cell out of the total. Also, the digits are distracting. How can we fix this?
+
+# Try number 2
 ```{r proptable2}
 round(prop.table(table(df$race,df$proflvl),1),digits=3)
 ```
@@ -80,7 +98,7 @@ round(prop.table(table(df$race,df$proflvl),1),digits=3)
 
 # Aggregating Data
 - One of the most common questions will be to compute aggregates of data
-- R has an `aggregate` function that can be used
+- R has an `aggregate` function that can be used and helps us avoid the clustering problems above
 - This works great for simple aggregation like scale score by race, we just need a `formula` (think I want variable X **by** grouping factor Y) and the statistic we want to compute
 
 ```{r aggregate1}
@@ -97,6 +115,8 @@ aggregate(cbind(readSS,mathSS)~race,data=df,mean)
 ```{r aggregate3}
 head(aggregate(cbind(readSS,mathSS)~race+grade,data=df,mean),8)
 ```
+
+# Crosstabs
 - We can build a systematic cross-tab now
 ```{r crosstab}
 ag<-aggregate(readSS~race+grade,data=df,mean)
@@ -105,6 +125,18 @@ xtabs(readSS~., data=ag)
 - And prettier output
 ```{r crosstabpretty}
 ftable(xtabs(readSS~.,data=ag))
+```
+
+# Check your work
+- What is the mean reading score for 6th grade students with disabilities?
+  * __481.83__
+- How many points is this from non-disabled students?
+  * __29.877__
+
+
+# Answer II
+```{r aggregatetest}
+aggregate(cbind(readSS,mathSS)~disab+grade,data=df,mean)
 ```
 
 # Aggregate Isn't Enough
@@ -161,6 +193,27 @@ myag<-ddply(df, .(dist,grade),summarize,
 summary(myag[,7:10])            
 ```
 
+# Quick Check
+- What if we want to compare how districts do on educating ELL students?
+- What district ID has the highest mean score for 4th grade ELL students on reading? Math?
+  * 66 in reading, 105 in math
+- How many students are in these classes?
+  * 12 and 7 respectively
+
+
+# Answer III
+```{r check2}
+myag2<-ddply(df, .(dist,grade,ell),summarize,
+            mean_read=mean(readSS,na.rm=T),
+            mean_math=mean(mathSS,na.rm=T),
+            sd_read=sd(readSS,na.rm=T),
+            sd_math=sd(mathSS,na.rm=T),
+            count_read=length(readSS),
+            count_math=length(mathSS),
+            count_black=length(race[race=='B']),
+            per_black=length(race[race=='B'])/length(readSS))
+subset(myag2,ell==1&grade==4)        
+```
 
 # Sorting
 - A key way to explore data in tabular form is to sort data
@@ -184,8 +237,251 @@ head(df[,c(3,23,29,30)])
 head(df.sort[,c(3,23,29,30)])
 ```
 
+# Let's clean it up a bit more
+```{r sortright2}
+head(df[with(df,order(-readSS,-attday)),c(3,23,29,30)])
+```
+- Here we find the high performing students, note that the `-` denotes we want descending order, R's default is ascending order
+- This is easy to correct
 
+# About sorting
+- Sorting works differently on some data types, matrices are slightly different
+```{r matrixsort}
+M<-matrix(c(1,2,2,2,3,6,4,5),4,2,byrow=FALSE,dimnames=list(NULL,c("a","b")))
+M[order(M[,"a"],-M[,"b"]),] # can't use "with"
+```
+- Tables are familiar
+```{r sorttable}
+mytab<-table(df$grade,df$year)
+mytab[order(mytab[,1]),]
+mytab[order(mytab[,2]),]
+```
+
+# Filtering Data
+- Filtering data is an incredibly powerful feature and we have already seen it used to do some interesting things
+- Filtering data in R is loaded with trouble though, because the filtering arguments must be very carefully specified
+- Filtering is like a mini-sort
+- Always, always, always check your work
+- And remember, this is the place the NAs do the most damage
+- Let's look at some examples
+
+# Basic Filtering a Column
+```{r columnfilter}
+# Gives all rows that meet this requirement
+df[df$readSS>800,] 
+df$grade[df$mathSS>800] 
+# Gives all values of grade that meet this requirement
+```
+- This seems basic enough, let's filter on multiple dimensions
+- Before the brackets we specify what we want returned, and within the brackets we present the logical expression to evaluate
+- Behind the scenes R does a logical test and gets the row numbers that match the logical expression
+- It then combines them back with the object in front of the brackets to return the values
+- So great we don't have to do that!
+
+# Multiple filters
+```{r filterlayers}
+df$grade[df$black==1 & df$readSS>650]
+```
+- What happens if we type `df$black=1` or `black==1`? 
+- Why won't this work?
+
+# Using filters to assign values
+- We can also use filters to assign values as well
+- This is how you recode variables and create new ones
+- Let's create a variable `spread` indicating whether a district has high or low spread among its student scores
+```{r filtersort}
+myag$spread<-NA # create variable
+myag$spread[myag$sd_read<75]<-"low"
+myag$spread[myag$sd_read>75]<-"high"
+myag$spread<-as.factor(myag$spread)
+summary(myag$spread)
+```
+
+# Check your work
+- The previous block of code is a useful way to learn how to recode variables
+
+```{r recodeexamp,eval=FALSE}
+myag$spread<-NA # create variable
+myag$spread[myag$sd_read<75]<-"low"
+myag$spread[myag$sd_read>75]<-"high"
+myag$spread<-as.factor(myag$spread)
+```
+
+- Create a new variable in `myag` called `schoolperf` for `mean_math` scores with the following coding scheme:
+
+
+Grade | Score Range | Code
+----- | ----------- | ----
+3     |   >425      | "Hi"
+4     |   >450      | "Hi"
+5     |   >475      | "Hi"
+6     |   >500      | "Hi"
+7     |   >525      | "Hi"
+8     |   >575      | "Hi"
+
+- All other values are coded as "lo"
+- How many "hi" and "lo" observations do we have?
+- By `dist`?
+
+# Results
+```{r answercoding}
+myag$schoolperf<-"lo"
+myag$schoolperf[myag$grade==3 & myag$mean_math>425]<-"hi"
+myag$schoolperf[myag$grade==4 & myag$mean_math>450]<-"hi"
+myag$schoolperf[myag$grade==5 & myag$mean_math>475]<-"hi"
+myag$schoolperf[myag$grade==6 & myag$mean_math>500]<-"hi"
+myag$schoolperf[myag$grade==7 & myag$mean_math>525]<-"hi"
+myag$schoolperf[myag$grade==8 & myag$mean_math>575]<-"hi"
+myag$schoolperf<-as.factor(myag$schoolperf)
+summary(myag$schoolperf)
+table(myag$dist,myag$schoolperf)
+```
+
+
+# Let's replace data
+- For district 6 let's negate the grade 3 scores by replacing them with missing data
+```{r replacedata}
+myag$mean_read[myag$dist==6 &myag$grade==3]<-NA
+head(myag[,1:4],2)
+```
+- Let's replace one data element with another
+```{r replacedata2}
+myag$mean_read[myag$dist==6 & myag$grade==3]<-myag$mean_read[myag$dist==6 & myag$grade==4]
+head(myag[,1:4],2)
+```
+- Voila
+
+# Why do NAs matter so much?
+- Let's consider the case above but insert some NA values for all 3rd grade tests
+```{r munge}
+myag$mean_read[myag$grade==3]<-NA
+head(myag[order(myag$grade),1:4])
+```
+
+
+# NAs II
+- Now let's calculate a few statistics:
+```{r means}
+mean(myag$mean_math)
+mean(myag$mean_read)
+```
+- Remember, NA values propogate, so R assumes an NA value could take literally any value, and as such it is impossible to know the `mean` of a vector with NA
+- We can override this though:
+```{r meansna}
+mean(myag$mean_math,na.rm=T)
+mean(myag$mean_read,na.rm=T)
+```
+
+# Beyond the Mean
+- But for other problems it is tricky
+- What if we want to know the number of rows that have a `mean_read` of less than 500?
+```{r length}
+length(myag$dist[myag$mean_read<500])
+head(myag$mean_read[myag$mean_read<500])
+```
+- And what if we want to add the standard deviation to these vectors?
+```{r addtomissing}
+badvar<-myag$mean_read+myag$sd_read
+summary(badvar)
+```
+
+# So we need to filter NAs explicitly
+- Consider the case where two sets of variables have different missing elements
+```{r moremissing}
+myag$sd_read[myag$count_read<100 & myag$mean_read<550]<-NA
+length(myag$mean_read[myag$mean_read<550])
+length(myag$mean_read[myag$mean_read<550 & !is.na(myag$mean_read)])
+```
+- What is `!is.na()` ?
+  * `is.na()` is a helpful function to identify TRUE if a value is missing
+  * `!` is the reverse operator
+  * We are asking R if this value is not a missing value, and to only give us non-missing values back
+
+# Merging Data
+- It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources
+- R makes this easy, but that simplicity comes at a cost--it can be easy to make mistakes if you don't specify things carefully
+
+```{r createwidedata,echo=FALSE,results='hide'}
+widedf<-reshape(df,timevar="year",idvar="stuid",direction="wide")
+```
+
+
+# Reshaping Data
+- Reshaping data is a slightly different issue than aggregating data
+- Let's review the two data types: long and wide
+```{r longpreview}
+head(df[,1:10],3)
+```
+- Now let's look at wide:
+```{r widepreview}
+head(widedf[,28:40],3)
+```
+- How did we do this?
+
+# Wide data v. Long Data 
+- The great debate
+- Most econometrics, panel, and time series datasets come wide and so these seem familiar
+- R for most cases prefers long data, including for most graphing and analysis functions
+- But, not all
+- So we have to learn both
+
+# The reshape Function
+- `reshape` is the way to move from wide to long
+- The data stays the same, but the shape of it changes
+- The long data had dimensions: `r dim(df)`
+- The wide data has dimensions: `r dim(widedf)`
+- How do we get to these numbers?
+  * The rows in the wide dataframe represent unique students
+
+# Deconstructing reshape
+```{r reshapeanaly, eval=FALSE}
+widedf<-reshape(df,timevar="year",idvar="stuid",direction="wide")
+```
+- `idvar` represents the unit we want to represent a single row, in this case each unique student gets a single row
+- In this simple case `timevar` is the variable that differenaties between two rows with the same student ID
+- `direction` tells R we are going to move to wide data
+- As written all data will move, but using the `varying` argument we can tell R explicitly which items we want to move wide
+
+# What about Wide to Long?
+- We often need to do this to plot data in R
+- Luckily the `reshape` function works well in both directions
+```{r widetolong}
+longdf<-reshape(widedf,idvar='stuid',timevar='year',
+varying=names(widedf[,2:91]),direction='long',sep=".")
+```
+- If our data is formatted nicely, R can do the guessing and identify the years for us by parsing the dataframe names
+
+
+# Subsetting Data
+- We have already seen a lot of subsetting examples above, which is what filtering is, but R provides some great shortcuts to this
+- Let's look at the `subset` function to get only 4th grade scores
+```{r subset1}
+g4<-subset(df,grade==4)
+dim(g4)
+```
+- This is equivalent to:
+```{r subset2}
+g4_b<-df[df$grade==4,]
+```
+- These two elements are the same:
+```{r testofequality}
+identical(g4,g4_b)
+```
+
+# That's it
+- Now you can filter, subset, sort, recode, and aggregate data!
+- Let's look at a few exercises to test these skills
+- Once these skills are mastered, we can begin to understand how to automate R to clean data with known errors, and to recode data in R so it is ready to be used for analysis
+- Then we can really take off!
 
 # Exercises
 1. Sort `df` on `measerr` and `mathss`. What are the highest 5 values of each. 
+
+
+
+# Other References
+- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
+- [Quick-R: Data Management](http://www.statmethods.net/management/index.html)
+- [UCLA ATS: R FAQ on Data Management](http://www.ats.ucla.edu/stat/r/faq/default.htm)
+- [Video Tutorials](http://www.twotorials.com/)
 

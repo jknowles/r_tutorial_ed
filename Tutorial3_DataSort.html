@@ -47,7 +47,9 @@ R Bootcamp HTML Slides
 <span class="co"># in 'Tools' tab</span>
 <span class="kw">setwd</span>(<span class="st">&quot;~/GitHub/r_tutorial_ed&quot;</span>)
 <span class="co"># Load some data</span>
-df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.csv&quot;</span>)
+<span class="kw">load</span>(<span class="st">&quot;data/smalldata.rda&quot;</span>)
+df &lt;- mydat
+<span class="kw">rm</span>(mydat)
 <span class="co"># Note if we don't assign data to 'df' R just prints contents of table</span></code></pre>
 </div>
 <div class="section slide level1" id="aggregation">
@@ -101,6 +103,28 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <li><code>table</code> is the same command as above, but since we specified the data object in the <code>with</code> statement, we don’t need the <code>df$</code> in front of the variables of interest</li>
 </ul>
 </div>
+<div class="section slide level1" id="quick-exercise">
+<h1>Quick exercise</h1>
+<ul class="incremental">
+<li>Can you find the number of black students in each grade in each year?</li>
+<li>hint: <code>with(df[df$___==&quot;B&quot;,]...)</code></li>
+<li>How many in year 2002, grade 6?</li>
+<li>48</li>
+<li>How many in 2001, grade 7?</li>
+<li>39</li>
+</ul>
+</div>
+<div class="section slide level1" id="answer">
+<h1>Answer</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(df[df$race == <span class="st">&quot;B&quot;</span>, ], {
+    <span class="kw">table</span>(year, grade)
+})</code></pre>
+<pre><code>##       grade
+## year    3  4  5  6  7  8
+##   2000 78 48 87 39 74 44
+##   2001 44 78 48 87 39 74
+##   2002 74 44 78 48 87 39</code></pre>
+</div>
 <div class="section slide level1" id="tables-cont.">
 <h1>Tables cont.</h1>
 <ul class="incremental">
@@ -142,6 +166,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <ul class="incremental">
 <li>Hmmm, this is goofy. This tells us the proportion of each cell out of the total. Also, the digits are distracting. How can we fix this?</li>
 </ul>
+</div>
+<div class="section slide level1" id="try-number-2">
+<h1>Try number 2</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$race, df$proflvl), <span class="dv">1</span>), <span class="dt">digits =</span> <span class="dv">3</span>)</code></pre>
 <pre><code>##    
 ##     advanced basic below basic proficient
@@ -159,7 +186,7 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <h1>Aggregating Data</h1>
 <ul class="incremental">
 <li>One of the most common questions will be to compute aggregates of data</li>
-<li>R has an <code>aggregate</code> function that can be used</li>
+<li>R has an <code>aggregate</code> function that can be used and helps us avoid the clustering problems above</li>
 <li>This works great for simple aggregation like scale score by race, we just need a <code>formula</code> (think I want variable X <strong>by</strong> grouping factor Y) and the statistic we want to compute</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Reading Scores by Race</span>
@@ -196,6 +223,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ## 6    A     4  456.0  438.2
 ## 7    B     4  426.9  408.1
 ## 8    H     4  418.8  404.6</code></pre>
+</div>
+<div class="section slide level1" id="crosstabs">
+<h1>Crosstabs</h1>
 <ul class="incremental">
 <li>We can build a systematic cross-tab now</li>
 </ul>
@@ -219,6 +249,32 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ## H          417.7 418.8 481.2 489.1 500.3 534.2
 ## I          407.6 531.1 547.6   0.0 405.5 518.0
 ## W          481.1 498.5 517.1 546.6 565.2 596.1</code></pre>
+</div>
+<div class="section slide level1" id="check-your-work">
+<h1>Check your work</h1>
+<ul class="incremental">
+<li>What is the mean reading score for 6th grade students with disabilities?</li>
+<li><strong>481.83</strong></li>
+<li>How many points is this from non-disabled students?</li>
+<li><strong>29.877</strong></li>
+</ul>
+</div>
+<div class="section slide level1" id="answer-ii">
+<h1>Answer II</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(readSS, mathSS) ~ disab + grade, <span class="dt">data =</span> df, mean)</code></pre>
+<pre><code>##    disab grade readSS mathSS
+## 1      0     3  449.9  418.3
+## 2      1     3  421.1  376.3
+## 3      0     4  464.0  454.2
+## 4      1     4  438.2  425.1
+## 5      0     5  484.9  470.2
+## 6      1     5  475.1  431.0
+## 7      0     6  511.7  507.9
+## 8      1     6  481.8  476.9
+## 9      0     7  532.0  532.0
+## 10     1     7  516.1  474.3
+## 11     0     8  567.6  567.7
+## 12     1     8  518.8  534.1</code></pre>
 </div>
 <div class="section slide level1" id="aggregate-isnt-enough">
 <h1>Aggregate Isn’t Enough</h1>
@@ -296,6 +352,39 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 ##  3rd Qu.:100   3rd Qu.:100   3rd Qu.:40.0   3rd Qu.:0.453  
 ##  Max.   :100   Max.   :100   Max.   :48.0   Max.   :0.480  </code></pre>
 </div>
+<div class="section slide level1" id="quick-check">
+<h1>Quick Check</h1>
+<ul class="incremental">
+<li>What if we want to compare how districts do on educating ELL students?</li>
+<li>What district ID has the highest mean score for 4th grade ELL students on reading? Math?</li>
+<li>66 in reading, 105 in math</li>
+<li>How many students are in these classes?</li>
+<li>12 and 7 respectively</li>
+</ul>
+</div>
+<div class="section slide level1" id="answer-iii">
+<h1>Answer III</h1>
+<pre class="sourceCode r"><code class="sourceCode r">myag2 &lt;- <span class="kw">ddply</span>(df, .(dist, grade, ell), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, 
+    <span class="dt">na.rm =</span> T), <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), 
+    <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), 
+    <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == 
+        <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
+<span class="kw">subset</span>(myag2, ell == <span class="dv">1</span> &amp; grade == <span class="dv">4</span>)</code></pre>
+<pre><code>##    dist grade ell mean_read mean_math sd_read sd_math count_read
+## 4     6     4   1     424.6     375.8   76.98   41.74         17
+## 16   15     4   1     425.4     420.6   84.18   18.74          6
+## 28   45     4   1     405.5     422.8   93.56   89.99          6
+## 40   66     4   1     469.4     407.0   78.71   63.82         12
+## 52   75     4   1     389.6     376.3   49.68   39.15         10
+## 64  105     4   1     411.6     439.8   68.48   55.78          7
+##    count_math count_black per_black
+## 4          17           3    0.1765
+## 16          6           0    0.0000
+## 28          6           0    0.0000
+## 40         12           3    0.2500
+## 52         10           2    0.2000
+## 64          7           1    0.1429</code></pre>
+</div>
 <div class="section slide level1" id="sorting">
 <h1>Sorting</h1>
 <ul class="incremental">
@@ -335,11 +424,371 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 ## 122   79705    168  266.4  318.7
 ## 118   40495    173  266.9  275.0</code></pre>
 </div>
+<div class="section slide level1" id="lets-clean-it-up-a-bit-more">
+<h1>Let’s clean it up a bit more</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df[<span class="kw">with</span>(df, <span class="kw">order</span>(-readSS, -attday)), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">30</span>)])</code></pre>
+<pre><code>##       stuid attday readSS mathSS
+## 1631 145205    137  833.2  828.4
+## 1462 107705    180  773.3  746.6
+## 2252 122902    180  744.0  621.6
+## 2341  44902    175  741.7  676.3
+## 1482 134705    180  739.2  705.4
+## 1630  14495    162  738.9  758.2</code></pre>
+<ul class="incremental">
+<li>Here we find the high performing students, note that the <code>-</code> denotes we want descending order, R’s default is ascending order</li>
+<li>This is easy to correct</li>
+</ul>
+</div>
+<div class="section slide level1" id="about-sorting">
+<h1>About sorting</h1>
+<ul class="incremental">
+<li>Sorting works differently on some data types, matrices are slightly different</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">M &lt;- <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="dv">4</span>, <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>, <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="ot">NULL</span>, 
+    <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)))
+M[<span class="kw">order</span>(M[, <span class="st">&quot;a&quot;</span>], -M[, <span class="st">&quot;b&quot;</span>]), ]</code></pre>
+<pre><code>##      a b
+## [1,] 1 3
+## [2,] 2 6
+## [3,] 2 5
+## [4,] 2 4</code></pre>
+<ul class="incremental">
+<li>Tables are familiar</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">mytab &lt;- <span class="kw">table</span>(df$grade, df$year)
+mytab[<span class="kw">order</span>(mytab[, <span class="dv">1</span>]), ]</code></pre>
+<pre><code>##    
+##     2000 2001 2002
+##   4  100  200  100
+##   6  100  200  100
+##   8  100  200  100
+##   3  200  100  200
+##   5  200  100  200
+##   7  200  100  200</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">mytab[<span class="kw">order</span>(mytab[, <span class="dv">2</span>]), ]</code></pre>
+<pre><code>##    
+##     2000 2001 2002
+##   3  200  100  200
+##   5  200  100  200
+##   7  200  100  200
+##   4  100  200  100
+##   6  100  200  100
+##   8  100  200  100</code></pre>
+</div>
+<div class="section slide level1" id="filtering-data">
+<h1>Filtering Data</h1>
+<ul class="incremental">
+<li>Filtering data is an incredibly powerful feature and we have already seen it used to do some interesting things</li>
+<li>Filtering data in R is loaded with trouble though, because the filtering arguments must be very carefully specified</li>
+<li>Filtering is like a mini-sort</li>
+<li>Always, always, always check your work</li>
+<li>And remember, this is the place the NAs do the most damage</li>
+<li>Let’s look at some examples</li>
+</ul>
+</div>
+<div class="section slide level1" id="basic-filtering-a-column">
+<h1>Basic Filtering a Column</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all rows that meet this requirement</span>
+df[df$readSS &gt; <span class="dv">800</span>, ]</code></pre>
+<pre><code>##            X school  stuid grade schid dist white black hisp indian asian
+## 1631 1281061    852 145205     8   205   15     1     0    0      0     0
+##      econ female ell disab sch_fay dist_fay luck ability measerr teachq
+## 1631    0      1   0     0       0        0    0   108.3   6.325  155.7
+##      year attday schoolscore district schoolhigh schoolavg schoollow
+## 1631 2001    137       227.7       19          0         1         0
+##      readSS mathSS  proflvl race
+## 1631  833.2  828.4 advanced    W</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">df$grade[df$mathSS &gt; <span class="dv">800</span>]</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all values of grade that meet this requirement</span></code></pre>
+<ul class="incremental">
+<li>This seems basic enough, let’s filter on multiple dimensions</li>
+<li>Before the brackets we specify what we want returned, and within the brackets we present the logical expression to evaluate</li>
+<li>Behind the scenes R does a logical test and gets the row numbers that match the logical expression</li>
+<li>It then combines them back with the object in front of the brackets to return the values</li>
+<li>So great we don’t have to do that!</li>
+</ul>
+</div>
+<div class="section slide level1" id="multiple-filters">
+<h1>Multiple filters</h1>
+<pre class="sourceCode r"><code class="sourceCode r">df$grade[df$black == <span class="dv">1</span> &amp; df$readSS &gt; <span class="dv">650</span>]</code></pre>
+<pre><code>##  [1] 8 7 8 6 6 7 8 7 8 8 8 4</code></pre>
+<ul class="incremental">
+<li>What happens if we type <code>df$black=1</code> or <code>black==1</code>?</li>
+<li>Why won’t this work?</li>
+</ul>
+</div>
+<div class="section slide level1" id="using-filters-to-assign-values">
+<h1>Using filters to assign values</h1>
+<ul class="incremental">
+<li>We can also use filters to assign values as well</li>
+<li>This is how you recode variables and create new ones</li>
+<li>Let’s create a variable <code>spread</code> indicating whether a district has high or low spread among its student scores</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">myag$spread &lt;- <span class="ot">NA</span>  <span class="co"># create variable</span>
+myag$spread[myag$sd_read &lt; <span class="dv">75</span>] &lt;- <span class="st">&quot;low&quot;</span>
+myag$spread[myag$sd_read &gt; <span class="dv">75</span>] &lt;- <span class="st">&quot;high&quot;</span>
+myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)
+<span class="kw">summary</span>(myag$spread)</code></pre>
+<pre><code>## high  low 
+##   26   10 </code></pre>
+</div>
+<div class="section slide level1" id="check-your-work-1">
+<h1>Check your work</h1>
+<ul class="incremental">
+<li>The previous block of code is a useful way to learn how to recode variables</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">myag$spread &lt;- <span class="ot">NA</span>  <span class="co"># create variable</span>
+myag$spread[myag$sd_read &lt; <span class="dv">75</span>] &lt;- <span class="st">&quot;low&quot;</span>
+myag$spread[myag$sd_read &gt; <span class="dv">75</span>] &lt;- <span class="st">&quot;high&quot;</span>
+myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)</code></pre>
+<ul class="incremental">
+<li>Create a new variable in <code>myag</code> called <code>schoolperf</code> for <code>mean_math</code> scores with the following coding scheme:</li>
+</ul>
+<p>Grade | Score Range | Code —– | ———– | —- 3 | &gt;425 | “Hi” 4 | &gt;450 | “Hi” 5 | &gt;475 | “Hi” 6 | &gt;500 | “Hi” 7 | &gt;525 | “Hi” 8 | &gt;575 | “Hi”</p>
+<ul class="incremental">
+<li>All other values are coded as “lo”</li>
+<li>How many “hi” and “lo” observations do we have?</li>
+<li>By <code>dist</code>?</li>
+</ul>
+</div>
+<div class="section slide level1" id="results">
+<h1>Results</h1>
+<pre class="sourceCode r"><code class="sourceCode r">myag$schoolperf &lt;- <span class="st">&quot;lo&quot;</span>
+myag$schoolperf[myag$grade == <span class="dv">3</span> &amp; myag$mean_math &gt; <span class="dv">425</span>] &lt;- <span class="st">&quot;hi&quot;</span>
+myag$schoolperf[myag$grade == <span class="dv">4</span> &amp; myag$mean_math &gt; <span class="dv">450</span>] &lt;- <span class="st">&quot;hi&quot;</span>
+myag$schoolperf[myag$grade == <span class="dv">5</span> &amp; myag$mean_math &gt; <span class="dv">475</span>] &lt;- <span class="st">&quot;hi&quot;</span>
+myag$schoolperf[myag$grade == <span class="dv">6</span> &amp; myag$mean_math &gt; <span class="dv">500</span>] &lt;- <span class="st">&quot;hi&quot;</span>
+myag$schoolperf[myag$grade == <span class="dv">7</span> &amp; myag$mean_math &gt; <span class="dv">525</span>] &lt;- <span class="st">&quot;hi&quot;</span>
+myag$schoolperf[myag$grade == <span class="dv">8</span> &amp; myag$mean_math &gt; <span class="dv">575</span>] &lt;- <span class="st">&quot;hi&quot;</span>
+myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
+<span class="kw">summary</span>(myag$schoolperf)</code></pre>
+<pre><code>## hi lo 
+## 18 18 </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(myag$dist, myag$schoolperf)</code></pre>
+<pre><code>##      
+##       hi lo
+##   6    3  3
+##   15   3  3
+##   45   3  3
+##   66   3  3
+##   75   3  3
+##   105  3  3</code></pre>
+</div>
+<div class="section slide level1" id="lets-replace-data">
+<h1>Let’s replace data</h1>
+<ul class="incremental">
+<li>For district 6 let’s negate the grade 3 scores by replacing them with missing data</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
+<span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
+<pre><code>##   dist grade mean_read mean_math
+## 1    6     3        NA     425.5
+## 2    6     4     471.6     426.2</code></pre>
+<ul class="incremental">
+<li>Let’s replace one data element with another</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- myag$mean_read[myag$dist == 
+    <span class="dv">6</span> &amp; myag$grade == <span class="dv">4</span>]
+<span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
+<pre><code>##   dist grade mean_read mean_math
+## 1    6     3     471.6     425.5
+## 2    6     4     471.6     426.2</code></pre>
+<ul class="incremental">
+<li>Voila</li>
+</ul>
+</div>
+<div class="section slide level1" id="why-do-nas-matter-so-much">
+<h1>Why do NAs matter so much?</h1>
+<ul class="incremental">
+<li>Let’s consider the case above but insert some NA values for all 3rd grade tests</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
+<span class="kw">head</span>(myag[<span class="kw">order</span>(myag$grade), <span class="dv">1</span>:<span class="dv">4</span>])</code></pre>
+<pre><code>##    dist grade mean_read mean_math
+## 1     6     3        NA     425.5
+## 7    15     3        NA     403.8
+## 13   45     3        NA     404.9
+## 19   66     3        NA     438.3
+## 25   75     3        NA     408.4
+## 31  105     3        NA     406.1</code></pre>
+</div>
+<div class="section slide level1" id="nas-ii">
+<h1>NAs II</h1>
+<ul class="incremental">
+<li>Now let’s calculate a few statistics:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math)</code></pre>
+<pre><code>## [1] 490.7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_read)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<ul class="incremental">
+<li>Remember, NA values propogate, so R assumes an NA value could take literally any value, and as such it is impossible to know the <code>mean</code> of a vector with NA</li>
+<li>We can override this though:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math, <span class="dt">na.rm =</span> T)</code></pre>
+<pre><code>## [1] 490.7</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_read, <span class="dt">na.rm =</span> T)</code></pre>
+<pre><code>## [1] 507.5</code></pre>
+</div>
+<div class="section slide level1" id="beyond-the-mean">
+<h1>Beyond the Mean</h1>
+<ul class="incremental">
+<li>But for other problems it is tricky</li>
+<li>What if we want to know the number of rows that have a <code>mean_read</code> of less than 500?</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$dist[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
+<pre><code>## [1] 20</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
+<pre><code>## [1]    NA 471.6 466.2    NA 436.1 490.9</code></pre>
+<ul class="incremental">
+<li>And what if we want to add the standard deviation to these vectors?</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">badvar &lt;- myag$mean_read + myag$sd_read
+<span class="kw">summary</span>(badvar)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##     505     566     589     587     612     658       6 </code></pre>
+</div>
+<div class="section slide level1" id="so-we-need-to-filter-nas-explicitly">
+<h1>So we need to filter NAs explicitly</h1>
+<ul class="incremental">
+<li>Consider the case where two sets of variables have different missing elements</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">myag$sd_read[myag$count_read &lt; <span class="dv">100</span> &amp; myag$mean_read &lt; <span class="dv">550</span>] &lt;- <span class="ot">NA</span>
+<span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span>])</code></pre>
+<pre><code>## [1] 30</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span> &amp; !<span class="kw">is.na</span>(myag$mean_read)])</code></pre>
+<pre><code>## [1] 24</code></pre>
+<ul class="incremental">
+<li>What is <code>!is.na()</code> ?</li>
+<li><code>is.na()</code> is a helpful function to identify TRUE if a value is missing</li>
+<li><code>!</code> is the reverse operator</li>
+<li>We are asking R if this value is not a missing value, and to only give us non-missing values back</li>
+</ul>
+</div>
+<div class="section slide level1" id="merging-data">
+<h1>Merging Data</h1>
+<ul class="incremental">
+<li>It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources</li>
+<li>R makes this easy, but that simplicity comes at a cost–it can be easy to make mistakes if you don’t specify things carefully</li>
+</ul>
+</div>
+<div class="section slide level1" id="reshaping-data">
+<h1>Reshaping Data</h1>
+<ul class="incremental">
+<li>Reshaping data is a slightly different issue than aggregating data</li>
+<li>Let’s review the two data types: long and wide</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df[, <span class="dv">1</span>:<span class="dv">10</span>], <span class="dv">3</span>)</code></pre>
+<pre><code>##     X school  stuid grade schid dist white black hisp indian
+## 1  44      1 149995     3   495  105     0     1    0      0
+## 2  53      1  13495     3   495   45     0     1    0      0
+## 3 116      1 106495     3   495   45     0     1    0      0</code></pre>
+<ul class="incremental">
+<li>Now let’s look at wide:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(widedf[, <span class="dv">28</span>:<span class="dv">40</span>], <span class="dv">3</span>)</code></pre>
+<pre><code>##   readSS.2000 mathSS.2000 proflvl.2000 race.2000  X.2001 school.2001
+## 1       357.3       387.3        basic         B  441000           1
+## 2       263.9       302.6  below basic         B  531000           1
+## 3       369.7       365.5        basic         B 1161000           1
+##   grade.2001 schid.2001 dist.2001 white.2001 black.2001 hisp.2001
+## 1          4        495       105          0          1         0
+## 2          4        495        45          0          1         0
+## 3          4        495        45          0          1         0
+##   indian.2001
+## 1           0
+## 2           0
+## 3           0</code></pre>
+<ul class="incremental">
+<li>How did we do this?</li>
+</ul>
+</div>
+<div class="section slide level1" id="wide-data-v.-long-data">
+<h1>Wide data v. Long Data</h1>
+<ul class="incremental">
+<li>The great debate</li>
+<li>Most econometrics, panel, and time series datasets come wide and so these seem familiar</li>
+<li>R for most cases prefers long data, including for most graphing and analysis functions</li>
+<li>But, not all</li>
+<li>So we have to learn both</li>
+</ul>
+</div>
+<div class="section slide level1" id="the-reshape-function">
+<h1>The reshape Function</h1>
+<ul class="incremental">
+<li><code>reshape</code> is the way to move from wide to long</li>
+<li>The data stays the same, but the shape of it changes</li>
+<li>The long data had dimensions: <code>2700, 32</code></li>
+<li>The wide data has dimensions: <code>1200, 91</code></li>
+<li>How do we get to these numbers?</li>
+<li>The rows in the wide dataframe represent unique students</li>
+</ul>
+</div>
+<div class="section slide level1" id="deconstructing-reshape">
+<h1>Deconstructing reshape</h1>
+<pre class="sourceCode r"><code class="sourceCode r">widedf &lt;- <span class="kw">reshape</span>(df, <span class="dt">timevar =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">idvar =</span> <span class="st">&quot;stuid&quot;</span>, <span class="dt">direction =</span> <span class="st">&quot;wide&quot;</span>)</code></pre>
+<ul class="incremental">
+<li><code>idvar</code> represents the unit we want to represent a single row, in this case each unique student gets a single row</li>
+<li>In this simple case <code>timevar</code> is the variable that differenaties between two rows with the same student ID</li>
+<li><code>direction</code> tells R we are going to move to wide data</li>
+<li>As written all data will move, but using the <code>varying</code> argument we can tell R explicitly which items we want to move wide</li>
+</ul>
+</div>
+<div class="section slide level1" id="what-about-wide-to-long">
+<h1>What about Wide to Long?</h1>
+<ul class="incremental">
+<li>We often need to do this to plot data in R</li>
+<li>Luckily the <code>reshape</code> function works well in both directions</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">longdf &lt;- <span class="kw">reshape</span>(widedf, <span class="dt">idvar =</span> <span class="st">&quot;stuid&quot;</span>, <span class="dt">timevar =</span> <span class="st">&quot;year&quot;</span>, <span class="dt">varying =</span> <span class="kw">names</span>(widedf[, 
+    <span class="dv">2</span>:<span class="dv">91</span>]), <span class="dt">direction =</span> <span class="st">&quot;long&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;.&quot;</span>)</code></pre>
+<ul class="incremental">
+<li>If our data is formatted nicely, R can do the guessing and identify the years for us by parsing the dataframe names</li>
+</ul>
+</div>
+<div class="section slide level1" id="subsetting-data">
+<h1>Subsetting Data</h1>
+<ul class="incremental">
+<li>We have already seen a lot of subsetting examples above, which is what filtering is, but R provides some great shortcuts to this</li>
+<li>Let’s look at the <code>subset</code> function to get only 4th grade scores</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">g4 &lt;- <span class="kw">subset</span>(df, grade == <span class="dv">4</span>)
+<span class="kw">dim</span>(g4)</code></pre>
+<pre><code>## [1] 400  32</code></pre>
+<ul class="incremental">
+<li>This is equivalent to:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">g4_b &lt;- df[df$grade == <span class="dv">4</span>, ]</code></pre>
+<ul class="incremental">
+<li>These two elements are the same:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(g4, g4_b)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div class="section slide level1" id="thats-it">
+<h1>That’s it</h1>
+<ul class="incremental">
+<li>Now you can filter, subset, sort, recode, and aggregate data!</li>
+<li>Let’s look at a few exercises to test these skills</li>
+<li>Once these skills are mastered, we can begin to understand how to automate R to clean data with known errors, and to recode data in R so it is ready to be used for analysis</li>
+<li>Then we can really take off!</li>
+</ul>
+</div>
 <div class="section slide level1" id="exercises">
 <h1>Exercises</h1>
 <ol class="incremental" style="list-style-type: decimal">
 <li>Sort <code>df</code> on <code>measerr</code> and <code>mathss</code>. What are the highest 5 values of each.</li>
 </ol>
+</div>
+<div class="section slide level1" id="other-references">
+<h1>Other References</h1>
+<ul class="incremental">
+<li><a href="https://github.com/hadley/devtools/wiki/vocabulary">An R Vocabulary for Starting Out</a></li>
+<li><a href="http://www.statmethods.net/management/index.html">Quick-R: Data Management</a></li>
+<li><a href="http://www.ats.ucla.edu/stat/r/faq/default.htm">UCLA ATS: R FAQ on Data Management</a></li>
+<li><a href="http://www.twotorials.com/">Video Tutorials</a></li>
+</ul>
 </div>
 </body>
 </html>

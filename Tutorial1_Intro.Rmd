@@ -596,6 +596,8 @@ str(df[,25:32])
 
 # Other References
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
+- [UCLA Academic Technology Services: R Starter Kit](http://www.ats.ucla.edu/stat/r/sk/)
+- [Quick R: Getting Started](http://www.statmethods.net/)
 - [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
 - [Video Tutorials](http://www.twotorials.com/)
 

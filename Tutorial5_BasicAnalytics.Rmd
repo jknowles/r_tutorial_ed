@@ -11,7 +11,7 @@ In this lesson we hope to learn:
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides5-', cache.path='cache/slides5-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE)
+opts_chunk$set(fig.path='figure/slides5-', cache.path='cache/slides5-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='svg')
 source('ggplot2themes.R')
 ```
 
@@ -24,8 +24,7 @@ In this tutorial we will use a number of datasets of different types:
 # Reading Data In
 - We start with the aggregate school level data
 ```{r readschdata}
-midsch<-read.csv('data/midwest_schools.csv')
-str(midsch)
+load('data/midwest_schools.rda')
 head(midsch[,1:12])
 ```
 
@@ -39,6 +38,7 @@ length(unique(midsch$district_id))
 length(unique(midsch$school_id))
 ```
 - What's wrong with this?
+  * More districts than schools? The IDs must be goofed
   * We need to create a unique school ID
   
 
@@ -55,6 +55,8 @@ library(ggplot2)
 qplot(ss1,ss2,data=midsch,alpha=I(.07))+theme_dpi()+geom_smooth()+
   geom_smooth(method='lm',se=FALSE,color='purple')
 ```
+
+# Frequencies, Crosstabs, and t-tests
 
 # What questions do we have?
 - Let's imagine that a journalist has used this dataset to detect testing "irregularities" using publicly available aggregate test data
@@ -88,7 +90,7 @@ qplot(ss1,ss2,data=midsch,alpha=I(.07))+theme_dpi()+geom_smooth()+
 - How many unique combinations are there of `test_year`, `grade`, and `subject`?
 
 ```{r uniq}
-nrow(unique(midsch[,c(5,6,16)]))
+nrow(unique(midsch[,c(3,4,14)]))
 ```
 
 # Let's look at one subset to start
@@ -119,12 +121,16 @@ summary(ss_mod)
 ```{r exploremod}
 objects(ss_mod)
 ```
+- Most of these we can ignore
+- A few are interesting such as `coefficients` `fitted.values` and `call`
+- Any idea how to access these objects?
 
 # Omitted Variable
 - What other data elements do we have available that might be omitted from our model specification?
   * What about the class size?
 - Class size is attractive since class size probably correlates with the variability in the change of scores from year 1 to year 2--big classes swing less than small classes
 
+# Plot of class size
 ```{r diagn}
 qplot(n2,ss2-ss1,data=midsch,alpha=I(.1))+theme_dpi()+geom_smooth()
 ```
@@ -138,16 +144,25 @@ ssN1_mod<-lm(ss2~ss1+n1,data=midsch_sub)
 summary(ssN1_mod)
 ssN2_mod<-lm(ss2~ss1+n2,data=midsch_sub)
 summary(ssN2_mod)
+```
+- Both n1 and n2 seem to matter, or potentially to matter
+- How can we test this formally?
+
+# F Test
+```{r ftest}
 anova(ss_mod,ssN1_mod,ssN2_mod)
 AIC(ssN2_mod)
 AIC(ssN1_mod)
 ```
+- No difference between `n1` and `n2` but either improves model fit over the model without it
 
 # Diagnostic Check for Polynomials
 ```{r regdiagreset}
 library(lmtest)
 resettest(ss_mod,power=2:4)
 ```
+- Statistically significant
+
 
 
 # Megamodel I
