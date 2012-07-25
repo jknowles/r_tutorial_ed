@@ -216,11 +216,11 @@ sqrt(4^4)  # functions
 ```
 
 ```r
-2 = 2
+2 == 2
 ```
 
 ```
-## Error: invalid (do_set) left-hand side to assignment
+## [1] TRUE
 ```
 
 ```r
@@ -395,19 +395,12 @@ identical(c, d)  # Test equality
 # Reading Data In
 - To read data in we have to tell R where it currently is on the filesystem by setting a working directory
 - Then we have to tell it where to look for the dataset and what format that dataset is in
-- CSV files are **simplest** for beginning use cases, but R is flexible
+- CSV files are **simplest** for beginning use cases, but R is flexible `{r load('data/smalldata.rda')}`
 
 ```r
 # Set working directory to the tutorial director In RStudio can do this in
 # 'Tools' tab
 setwd("~/r_tutorial_ed")
-```
-
-```
-## Error: cannot change working directory
-```
-
-```r
 # Load some data
 df <- read.csv("data/smalldata.csv")
 # Note if we don't assign data to 'df' R just prints contents of table
@@ -494,6 +487,7 @@ uniqstu
 ```r
 big <- c(9, 12, 15, 25)
 small <- c(9, 3, 4, 2)
+# Give us a nice vector of logical values
 big > small
 ```
 
@@ -502,7 +496,6 @@ big > small
 ```
 
 ```r
-# Gives us a nice vector of logical values
 big = small
 # Oops--don't do this, reassigns big to small
 print(big)
@@ -520,9 +513,10 @@ print(small)
 ## [1] 9 3 4 2
 ```
 
+- Comparison operators can be tricky, so to keep it straight never use `=` or `==` to assign anything, always use `<-`
 
 # Special Operators II
-- The best way to evaluate these objects is to use brackets `[]`
+- The best way to evaluate these objects is to use brackets `[]` to avoid confusion
 
 
 ```r
@@ -565,7 +559,18 @@ big[small %in% big]
 ## [1]  9 12 15 25 NA
 ```
 
+- 9, 12, 15, and 25 all appear in `big`, but `small` also has objects that do not appear in `big` and so an NA is returned
+- What if we reverse this?
 
+```r
+big[big %in% small]
+```
+
+```
+## [1]  9 12 15 25
+```
+
+- No `NA`
 
 # Special operators (IV)
 - The logical operators `||` (or) and `&&` (and) can be used to combine two logical values and produce another logical value as the result. The operator `!` (not) negates a logical value. These operators allow complex conditions to be constructed.
@@ -589,6 +594,14 @@ class(foo)
 
 ```r
 a <- foo[!is.na(foo)]
+a
+```
+
+```
+## [1] "a"   "4"   "9"   "8.7"
+```
+
+```r
 class(a)
 ```
 
@@ -598,12 +611,11 @@ class(a)
 
 
 # Simple Data Cleaning Function
-- What if we want to extract the numeric elements out of `foo`?
+- What if we want to extract the numeric elements out of `foo` which has both a character and a missing value?
 
 
 ```r
 extractN <- function(x) {
-    x <- x[!is.na(x)]
     x <- suppressWarnings(as.numeric(x))
     # ignore warnings because we don't care
     x <- x[!is.na(x)]
@@ -627,13 +639,15 @@ A <- extractN(foo)
 
 # Regular Expressions
 - R also supports a full suite of regular expressions
-- This could be material for a full tutorial and another time
+- This could be material for a full tutorial and another time\
+- We can talk about this in the advanced topics section
 
 
-# Data Modes in R
+# Data Modes in R (numeric)
 - R allows users to implement a number of different types of data
 - The three basic data types are numeric data, character data, and logical data
--**numeric** includes valid numbers
+- **numeric** includes valid numbers
+
 
 ```r
 is.numeric(A)
@@ -659,7 +673,10 @@ print(A)
 ## [1] 4.0 9.0 8.7
 ```
 
--**character** is known as strings in other software, any characters that have no numeric meaning
+
+# Data Modes (Character)
+- **character** is known as strings in other software, any characters that have no numeric meaning
+
 
 ```r
 b <- c("one", "two", "three")
@@ -678,7 +695,10 @@ is.numeric(b)
 ## [1] FALSE
 ```
 
--**logical** is TRUE or FALSE values, useful for logical testing and programming
+
+# Data Modes (Logical)
+- **logical** is TRUE or FALSE values, useful for logical testing and programming
+
 
 ```r
 c <- c(TRUE, TRUE, TRUE, FALSE, FALSE, TRUE)
@@ -757,9 +777,17 @@ myfac  # What order are the factors in?
 ## Levels: advanced basic minimal proficient
 ```
 
+- What if we don't like the order these are in? Factor order is important for all kinds of things like plot type, regression output, and more
+
+# Ordering the Factor
+- Ordered factors simply have an additional attribute explaining the order of the levels of a factor
+- This is a useful shortcut when we want to preserve some of the meaning provided by the order
+- Think cardinal data
+
+
 ```r
-myfac <- ordered(myfac, levels = c("minimal", "basic", "proficient", "advanced"))
-myfac
+myfac_o <- ordered(myfac, levels = c("minimal", "basic", "proficient", "advanced"))
+myfac_o
 ```
 
 ```
@@ -768,7 +796,7 @@ myfac
 ```
 
 ```r
-summary(myfac)
+summary(myfac_o)
 ```
 
 ```
@@ -777,13 +805,12 @@ summary(myfac)
 ```
 
 
-# Ordering and More
-- Factors can be ordered. This is useful when doing ordered logistic regression, or organizing output. 
+# Reclassifying Factors
 - Turning factors into other data types can be tricky. All factor levels have an underlying numeric structure.
 
 
 ```r
-class(myfac)
+class(myfac_o)
 ```
 
 ```
@@ -791,7 +818,7 @@ class(myfac)
 ```
 
 ```r
-unclass(myfac)
+unclass(myfac_o)
 ```
 
 ```
@@ -801,7 +828,7 @@ unclass(myfac)
 ```
 
 ```r
-defac <- unclass(myfac)
+defac <- unclass(myfac_o)
 defac
 ```
 
@@ -812,20 +839,74 @@ defac
 ```
 
 
+- What is wrong with this? Well--why would `minimal` be `2` and `basic` be `3`?
 - Be careful! The best way to unpack a factor is to convert it to a character first.
 
 # Defactor
 
 ```r
-destring <- function(x) {
+defac <- function(x) {
     x <- as.character(x)
     x
 }
-destring(myfac)
+defac(myfac_o)
 ```
 
 ```
 ## [1] "basic"      "proficient" "advanced"   "minimal"   
+```
+
+```r
+defac <- defac(myfac_o)
+defac
+```
+
+```
+## [1] "basic"      "proficient" "advanced"   "minimal"   
+```
+
+
+# Convert to Numeric?
+- What if we do want it to be numeric?
+- The best way to do this is to recode the variable manually--we'll discuss this later
+- You can try to convert it to numeric though, but do at your own risk:
+
+
+```r
+myfac_o
+```
+
+```
+## [1] basic      proficient advanced   minimal   
+## Levels: minimal < basic < proficient < advanced
+```
+
+```r
+as.numeric(myfac_o)
+```
+
+```
+## [1] 2 3 4 1
+```
+
+- If we did not properly specify the order above, this would be wrong!
+
+
+```r
+myfac
+```
+
+```
+## [1] basic      proficient advanced   minimal   
+## Levels: advanced basic minimal proficient
+```
+
+```r
+as.numeric(myfac)
+```
+
+```
+## [1] 2 4 1 3
 ```
 
 
@@ -860,6 +941,10 @@ mydate + 30  # Operate on dates
 ## [1] "2012-08-19"
 ```
 
+
+# More Dates
+
+
 ```r
 # We can parse other formats of dates
 mydate2 <- as.Date("8-5-1988", format = "%d-%m-%Y")
@@ -871,11 +956,16 @@ mydate2
 ```
 
 ```r
+
 mydate - mydate2
 ```
 
 ```
 ## Time difference of 8839 days
+```
+
+```r
+# Can add and subtract two date objects
 ```
 
 
@@ -903,6 +993,21 @@ as.Date(56, origin = "2013-4-29")  # we can set our own origin
 
 # Other Classes
 - R classes can be specified for any special purpose
+- Like linear models
+
+
+```r
+b <- rnorm(5000)
+c <- runif(5000)
+a <- b + c
+mymod <- lm(a ~ b)
+class(mymod)
+```
+
+```
+## [1] "lm"
+```
+
 
 # Why care so much about classes?
 - Classes determine what you can and can't do with objects
@@ -942,6 +1047,12 @@ print("This tutorial is awesome")
 ```r
 # This is a vector of length 1 consisting of a single 'string of
 # characters'
+```
+
+
+# Vectors 2
+
+```r
 print(LETTERS)
 ```
 
@@ -989,6 +1100,10 @@ class(mymat)
 ```
 ## [1] "matrix"
 ```
+
+
+# Matrices II
+
 
 ```r
 rownames(mymat)
@@ -1058,9 +1173,10 @@ newmat
 ## F 6 12 18 24 30 36     2
 ```
 
-- Dataframes works similar
+- Dataframes work similar
 
-# Unsure
+# Matrix Functions
+- We can do some basic math to matrices as well, like correlations
 
 
 ```r
@@ -1069,13 +1185,13 @@ head(foo.mat)
 ```
 
 ```
-##          [,1]   [,2]    [,3] [,4]
-## [1,] -0.96662 0.6482 0.70849    3
-## [2,] -0.03917 0.1237 0.07748    3
-## [3,]  1.00540 0.7265 0.63849    1
-## [4,]  0.37477 0.3728 0.33395    1
-## [5,] -0.11520 0.5562 0.71539    3
-## [6,]  1.18498 0.9190 0.98694    3
+##         [,1]   [,2]    [,3] [,4]
+## [1,] -0.2910 0.2863 0.81512    2
+## [2,]  0.3523 0.9617 0.03504    2
+## [3,]  0.5447 0.1183 0.08259    3
+## [4,] -0.2199 0.9950 0.67370    4
+## [5,] -0.7050 0.2941 0.15321    3
+## [6,]  0.2851 0.5960 0.75209    1
 ```
 
 ```r
@@ -1083,11 +1199,47 @@ cor(foo.mat)
 ```
 
 ```
-##          [,1]    [,2]    [,3]     [,4]
-## [1,]  1.00000 0.03762 0.01870 -0.01632
-## [2,]  0.03762 1.00000 0.03326  0.03788
-## [3,]  0.01870 0.03326 1.00000  0.15642
-## [4,] -0.01632 0.03788 0.15642  1.00000
+##          [,1]     [,2]     [,3]     [,4]
+## [1,]  1.00000 -0.05195 -0.08902 -0.03014
+## [2,] -0.05195  1.00000  0.14512 -0.02188
+## [3,] -0.08902  0.14512  1.00000 -0.11259
+## [4,] -0.03014 -0.02188 -0.11259  1.00000
+```
+
+
+- The result is a matrix itself, but we can force it to be something else
+
+# Converting Matrices
+- Let's make a matrix be a dataframe
+
+```r
+mycorr <- cor(foo.mat)
+class(mycorr)
+```
+
+```
+## [1] "matrix"
+```
+
+```r
+mycorr2 <- as.data.frame(mycorr)
+class(mycorr2)
+```
+
+```
+## [1] "data.frame"
+```
+
+```r
+mycorr2
+```
+
+```
+##         V1       V2       V3       V4
+## 1  1.00000 -0.05195 -0.08902 -0.03014
+## 2 -0.05195  1.00000  0.14512 -0.02188
+## 3 -0.08902  0.14512  1.00000 -0.11259
+## 4 -0.03014 -0.02188 -0.11259  1.00000
 ```
 
 
@@ -1114,6 +1266,10 @@ dim(myarray)
 ```
 ## [1] 7 3 2
 ```
+
+
+# Arrays II
+
 
 ```r
 dimnames(myarray)
@@ -1193,6 +1349,9 @@ names(mylist)
 ## [1] "vec"  "mat"  "arr"  "date"
 ```
 
+
+# Print a List
+
 ```r
 str(mylist)
 ```
@@ -1236,6 +1395,8 @@ mylist[[2]][1, 3]
 ```
 
 
+- Where are we getting the object in the second row from?
+
 # So what?
 - Matrices, lists, and arrays are useful for storing analyses results, generating reports, and doing analysis on many objects types
 - We'll see examples of list and array manipulation later
@@ -1253,13 +1414,10 @@ attributes(mylist)
 ```
 
 ```r
-attributes(myarray)
+attributes(myarray)[1:2][2]
 ```
 
 ```
-## $dim
-## [1] 7 3 2
-## 
 ## $dimnames
 ## $dimnames[[1]]
 ## [1] "tiny"       "small"      "medium"     "medium-ish" "large"     
@@ -1323,6 +1481,8 @@ str(df[, 25:32])
 - [Quick R: Getting Started](http://www.statmethods.net/)
 - [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
 - [Video Tutorials](http://www.twotorials.com/)
+- [Google's R Style Guide](http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html)
+- [Hadley Wickham's R Style Guide](https://github.com/hadley/devtools/wiki/Style)
 
 
 # Session Info
