@@ -156,12 +156,183 @@ AIC(ssN1_mod)
 ```
 - No difference between `n1` and `n2` but either improves model fit over the model without it
 
-# Diagnostic Check for Polynomials
+# Diagnostic Check for Linearity
 ```{r regdiagreset}
 library(lmtest)
 resettest(ss_mod,power=2:4)
 ```
 - Statistically significant
+```{r raintest}
+raintest(ss2~ss1,fraction=0.5,order.by=~ss1,data=midsch_sub)
+```
+- Statistically significant
+```{r harvtest}
+harvtest(ss2~ss1,order.by=~ss1,data=midsch_sub)
+```
+- Statistically significant
+- This is not a good sign for our model.
+
+# Adjust for linearity
+- No need to despair, we can quickly test a couple easy adjustments for non-linearity
+- First, let's just include polynomial terms of our predictor
+```{r polyregression}
+ss_poly<-lm(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4),data=midsch_sub)
+summary(ss_poly)
+```
+- Ok, now what?
+```{r polyanova}
+anova(ss_mod,ss_poly)
+```
+
+# Is this polynomial model still nonlinear?
+```{r testpolys}
+resettest(ss_poly,power=2:4)
+raintest(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4),fraction=0.5,order.by=~ss1,data=midsch_sub)
+harvtest(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4),order.by=~ss1,data=midsch_sub)
+```
+- We don't eliminate all the problems
+
+# What if we include our omitted variable?
+```{r polyn}
+ss_polyn<-lm(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4)+n2,data=midsch_sub)
+anova(ss_mod,ssN2_mod,ss_poly,ss_polyn)
+```
+- Promising
+
+# Non-linearity tests
+```{r testpolyns}
+resettest(ss_polyn,power=2:4)
+raintest(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4)+n2,fraction=0.5,order.by=~ss1,data=midsch_sub)
+harvtest(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4)+n2,order.by=~ss1,data=midsch_sub)
+```
+- Yipes, nope, this isn't going to fix it.
+
+# Another way to explore non-linearity
+- Why might student test scores have a non-linear relationship?
+- Tests are goofy at the low and high end of the scale, partly due to design, partly due to regression toward the mean
+- How can we check if this is occurring in our data? 
+- We can use quantile regression, to fit different models to different subsets of the data and see if they are different
+
+# Diagnostic Check for Quantile Regression
+```{r quantileregression}
+library(quantreg)
+ss_quant<-rq(ss2~ss1,tau=c(seq(.1,.9,.1)),data=midsch_sub)
+plot(summary(ss_quant,se='boot',method='wild'))
+```
+
+# Results
+- `ss_quant` shows that in the lower quantiles the coefficients for the intercept and `ss1` fall outside the confidence interval around the base coefficient
+- This suggests the relationship may vary in a statistically significant fashion at the high and low end of the scales, evidence of systematic non-linearity
+
+# Robustness
+```{r quantileregression2}
+ss_quant2<-rq(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4)+n2,tau=c(seq(.1,.9,.1)),data=midsch_sub)
+plot(summary(ss_quant2,se='boot',method='wild'))
+```
+- The polynomials seem to address some of our concern about non-linearity in this manner, but remember, don't eliminate other symptoms of non-linearity
+
+# Showing Off
+```{r betterquantileplot}
+ss_quant3<-rq(ss2~ss1,tau=-1,data=midsch_sub)
+qplot(ss_quant3$sol[1,],ss_quant3$sol[5,],geom='line',main='Continuous Quantiles')+
+  theme_dpi()+xlab('Quantile')+ylab(expression(beta))+geom_hline(yintercept=coef(summary(ss_mod))[2,1])+
+  geom_hline(yintercept=coef(summary(ss_mod))[2,1]+(2*coef(summary(ss_mod))[2,2]),linetype=3)+
+  geom_hline(yintercept=coef(summary(ss_mod))[2,1]-(2*coef(summary(ss_mod))[2,2]),linetype=3)
+```
+
+# Showing Off 2
+```{r betterquantileplot2}
+ss_quant4<-rq(ss2~ss1+I(ss1^2)+I(ss1^3)+I(ss1^4)+n2,tau=-1,data=midsch_sub)
+qplot(ss_quant4$sol[1,],ss_quant4$sol[5,],geom='line',main='Continuous Quantiles')+
+  theme_dpi()+xlab('Quantile')+ylab(expression(beta))+geom_hline(yintercept=coef(summary(ss_mod))[2,1])+
+  geom_hline(yintercept=coef(summary(ss_mod))[2,1]+(2*coef(summary(ss_mod))[2,2]),linetype=3)+
+  geom_hline(yintercept=coef(summary(ss_mod))[2,1]-(2*coef(summary(ss_mod))[2,2]),linetype=3)
+```
+
+
+# Test all 50 models
+- This is just one of the fifty models we identified at the start
+- How do we test them all?
+- With a function and `dlply`
+```{r mods}
+library(plyr)
+midsch$id<-interaction(midsch$test_year,midsch$grade,midsch$subject)
+mods<-dlply(midsch,.(id),lm,formula=ss2 ~ ss1)
+objects(mods)[1:10]
+```
+
+# Now we have fifty models in an object
+- We need to test each one of them
+- Sound tedious?
+- R can easily do this as well
+```{r resettest}
+mytest<-llply(mods,function(x) resettest(x,power=2:4))
+mytest[[1]]
+mytest[[2]]
+```
+- OK, not that easy!
+
+# Test Residuals
+```{r residplot1}
+a1<-qplot(id,residmean,
+      data=ddply(midsch,.(id),summarize,residmean=mean(residuals)),
+      geom='bar',main='Provided Residuals')+
+        theme_dpi()+opts(axis.text.x=theme_blank(),axis.ticks=theme_blank())+
+        ylab('Mean of Residuals')+
+        xlab('Model')+geom_text(aes(x=12,y=0.3),label='SD of Residuals = 9')
+
+a2<-qplot(id,V1,data=ldply(mods,function(x) mean(x$residuals)),
+          geom='bar',main='Replication Models')+
+        theme_dpi()+opts(axis.text.x=theme_blank(),axis.ticks=theme_blank())+
+        ylab('Mean of Residuals')+
+        xlab('Model')+geom_text(aes(x=7,y=0.3),
+        label=paste("SD =",round(mean(ldply(mods,function(x) sd(x$residuals))$V1),2)))
+grid.arrange(a1,a2,main="Comparing Replication and Provided Residual Means by Model")
+```
+
+# Test Expected Value of Residuals
+- A key thing is that the residuals sum to 0
+```{r residplot}
+qplot(residuals,data=midsch,geom='density')+
+  stat_function(fun = dnorm, aes(colour = 'Normal'))+
+  geom_histogram(aes(y = ..density..), alpha = I(0.4)) +
+  geom_line(aes(y = ..density.., colour = 'Empirical'), stat = 'density') +
+  scale_colour_manual(name = 'Density', values = c('red', 'blue')) + 
+  opts(legend.position = c(0.85, 0.85))+theme_dpi()
+```
+
+# Residuals Have Uniform Variance
+```{r perfectmodel}
+b<-2*rnorm(5000)
+c<-b+runif(5000)
+dem<-lm(c~b)
+
+a1<-qplot(midsch$ss1,abs(midsch$residuals),
+  main='Residual Plot of Replication Data',geom='point',alpha=I(0.1))+
+  geom_smooth(method='lm',se=TRUE)+xlab('SS1')+ylab('Residuals')+
+  geom_smooth(se=FALSE)+
+    ylim(c(0,50))+theme_dpi()
+
+a2<-qplot(b,abs(lm(c~b)$residuals),main='Well Specified OLS',alpha=I(.3))+theme_dpi()+geom_smooth()
+
+grid.arrange(a1,a2,ncol=2)
+```
+
+# Empirical Tests
+- We can do two tests, Breusch-Pagan and the Goldfeld-Quandt test to test for non-standard error variance
+- Again, in R these are simple to use
+```{r bpgqtest}
+bptest(ss_mod)
+gqtest(ss_mod)
+```
+
+# Correcting for Heteroskedacticity
+- After all it only messes up the standard errors, not the estimates themselves
+
+# Accuracy of Predictions
+- Even if the regression models fit the assumptions above, a somewhat heroic assumption, they still might not be accurate!
+- What are some good ways to address accuracy and outlier sensitivity?
+- R model diagnostics can be easily run on any `lm` object
 
 
 

@@ -22,51 +22,25 @@ In this tutorial we will use a number of datasets of different types:
 - We start with the aggregate school level data
 
 ```r
-midsch <- read.csv("data/midwest_schools.csv")
-str(midsch)
-```
-
-```
-## 'data.frame':	19985 obs. of  18 variables:
-##  $ district_name: Factor w/ 480 levels "21ST CENTURY",..: 6 7 10 11 13 13 13 13 13 13 ...
-##  $ district_id  : int  14 70 112 119 147 147 147 147 147 147 ...
-##  $ school_name  : Factor w/ 1784 levels "21ST CENTURY",..: 14 25 1153 35 59 1749 359 593 619 629 ...
-##  $ school_id    : int  130 20 80 50 60 125 130 180 190 195 ...
-##  $ subject      : Factor w/ 2 levels "math","read": 1 1 1 1 1 1 1 1 1 1 ...
-##  $ grade        : int  4 4 4 4 4 4 4 4 4 4 ...
-##  $ n1           : int  44 18 86 95 27 17 73 66 46 75 ...
-##  $ ss1          : num  433 443 445 427 424 ...
-##  $ n2           : int  40 20 94 94 27 26 76 60 50 73 ...
-##  $ ss2          : num  463 477 473 461 459 ...
-##  $ predicted    : num  469 476 478 464 462 ...
-##  $ residuals    : num  -5.745 0.724 -5.751 -3.359 -3.094 ...
-##  $ resid_z      : num  -0.5919 0.0746 -0.5927 -0.3461 -0.3188 ...
-##  $ resid_t      : num  -0.5917 0.0745 -0.5925 -0.3459 -0.3186 ...
-##  $ cooks        : num  1.71e-04 3.51e-06 2.45e-04 5.99e-05 5.41e-05 ...
-##  $ test_year    : int  2007 2007 2007 2007 2007 2007 2007 2007 2007 2007 ...
-##  $ tprob        : num  0.279 0.471 0.277 0.365 0.376 ...
-##  $ flagged_t95  : int  0 0 0 0 0 0 0 0 0 0 ...
-```
-
-```r
+load("data/midwest_schools.rda")
 head(midsch[, 1:12])
 ```
 
 ```
-##   district_name district_id     school_name school_id subject grade n1
-## 1 ADAMS FRIENDS          14 ADAMS FRIEND EL       130    math     4 44
-## 2        ALGOMA          70       ALGOMA EL        20    math     4 18
-## 3       ALTOONA         112     PEDERSEN EL        80    math     4 86
-## 4         AMERY         119       AMERY INT        50    math     4 95
-## 5      APPLETON         147       BADGER EL        60    math     4 27
-## 6      APPLETON         147 WIS CONNECTIONS       125    math     4 17
-##     ss1 n2   ss2 predicted residuals
-## 1 433.1 40 463.0     468.7   -5.7446
-## 2 443.0 20 477.2     476.5    0.7235
-## 3 445.4 94 472.6     478.4   -5.7509
-## 4 427.1 94 460.7     464.1   -3.3586
-## 5 424.2 27 458.7     461.8   -3.0937
-## 6 423.5 26 463.1     461.2    1.8530
+##   district_id school_id subject grade n1   ss1 n2   ss2 predicted
+## 1          14       130    math     4 44 433.1 40 463.0     468.7
+## 2          70        20    math     4 18 443.0 20 477.2     476.5
+## 3         112        80    math     4 86 445.4 94 472.6     478.4
+## 4         119        50    math     4 95 427.1 94 460.7     464.1
+## 5         147        60    math     4 27 424.2 27 458.7     461.8
+## 6         147       125    math     4 17 423.5 26 463.1     461.2
+##   residuals  resid_z  resid_t
+## 1   -5.7446 -0.59190 -0.59171
+## 2    0.7235  0.07456  0.07452
+## 3   -5.7509 -0.59267 -0.59248
+## 4   -3.3586 -0.34606 -0.34591
+## 5   -3.0937 -0.31877 -0.31863
+## 6    1.8530  0.19094  0.19085
 ```
 
 
@@ -106,6 +80,7 @@ length(unique(midsch$school_id))
 ```
 
 - What's wrong with this?
+  * More districts than schools? The IDs must be goofed
   * We need to create a unique school ID
   
 
@@ -133,6 +108,10 @@ qplot(ss1, ss2, data = midsch, alpha = I(0.07)) + theme_dpi() + geom_smooth() +
     geom_smooth(method = "lm", se = FALSE, color = "purple")
 ```
 
+![plot of chunk diag1](figure/slides5-diag1.svg) 
+
+
+# Frequencies, Crosstabs, and t-tests
 
 # What questions do we have?
 - Let's imagine that a journalist has used this dataset to detect testing "irregularities" using publicly available aggregate test data
@@ -167,7 +146,7 @@ qplot(ss1, ss2, data = midsch, alpha = I(0.07)) + theme_dpi() + geom_smooth() +
 
 
 ```r
-nrow(unique(midsch[, c(5, 6, 16)]))
+nrow(unique(midsch[, c(3, 4, 14)]))
 ```
 
 ```
@@ -236,16 +215,22 @@ objects(ss_mod)
 ##  [9] "rank"          "residuals"     "terms"         "xlevels"      
 ```
 
+- Most of these we can ignore
+- A few are interesting such as `coefficients` `fitted.values` and `call`
+- Any idea how to access these objects?
 
 # Omitted Variable
 - What other data elements do we have available that might be omitted from our model specification?
   * What about the class size?
 - Class size is attractive since class size probably correlates with the variability in the change of scores from year 1 to year 2--big classes swing less than small classes
 
+# Plot of class size
 
 ```r
 qplot(n2, ss2 - ss1, data = midsch, alpha = I(0.1)) + theme_dpi() + geom_smooth()
 ```
+
+![plot of chunk diagn](figure/slides5-diagn.svg) 
 
 - Group size might matter
 - Another type of omitted variable are non-linear terms (polynomials) of the independent variable
@@ -309,6 +294,11 @@ summary(ssN2_mod)
 ## 
 ```
 
+- Both n1 and n2 seem to matter, or potentially to matter
+- How can we test this formally?
+
+# F Test
+
 ```r
 anova(ss_mod, ssN1_mod, ssN2_mod)
 ```
@@ -343,8 +333,9 @@ AIC(ssN1_mod)
 ## [1] 4067
 ```
 
+- No difference between `n1` and `n2` but either improves model fit over the model without it
 
-# Diagnostic Check for Polynomials
+# Diagnostic Check for Linearity
 
 ```r
 library(lmtest)
@@ -359,6 +350,410 @@ resettest(ss_mod, power = 2:4)
 ## RESET = 2.642, df1 = 3, df2 = 525, p-value = 0.04866
 ## 
 ```
+
+- Statistically significant
+
+```r
+raintest(ss2 ~ ss1, fraction = 0.5, order.by = ~ss1, data = midsch_sub)
+```
+
+```
+## 
+## 	Rainbow test
+## 
+## data:  ss2 ~ ss1 
+## Rain = 1.402, df1 = 265, df2 = 263, p-value = 0.003105
+## 
+```
+
+- Statistically significant
+
+```r
+harvtest(ss2 ~ ss1, order.by = ~ss1, data = midsch_sub)
+```
+
+```
+## 
+## 	Harvey-Collier test
+## 
+## data:  ss2 ~ ss1 
+## HC = 2.734, df = 527, p-value = 0.006462
+## 
+```
+
+- Statistically significant
+- This is not a good sign for our model.
+
+# Adjust for linearity
+- No need to despair, we can quickly test a couple easy adjustments for non-linearity
+- First, let's just include polynomial terms of our predictor
+
+```r
+ss_poly <- lm(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4), data = midsch_sub)
+summary(ss_poly)
+```
+
+```
+## 
+## Call:
+## lm(formula = ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4), data = midsch_sub)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -44.89  -6.92  -0.20   6.76  59.66 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept)  2.61e+03   3.61e+04    0.07     0.94
+## ss1         -8.72e+00   3.18e+02   -0.03     0.98
+## I(ss1^2)    -9.51e-03   1.05e+00   -0.01     0.99
+## I(ss1^3)     7.21e-05   1.54e-03    0.05     0.96
+## I(ss1^4)    -6.98e-08   8.42e-07   -0.08     0.93
+## 
+## Residual standard error: 11.1 on 525 degrees of freedom
+## Multiple R-squared: 0.789,	Adjusted R-squared: 0.787 
+## F-statistic:  490 on 4 and 525 DF,  p-value: <2e-16 
+## 
+```
+
+- Ok, now what?
+
+```r
+anova(ss_mod, ss_poly)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: ss2 ~ ss1
+## Model 2: ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4)
+##   Res.Df   RSS Df Sum of Sq    F Pr(>F)  
+## 1    528 66239                           
+## 2    525 65253  3       985 2.64  0.049 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+```
+
+
+# Is this polynomial model still nonlinear?
+
+```r
+resettest(ss_poly, power = 2:4)
+```
+
+```
+## 
+## 	RESET test
+## 
+## data:  ss_poly 
+## RESET = 1.562, df1 = 3, df2 = 522, p-value = 0.1976
+## 
+```
+
+```r
+raintest(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4), fraction = 0.5, order.by = ~ss1, 
+    data = midsch_sub)
+```
+
+```
+## 
+## 	Rainbow test
+## 
+## data:  ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) 
+## Rain = 1.392, df1 = 265, df2 = 260, p-value = 0.003804
+## 
+```
+
+```r
+harvtest(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4), order.by = ~ss1, data = midsch_sub)
+```
+
+```
+## 
+## 	Harvey-Collier test
+## 
+## data:  ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) 
+## HC = NaN, df = 524, p-value = NA
+## 
+```
+
+- We don't eliminate all the problems
+
+# What if we include our omitted variable?
+
+```r
+ss_polyn <- lm(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2, data = midsch_sub)
+anova(ss_mod, ssN2_mod, ss_poly, ss_polyn)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: ss2 ~ ss1
+## Model 2: ss2 ~ ss1 + n2
+## Model 3: ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4)
+## Model 4: ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2
+##   Res.Df   RSS Df Sum of Sq    F Pr(>F)  
+## 1    528 66239                           
+## 2    527 65755  1       483 3.91  0.049 *
+## 3    525 65253  2       502 2.03  0.133  
+## 4    524 64842  1       411 3.32  0.069 .
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+```
+
+- Promising
+
+# Non-linearity tests
+
+```r
+resettest(ss_polyn, power = 2:4)
+```
+
+```
+## 
+## 	RESET test
+## 
+## data:  ss_polyn 
+## RESET = 2.485, df1 = 3, df2 = 521, p-value = 0.05991
+## 
+```
+
+```r
+raintest(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2, fraction = 0.5, order.by = ~ss1, 
+    data = midsch_sub)
+```
+
+```
+## 
+## 	Rainbow test
+## 
+## data:  ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2 
+## Rain = 1.381, df1 = 265, df2 = 259, p-value = 0.004606
+## 
+```
+
+```r
+harvtest(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2, order.by = ~ss1, data = midsch_sub)
+```
+
+```
+## 
+## 	Harvey-Collier test
+## 
+## data:  ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2 
+## HC = NA, df = 523, p-value = NA
+## 
+```
+
+- Yipes, nope, this isn't going to fix it.
+
+# Another way to explore non-linearity
+- Why might student test scores have a non-linear relationship?
+- Tests are goofy at the low and high end of the scale, partly due to design, partly due to regression toward the mean
+- How can we check if this is occurring in our data? 
+- We can use quantile regression, to fit different models to different subsets of the data and see if they are different
+
+# Diagnostic Check for Quantile Regression
+
+```r
+library(quantreg)
+ss_quant <- rq(ss2 ~ ss1, tau = c(seq(0.1, 0.9, 0.1)), data = midsch_sub)
+plot(summary(ss_quant, se = "boot", method = "wild"))
+```
+
+![plot of chunk quantileregression](figure/slides5-quantileregression.svg) 
+
+
+# Results
+- `ss_quant` shows that in the lower quantiles the coefficients for the intercept and `ss1` fall outside the confidence interval around the base coefficient
+- This suggests the relationship may vary in a statistically significant fashion at the high and low end of the scales, evidence of systematic non-linearity
+
+# Robustness
+
+```r
+ss_quant2 <- rq(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2, tau = c(seq(0.1, 
+    0.9, 0.1)), data = midsch_sub)
+plot(summary(ss_quant2, se = "boot", method = "wild"))
+```
+
+![plot of chunk quantileregression2](figure/slides5-quantileregression2.svg) 
+
+- The polynomials seem to address some of our concern about non-linearity in this manner, but remember, don't eliminate other symptoms of non-linearity
+
+# Showing Off
+
+```r
+ss_quant3 <- rq(ss2 ~ ss1, tau = -1, data = midsch_sub)
+qplot(ss_quant3$sol[1, ], ss_quant3$sol[5, ], geom = "line", main = "Continuous Quantiles") + 
+    theme_dpi() + xlab("Quantile") + ylab(expression(beta)) + geom_hline(yintercept = coef(summary(ss_mod))[2, 
+    1]) + geom_hline(yintercept = coef(summary(ss_mod))[2, 1] + (2 * coef(summary(ss_mod))[2, 
+    2]), linetype = 3) + geom_hline(yintercept = coef(summary(ss_mod))[2, 1] - 
+    (2 * coef(summary(ss_mod))[2, 2]), linetype = 3)
+```
+
+![plot of chunk betterquantileplot](figure/slides5-betterquantileplot.svg) 
+
+
+# Showing Off 2
+
+```r
+ss_quant4 <- rq(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2, tau = -1, data = midsch_sub)
+qplot(ss_quant4$sol[1, ], ss_quant4$sol[5, ], geom = "line", main = "Continuous Quantiles") + 
+    theme_dpi() + xlab("Quantile") + ylab(expression(beta)) + geom_hline(yintercept = coef(summary(ss_mod))[2, 
+    1]) + geom_hline(yintercept = coef(summary(ss_mod))[2, 1] + (2 * coef(summary(ss_mod))[2, 
+    2]), linetype = 3) + geom_hline(yintercept = coef(summary(ss_mod))[2, 1] - 
+    (2 * coef(summary(ss_mod))[2, 2]), linetype = 3)
+```
+
+![plot of chunk betterquantileplot2](figure/slides5-betterquantileplot2.svg) 
+
+
+
+# Test all 50 models
+- This is just one of the fifty models we identified at the start
+- How do we test them all?
+- With a function and `dlply`
+
+```r
+library(plyr)
+midsch$id <- interaction(midsch$test_year, midsch$grade, midsch$subject)
+mods <- dlply(midsch, .(id), lm, formula = ss2 ~ ss1)
+objects(mods)[1:10]
+```
+
+```
+##  [1] "2007.4.math" "2007.4.read" "2007.5.math" "2007.5.read" "2007.6.math"
+##  [6] "2007.6.read" "2007.7.math" "2007.7.read" "2007.8.math" "2007.8.read"
+```
+
+
+# Now we have fifty models in an object
+- We need to test each one of them
+- Sound tedious?
+- R can easily do this as well
+
+```r
+mytest <- llply(mods, function(x) resettest(x, power = 2:4))
+mytest[[1]]
+```
+
+```
+## 
+## 	RESET test
+## 
+## data:  x 
+## RESET = 2.499, df1 = 3, df2 = 570, p-value = 0.05876
+## 
+```
+
+```r
+mytest[[2]]
+```
+
+```
+## 
+## 	RESET test
+## 
+## data:  x 
+## RESET = 0.8864, df1 = 3, df2 = 597, p-value = 0.4478
+## 
+```
+
+- OK, not that easy!
+
+# Test Residuals
+
+```r
+a1 <- qplot(id, residmean, data = ddply(midsch, .(id), summarize, residmean = mean(residuals)), 
+    geom = "bar", main = "Provided Residuals") + theme_dpi() + opts(axis.text.x = theme_blank(), 
+    axis.ticks = theme_blank()) + ylab("Mean of Residuals") + xlab("Model") + 
+    geom_text(aes(x = 12, y = 0.3), label = "SD of Residuals = 9")
+
+a2 <- qplot(id, V1, data = ldply(mods, function(x) mean(x$residuals)), geom = "bar", 
+    main = "Replication Models") + theme_dpi() + opts(axis.text.x = theme_blank(), 
+    axis.ticks = theme_blank()) + ylab("Mean of Residuals") + xlab("Model") + 
+    geom_text(aes(x = 7, y = 0.3), label = paste("SD =", round(mean(ldply(mods, 
+        function(x) sd(x$residuals))$V1), 2)))
+grid.arrange(a1, a2, main = "Comparing Replication and Provided Residual Means by Model")
+```
+
+![plot of chunk residplot1](figure/slides5-residplot1.svg) 
+
+
+# Test Expected Value of Residuals
+- A key thing is that the residuals sum to 0
+
+```r
+qplot(residuals, data = midsch, geom = "density") + stat_function(fun = dnorm, 
+    aes(colour = "Normal")) + geom_histogram(aes(y = ..density..), alpha = I(0.4)) + 
+    geom_line(aes(y = ..density.., colour = "Empirical"), stat = "density") + 
+    scale_colour_manual(name = "Density", values = c("red", "blue")) + opts(legend.position = c(0.85, 
+    0.85)) + theme_dpi()
+```
+
+![plot of chunk residplot](figure/slides5-residplot.svg) 
+
+
+# Residuals Have Uniform Variance
+
+```r
+b <- 2 * rnorm(5000)
+c <- b + runif(5000)
+dem <- lm(c ~ b)
+
+a1 <- qplot(midsch$ss1, abs(midsch$residuals), main = "Residual Plot of Replication Data", 
+    geom = "point", alpha = I(0.1)) + geom_smooth(method = "lm", se = TRUE) + 
+    xlab("SS1") + ylab("Residuals") + geom_smooth(se = FALSE) + ylim(c(0, 50)) + 
+    theme_dpi()
+
+a2 <- qplot(b, abs(lm(c ~ b)$residuals), main = "Well Specified OLS", alpha = I(0.3)) + 
+    theme_dpi() + geom_smooth()
+
+grid.arrange(a1, a2, ncol = 2)
+```
+
+![plot of chunk perfectmodel](figure/slides5-perfectmodel.svg) 
+
+
+# Empirical Tests
+- We can do two tests, Breusch-Pagan and the Goldfeld-Quandt test to test for non-standard error variance
+- Again, in R these are simple to use
+
+```r
+bptest(ss_mod)
+```
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  ss_mod 
+## BP = 7.499, df = 1, p-value = 0.006172
+## 
+```
+
+```r
+gqtest(ss_mod)
+```
+
+```
+## 
+## 	Goldfeld-Quandt test
+## 
+## data:  ss_mod 
+## GQ = 0.8302, df1 = 263, df2 = 263, p-value = 0.9341
+## 
+```
+
+
+# Correcting for Heteroskedacticity
+- After all it only messes up the standard errors, not the estimates themselves
+
+# Accuracy of Predictions
+- Even if the regression models fit the assumptions above, a somewhat heroic assumption, they still might not be accurate!
+- What are some good ways to address accuracy and outlier sensitivity?
+- R model diagnostics can be easily run on any `lm` object
 
 
 
@@ -463,16 +858,18 @@ print(sessionInfo(), locale = FALSE)
 ## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] lmtest_0.9-30 zoo_1.7-7     ggplot2_0.9.1 knitr_0.7    
+## [1] plyr_1.7.1    quantreg_4.81 SparseM_0.96  lmtest_0.9-30 zoo_1.7-7    
+## [6] mgcv_1.7-19   ggplot2_0.9.1 gridExtra_0.9 knitr_0.7    
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.1       
-##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-19       
-## [10] memoise_0.1        munsell_0.3        plyr_1.7.1        
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] lattice_0.20-6     MASS_7.3-19        Matrix_1.0-6      
+## [10] memoise_0.1        munsell_0.3        nlme_3.1-104      
 ## [13] proto_0.3-9.2      RColorBrewer_1.0-5 reshape2_1.2.1    
 ## [16] scales_0.2.1       stringr_0.6        tools_2.15.1      
 ```

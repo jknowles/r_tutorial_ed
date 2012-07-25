@@ -95,6 +95,15 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="data-management">
 <h1>Data Management</h1>
+<ul class="incremental">
+<li>Data management in R used to be managed by the <code>ls()</code> command</li>
+<li>Go ahead, type it.</li>
+<li>Now you can look at the Workspace tab in RStudio and have a complete list of the data in R’s memory that is accessible to you</li>
+<li>All data objects have names</li>
+<li>All object names are unique (not strictly so, but let’s not violate this)</li>
+<li>To reference items within an object type we need to give it an address like in <code>mydata$thingIwant</code> or <code>mydata@thingIwant</code></li>
+<li>The <code>$</code> and <code>@</code> distinction depends on whether this is an S3 or an S4 class</li>
+</ul>
 </div>
 <div class="section slide level1" id="ground-rules">
 <h1>Ground Rules</h1>
@@ -128,8 +137,8 @@ R Bootcamp HTML Slides
 a &lt;- <span class="kw">c</span>(a, <span class="ot">NA</span>)
 <span class="kw">print</span>(a)</code></pre>
 <pre><code>## [1]  1  2  3 NA</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># NA can hold a place in a vector, NULL cannot</span></code></pre>
 <ul class="incremental">
+<li><code>NA</code> can hold a place, <code>NULL</code> cannot</li>
 <li><code>NaN</code> is even more special, and only holds things like imaginary numbers</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">b &lt;- <span class="dv">1</span>
@@ -137,6 +146,11 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <pre><code>## Warning: NaNs produced</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(b)</code></pre>
 <pre><code>## [1] NaN</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">pi/<span class="dv">0</span></code></pre>
+<pre><code>## [1] Inf</code></pre>
+<ul class="incremental">
+<li>Inf is a special case as well representing an infinite value; just for fun <code>sin(Inf)</code> = <code>NaN</code></li>
+</ul>
 </div>
 <div class="section slide level1" id="beginning-analysis">
 <h1>Beginning Analysis</h1>
@@ -164,7 +178,7 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <h1>Read in Data</h1>
 <ul class="incremental">
 <li>Reading in data is one of the trickiest issues for R</li>
-<li>This is because R is incredibly flexible and can handle data in almost any form</li>
+<li>This is because R is incredibly flexible and can handle data in almost any form including <code>.csv</code> <code>.dta</code> <code>.sas</code> <code>.spss</code> <code>.dat</code> and even <code>.xls</code> and <code>.xlsx</code> with some care</li>
 <li>So we have to carefully specify the data types to R so it can understand what form the data needs to take</li>
 <li>Compared to C this is great!</li>
 </ul>
@@ -172,13 +186,12 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <div class="section slide level1" id="csv-is-our-friend">
 <h1>CSV is Our Friend</h1>
 <ul class="incremental">
-<li>The easiest data type is .csv though Excel files can be read as well</li>
+<li>The easiest data type is .csv though Excel files can be read as well <code>df</code></li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set working directory to the tutorial director In RStudio can do this in</span>
-<span class="co"># 'Tools' tab</span>
-<span class="kw">setwd</span>(<span class="st">&quot;~/GitHub/r_tutorial_ed&quot;</span>)</code></pre>
-<pre><code>## Error: cannot change working directory</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load some data</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set working directory to the tutorial directory In RStudio can do this</span>
+<span class="co"># in 'Tools' tab</span>
+<span class="kw">setwd</span>(<span class="st">&quot;~/GitHub/r_tutorial_ed&quot;</span>)
+<span class="co"># Load some data</span>
 df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.csv&quot;</span>)
 <span class="co"># Note if we don't assign data to 'df' R just prints contents of table</span></code></pre>
 </div>
@@ -196,25 +209,157 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <h1>Always Check Your Data</h1>
 <ul class="incremental">
 <li>A few great commands:</li>
-<li><code>{r dim}   dim(df)</code></li>
-<li><code>{r summary}   summary(df[,1:5])</code></li>
-<li><code>{r names}   names(df)</code> -<code>{r attributes}   names(attributes(df))   class(df)</code></li>
 </ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(df)</code></pre>
+<pre><code>## [1] 2700   32</code></pre>
+<p>-</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df[, <span class="dv">1</span>:<span class="dv">5</span>])</code></pre>
+<pre><code>##        X               school         stuid            grade     
+##  Min.   :     44   Min.   :   1   Min.   :   205   Min.   :3.00  
+##  1st Qu.: 108677   1st Qu.: 195   1st Qu.: 44205   1st Qu.:4.00  
+##  Median : 458596   Median : 436   Median : 88205   Median :5.00  
+##  Mean   : 557918   Mean   : 460   Mean   : 99229   Mean   :5.44  
+##  3rd Qu.: 972291   3rd Qu.: 717   3rd Qu.:132205   3rd Qu.:7.00  
+##  Max.   :1499992   Max.   :1000   Max.   :324953   Max.   :8.00  
+##      schid    
+##  Min.   :205  
+##  1st Qu.:205  
+##  Median :402  
+##  Mean   :367  
+##  3rd Qu.:495  
+##  Max.   :495  </code></pre>
+<p>-</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df)</code></pre>
+<pre><code>##  [1] &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;       &quot;grade&quot;       &quot;schid&quot;      
+##  [6] &quot;dist&quot;        &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
+## [11] &quot;asian&quot;       &quot;econ&quot;        &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;      
+## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
+## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
+## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
+## [31] &quot;proflvl&quot;     &quot;race&quot;       </code></pre>
+<p>-</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">attributes</span>(df))</code></pre>
+<pre><code>## [1] &quot;names&quot;     &quot;class&quot;     &quot;row.names&quot;</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(df)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
-<div class="section slide level1" id="some-slide-on-rodbc">
-<h1>Some Slide on RODBC</h1>
+<div class="section slide level1" id="data-warehouses-oracle-sql-and-rodbc">
+<h1>Data Warehouses, Oracle, SQL and RODBC</h1>
 <ul class="incremental">
 <li>Do you have data in a warehouse?</li>
 <li>RODBC can help</li>
 <li>You can query the data directly and bring it into R, saving time and hassle</li>
 <li>Makes your work reproducible, always start with a clean slate of data</li>
-<li>At DPI this can allow us to pull data directly from LDS or other databases</li>
+<li>At DPI this can allow us to pull data directly from LDS or other databases using SQL queries</li>
 </ul>
+</div>
+<div class="section slide level1" id="an-example-from-dpi">
+<h1>An Example From DPI</h1>
+<ul class="incremental">
+<li>The basics of the RODBC package are easy to understand</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RODBC)  <span class="co"># interface driver for R</span>
+channel &lt;- <span class="kw">odbcConnect</span>(<span class="st">&quot;Mydatabase.location&quot;</span>, <span class="dt">uid =</span> <span class="st">&quot;useR&quot;</span>, <span class="dt">pwd =</span> <span class="st">&quot;secret&quot;</span>)  <span class="co"># establish connection</span>
+<span class="co"># we can do multiple connections in the same R session credentials stored</span>
+<span class="co"># in plain text unless you do some magic</span>
+table_list &lt;- <span class="kw">sqltables</span>(channel, <span class="dt">schema =</span> <span class="st">&quot;My_DB&quot;</span>)  <span class="co"># Get a list of tables in the connection</span>
+<span class="kw">colnames</span>(<span class="kw">sqlFetch</span>(channel, <span class="st">&quot;My_DB.TABLE_NAME&quot;</span>, <span class="dt">max =</span> <span class="dv">1</span>))  <span class="co"># get the column names of a table</span>
+
+datapull &lt;- <span class="kw">sqlQuery</span>(channel, <span class="st">&quot;SELECT DATA1, DATA2, DATA3 FROM My_DB.TABLE_NAME&quot;</span>)  <span class="co"># execute some SQLquery, can paste any SQLquery as a string into this space</span></code></pre>
+</div>
+<div class="section slide level1" id="missing-data">
+<h1>Missing Data</h1>
+<ul class="incremental">
+<li>Let’s add some missing data to our dataframe so we can see how missing data works</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">random &lt;- <span class="kw">sample</span>(<span class="kw">unique</span>(df$stuid), <span class="dv">100</span>)
+random2 &lt;- <span class="kw">sample</span>(<span class="kw">unique</span>(df$stuid), <span class="dv">120</span>)
+messdf &lt;- df
+messdf$readSS[messdf$stuid %in% random] &lt;- <span class="ot">NA</span>
+messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code></pre>
+</div>
+<div class="section slide level1" id="checking-for-missing-data">
+<h1>Checking for Missing Data</h1>
+<ul class="incremental">
+<li>The <code>summary</code> function helps identify missing data</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(messdf[, <span class="kw">c</span>(<span class="st">&quot;stuid&quot;</span>, <span class="st">&quot;readSS&quot;</span>, <span class="st">&quot;mathSS&quot;</span>)])</code></pre>
+<pre><code>##      stuid            readSS        mathSS   
+##  Min.   :   205   Min.   :252   Min.   :232  
+##  1st Qu.: 44205   1st Qu.:431   1st Qu.:417  
+##  Median : 88205   Median :496   Median :479  
+##  Mean   : 99229   Mean   :497   Mean   :483  
+##  3rd Qu.:132205   3rd Qu.:564   3rd Qu.:546  
+##  Max.   :324953   Max.   :773   Max.   :828  
+##                   NA's   :218   NA's   :257  </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(messdf[!<span class="kw">complete.cases</span>(messdf), ])  <span class="co"># number of rows with missing data</span></code></pre>
+<pre><code>## [1] 457</code></pre>
+<ul class="incremental">
+<li>To get rid of missing data, we can copy our data with all missing cases dropped using the <code>na.omit</code> function</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">cleandf &lt;- <span class="kw">na.omit</span>(messdf)
+<span class="kw">nrow</span>(cleandf)</code></pre>
+<pre><code>## [1] 2243</code></pre>
 </div>
 <div class="section slide level1" id="now-we-have-the-data">
 <h1>Now we have the data</h1>
 <ul class="incremental">
 <li>What next?</li>
+<li>We need to do some basic diagnostics on our data to understand the look and feel of it before we proceed</li>
+<li>Here are a few examples of scripts we could run to understand our data object</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(messdf)</code></pre>
+<pre><code>## [1] 2700   32</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(messdf[, <span class="dv">18</span>:<span class="dv">26</span>])</code></pre>
+<pre><code>## 'data.frame':    2700 obs. of  9 variables:
+##  $ luck       : int  0 1 0 1 0 0 1 0 0 0 ...
+##  $ ability    : num  87.9 97.8 104.5 111.7 81.9 ...
+##  $ measerr    : num  11.13 6.82 -7.86 -17.57 52.98 ...
+##  $ teachq     : num  39.0902 0.0985 39.5389 24.1161 56.6806 ...
+##  $ year       : int  2000 2000 2000 2000 2000 2000 2000 2000 2000 2000 ...
+##  $ attday     : int  180 180 160 168 156 157 169 180 170 152 ...
+##  $ schoolscore: num  29.2 56 56 56 56 ...
+##  $ district   : int  3 3 3 3 3 3 3 3 3 3 ...
+##  $ schoolhigh : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(messdf)</code></pre>
+<pre><code>##  [1] &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;       &quot;grade&quot;       &quot;schid&quot;      
+##  [6] &quot;dist&quot;        &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
+## [11] &quot;asian&quot;       &quot;econ&quot;        &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;      
+## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
+## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
+## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
+## [31] &quot;proflvl&quot;     &quot;race&quot;       </code></pre>
+<ul class="incremental">
+<li>It looks like we have a number of <code>id</code> variables, this is useful and it is good to check if these variables have multiple rows per id or not and we do this using <code>length</code> and <code>unique</code></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">unique</span>(messdf$stuid))</code></pre>
+<pre><code>## [1] 1200</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">unique</span>(messdf$schid))</code></pre>
+<pre><code>## [1] 3</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">unique</span>(messdf$dist))</code></pre>
+<pre><code>## [1] 6</code></pre>
+</div>
+<div class="section slide level1" id="checking-for-coding">
+<h1>Checking for Coding</h1>
+<ul class="incremental">
+<li>Data is coded using numeric or character representations of attributes–commonly things are coded using a 1 and 0 scheme or an A,B,C scheme</li>
+<li>With R we can check how our variables are coded very easily</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$grade)</code></pre>
+<pre><code>## [1] 3 4 5 6 7 8</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$econ)</code></pre>
+<pre><code>## [1] 0 1</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$race)</code></pre>
+<pre><code>## [1] B H I W A
+## Levels: A B H I W</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$disab)</code></pre>
+<pre><code>## [1] 0 1</code></pre>
+</div>
+<div class="section slide level1" id="next-steps">
+<h1>Next Steps</h1>
+<ul class="incremental">
+<li>In the next section we will learn to aggregate, explore, reshape, and recode data</li>
+<li>Questions?</li>
 </ul>
 </div>
 <div class="section slide level1" id="exercises">
@@ -224,8 +369,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <div class="section slide level1" id="other-references">
 <h1>Other References</h1>
 <ul class="incremental">
+<li><a href="http://www.ats.ucla.edu/stat/r/pages/raw_data.htm">UCLA Academic Technology Services: Reading in Raw Data</a></li>
 <li><a href="https://github.com/hadley/devtools/wiki/vocabulary">An R Vocabulary for Starting Out</a></li>
-<li><a href="http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/">R Features List</a></li>
+<li><a href="http://www.statmethods.net/input/importingdata.html">Quick-R: Data Import</a></li>
 <li><a href="http://www.twotorials.com/">Video Tutorials</a></li>
 </ul>
 </div>
