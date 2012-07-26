@@ -8,6 +8,7 @@ In this lesson we hope to learn:
 - Git, GitHub, and add-on packages
 - Write a `for' loop
 - Write a basic function
+- Optimize R with parallelization
 - Mixed effect models
 - Data mining with R
 
@@ -21,6 +22,19 @@ In this lesson we hope to learn:
 - An important part of making work reproducible is making your code readable and understandable
 - Much of this involves looking into where to break lines and how to simplify expressions without making them obscure
 - You can also take some cues about how to make your code consistent and clean
+
+# For Looping
+- Don't do it
+
+# Write a simple function
+- Functions are easy
+- To view any function in R just type `print(myfunction)`
+- For speed, some functions are not viewable
+
+```{r reviewingfunction}
+print(mean) #bytecode, we can't see it
+print(order)
+```
 
 
 # Git and GitHub

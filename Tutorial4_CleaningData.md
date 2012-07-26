@@ -128,6 +128,29 @@ stuatt[17:21, 1:3]
 
 - How do we fix this?
 
+# How do we correct this?
+- We employ a similar procedure, in R this is known as "split, apply, and combine"
+- Why? First, we **split** the data into groups by `sid`
+- Then we **apply** some function or another to that group (i.e. count the unique values of a variable)
+- Then we **combine** the data back together in a fashion
+- This has some advantages--unlike other methods, the data does not have to be ordered by our id variable for this to work
+- The disadvantage is that this method is computationally expensive, even in R, and requires copying our data frame using up RAM
+
+# An Aside about Split-Apply-Combine
+- The `plyr` package has a number of utilities to help us split-apply-combine across data types for both input and output
+
+<p align="center"><img src="img/plyrfunctions.png" height="150" width="650"></p>
+
+# The logic of plyr
+- This shows how the dataframe is broken up into pieces and each piece then gets whatever functions, summaries, or transformations we apply to it
+
+<p align="center"><img src="img/dataframesplit.png" height="260" width="600"></p>
+
+# How plyr works on dataframes like what we will be doing
+- And this shows the output `ddply` has before it combines it back for us
+
+<p align="center"><img src="img/plyrddplyoutput.png" height="260" width="650"></p>
+
 # Unifying Consistent Gender Values
 - First we create a variable with the number of unique values gender takes per student
 - In R to do this we create a summary table of student attributes by collapsing the data set into one row per student
@@ -234,31 +257,8 @@ rm(tempdf)
 # Create a consistent race and ethnicity indicator
 - Let's practice the same procedure on race
 
+### A Note About Variable Types
 
-```r
-testuniqueness(stuatt$id, stuatt$race_ethnicity)
-```
-
-```
-## [1] TRUE
-```
-
-```r
-head(stuatt[, 1:4])
-```
-
-```
-##   sid school_year race_ethnicity birth_date
-## 1   1        2004              B      10869
-## 2   1        2005              H      10869
-## 3   1        2006              H      10869
-## 4   1        2007              H      10869
-## 5   2        2006              W      11948
-## 6   2        2007              B      11948
-```
-
-
-# A Note About Variable Types
 - In the SDP Toolkit you are advised to convert the `race_ethnicity` variable to numeric and add labels to it
 - This is because Stata and other statistical packages don't have internal data structures that can handle the `factor` variable type like R can, and rely on numeric coding schemes
 - Why don't we need to do this in R?
@@ -266,6 +266,19 @@ head(stuatt[, 1:4])
 - One problem is that our datafile uses 'NA' for Native American and we do have to recode that... why?
 
 # Recoding Race
+- What's wrong with our race variable?
+
+
+```r
+summary(stuatt$race_ethnicity)
+```
+
+```
+##     A     B     H   M/O     W  NA's 
+##  7303 25321 30444  2809 20528  1129 
+```
+
+
 - How do we do this?
 
 
@@ -316,15 +329,127 @@ stuatt[7:9, c(1, 2, 4)]
 
 - How is this different from our prior problem?
 
+# Business Rule
+- Again, we are implementing a business rule which means we are making some arbitrary decisions about the data
+- In this case, if a student is _hispanic_ we will code both values as hispanic
+- If the student is _not hispanic_ in either observation, we will code the student as _multiple_
+
+# Let's do it anyway
+
 ```r
-length(unique(stuatt$sid, stuatt$school_year))
-length(unique(stuatt[, c(1, 2, 4)]))
+nvals <- ddply(stuatt, .(sid, school_year), summarize, nvals_race = length(unique(race_ethnicity)), 
+    tmphispanic = length(which(race_ethnicity == "H")))
+tempdf <- merge(stuatt, nvals)
+rm(nvals)
+tempdf$race2 <- tempdf$race_ethnicity
+tempdf$race2[tempdf$nvals_race > 1 & tempdf$tmphispanic == 1] <- "H"
+tempdf$race2[tempdf$nvals_race > 1 & tempdf$tmphispanic != 1] <- "M/O"
+tempdf$race_ethnicity <- tempdf$race2
+tempdf$race2 <- NULL
+tempdf$nvals_race <- NULL
+tempdf$tmphispanic <- NULL
+tempdf <- tempdf[order(tempdf$sid, tempdf$school_year), ]
+```
+
+
+# Compare them
+
+```r
+subset(tempdf[, c(1, 2, 4)], sid == 3 & school_year < 2007 | sid == 8552 & school_year < 
+    2007 | sid == 11382 & school_year < 2007)
+```
+
+```
+##         sid school_year birth_date
+## 56201     3        2006      11724
+## 56202     3        2006      11724
+## 81064  8552        2005      12334
+## 81065  8552        2006      12334
+## 81066  8552        2006      12334
+## 6162  11382        2005      13097
+## 6163  11382        2005      13097
+## 6164  11382        2006      13097
+```
+
+```r
+
+subset(stuatt[, c(1, 2, 4)], sid == 3 & school_year < 2007 | sid == 8552 & school_year < 
+    2007 | sid == 11382 & school_year < 2007)
+```
+
+```
+##         sid school_year birth_date
+## 7         3        2006      11724
+## 8         3        2006      11724
+## 34290  8552        2005      12334
+## 34291  8552        2006      12334
+## 34292  8552        2006      12334
+## 45674 11382        2005      13097
+## 45675 11382        2005      13097
+## 45676 11382        2006      13097
+```
+
+
+# OK
+- Merge it back together
+
+```r
+stuatt <- tempdf
+rm(tempdf)
 ```
 
 
 
-# How should we do the recoding of `stuatt$race_ethnicity`
--
+# Let's do it anyway
+
+```r
+# Stupid hack workaround of ddply bug when running too many of these
+# sequentially
+ddply_race <- function(x, y, z) {
+    NewColName <- "race_ethnicity"
+    z <- ddply(x, .(y, z), .fun = function(xx, col) {
+        c(nvals_race = length(unique(xx[, col])))
+    }, NewColName)
+    z$sid <- z$y
+    z$school_year <- z$z
+    z$y <- NULL
+    z$z <- NULL
+    return(z)
+}
+
+nvals <- ddply_race(stuatt, stuatt$sid, stuatt$school_year)
+tempdf <- merge(stuatt, nvals)
+tempdf$temp_ishispanic <- NA
+tempdf$temp_ishispanic[tempdf$race_ethnicity == "H" & tempdf$nvals_race > 1] <- 1
+
+```
+
+
+
+# Inconsistency across years
+- So we are in the clear right?
+- No, our data still has messiness across years:
+
+
+```r
+head(stuatt[, 1:4])
+```
+
+```
+##       sid school_year race_ethnicity birth_date
+## 1       1        2004              B      10869
+## 2       1        2005              H      10869
+## 3       1        2006              H      10869
+## 4       1        2007              H      10869
+## 44618   2        2006              W      11948
+## 44619   2        2007              B      11948
+```
+
+
+# So...
+
+## What do we do?
+
 
 # Answer
 
@@ -377,6 +502,7 @@ tempdf <- task1(stuatt, stuatt$sid, stuatt$school_year, stuatt$race_ethnicity)
 - [The Strategic Data Project Toolkit](http://www.gse.harvard.edu/~pfpie/index.php/sdp/tools)
 - [UCLA ATS: R FAQ on Data Management](http://www.ats.ucla.edu/stat/r/faq/default.htm)
 - [Video Tutorials](http://www.twotorials.com/)
+- [The Split-Apply-Combine Strategy for Data Analysis by Hadley Wickham](http://www.jstatsoft.org/v40/i01) available in the Journal of Statistical Software vol 40, Issue 1, April 2011
 
 # Session Info
 
@@ -402,3 +528,14 @@ print(sessionInfo(), locale = FALSE)
 ## [5] tools_2.15.1  
 ```
 
+
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>
