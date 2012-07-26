@@ -27,3 +27,17 @@ In this lesson we hope to learn:
 - Working alone or in a group, `git` and GitHub can help
 - [Learn Git and GitHub](http://try.github.com/)
 
+# Exercises 
+1.
+2.
+
+# References
+
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `r packageVersion('knitr')`. Here is my session info:
+
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+```

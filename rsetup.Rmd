@@ -44,6 +44,10 @@ install_new('lmtest')
 install_new('ggplot2')
 install_new('gridExtra')
 install_new('stringr')
+install_new('knitr')
+install_new('quantreg')
+install_new('zoo')
+
 ```
 
 # Alternate Install

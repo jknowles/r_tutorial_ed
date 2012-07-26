@@ -841,6 +841,14 @@ length(myag$mean_read[myag$mean_read < 550 & !is.na(myag$mean_read)])
 # Merging Data
 - It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources
 - R makes this easy, but that simplicity comes at a cost--it can be easy to make mistakes if you don't specify things carefully
+- Let's merge attributes about a student's school with the student row data
+
+# Merging Data II
+- We have two data objects `df` which has multiple rows per student and `myag` which has multiple rows per school
+- What are the variables that **link** these two together?
+
+
+
 
 
 
@@ -968,4 +976,28 @@ identical(g4, g4_b)
 - [Quick-R: Data Management](http://www.statmethods.net/management/index.html)
 - [UCLA ATS: R FAQ on Data Management](http://www.ats.ucla.edu/stat/r/faq/default.htm)
 - [Video Tutorials](http://www.twotorials.com/)
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `0.7`. Here is my session info:
+
+
+```r
+print(sessionInfo(), locale = FALSE)
+```
+
+```
+## R version 2.15.1 (2012-06-22)
+## Platform: i386-pc-mingw32/i386 (32-bit)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] plyr_1.7.1 knitr_0.7 
+## 
+## loaded via a namespace (and not attached):
+## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6   
+## [5] tools_2.15.1  
+```
 

@@ -52,3 +52,19 @@ a+geom_text(aes(x=4.8,y=11.5,label='R Markdown'))+
 - `install.packages('knitr')`; `sweave` is part of R base already
 - We need a LaTeX distribution for Tex documents
 - What is LaTeX?
+
+# Exercises 
+1.
+2.
+
+
+# References
+
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `r packageVersion('knitr')`. Here is my session info:
+
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+```

@@ -377,3 +377,28 @@ tempdf <- task1(stuatt, stuatt$sid, stuatt$school_year, stuatt$race_ethnicity)
 - [The Strategic Data Project Toolkit](http://www.gse.harvard.edu/~pfpie/index.php/sdp/tools)
 - [UCLA ATS: R FAQ on Data Management](http://www.ats.ucla.edu/stat/r/faq/default.htm)
 - [Video Tutorials](http://www.twotorials.com/)
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `0.7`. Here is my session info:
+
+
+```r
+print(sessionInfo(), locale = FALSE)
+```
+
+```
+## R version 2.15.1 (2012-06-22)
+## Platform: i386-pc-mingw32/i386 (32-bit)
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] plyr_1.7.1 knitr_0.7 
+## 
+## loaded via a namespace (and not attached):
+## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6   
+## [5] tools_2.15.1  
+```
+
