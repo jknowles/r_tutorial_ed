@@ -4,7 +4,7 @@
 
 ```{r setuph, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides6-', cache.path='cache/slides6-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='svg')
+opts_chunk$set(fig.path='figure/slides6-', cache.path='cache/slides6-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='svg',out.width='600px',out.height='350px')
 source('ggplot2themes.R')
 ```
 
@@ -32,6 +32,24 @@ dropbox_source<-function(myurl){
 - Graphics are hard to get right, but tools can help make it easier
 - Lots of great resources to help available for this online
 
+# Base graphics
+- R has base graphics which are useful for quickly doing some plots
+
+```{r basehist}
+hist(df$readSS)
+```
+
+# Base graphics are simple
+- You can use them to understand your data and do quick diagnostics
+- The commands are pretty easy to remember
+- You can do complex things with them if you like, but the syntax can be confusing
+
+# Base graphics has some limitations
+- What if we try to do a scatterplot of lots of data?
+```{r basescatter}
+plot(df$readSS,df$mathSS)
+```
+
 # Basic Plot
 - Don't use R base graphics
 - `ggplot2` is pretty much the new standard in R
@@ -44,7 +62,7 @@ qplot(readSS,mathSS,data=df)
 - Consider this basic scatterplot
 
 # Variations
-```{r plot2,message=FALSE,warning=FALSE}
+```{r plot2,out.width='400px',out.height='300px'}
 qplot(readSS,mathSS,data=df)+geom_smooth()
 qplot(readSS,mathSS,data=df,alpha=I(0.3))
 qplot(readSS,mathSS,data=df)+xlab('Reading Score')+ylab('Math Score')
@@ -55,8 +73,9 @@ qplot(readSS,mathSS,data=df,color=race)+scale_color_brewer(type='qual',palette=2
 - Visualization is about thinking about what objects in our dataset map with what visual cues for the viewer
   - liberal use of `names(object)` helps
 - What is the best way to show discrete variables, continuous variables, and connected variables
+- We also need to be unafraid about trying transformations of variables, recoding variables, and reshaping variables to tell the story we are looking for
 
-# Our data
+# Our data for this exercise
 - As we now know, student data is quite fascinating
 - We have many discrete attribute variables
   - Race, gender, economics, etc.
@@ -88,7 +107,32 @@ col.wheel("brown",nearby=2)
 ```
 
 # Start with a great example
-```{r premier}
+```{r premier,echo=FALSE,out.width='800px',out.height='650px'}
+library(grid)
+p1<-qplot(readSS,..density..,data=df,fill=race,
+      position='fill',geom='density')+scale_fill_brewer(
+        type='qual',palette=2)
+
+p2<-qplot(readSS,..fill..,data=df,fill=race,
+      position='fill',geom='density')+scale_fill_brewer(
+        type='qual',palette=2)+ylim(c(0,1))+theme_bw()+
+          opts(legend.position='none',
+               axis.text.x=theme_blank(),
+               axis.text.y=theme_blank(),
+               axis.ticks=theme_blank(),
+               panel.margin=unit(0,"lines"))+ylab('')+
+                 xlab('')
+
+vp<-viewport(x=unit(.65,"npc"),y=unit(.73,"npc"),
+             width=unit(.2,"npc"),height=unit(.2,"npc"))
+print(p1)
+print(p2,vp=vp)
+
+```
+
+
+# Scary R Code
+```{r premiernoeval,eval=FALSE}
 library(grid)
 p1<-qplot(readSS,..density..,data=df,fill=race,
       position='fill',geom='density')+scale_fill_brewer(
@@ -127,3 +171,15 @@ ggplot(df,aes(x=readSS,y=mathSS))+geom_point()
 - This makes `ggplot2` like a sublanguage under R
 - `aes` says we are specifying aesthetics, here we specified x and y to make a two dimensional graphic
 
+# Layers
+- Exactly what they sound like, each plot is a simple series of layers
+- Show examples
+
+# Geoms
+- Geoms are the way data is represented, you can think of it like a chart type in another programming language
+- 
+
+# Scales
+- Scales are the way the numeric/categorical data is mapped to a visual representation
+- They transform the geoms and aesthetics
+- Scales preserve the mapping, but allow us to explore reshaping the data
