@@ -4,7 +4,7 @@
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE)
+opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg')
 ```
 
 # Overview

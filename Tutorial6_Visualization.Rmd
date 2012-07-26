@@ -2,6 +2,12 @@
 % R Bootcamp HTML Slides
 % Jared Knowles
 
+```{r setuph, include=FALSE}
+# set global chunk options
+opts_chunk$set(fig.path='figure/slides6-', cache.path='cache/slides6-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='svg')
+source('ggplot2themes.R')
+```
+
 # Overview
 In this lesson we hope to learn:
 - How to draw diagnostic plots in base graphics
@@ -12,7 +18,7 @@ In this lesson we hope to learn:
 - Putting it together
 
 ```{r setup, message=FALSE,warning=FALSE,echo=FALSE,comment=FALSE}
-df<-read.csv('data/smalldata.csv')
+load('data/smalldata.rda')
 dropbox_source<-function(myurl){
   require(stringr)
   s<-str_extract(myurl,"[/][a-z][/]\\d+[/][a-z]*.*")

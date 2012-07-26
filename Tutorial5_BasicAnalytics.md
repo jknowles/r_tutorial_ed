@@ -108,7 +108,7 @@ qplot(ss1, ss2, data = midsch, alpha = I(0.07)) + theme_dpi() + geom_smooth() +
     geom_smooth(method = "lm", se = FALSE, color = "purple")
 ```
 
-![plot of chunk diag1](figure/slides5-diag1.svg) 
+![plot of chunk diag1](figure/slides5-diag1.png) 
 
 
 # Frequencies, Crosstabs, and t-tests
@@ -230,7 +230,7 @@ objects(ss_mod)
 qplot(n2, ss2 - ss1, data = midsch, alpha = I(0.1)) + theme_dpi() + geom_smooth()
 ```
 
-![plot of chunk diagn](figure/slides5-diagn.svg) 
+![plot of chunk diagn](figure/slides5-diagn.png) 
 
 - Group size might matter
 - Another type of omitted variable are non-linear terms (polynomials) of the independent variable
@@ -562,7 +562,7 @@ ss_quant <- rq(ss2 ~ ss1, tau = c(seq(0.1, 0.9, 0.1)), data = midsch_sub)
 plot(summary(ss_quant, se = "boot", method = "wild"))
 ```
 
-![plot of chunk quantileregression](figure/slides5-quantileregression.svg) 
+![plot of chunk quantileregression](figure/slides5-quantileregression.png) 
 
 
 # Results
@@ -577,7 +577,7 @@ ss_quant2 <- rq(ss2 ~ ss1 + I(ss1^2) + I(ss1^3) + I(ss1^4) + n2, tau = c(seq(0.1
 plot(summary(ss_quant2, se = "boot", method = "wild"))
 ```
 
-![plot of chunk quantileregression2](figure/slides5-quantileregression2.svg) 
+![plot of chunk quantileregression2](figure/slides5-quantileregression2.png) 
 
 - The polynomials seem to address some of our concern about non-linearity in this manner, but remember, don't eliminate other symptoms of non-linearity
 
@@ -592,7 +592,7 @@ qplot(ss_quant3$sol[1, ], ss_quant3$sol[5, ], geom = "line", main = "Continuous 
     (2 * coef(summary(ss_mod))[2, 2]), linetype = 3)
 ```
 
-![plot of chunk betterquantileplot](figure/slides5-betterquantileplot.svg) 
+![plot of chunk betterquantileplot](figure/slides5-betterquantileplot.png) 
 
 
 # Showing Off 2
@@ -606,7 +606,7 @@ qplot(ss_quant4$sol[1, ], ss_quant4$sol[5, ], geom = "line", main = "Continuous 
     (2 * coef(summary(ss_mod))[2, 2]), linetype = 3)
 ```
 
-![plot of chunk betterquantileplot2](figure/slides5-betterquantileplot2.svg) 
+![plot of chunk betterquantileplot2](figure/slides5-betterquantileplot2.png) 
 
 
 
@@ -678,7 +678,7 @@ a2 <- qplot(id, V1, data = ldply(mods, function(x) mean(x$residuals)), geom = "b
 grid.arrange(a1, a2, main = "Comparing Replication and Provided Residual Means by Model")
 ```
 
-![plot of chunk residplot1](figure/slides5-residplot1.svg) 
+![plot of chunk residplot1](figure/slides5-residplot1.png) 
 
 
 # Test Expected Value of Residuals
@@ -692,7 +692,7 @@ qplot(residuals, data = midsch, geom = "density") + stat_function(fun = dnorm,
     0.85)) + theme_dpi()
 ```
 
-![plot of chunk residplot](figure/slides5-residplot.svg) 
+![plot of chunk residplot](figure/slides5-residplot.png) 
 
 
 # Residuals Have Uniform Variance
@@ -713,7 +713,7 @@ a2 <- qplot(b, abs(lm(c ~ b)$residuals), main = "Well Specified OLS", alpha = I(
 grid.arrange(a1, a2, ncol = 2)
 ```
 
-![plot of chunk perfectmodel](figure/slides5-perfectmodel.svg) 
+![plot of chunk perfectmodel](figure/slides5-perfectmodel.png) 
 
 
 # Empirical Tests
@@ -755,7 +755,137 @@ gqtest(ss_mod)
 - What are some good ways to address accuracy and outlier sensitivity?
 - R model diagnostics can be easily run on any `lm` object
 
+# Convenience Functions
+- Using `ggplot2` we can run something called `fortify` on our linear model to get a data frame that tells us a lot of diagnostics about each observation
+- Example:
 
+
+```r
+damodel <- fortify(ss_mod)
+summary(damodel)
+```
+
+```
+##       ss2           ss1           .hat             .sigma    
+##  Min.   :416   Min.   :392   Min.   :0.00189   Min.   :10.9  
+##  1st Qu.:478   1st Qu.:457   1st Qu.:0.00207   1st Qu.:11.2  
+##  Median :495   Median :471   Median :0.00275   Median :11.2  
+##  Mean   :494   Mean   :468   Mean   :0.00377   Mean   :11.2  
+##  3rd Qu.:510   3rd Qu.:483   3rd Qu.:0.00416   3rd Qu.:11.2  
+##  Max.   :560   Max.   :511   Max.   :0.02920   Max.   :11.2  
+##     .cooksd           .fitted        .resid         .stdresid     
+##  Min.   :0.00000   Min.   :412   Min.   :-46.36   Min.   :-4.148  
+##  1st Qu.:0.00015   1st Qu.:481   1st Qu.: -7.60   1st Qu.:-0.680  
+##  Median :0.00062   Median :496   Median : -0.42   Median :-0.038  
+##  Mean   :0.00225   Mean   :494   Mean   :  0.00   Mean   : 0.000  
+##  3rd Qu.:0.00179   3rd Qu.:509   3rd Qu.:  6.49   3rd Qu.: 0.581  
+##  Max.   :0.06596   Max.   :539   Max.   : 58.36   Max.   : 5.218  
+```
+
+
+# What do we get?
+- `dv` `iv` `.hat` `.sigma` `.cooksd` `.fitted` `.resid` and `.stdresid`
+- Some are obvious: `.fitted` is the prediction from our model
+- `.resid` = `dv` - `.fitted`
+- `.stdresid` = normalized `.resid`
+- `.sigma` = estimate of residual standard deviation when observation is dropped from the model
+- `.hat` is more obscure, but is a measure of the influence an individual observation has on overall model fit
+
+# So, how do we use this?
+- Visual inspection is the best in this case
+- It's easy to implement, easy to interpret, and easy to explain to others
+- Watch: let's look at an ideal linear regression model
+
+
+```r
+a <- rnorm(500)
+b <- runif(500)
+c <- a + b
+goodsim <- lm(c ~ a)
+goodsim_a <- fortify(goodsim)
+qplot(c, .hat, data = goodsim_a) + theme_dpi() + geom_smooth(se = FALSE)
+```
+
+![plot of chunk simulatedgoodmodel](figure/slides5-simulatedgoodmodel.png) 
+
+
+# Let's look at our model
+
+
+```r
+qplot(ss2, .hat, data = damodel) + theme_dpi() + geom_smooth(se = FALSE)
+```
+
+![plot of chunk nonsim](figure/slides5-nonsim.png) 
+
+
+- The deviation here is quite stark
+
+# Compare and contrast
+
+```r
+a <- qplot(c, .hat, data = goodsim_a) + theme_dpi() + geom_smooth(se = FALSE)
+b <- qplot(ss2, .hat, data = damodel) + theme_dpi() + geom_smooth(se = FALSE)
+grid.arrange(a, b, ncol = 2)
+```
+
+<img src="figure/slides5-comparisonplot.png" width="800px" height="570px"  alt="plot of chunk comparisonplot" title="plot of chunk comparisonplot" /> 
+
+- These are different, but what do they tell us?
+- Points with a high `hat` value are what we call "high leverage" observations, and on their own are not bad--in fact our good model has lots of them
+- They help keep the model robust to outliers
+- What do you notice about our replication model's outliers?
+
+# One step further
+- A rule of thumb is that observations greater than hat of 3x the mean hat value are troubling
+
+
+```r
+qplot(ss2, .hat, data = damodel) + theme_dpi() + geom_smooth(se = FALSE) + geom_hline(yintercept = 3 * 
+    mean(damodel$.hat), color = I("red"), size = I(1.1))
+```
+
+![plot of chunk diagnosticplot](figure/slides5-diagnosticplot.png) 
+
+- Yikes!
+
+# Checking this systematically
+- First, a nasty chunk of R code
+
+
+```r
+infobs <- which(apply(influence.measures(ss_mod)$is.inf, 1, any))
+ssdata <- cbind(fortify(ss_mod), midsch_sub)
+ssdata$id3 <- paste(ssdata$district_id, ssdata$school_id, sep = ".")
+noinf <- lm(ss2 ~ ss1, data = midsch_sub[-infobs, ])
+noinff <- fortify(noinf)
+```
+
+
+# Then a plot
+
+
+```r
+
+qplot(ss1, ss2, data = ssdata, alpha = I(0.5)) + geom_line(aes(ss1, .fitted, 
+    group = 1), data = ssdata, size = I(1.02)) + geom_line(aes(x = ss1, y = .fitted, 
+    group = 1), data = noinff, linetype = 6, size = 1.1, color = "blue") + theme_dpi() + 
+    xlab("SS1") + ylab("Y")
+```
+
+![plot of chunk infobsplot](figure/slides5-infobsplot.png) 
+
+
+# What have we learned?
+- Regression in R is easy
+- Regression is easy to get wrong
+
+
+# What might we do different to address these concerns?
+- Well, there is nesting in our data that is being ignored
+- Also, by fitting fifty separate models we are not efficiently using our data
+- Let's look at some quick easy strategies to address that concern
+- Let's start with the megamodel
 
 # Megamodel I
 
@@ -832,6 +962,38 @@ summary(my_megamod2)
 ```
 
 
+# Comparison
+- How do we test between these two?
+
+# Answer
+
+```r
+anova(my_megamod, my_megamod2)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: ss2 ~ ss1 + grade + test_year + subject
+## Model 2: ss2 ~ ss1 + as.factor(grade) + as.factor(test_year) + subject
+##   Res.Df     RSS Df Sum of Sq   F Pr(>F)    
+## 1  19980 2306425                            
+## 2  19974 2061668  6    244757 395 <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+```
+
+
+# What about nesting the data?
+- Why can't we include a variable for each school in our replication model from earlier?
+- What happens if we try?
+
+```r
+badidea <- lm(ss2 ~ ss1 + factor(school_id), data = midsch_sub)
+head(summary(blah))
+```
+
+
 
 # Exercises
 1. 
@@ -839,8 +1001,6 @@ summary(my_megamod2)
 3. 
 
 # Other References
-- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
-- [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
 - [Video Tutorials](http://www.twotorials.com/)
 
 
