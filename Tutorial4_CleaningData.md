@@ -9,18 +9,29 @@ In this lesson we hope to learn:
 - Recoding data and changing data types
 - Diagnostics and error checks
 
-```{r setup, include=FALSE}
-# set global chunk options
-opts_chunk$set(fig.path='figure/slides4-', cache.path='cache/slides4-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,cache=TRUE,autodep=TRUE)
-```
+
+
 
 # Data Setup
 - Let's read in a new dataset now that has some messiness to it
 
-```{r dataread}
-load('data/Student_Attributes.rda')
-head(stuatt[,1:4],7)
+
+```r
+load("data/Student_Attributes.rda")
+head(stuatt[, 1:4], 7)
 ```
+
+```
+##   sid school_year male race_ethnicity
+## 1   1        2004    1              B
+## 2   1        2005    1              H
+## 3   1        2006    1              H
+## 4   1        2007    1              H
+## 5   2        2006    0              W
+## 6   2        2007    0              B
+## 7   3        2006    1              H
+```
+
 - What's wrong with this?
 
 # How can R help correct this?
@@ -41,45 +52,99 @@ head(stuatt[,1:4],7)
 # SDP Task 1 Student Attributes Intro
 - Drop the `first_9th_school_year_reported` variable
 
-```{r dropvar9}
-stuatt$first_9th_year_reported<-NULL
+
+```r
+stuatt$first_9th_year_reported <- NULL
 ```
+
 - Later in the tutorial a new variable like this will be created
 
 # SDP Task 1 - Step 1: Consistent Gender
 - Is gender unique for each student?
 
-```{r uniquegender}
+
+```r
 length(unique(stuatt$sid))
-length(unique(stuatt$sid,stuatt$male))
 ```
+
+```
+## [1] 21803
+```
+
+```r
+length(unique(stuatt$sid, stuatt$male))
+```
+
+```
+## [1] 21806
+```
+
 - Nah, we have 21,803 unique students in our dataset, but  unique combinations of 21,806 unique combinations of gender and student
 
-```{r uniquenesstest}
-testuniqueness<-function(id,group){
-  length(unique(id))==length(unique(id,group))
-} # Need better varname and some optimization to the speed of this code
-testuniqueness(stuatt$sid,stuatt$male)
-testuniqueness(stuatt$sid,stuatt$race_ethnicity)
-testuniqueness(stuatt$sid,stuatt$birth_date)
+
+```r
+testuniqueness <- function(id, group) {
+    length(unique(id)) == length(unique(id, group))
+}  # Need better varname and some optimization to the speed of this code
+testuniqueness(stuatt$sid, stuatt$male)
 ```
+
+```
+## [1] FALSE
+```
+
+```r
+testuniqueness(stuatt$sid, stuatt$race_ethnicity)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+testuniqueness(stuatt$sid, stuatt$birth_date)
+```
+
+```
+## [1] FALSE
+```
+
 
 # Where is the data messy?
 
-```{r seethegenderprob}
-stuatt[17:21,1:3]
+
+```r
+stuatt[17:21, 1:3]
 ```
+
+```
+##    sid school_year male
+## 17   7        2004    1
+## 18   7        2005    1
+## 19   7        2006    1
+## 20   7        2007    0
+## 21   7        2008    1
+```
+
 - How do we fix this?
 
 # Unifying Consistent Gender Values
 - First we create a variable with the number of unique values gender takes per student
 - In R to do this we create a summary table of student attributes by collapsing the data set into one row per student
 - Then we ask R to tell us how many rows have what values for the length of gender
-```{r collapsegender}
+
+```r
 library(plyr)
-sturow<-ddply(stuatt,.(sid),summarize,nvals_gender=length(unique(male)))
+sturow <- ddply(stuatt, .(sid), summarize, nvals_gender = length(unique(male)))
 table(sturow$nvals_gender)
 ```
+
+```
+## 
+##     1     2 
+## 21799     4 
+```
+
 - So 4 students have more than one unique value for gender
 
 # Fixing the pesky observations
@@ -87,36 +152,51 @@ table(sturow$nvals_gender)
 - We could assign students the most recent value, the most frequent value, or even a random value!
 - Let's see if replacing it with the most frequent value works
 
-```{r statmode}
+
+```r
 # A function to find the most frequent value
 statamode <- function(x) {
-  z <- table(as.vector(x))
-  m<-names(z)[z == max(z)]
-  if(length(m)==1){
-    return(m)
-  }
-  return(".")
+    z <- table(as.vector(x))
+    m <- names(z)[z == max(z)]
+    if (length(m) == 1) {
+        return(m)
+    }
+    return(".")
 }
-sturow<-ddply(stuatt,.(sid),summarize,nvals_gender=length(unique(male)),gender_mode=statamode(male),gender_recent=tail(male,1))
-head(sturow[7:10,])
+sturow <- ddply(stuatt, .(sid), summarize, nvals_gender = length(unique(male)), 
+    gender_mode = statamode(male), gender_recent = tail(male, 1))
+head(sturow[7:10, ])
 ```
+
+```
+##    sid nvals_gender
+## 7    7            2
+## 8    8            1
+## 9    9            1
+## 10  10            1
+```
+
 
 # Fixing observations II
 - Now we have two objects `stuatt` and `sturow` and we need to replace some values from `stuatt` with some values from `sturow`
 - `merge` to the rescue!
 - Let's `merge` our two data objects into a temporary data object called `tempdf`
 
-```{r reconcilegender}
-tempdf<-merge(stuatt,sturow) # R finds the linking variable already
-head(tempdf[17:21,c(1,2,3,10,11)])
-subset(tempdf[,c(1,2,3,10,11)],sid==12506)
+
+```r
+tempdf <- merge(stuatt, sturow)  # R finds the linking variable already
+head(tempdf[17:21, c(1, 2, 3, 10, 11)])
+subset(tempdf[, c(1, 2, 3, 10, 11)], sid == 12506)
 ```
+
 - We fixed observation 7, but not observation 12506
 
 # Fixing where the mode does not work
-```{r reconcilegender2}
-subset(tempdf[,c(1,2,3,10,11,12)],sid==12506)
+
+```r
+subset(tempdf[, c(1, 2, 3, 10, 11, 12)], sid == 12506)
 ```
+
 - Our next business rule is to assign the most recent value of gender from the `gender_recent` variable when there is not `gender_mode` that is valid
 - This seems like a pretty simple job for `recoding` our variable!
 
@@ -126,30 +206,57 @@ subset(tempdf[,c(1,2,3,10,11,12)],sid==12506)
 - Go ahead and try this and use `testuniqueness(tempdf$id,tempdf$male)` to check if it worked
 
 # Results
-```{r solutiongender}
-tempdf$male<-tempdf$gender_mode
-tempdf$male[tempdf$male=="."]<-tempdf$gender_recent[tempdf$male=="."]
+
+```r
+tempdf$male <- tempdf$gender_mode
+tempdf$male[tempdf$male == "."] <- tempdf$gender_recent[tempdf$male == "."]
 # we have to put the filter on both sides of the assignment operator
-testuniqueness(tempdf$id,tempdf$male)
+testuniqueness(tempdf$id, tempdf$male)
 ```
+
+```
+## [1] TRUE
+```
+
 - Now let's clean up our workspace, we created a lot of temporary variables that we don't need
-```{r cleanup}
+
+```r
 rm(sturow)
-stuatt<-tempdf
-stuatt$nvals_gender<-NULL
-stuatt$gender_mode<-NULL
-stuatt$gender_recent<-NULL
+stuatt <- tempdf
+stuatt$nvals_gender <- NULL
+stuatt$gender_mode <- NULL
+stuatt$gender_recent <- NULL
 # or just run stuatt<-tempdf[,1:9]
 rm(tempdf)
 ```
 
+
 # Create a consistent race and ethnicity indicator
 - Let's practice the same procedure on race
 
-```{r raceunique}
-testuniqueness(stuatt$id,stuatt$race_ethnicity)
-head(stuatt[,1:4])
+
+```r
+testuniqueness(stuatt$id, stuatt$race_ethnicity)
 ```
+
+```
+## [1] TRUE
+```
+
+```r
+head(stuatt[, 1:4])
+```
+
+```
+##   sid school_year race_ethnicity birth_date
+## 1   1        2004              B      10869
+## 2   1        2005              H      10869
+## 3   1        2006              H      10869
+## 4   1        2007              H      10869
+## 5   2        2006              W      11948
+## 6   2        2007              B      11948
+```
+
 
 # A Note About Variable Types
 - In the SDP Toolkit you are advised to convert the `race_ethnicity` variable to numeric and add labels to it
@@ -161,47 +268,77 @@ head(stuatt[,1:4])
 # Recoding Race
 - How do we do this?
 
-```{r recodeerrror,eval=FALSE}
+
+```r
 length(stuatt$race_ethnicity[is.na(stuatt$race_ethnicity)])
-stuatt$race_ethnicity[is.na(stuatt$race_ethnicity)]<-"AI"
+stuatt$race_ethnicity[is.na(stuatt$race_ethnicity)] <- "AI"
 summary(stuatt$race_ethnicity)
 ```
 
+
 # Correct conversion
-```{r recodenaCORRECT}
+
+```r
 length(stuatt$race_ethnicity[is.na(stuatt$race_ethnicity)])
-stuatt$race_ethnicity<-as.character(stuatt$race_ethnicity)
-stuatt$race_ethnicity[is.na(stuatt$race_ethnicity)]<-"AI"
-stuatt$race_ethnicity<-factor(stuatt$race_ethnicity)
+```
+
+```
+## [1] 1129
+```
+
+```r
+stuatt$race_ethnicity <- as.character(stuatt$race_ethnicity)
+stuatt$race_ethnicity[is.na(stuatt$race_ethnicity)] <- "AI"
+stuatt$race_ethnicity <- factor(stuatt$race_ethnicity)
 summary(stuatt$race_ethnicity)
 ```
+
+```
+##     A    AI     B     H   M/O     W 
+##  7303  1129 25321 30444  2809 20528 
+```
+
 - Factors are pesky, even though they are useful and keep us from having to remember numeric representations of our data
 
 # Inconsistency Within Years
 - Let's consider student 3 in our dataset
-```{r student3}
-stuatt[7:9,c(1,2,4)]
+
+```r
+stuatt[7:9, c(1, 2, 4)]
 ```
+
+```
+##   sid school_year birth_date
+## 7   3        2006      11724
+## 8   3        2006      11724
+## 9   3        2007      11724
+```
+
 - How is this different from our prior problem?
-```{r student3u,eval=FALSE}
-length(unique(stuatt$sid,stuatt$school_year))
-length(unique(stuatt[,c(1,2,4)]))
+
+```r
+length(unique(stuatt$sid, stuatt$school_year))
+length(unique(stuatt[, c(1, 2, 4)]))
 ```
+
 
 
 # How should we do the recoding of `stuatt$race_ethnicity`
 -
 
 # Answer
-```{r racevarcleaning}
-tempdf<-ddply(stuatt,.(sid),summarize,var_temp=statamode(race_ethnicity),
-              nvals=length(unique(race_ethnicity)),most_recent_year=max(school_year),
-              most_recent_var=tail(race_ethnicity,1))
-tempdf$race2[tempdf$var_temp!="."]<-tempdf$var_temp[tempdf$var_temp!="."]
-tempdf$race2[tempdf$var_temp=="."]<-paste(tempdf$most_recent_var[tempdf$var_temp=="."])
-tempdf<-merge(stuatt,tempdf)
-head(tempdf[,c(1,2,4,14)],7)
+
+```r
+tempdf <- ddply(stuatt, .(sid), summarize, var_temp = statamode(race_ethnicity), 
+    nvals = length(unique(race_ethnicity)), most_recent_year = max(school_year), 
+    most_recent_var = tail(race_ethnicity, 1))
+tempdf$race2[tempdf$var_temp != "."] <- tempdf$var_temp[tempdf$var_temp != "."]
+tempdf$race2[tempdf$var_temp == "."] <- paste(tempdf$most_recent_var[tempdf$var_temp == 
+    "."])
+tempdf <- merge(stuatt, tempdf)
+head(tempdf[, c(1, 2, 4, 14)], 7)
 ```
+
 - Why do we have to do a paste command?
 - What other parts of this code are important to remember?
 - Always filter on both sides
@@ -211,22 +348,24 @@ head(tempdf[,c(1,2,4,14)],7)
 - The nice thing about R is we can role processes together once we understand them
 - Let's build a script to do this more efficiently
 
-```{r scripting, eval=FALSE}
-task1<-function(df,id,year,var){
-  require(plyr)
-  mdf<-eval(parse(text=paste('ddply(',df,',.(',id,'),summarize,
-                             var_temp=statamode(',var,'),
-             nvals=length(unique(',var,')),most_recent_year=max(',year,'),
-             most_recent_var=tail(',var,',1))',sep="")))
-  mdf$var2[mdf$var_temp!="."]<-mdf$var_temp[mdf$var_temp!="."]
-  mdf$var2[mdf$var_temp=="."]<-as.character(mdf$most_recent_var[mdf$var_temp=="."])
-  ndf<-eval(parse(text=paste('merge(',df,',mdf)',sep="")))
-  rm(mdf)
-  return(ndf)
+
+```r
+task1 <- function(df, id, year, var) {
+    require(plyr)
+    mdf <- eval(parse(text = paste("ddply(", df, ",.(", id, "),summarize,\nvar_temp=statamode(", 
+        var, "),\nnvals=length(unique(", var, ")),most_recent_year=max(", year, 
+        "),\nmost_recent_var=tail(", var, ",1))", sep = "")))
+    mdf$var2[mdf$var_temp != "."] <- mdf$var_temp[mdf$var_temp != "."]
+    mdf$var2[mdf$var_temp == "."] <- as.character(mdf$most_recent_var[mdf$var_temp == 
+        "."])
+    ndf <- eval(parse(text = paste("merge(", df, ",mdf)", sep = "")))
+    rm(mdf)
+    return(ndf)
 }
 # Note data must be sorted
-tempdf<-task1(stuatt,stuatt$sid,stuatt$school_year,stuatt$race_ethnicity)
+tempdf <- task1(stuatt, stuatt$sid, stuatt$school_year, stuatt$race_ethnicity)
 ```
+
 
 
 # Exercises

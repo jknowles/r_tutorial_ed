@@ -400,6 +400,14 @@ length(myag$mean_read[myag$mean_read<550 & !is.na(myag$mean_read)])
 # Merging Data
 - It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources
 - R makes this easy, but that simplicity comes at a cost--it can be easy to make mistakes if you don't specify things carefully
+- Let's merge attributes about a student's school with the student row data
+
+# Merging Data II
+- We have two data objects `df` which has multiple rows per student and `myag` which has multiple rows per school
+- What are the variables that **link** these two together?
+
+
+
 
 ```{r createwidedata,echo=FALSE,results='hide'}
 widedf<-reshape(df,timevar="year",idvar="stuid",direction="wide")

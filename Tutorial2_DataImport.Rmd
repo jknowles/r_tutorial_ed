@@ -57,6 +57,12 @@ update.packages() # Gonna update them all
 - To reference items within an object type we need to give it an address like in `mydata$thingIwant` or `mydata@thingIwant`
 - The `$` and `@` distinction depends on whether this is an S3 or an S4 class
 
+# Preliminaries
+- Get and set the working directory
+- Understand file system paths
+- Understand relative and full paths
+- Find out where things are
+
 # Ground Rules
 - Get used to plain text input files
   * R can handle other formats, but your error rate increases as does the tweaking necessary
