@@ -29,6 +29,8 @@ First, watch this tutorial<br>
 - Are you running RStudio in administrator mode on Windows Vista or Windows 7?
 - If not, you need to be. Right click on RStudio and then click "Run as Administrator"
 - If you are on a Mac or Windows XP you can disregard this
+
+# Install Packages (2)
 - Now, copy and paste the code below into the bottom left window in RStudio (the R terminal):
 
 ```r
@@ -46,6 +48,10 @@ install_new("lmtest")
 install_new("ggplot2")
 install_new("gridExtra")
 install_new("stringr")
+install_new("knitr")
+install_new("quantreg")
+install_new("zoo")
+install_new("devtools")
 ```
 
 
@@ -54,7 +60,8 @@ install_new("stringr")
 
 
 ```r
-install.packages(c("plyr", "lmtest", "ggplot2", "gridExtra", "stringr"), repos = "http://cran.wustl.edu/")
+install.packages(c("plyr", "lmtest", "ggplot2", "gridExtra", "stringr", "knitr", 
+    "quantreg", "zoo", "devtools"), repos = "http://cran.wustl.edu/")
 ```
 
 ```
@@ -106,7 +113,7 @@ example(gqtest)
 ## 	Goldfeld-Quandt test
 ## 
 ## data:  y1 ~ x 
-## GQ = 3.873, df1 = 48, df2 = 48, p-value = 3.312e-06
+## GQ = 3.078, df1 = 48, df2 = 48, p-value = 7.871e-05
 ## 
 ## 
 ## gqtest> gqtest(y2 ~ x)
@@ -114,7 +121,7 @@ example(gqtest)
 ## 	Goldfeld-Quandt test
 ## 
 ## data:  y2 ~ x 
-## GQ = 0.7396, df1 = 48, df2 = 48, p-value = 0.8503
+## GQ = 0.8951, df1 = 48, df2 = 48, p-value = 0.6486
 ## 
 ```
 
