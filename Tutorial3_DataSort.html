@@ -48,8 +48,6 @@ R Bootcamp HTML Slides
 <span class="kw">setwd</span>(<span class="st">&quot;~/GitHub/r_tutorial_ed&quot;</span>)
 <span class="co"># Load some data</span>
 <span class="kw">load</span>(<span class="st">&quot;data/smalldata.rda&quot;</span>)
-df &lt;- mydat
-<span class="kw">rm</span>(mydat)
 <span class="co"># Note if we don't assign data to 'df' R just prints contents of table</span></code></pre>
 </div>
 <div class="section slide level1" id="aggregation">
@@ -108,10 +106,10 @@ df &lt;- mydat
 <ul class="incremental">
 <li>Can you find the number of black students in each grade in each year?</li>
 <li>hint: <code>with(df[df$___==&quot;B&quot;,]...)</code></li>
-<li>How many in year 2002, grade 6?</li>
+<li><p>How many in year 2002, grade 6?</p></li>
 <li>48</li>
-<li>How many in 2001, grade 7?</li>
-<li>39</li>
+<li><p>How many in 2001, grade 7?</p></li>
+<li><p>39</p></li>
 </ul>
 </div>
 <div class="section slide level1" id="answer">
@@ -253,10 +251,10 @@ df &lt;- mydat
 <div class="section slide level1" id="check-your-work">
 <h1>Check your work</h1>
 <ul class="incremental">
-<li>What is the mean reading score for 6th grade students with disabilities?</li>
-<li><strong>481.83</strong></li>
-<li>How many points is this from non-disabled students?</li>
-<li><strong>29.877</strong></li>
+<li><p>What is the mean reading score for 6th grade students with disabilities?</p></li>
+<li><p><strong>481.83</strong></p></li>
+<li><p>How many points is this from non-disabled students?</p></li>
+<li><p><strong>29.877</strong></p></li>
 </ul>
 </div>
 <div class="section slide level1" id="answer-ii">
@@ -315,6 +313,7 @@ z</code></pre>
 <li>All <code>plyr</code> functions are in the format <strong>XX</strong>ply. The two X’s specify what the input file we are applying a function to is, and then what way we would like it outputted.</li>
 <li>In <code>plyr</code> d = dataframe, l= list, m=matrix, and a=array. By far the most common usage is <code>ddply</code></li>
 <li>From a dataframe, to a dataframe.</li>
+<li>We will see more of <code>plyr</code> in Tutorial 4 as well</li>
 </ul>
 </div>
 <div class="section slide level1" id="plyr-in-action">
@@ -356,10 +355,10 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 <h1>Quick Check</h1>
 <ul class="incremental">
 <li>What if we want to compare how districts do on educating ELL students?</li>
-<li>What district ID has the highest mean score for 4th grade ELL students on reading? Math?</li>
+<li><p>What district ID has the highest mean score for 4th grade ELL students on reading? Math?</p></li>
 <li>66 in reading, 105 in math</li>
-<li>How many students are in these classes?</li>
-<li>12 and 7 respectively</li>
+<li><p>How many students are in these classes?</p></li>
+<li><p>12 and 7 respectively</p></li>
 </ul>
 </div>
 <div class="section slide level1" id="answer-iii">
@@ -533,8 +532,8 @@ myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)
 <pre><code>## high  low 
 ##   26   10 </code></pre>
 </div>
-<div class="section slide level1" id="check-your-work-1">
-<h1>Check your work</h1>
+<div class="section slide level1" id="how-does-it-work">
+<h1>How does it work?</h1>
 <ul class="incremental">
 <li>The previous block of code is a useful way to learn how to recode variables</li>
 </ul>
@@ -672,6 +671,7 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources</li>
 <li>R makes this easy, but that simplicity comes at a cost–it can be easy to make mistakes if you don’t specify things carefully</li>
 <li>Let’s merge attributes about a student’s school with the student row data</li>
+<li>We might want to do that if we want to evaluate the performance of students in different school climates, and school climate was measured in part by the mean performance</li>
 </ul>
 </div>
 <div class="section slide level1" id="merging-data-ii">
@@ -679,6 +679,51 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <ul class="incremental">
 <li>We have two data objects <code>df</code> which has multiple rows per student and <code>myag</code> which has multiple rows per school</li>
 <li>What are the variables that <strong>link</strong> these two together?</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myag)</code></pre>
+<pre><code>##  [1] &quot;dist&quot;        &quot;grade&quot;       &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;    
+##  [6] &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
+## [11] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df[, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>)])</code></pre>
+<pre><code>## [1] &quot;school&quot; &quot;stuid&quot;  &quot;grade&quot;  &quot;dist&quot;  </code></pre>
+<ul class="incremental">
+<li>It looks like <code>dist</code> and <code>grade</code> are in common. Is this ok?</li>
+<li>Why might we want to consider re-aggregating with <code>year</code> as well?</li>
+<li>For this example we won’t just yet</li>
+</ul>
+</div>
+<div class="section slide level1" id="merging-3">
+<h1>Merging 3</h1>
+<ul class="incremental">
+<li>We have a few options with <code>merge</code> we want to consider with <code>?merge</code></li>
+<li>In the simple case we let <code>merge</code> <strong>automagically</strong></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">simple_merge &lt;- <span class="kw">merge</span>(df, myag)
+<span class="kw">names</span>(simple_merge)</code></pre>
+<pre><code>##  [1] &quot;grade&quot;       &quot;dist&quot;        &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;      
+##  [6] &quot;schid&quot;       &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
+## [11] &quot;asian&quot;       &quot;econ&quot;        &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;      
+## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
+## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
+## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
+## [31] &quot;proflvl&quot;     &quot;race&quot;        &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;    
+## [36] &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
+## [41] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
+<ul class="incremental">
+<li>It looks like it did a good job</li>
+</ul>
+</div>
+<div class="section slide level1" id="merge-options">
+<h1>Merge Options</h1>
+<ul class="incremental">
+<li>In complicated cases, merge has some important options we should review</li>
+<li>First is the simple sounding ‘by’ argument:</li>
+<li><code>simple_merge(df1,df2,by=c(&quot;id1&quot;,&quot;id2&quot;))</code></li>
+<li>We can also specify <code>simple_merge(df1,df2,by.x=c(&quot;id1&quot;,&quot;id2&quot;),by.y=c(&quot;id1_a&quot;,&quot;id2_a&quot;))</code></li>
+<li>This allows us to have different names for our ID variables</li>
+<li>Now, what if we have two different sized objects and not all matches between them?</li>
+<li><code>notsosimple_merge(df1,df2,all.x=TRUE,all.y=TRUE)</code></li>
+<li>We can tell R whether we want to keep all of the <code>x</code> observations (df1), all the <code>y</code> observations (df2) or neither, or both</li>
 </ul>
 </div>
 <div class="section slide level1" id="reshaping-data">
@@ -786,7 +831,9 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <div class="section slide level1" id="exercises">
 <h1>Exercises</h1>
 <ol class="incremental" style="list-style-type: decimal">
-<li>Sort <code>df</code> on <code>measerr</code> and <code>mathss</code>. What are the highest 5 values of each.</li>
+<li><p>Say we are unhappy about attributing the school/grade mean score across years to student-year observations like we did in this lesson. Let’s fix it by <strong>first</strong> aggregating our student data frame to a school/grade/year data frame, and <strong>second</strong> by merging that new data frame with our student level data.</p></li>
+<li><p>Sort the student-level data frame on <code>attday</code> and <code>ability</code> in descending order.</p></li>
+<li><p>Find the highest proportion of black students in any school/grade/year combination.</p></li>
 </ol>
 </div>
 <div class="section slide level1" id="other-references">
@@ -806,20 +853,14 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 ## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_0.9.1  hexbin_1.26.0  lattice_0.20-6 mgcv_1.7-19   
-## [5] Cairo_1.5-1    knitr_0.7      plyr_1.7.1    
+## [1] plyr_1.7.1 knitr_0.7 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
-##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
-## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
-## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [16] stringr_0.6.1      tools_2.15.1      </code></pre>
+## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6.1 
+## [5] tools_2.15.1  </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

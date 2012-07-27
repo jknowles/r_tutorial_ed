@@ -22,16 +22,16 @@ In this lesson we hope to learn:
 setwd("~/GitHub/r_tutorial_ed")
 # Load some data
 load("data/smalldata.rda")
-df <- mydat
-rm(mydat)
 # Note if we don't assign data to 'df' R just prints contents of table
 ```
 
 
 # Aggregation
+
 - Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset
 - To do this quickly and easily--the `table` function is our friend
 - Let's look at our observations by year and grade
+
 
 ```r
 table(df$grade, df$year)
@@ -47,6 +47,7 @@ table(df$grade, df$year)
 ##   7  200  100  200
 ##   8  100  200  100
 ```
+
 
 - The first command gives the rows, the second gives the columns
 
@@ -87,6 +88,7 @@ with(df[df$grade == 3, ], {
 ##   2002   0  74  20   1 105
 ```
 
+
 - `with` specifies a data object to work on, in this case all elements of `df` where `grade==3`
 - `table` is the same command as above, but since we specified the data object in the `with` statement, we don't need the `df$` in front of the variables of interest
 
@@ -94,8 +96,10 @@ with(df[df$grade == 3, ], {
 - Can you find the number of black students in each grade in each year?
 - hint: `with(df[df$___=="B",]...)`
 - How many in year 2002, grade 6?
+
   * 48
 - How many in 2001, grade 7?
+
   * 39
 
 
@@ -116,9 +120,11 @@ with(df[df$race == "B", ], {
 ```
 
 
+
 # Tables cont.
 - This is really powerful for looking at the descriptive dimensions of the data, we can ask questions like:
 - how many students are at each proficiency level each year?
+
 
 ```r
 table(df$year, df$proflvl)
@@ -132,7 +138,9 @@ table(df$year, df$proflvl)
 ##   2002      503    27           3        367
 ```
 
+
 - how many students are at each proficiency level by race?
+
 
 ```r
 table(df$race, df$proflvl)
@@ -153,6 +161,7 @@ table(df$race, df$proflvl)
 - What if we aren't interested in counts? 
 - R makes it really easy to calculate proportions
 
+
 ```r
 prop.table(table(df$race, df$proflvl))
 ```
@@ -167,9 +176,11 @@ prop.table(table(df$race, df$proflvl))
 ##   W 0.2029630 0.0496296   0.0040741  0.2033333
 ```
 
+
 - Hmmm, this is goofy. This tells us the proportion of each cell out of the total. Also, the digits are distracting. How can we fix this?
 
 # Try number 2
+
 
 ```r
 round(prop.table(table(df$race, df$proflvl), 1), digits = 3)
@@ -184,6 +195,7 @@ round(prop.table(table(df$race, df$proflvl), 1), digits = 3)
 ##   I    0.333 0.190       0.048      0.429
 ##   W    0.441 0.108       0.009      0.442
 ```
+
 
 - The `1` tells R we want proportions rowise, a `2` goes columnwise
 - A few more problems arise--this pools all observations, including students across years
@@ -209,8 +221,10 @@ aggregate(readSS ~ race, FUN = mean, data = df)
 ```
 
 
+
 # Aggregate (II)
 - `aggregate` can take us a little further, we can use aggregate multiple variables at a time
+
 
 ```r
 aggregate(cbind(readSS, mathSS) ~ race, data = df, mean)
@@ -225,7 +239,9 @@ aggregate(cbind(readSS, mathSS) ~ race, data = df, mean)
 ## 5    W  533.2  529.8
 ```
 
+
 - We can add multiple grouping varialbes using the `formula` syntax
+
 
 ```r
 head(aggregate(cbind(readSS, mathSS) ~ race + grade, data = df, mean), 8)
@@ -247,6 +263,7 @@ head(aggregate(cbind(readSS, mathSS) ~ race + grade, data = df, mean), 8)
 # Crosstabs
 - We can build a systematic cross-tab now
 
+
 ```r
 ag <- aggregate(readSS ~ race + grade, data = df, mean)
 xtabs(readSS ~ ., data = ag)
@@ -263,6 +280,7 @@ xtabs(readSS ~ ., data = ag)
 ```
 
 - And prettier output
+
 
 ```r
 ftable(xtabs(readSS ~ ., data = ag))
@@ -281,12 +299,16 @@ ftable(xtabs(readSS ~ ., data = ag))
 
 # Check your work
 - What is the mean reading score for 6th grade students with disabilities?
+
   * __481.83__
+  
 - How many points is this from non-disabled students?
+
   * __29.877__
 
 
 # Answer II
+
 
 ```r
 aggregate(cbind(readSS, mathSS) ~ disab + grade, data = df, mean)
@@ -309,7 +331,9 @@ aggregate(cbind(readSS, mathSS) ~ disab + grade, data = df, mean)
 ```
 
 
+
 # Aggregate Isn't Enough
+
 - `aggregate` is cool, but it isn't very flexible
 - We can only use aggregate output as a table, which we have to convert to a data frame
 - There is a better way; the `plyr` package
@@ -321,6 +345,7 @@ aggregate(cbind(readSS, mathSS) ~ disab + grade, data = df, mean)
 - Consider the case we want to turn our student level data into school level data
 - Who hasn't had to do this?!?
 - In `aggregate` we do:
+
 
 ```r
 z <- aggregate(readSS ~ dist, FUN = mean, data = df)
@@ -337,6 +362,7 @@ z
 ## 6  105  491.0
 ```
 
+
 - But I want more! I want to aggregate multiple variables. I want to do it across multiple groups. I want the output to be a dataframe I can work on.
 - Thank you `plyr`
 
@@ -345,8 +371,10 @@ z
 - All `plyr` functions are in the format **XX**ply. The two X's specify what the input file we are applying a function to is, and then what way we would like it outputted.
 - In `plyr` d = dataframe, l= list, m=matrix, and a=array. By far the most common usage is `ddply`
 - From a dataframe, to a dataframe.
+- We will see more of `plyr` in Tutorial 4 as well
 
 # plyr in Action
+
 
 ```r
 library(plyr)
@@ -367,9 +395,11 @@ head(myag)
 ```
 
 
+
 # More plyr
 - This is great, we can quickly build a summary dataset from individual records
 - A few advanced tricks. How do we build counts and percentages into our dataset?
+
 
 ```r
 myag <- ddply(df, .(dist, grade), summarize, mean_read = mean(readSS, na.rm = T), 
@@ -391,15 +421,19 @@ summary(myag[, 7:10])
 ```
 
 
+
 # Quick Check
 - What if we want to compare how districts do on educating ELL students?
 - What district ID has the highest mean score for 4th grade ELL students on reading? Math?
+
   * 66 in reading, 105 in math
 - How many students are in these classes?
+
   * 12 and 7 respectively
 
 
 # Answer III
+
 
 ```r
 myag2 <- ddply(df, .(dist, grade, ell), summarize, mean_read = mean(readSS, 
@@ -443,6 +477,7 @@ head(df.badsort)
 ## [1]  106 1026    2   56  122  118
 ```
 
+
 - Why is this wrong?
 - What is R giving us?
 - Rownames...
@@ -483,6 +518,7 @@ head(df.sort[, c(3, 23, 29, 30)])
 
 # Let's clean it up a bit more
 
+
 ```r
 head(df[with(df, order(-readSS, -attday)), c(3, 23, 29, 30)])
 ```
@@ -497,10 +533,12 @@ head(df[with(df, order(-readSS, -attday)), c(3, 23, 29, 30)])
 ## 1630  14495    162  738.9  758.2
 ```
 
+
 - Here we find the high performing students, note that the `-` denotes we want descending order, R's default is ascending order
 - This is easy to correct
 
 # About sorting
+
 - Sorting works differently on some data types, matrices are slightly different
 
 ```r
@@ -516,6 +554,7 @@ M[order(M[, "a"], -M[, "b"]), ]
 ## [3,] 2 5
 ## [4,] 2 4
 ```
+
 
 - Tables are familiar
 
@@ -551,6 +590,7 @@ mytab[order(mytab[, 2]), ]
 ```
 
 
+
 # Filtering Data
 - Filtering data is an incredibly powerful feature and we have already seen it used to do some interesting things
 - Filtering data in R is loaded with trouble though, because the filtering arguments must be very carefully specified
@@ -560,6 +600,7 @@ mytab[order(mytab[, 2]), ]
 - Let's look at some examples
 
 # Basic Filtering a Column
+
 
 ```r
 # Gives all rows that meet this requirement
@@ -589,6 +630,7 @@ df$grade[df$mathSS > 800]
 # Gives all values of grade that meet this requirement
 ```
 
+
 - This seems basic enough, let's filter on multiple dimensions
 - Before the brackets we specify what we want returned, and within the brackets we present the logical expression to evaluate
 - Behind the scenes R does a logical test and gets the row numbers that match the logical expression
@@ -596,6 +638,7 @@ df$grade[df$mathSS > 800]
 - So great we don't have to do that!
 
 # Multiple filters
+
 
 ```r
 df$grade[df$black == 1 & df$readSS > 650]
@@ -605,6 +648,7 @@ df$grade[df$black == 1 & df$readSS > 650]
 ##  [1] 8 7 8 6 6 7 8 7 8 8 8 4
 ```
 
+
 - What happens if we type `df$black=1` or `black==1`? 
 - Why won't this work?
 
@@ -612,6 +656,7 @@ df$grade[df$black == 1 & df$readSS > 650]
 - We can also use filters to assign values as well
 - This is how you recode variables and create new ones
 - Let's create a variable `spread` indicating whether a district has high or low spread among its student scores
+
 
 ```r
 myag$spread <- NA  # create variable
@@ -627,7 +672,8 @@ summary(myag$spread)
 ```
 
 
-# Check your work
+
+# How does it work?
 - The previous block of code is a useful way to learn how to recode variables
 
 
@@ -656,6 +702,7 @@ Grade | Score Range | Code
 - By `dist`?
 
 # Results
+
 
 ```r
 myag$schoolperf <- "lo"
@@ -690,9 +737,9 @@ table(myag$dist, myag$schoolperf)
 ```
 
 
-
 # Let's replace data
 - For district 6 let's negate the grade 3 scores by replacing them with missing data
+
 
 ```r
 myag$mean_read[myag$dist == 6 & myag$grade == 3] <- NA
@@ -705,7 +752,9 @@ head(myag[, 1:4], 2)
 ## 2    6     4     471.6     426.2
 ```
 
+
 - Let's replace one data element with another
+
 
 ```r
 myag$mean_read[myag$dist == 6 & myag$grade == 3] <- myag$mean_read[myag$dist == 
@@ -724,6 +773,7 @@ head(myag[, 1:4], 2)
 # Why do NAs matter so much?
 - Let's consider the case above but insert some NA values for all 3rd grade tests
 
+
 ```r
 myag$mean_read[myag$grade == 3] <- NA
 head(myag[order(myag$grade), 1:4])
@@ -740,9 +790,9 @@ head(myag[order(myag$grade), 1:4])
 ```
 
 
-
 # NAs II
 - Now let's calculate a few statistics:
+
 
 ```r
 mean(myag$mean_math)
@@ -759,6 +809,7 @@ mean(myag$mean_read)
 ```
 ## [1] NA
 ```
+
 
 - Remember, NA values propogate, so R assumes an NA value could take literally any value, and as such it is impossible to know the `mean` of a vector with NA
 - We can override this though:
@@ -784,6 +835,7 @@ mean(myag$mean_read, na.rm = T)
 - But for other problems it is tricky
 - What if we want to know the number of rows that have a `mean_read` of less than 500?
 
+
 ```r
 length(myag$dist[myag$mean_read < 500])
 ```
@@ -800,6 +852,7 @@ head(myag$mean_read[myag$mean_read < 500])
 ## [1]    NA 471.6 466.2    NA 436.1 490.9
 ```
 
+
 - And what if we want to add the standard deviation to these vectors?
 
 ```r
@@ -813,8 +866,10 @@ summary(badvar)
 ```
 
 
+
 # So we need to filter NAs explicitly
 - Consider the case where two sets of variables have different missing elements
+
 
 ```r
 myag$sd_read[myag$count_read < 100 & myag$mean_read < 550] <- NA
@@ -833,6 +888,7 @@ length(myag$mean_read[myag$mean_read < 550 & !is.na(myag$mean_read)])
 ## [1] 24
 ```
 
+
 - What is `!is.na()` ?
   * `is.na()` is a helpful function to identify TRUE if a value is missing
   * `!` is the reverse operator
@@ -842,15 +898,69 @@ length(myag$mean_read[myag$mean_read < 550 & !is.na(myag$mean_read)])
 - It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources
 - R makes this easy, but that simplicity comes at a cost--it can be easy to make mistakes if you don't specify things carefully
 - Let's merge attributes about a student's school with the student row data
+- We might want to do that if we want to evaluate the performance of students in different school climates, and school climate was measured in part by the mean performance
 
 # Merging Data II
 - We have two data objects `df` which has multiple rows per student and `myag` which has multiple rows per school
 - What are the variables that **link** these two together?
 
 
+```r
+names(myag)
+```
+
+```
+##  [1] "dist"        "grade"       "mean_read"   "mean_math"   "sd_read"    
+##  [6] "sd_math"     "count_read"  "count_math"  "count_black" "per_black"  
+## [11] "spread"      "schoolperf" 
+```
+
+```r
+names(df[, c(2, 3, 4, 6)])
+```
+
+```
+## [1] "school" "stuid"  "grade"  "dist"  
+```
 
 
+- It looks like `dist` and `grade` are in common. Is this ok?
+- Why might we want to consider re-aggregating with `year` as well?
+- For this example we won't just yet
 
+# Merging 3
+- We have a few options with `merge` we want to consider with `?merge`
+- In the simple case we let `merge` **automagically** 
+
+```r
+simple_merge <- merge(df, myag)
+names(simple_merge)
+```
+
+```
+##  [1] "grade"       "dist"        "X"           "school"      "stuid"      
+##  [6] "schid"       "white"       "black"       "hisp"        "indian"     
+## [11] "asian"       "econ"        "female"      "ell"         "disab"      
+## [16] "sch_fay"     "dist_fay"    "luck"        "ability"     "measerr"    
+## [21] "teachq"      "year"        "attday"      "schoolscore" "district"   
+## [26] "schoolhigh"  "schoolavg"   "schoollow"   "readSS"      "mathSS"     
+## [31] "proflvl"     "race"        "mean_read"   "mean_math"   "sd_read"    
+## [36] "sd_math"     "count_read"  "count_math"  "count_black" "per_black"  
+## [41] "spread"      "schoolperf" 
+```
+
+
+- It looks like it did a good job
+
+# Merge Options
+- In complicated cases, merge has some important options we should review
+- First is the simple sounding 'by' argument:
+- `simple_merge(df1,df2,by=c("id1","id2"))`
+- We can also specify `simple_merge(df1,df2,by.x=c("id1","id2"),by.y=c("id1_a","id2_a"))`
+- This allows us to have different names for our ID variables
+- Now, what if we have two different sized objects and not all matches between them?
+- `notsosimple_merge(df1,df2,all.x=TRUE,all.y=TRUE)`
+- We can tell R whether we want to keep all of the `x` observations (df1), all the `y` observations (df2) or neither, or both
 
 
 
@@ -967,9 +1077,11 @@ identical(g4, g4_b)
 - Then we can really take off!
 
 # Exercises
-1. Sort `df` on `measerr` and `mathss`. What are the highest 5 values of each. 
+1. Say we are unhappy about attributing the school/grade mean score across years to student-year observations like we did in this lesson. Let's fix it by **first** aggregating our student data frame to a school/grade/year data frame, and **second** by merging that new data frame with our student level data. 
 
+2. Sort the student-level data frame on `attday` and `ability` in descending order.
 
+3. Find the highest proportion of black students in any school/grade/year combination.
 
 # Other References
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
@@ -991,20 +1103,14 @@ print(sessionInfo(), locale = FALSE)
 ## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] ggplot2_0.9.1  hexbin_1.26.0  lattice_0.20-6 mgcv_1.7-19   
-## [5] Cairo_1.5-1    knitr_0.7      plyr_1.7.1    
+## [1] plyr_1.7.1 knitr_0.7 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
-##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
-## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
-## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [16] stringr_0.6.1      tools_2.15.1      
+## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6.1 
+## [5] tools_2.15.1  
 ```
 
 
