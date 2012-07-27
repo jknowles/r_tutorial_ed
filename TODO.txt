@@ -10,3 +10,5 @@
 - Description of how to read and build slides
 - Add non R figures where necessary
 - Add book references to intro and conclusion decks
+- Add DPI logo all over the place
+- Solve problem of non-R figures not syncing/committing to GitHub
