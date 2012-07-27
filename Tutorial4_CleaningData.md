@@ -3,7 +3,8 @@
 % Jared Knowles
 
 # Overview
-In this lesson we hope to learn:
+In this lesson we hope to learn about:
+
 - The Strategic Data Project
 - Checking data for errors
 - Recoding data and changing data types
@@ -41,13 +42,29 @@ head(stuatt[, 1:4], 7)
 - Analyze inconsistencies and do reports
 
 # Strategic Data Project
-- The Strategic Data Project is 
+- [The Strategic Data Project](http://www.gse.harvard.edu/~pfpie/index.php/sdp/) is a project housed at Harvard Center for Education Policy Research aimed at bringing high quality research methods and data analysis to bear on strategic management and policy decisions in the education sector
+- SDP was formed on two fundamental premises:
+
+  1. Policy and management decisions can directly influence schools' and teachers' ability to improve student achievement
+  2. Valid and reliable data analysis significantly improves the quality of decision making
+  
+- Their focus is on bringing together the right people, assembling the right data, and performing the right analysis because this will improve decisions made by leadership
+- They are smart folks who have done a lot of the unexciting work of systematically identifying how to clean, document, and transparently evaluate datasets
 
 <p align="center"><img src="img/sdp.gif" height="112" width="329"></p>
 
 # Toolkit--Data Cleaning
 - The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data
 - This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here (Clean Data Building)
+- You can get the toolkit lesson, adapted here for the purposes of the bootcamp, [online](http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf)
+- There are five toolkits in addition to a data guide that are incredibly helpful, so we are just touching the tip of the iceberg
+- Other modules include:
+
+  1. How to identify essential data elements for analyzing student achievement
+  2. Clean, check, and build variables in the dataset
+  3. Connect relevant datasets from different soruces
+  4. Analyze datasets
+  5. Adopt coding best practices to facilitate shared and replicable data analysis
 
 # SDP Task 1 Student Attributes Intro
 - Drop the `first_9th_school_year_reported` variable
@@ -138,22 +155,25 @@ stuatt[17:21, 1:3]
 
 # An Aside about Split-Apply-Combine
 - The `plyr` package has a number of utilities to help us split-apply-combine across data types for both input and output
+- In R we can't just use `for` loops to iterate over groups of students, because in R `for` loops are [slow, inefficient, and impractical](http://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r)
+- `plyr` to the rescue, while not as fast as a compiled language, it is pretty dang good!
+- And still readable
 
 <p align="center"><img src="img/plyrfunctions.png" height="150" width="650"></p>
 
 # The logic of plyr
 - This shows how the dataframe is broken up into pieces and each piece then gets whatever functions, summaries, or transformations we apply to it
 
-<p align="center"><img src="img/dataframesplit.png" height="260" width="600"></p>
+<p align="center"><img src="img/dataframesplit.png" height="300" width="650"></p>
 
 # How plyr works on dataframes like what we will be doing
-- And this shows the output `ddply` has before it combines it back for us
+- And this shows the output `ddply` has before it combines it back for us when we do the call `ddply(df,.(sex,age),"nrow")`
 
 <p align="center"><img src="img/plyrddplyoutput.png" height="260" width="650"></p>
 
 # Unifying Consistent Gender Values
 - First we create a variable with the number of unique values gender takes per student
-- In R to do this we create a summary table of student attributes by collapsing the data set into one row per student
+- In R to do this we create a summary table of student attributes by collapsing the data set into one row per student using the `plyr` strategy
 - Then we ask R to tell us how many rows have what values for the length of gender
 
 ```r
@@ -209,15 +229,16 @@ head(sturow[7:10, ])
 ```r
 tempdf <- merge(stuatt, sturow)  # R finds the linking variable already
 head(tempdf[17:21, c(1, 2, 3, 10, 11)])
-subset(tempdf[, c(1, 2, 3, 10, 11)], sid == 12506)
+print(subset(tempdf[, c(1, 2, 3, 10, 11)], sid == 12506))
 ```
 
 - We fixed observation 7, but not observation 12506
 
 # Fixing where the mode does not work
 
+
 ```r
-subset(tempdf[, c(1, 2, 3, 10, 11, 12)], sid == 12506)
+print(subset(tempdf[, c(1, 2, 3, 10, 11, 12)], sid == 12506))
 ```
 
 - Our next business rule is to assign the most recent value of gender from the `gender_recent` variable when there is not `gender_mode` that is valid
@@ -289,6 +310,8 @@ summary(stuatt$race_ethnicity)
 ```
 
 
+- Why doesn't this work?
+
 # Correct conversion
 
 ```r
@@ -312,9 +335,11 @@ summary(stuatt$race_ethnicity)
 ```
 
 - Factors are pesky, even though they are useful and keep us from having to remember numeric representations of our data
+- In fact, if you read the toolkit, this is a big drawback of _Stata_ because you must constantly refer back to the numbers to remember what number corresponds to "hispanic"
 
 # Inconsistency Within Years
 - Let's consider student 3 in our dataset
+
 
 ```r
 stuatt[7:9, c(1, 2, 4)]
@@ -327,7 +352,9 @@ stuatt[7:9, c(1, 2, 4)]
 ## 9   3        2007      11724
 ```
 
+
 - How is this different from our prior problem?
+- Since student 3 was recorded twice in the same year and given a different _race/ethnicity_ we now have to figure out some rules for assigning a consistent value
 
 # Business Rule
 - Again, we are implementing a business rule which means we are making some arbitrary decisions about the data
@@ -354,11 +381,6 @@ tempdf <- tempdf[order(tempdf$sid, tempdf$school_year), ]
 
 # Compare them
 
-```r
-subset(tempdf[, c(1, 2, 4)], sid == 3 & school_year < 2007 | sid == 8552 & school_year < 
-    2007 | sid == 11382 & school_year < 2007)
-```
-
 ```
 ##         sid school_year birth_date
 ## 56201     3        2006      11724
@@ -369,12 +391,6 @@ subset(tempdf[, c(1, 2, 4)], sid == 3 & school_year < 2007 | sid == 8552 & schoo
 ## 6162  11382        2005      13097
 ## 6163  11382        2005      13097
 ## 6164  11382        2006      13097
-```
-
-```r
-
-subset(stuatt[, c(1, 2, 4)], sid == 3 & school_year < 2007 | sid == 8552 & school_year < 
-    2007 | sid == 11382 & school_year < 2007)
 ```
 
 ```
@@ -393,6 +409,7 @@ subset(stuatt[, c(1, 2, 4)], sid == 3 & school_year < 2007 | sid == 8552 & schoo
 # OK
 - Merge it back together
 
+
 ```r
 stuatt <- tempdf
 rm(tempdf)
@@ -400,7 +417,7 @@ rm(tempdf)
 
 
 
-# Let's do it anyway
+# Break in Case of Emergency
 
 ```r
 # Stupid hack workaround of ddply bug when running too many of these
@@ -446,10 +463,15 @@ head(stuatt[, 1:4])
 ```
 
 
+- Student 1 and 2 are both listed as black and hispanic at alternate times
+
 # So...
 
 ## What do we do?
 
+## Try it on your own
+
+### Remember, this is tough stuff, so feel free to ask for help!
 
 # Answer
 
@@ -457,9 +479,11 @@ head(stuatt[, 1:4])
 tempdf <- ddply(stuatt, .(sid), summarize, var_temp = statamode(race_ethnicity), 
     nvals = length(unique(race_ethnicity)), most_recent_year = max(school_year), 
     most_recent_var = tail(race_ethnicity, 1))
+
 tempdf$race2[tempdf$var_temp != "."] <- tempdf$var_temp[tempdf$var_temp != "."]
 tempdf$race2[tempdf$var_temp == "."] <- paste(tempdf$most_recent_var[tempdf$var_temp == 
     "."])
+
 tempdf <- merge(stuatt, tempdf)
 head(tempdf[, c(1, 2, 4, 14)], 7)
 ```
