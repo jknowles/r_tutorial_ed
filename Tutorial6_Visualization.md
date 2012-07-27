@@ -22,6 +22,32 @@ In this lesson we hope to learn:
 - Graphics are hard to get right, but tools can help make it easier
 - Lots of great resources to help available for this online
 
+# Base graphics
+- R has base graphics which are useful for quickly doing some plots
+
+
+```r
+hist(df$readSS)
+```
+
+<img src="figure/slides6-basehist.svg" width="600px" height="350px"  alt="plot of chunk basehist" title="plot of chunk basehist" /> 
+
+
+# Base graphics are simple
+- You can use them to understand your data and do quick diagnostics
+- The commands are pretty easy to remember
+- You can do complex things with them if you like, but the syntax can be confusing
+
+# Base graphics has some limitations
+- What if we try to do a scatterplot of lots of data?
+
+```r
+plot(df$readSS, df$mathSS)
+```
+
+<img src="figure/slides6-basescatter.svg" width="600px" height="350px"  alt="plot of chunk basescatter" title="plot of chunk basescatter" /> 
+
+
 # Basic Plot
 - Don't use R base graphics
 - `ggplot2` is pretty much the new standard in R
@@ -33,7 +59,7 @@ library(ggplot2)
 qplot(readSS, mathSS, data = df)
 ```
 
-![plot of chunk plot1](figure/slides6-plot1.svg) 
+<img src="figure/slides6-plot1.svg" width="600px" height="350px"  alt="plot of chunk plot1" title="plot of chunk plot1" /> 
 
 - Consider this basic scatterplot
 
@@ -43,34 +69,35 @@ qplot(readSS, mathSS, data = df)
 qplot(readSS, mathSS, data = df) + geom_smooth()
 ```
 
-![plot of chunk plot2](figure/slides6-plot21.svg) 
+<img src="figure/slides6-plot21.svg" width="400px" height="300px"  alt="plot of chunk plot2" title="plot of chunk plot2" /> 
 
 ```r
 qplot(readSS, mathSS, data = df, alpha = I(0.3))
 ```
 
-![plot of chunk plot2](figure/slides6-plot22.svg) 
+<img src="figure/slides6-plot22.svg" width="400px" height="300px"  alt="plot of chunk plot2" title="plot of chunk plot2" /> 
 
 ```r
 qplot(readSS, mathSS, data = df) + xlab("Reading Score") + ylab("Math Score")
 ```
 
-![plot of chunk plot2](figure/slides6-plot23.svg) 
+<img src="figure/slides6-plot23.svg" width="400px" height="300px"  alt="plot of chunk plot2" title="plot of chunk plot2" /> 
 
 ```r
 qplot(readSS, mathSS, data = df, color = race) + scale_color_brewer(type = "qual", 
     palette = 2)
 ```
 
-![plot of chunk plot2](figure/slides6-plot24.svg) 
+<img src="figure/slides6-plot24.svg" width="400px" height="300px"  alt="plot of chunk plot2" title="plot of chunk plot2" /> 
 
 
 # Visualization Philosophy
 - Visualization is about thinking about what objects in our dataset map with what visual cues for the viewer
   - liberal use of `names(object)` helps
 - What is the best way to show discrete variables, continuous variables, and connected variables
+- We also need to be unafraid about trying transformations of variables, recoding variables, and reshaping variables to tell the story we are looking for
 
-# Our data
+# Our data for this exercise
 - As we now know, student data is quite fascinating
 - We have many discrete attribute variables
   - Race, gender, economics, etc.
@@ -100,7 +127,7 @@ dropbox_source(colwheel)
 col.wheel("magenta", nearby = 2)
 ```
 
-![plot of chunk colorwheel](figure/slides6-colorwheel1.svg) 
+<img src="figure/slides6-colorwheel1.svg" width="600px" height="350px"  alt="plot of chunk colorwheel" title="plot of chunk colorwheel" /> 
 
 ```
 ##  [1] "plum"        "violet"      "darkmagenta" "magenta4"    "magenta3"   
@@ -111,7 +138,7 @@ col.wheel("magenta", nearby = 2)
 col.wheel("orange", nearby = 2)
 ```
 
-![plot of chunk colorwheel](figure/slides6-colorwheel2.svg) 
+<img src="figure/slides6-colorwheel2.svg" width="600px" height="350px"  alt="plot of chunk colorwheel" title="plot of chunk colorwheel" /> 
 
 ```
 ##  [1] "salmon1"       "darksalmon"    "orangered4"    "orangered3"   
@@ -129,7 +156,7 @@ col.wheel("orange", nearby = 2)
 col.wheel("brown", nearby = 2)
 ```
 
-![plot of chunk colorwheel](figure/slides6-colorwheel3.svg) 
+<img src="figure/slides6-colorwheel3.svg" width="600px" height="350px"  alt="plot of chunk colorwheel" title="plot of chunk colorwheel" /> 
 
 ```
 ##  [1] "snow1"       "snow2"       "rosybrown"   "rosybrown1"  "rosybrown2" 
@@ -142,6 +169,11 @@ col.wheel("brown", nearby = 2)
 
 
 # Start with a great example
+<img src="figure/slides6-premier.svg" width="800px" height="650px"  alt="plot of chunk premier" title="plot of chunk premier" /> 
+
+
+
+# Scary R Code
 
 ```r
 library(grid)
@@ -160,8 +192,6 @@ print(p1)
 print(p2, vp = vp)
 ```
 
-![plot of chunk premier](figure/slides6-premier.svg) 
-
 
 # Now, how?
 - `ggplot2` can be understood as combining a few concepts
@@ -177,9 +207,72 @@ print(p2, vp = vp)
 ggplot(df, aes(x = readSS, y = mathSS)) + geom_point()
 ```
 
-![plot of chunk extended](figure/slides6-extended.svg) 
+<img src="figure/slides6-extended.svg" width="600px" height="350px"  alt="plot of chunk extended" title="plot of chunk extended" /> 
 
 - We've seen this guy before
 - This makes `ggplot2` like a sublanguage under R
 - `aes` says we are specifying aesthetics, here we specified x and y to make a two dimensional graphic
 
+# Layers
+- Exactly what they sound like, each plot is a simple series of layers
+- Show examples
+
+# Geoms
+- Geoms are the way data is represented, you can think of it like a chart type in another programming language
+- 
+
+# Scales
+- Scales are the way the numeric/categorical data is mapped to a visual representation
+- They transform the geoms and aesthetics
+- Scales preserve the mapping, but allow us to explore reshaping the data
+
+# Exercises 
+1.
+2.
+
+# References
+
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `0.7`. Here is my session info:
+
+
+```r
+print(sessionInfo(), locale = FALSE)
+```
+
+```
+## R version 2.15.1 (2012-06-22)
+## Platform: i386-pc-mingw32/i386 (32-bit)
+## 
+## attached base packages:
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
+## 
+## other attached packages:
+##  [1] stringr_0.6.1  quantreg_4.81  SparseM_0.96   lmtest_0.9-30 
+##  [5] zoo_1.7-7      gridExtra_0.9  ggplot2_0.9.1  hexbin_1.26.0 
+##  [9] lattice_0.20-6 mgcv_1.7-19    Cairo_1.5-1    knitr_0.7     
+## [13] plyr_1.7.1    
+## 
+## loaded via a namespace (and not attached):
+##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
+## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
+## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [16] tools_2.15.1      
+```
+
+
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>

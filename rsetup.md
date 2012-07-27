@@ -79,20 +79,6 @@ example(gqtest)
 # And you should see...
 
 ```
-## Loading required package: zoo
-```
-
-```
-## Attaching package: 'zoo'
-```
-
-```
-## The following object(s) are masked from 'package:base':
-## 
-## as.Date, as.Date.numeric
-```
-
-```
 ## 
 ## gqtest> ## generate a regressor
 ## gqtest> x <- rep(c(-1,1), 50)
@@ -113,7 +99,7 @@ example(gqtest)
 ## 	Goldfeld-Quandt test
 ## 
 ## data:  y1 ~ x 
-## GQ = 3.078, df1 = 48, df2 = 48, p-value = 7.871e-05
+## GQ = 3.601, df1 = 48, df2 = 48, p-value = 9.46e-06
 ## 
 ## 
 ## gqtest> gqtest(y2 ~ x)
@@ -121,7 +107,7 @@ example(gqtest)
 ## 	Goldfeld-Quandt test
 ## 
 ## data:  y2 ~ x 
-## GQ = 0.8951, df1 = 48, df2 = 48, p-value = 0.6486
+## GQ = 0.6968, df1 = 48, df2 = 48, p-value = 0.8928
 ## 
 ```
 
@@ -153,3 +139,13 @@ qplot(sample = y, stat = "qq")
 
 # You are ready to go!
 See you on August 2nd and 3rd to find out how to go from these basic steps to using R to learn from your data. Can't wait to see you in Madison!
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>

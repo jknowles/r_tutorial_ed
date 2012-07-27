@@ -991,13 +991,29 @@ print(sessionInfo(), locale = FALSE)
 ## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] plyr_1.7.1 knitr_0.7 
+## [1] ggplot2_0.9.1  hexbin_1.26.0  lattice_0.20-6 mgcv_1.7-19   
+## [5] Cairo_1.5-1    knitr_0.7      plyr_1.7.1    
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6   
-## [5] tools_2.15.1  
+##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
+## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
+## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [16] stringr_0.6.1      tools_2.15.1      
 ```
 
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>

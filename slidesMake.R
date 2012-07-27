@@ -8,6 +8,7 @@ knit("Tutorial5_BasicAnalytics.Rmd")
 knit("Tutorial6_Visualization.Rmd")
 knit("Tutorial7_ExportingWork.Rmd")
 knit("Tutorial8_AdvancedTopics.Rmd")
+knit("rsetup.Rmd")
 
 
 system("pandoc -s -S -i -t slidy Tutorial0_Overview.md -o Tutorial0_Overview.html --self-contained")

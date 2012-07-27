@@ -81,3 +81,14 @@ Let's get started!
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
 - [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
 - [Olivia Lau's R Programming Crash Course](http://www.user2010.org/tutorials/Lau.html)
+
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>

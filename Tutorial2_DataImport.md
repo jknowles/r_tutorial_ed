@@ -59,6 +59,12 @@ update.packages()  # Gonna update them all
 - To reference items within an object type we need to give it an address like in `mydata$thingIwant` or `mydata@thingIwant`
 - The `$` and `@` distinction depends on whether this is an S3 or an S4 class
 
+# Preliminaries
+- Get and set the working directory
+- Understand file system paths
+- Understand relative and full paths
+- Find out where things are
+
 # Ground Rules
 - Get used to plain text input files
   * R can handle other formats, but your error rate increases as does the tweaking necessary
@@ -88,7 +94,14 @@ ls()  # get objects
 ```
 
 ```
-## [1] "a"
+##  [1] "a"              "A"              "b"              "big"           
+##  [5] "c"              "d"              "defac"          "extractN"      
+##  [9] "foo"            "foo.mat"        "i"              "myarray"       
+## [13] "mycorr"         "mycorr2"        "mydate"         "mydate2"       
+## [17] "myfac"          "myfac_o"        "myFunction"     "mylist"        
+## [21] "mymat"          "mymod"          "myvec"          "newmat"        
+## [25] "small"          "statamode"      "stuatt"         "tempdf"        
+## [29] "testuniqueness" "z"             
 ```
 
 ```r
@@ -303,13 +316,13 @@ summary(messdf[, c("stuid", "readSS", "mathSS")])
 
 ```
 ##      stuid            readSS        mathSS   
-##  Min.   :   205   Min.   :252   Min.   :232  
-##  1st Qu.: 44205   1st Qu.:431   1st Qu.:417  
-##  Median : 88205   Median :496   Median :479  
-##  Mean   : 99229   Mean   :497   Mean   :483  
-##  3rd Qu.:132205   3rd Qu.:564   3rd Qu.:546  
-##  Max.   :324953   Max.   :773   Max.   :828  
-##                   NA's   :218   NA's   :257  
+##  Min.   :   205   Min.   :252   Min.   :210  
+##  1st Qu.: 44205   1st Qu.:431   1st Qu.:419  
+##  Median : 88205   Median :496   Median :480  
+##  Mean   : 99229   Mean   :497   Mean   :484  
+##  3rd Qu.:132205   3rd Qu.:564   3rd Qu.:542  
+##  Max.   :324953   Max.   :833   Max.   :828  
+##                   NA's   :214   NA's   :276  
 ```
 
 ```r
@@ -317,7 +330,7 @@ nrow(messdf[!complete.cases(messdf), ])  # number of rows with missing data
 ```
 
 ```
-## [1] 457
+## [1] 467
 ```
 
 - To get rid of missing data, we can copy our data with all missing cases dropped using the `na.omit` function
@@ -328,7 +341,7 @@ nrow(cleandf)
 ```
 
 ```
-## [1] 2243
+## [1] 2233
 ```
 
 
@@ -469,16 +482,32 @@ print(sessionInfo(), locale = FALSE)
 
 ```
 ## R version 2.15.1 (2012-06-22)
-## Platform: x86_64-pc-mingw32/x64 (64-bit)
+## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] knitr_0.7
+## [1] ggplot2_0.9.1  hexbin_1.26.0  lattice_0.20-6 mgcv_1.7-19   
+## [5] Cairo_1.5-1    knitr_0.7      plyr_1.7.1    
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    plyr_1.7.1    
-## [5] stringr_0.6    tools_2.15.1  
+##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
+## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
+## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [16] stringr_0.6.1      tools_2.15.1      
 ```
 
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>

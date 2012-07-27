@@ -160,7 +160,7 @@ Usage of the R listserv for help has really exploded recently
 ```
 
 ```
-## [1] 7.378
+## [1] 7.058
 ```
 
 ```r
@@ -417,13 +417,9 @@ summary(df[, 28:31])  #summary look at df object
 ```
 
 ```
-##    schoollow         readSS        mathSS           proflvl    
-##  Min.   :0.000   Min.   :252   Min.   :210   advanced   : 788  
-##  1st Qu.:0.000   1st Qu.:430   1st Qu.:418   basic      : 523  
-##  Median :0.000   Median :495   Median :480   below basic: 210  
-##  Mean   :0.242   Mean   :496   Mean   :483   proficient :1179  
-##  3rd Qu.:0.000   3rd Qu.:562   3rd Qu.:543                     
-##  Max.   :1.000   Max.   :833   Max.   :828                     
+## Error: error in evaluating the argument 'object' in selecting a method for
+## function 'summary': Error in df[, 28:31] : object of type 'closure' is not
+## subsettable
 ```
 
 ```r
@@ -431,8 +427,9 @@ summary(df$readSS)  #summary of a single column
 ```
 
 ```
-##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##     252     430     495     496     562     833 
+## Error: error in evaluating the argument 'object' in selecting a method for
+## function 'summary': Error in df$readSS : object of type 'closure' is not
+## subsettable
 ```
 
 -The `$` says to look for object **readSS** in object **df**
@@ -446,7 +443,9 @@ qplot(readSS, mathSS, data = df, geom = "point", alpha = I(0.3)) + theme_bw() +
     opts(title = "Test Score Relationship") + geom_smooth()
 ```
 
-![Student Test Scores](figure/slides-graphics1.svg) 
+```
+## Error: ggplot2 doesn't know how to deal with data of class function
+```
 
 
 # Handling Data in R
@@ -458,7 +457,7 @@ length(unique(df$school))
 ```
 
 ```
-## [1] 173
+## Error: object of type 'closure' is not subsettable
 ```
 
 ```r
@@ -466,16 +465,23 @@ length(unique(df$stuid))
 ```
 
 ```
-## [1] 1200
+## Error: object of type 'closure' is not subsettable
 ```
 
 ```r
 uniqstu <- length(unique(df$stuid))
+```
+
+```
+## Error: object of type 'closure' is not subsettable
+```
+
+```r
 uniqstu
 ```
 
 ```
-## [1] 1200
+## Error: object 'uniqstu' not found
 ```
 
 - Results of function calls can be stored
@@ -1186,12 +1192,12 @@ head(foo.mat)
 
 ```
 ##         [,1]   [,2]    [,3] [,4]
-## [1,] -0.2910 0.2863 0.81512    2
-## [2,]  0.3523 0.9617 0.03504    2
-## [3,]  0.5447 0.1183 0.08259    3
-## [4,] -0.2199 0.9950 0.67370    4
-## [5,] -0.7050 0.2941 0.15321    3
-## [6,]  0.2851 0.5960 0.75209    1
+## [1,]  0.4250 0.8902 0.56339    1
+## [2,]  0.7037 0.7115 0.95235    3
+## [3,] -0.8088 0.4341 0.20168    4
+## [4,]  0.4723 0.1548 0.80516    2
+## [5,]  1.2076 0.6567 0.08112    2
+## [6,]  0.1388 0.4342 0.96520    2
 ```
 
 ```r
@@ -1199,11 +1205,11 @@ cor(foo.mat)
 ```
 
 ```
-##          [,1]     [,2]     [,3]     [,4]
-## [1,]  1.00000 -0.05195 -0.08902 -0.03014
-## [2,] -0.05195  1.00000  0.14512 -0.02188
-## [3,] -0.08902  0.14512  1.00000 -0.11259
-## [4,] -0.03014 -0.02188 -0.11259  1.00000
+##          [,1]     [,2]      [,3]      [,4]
+## [1,] 1.000000  0.04689  0.007272  0.008274
+## [2,] 0.046890  1.00000  0.167042 -0.005190
+## [3,] 0.007272  0.16704  1.000000 -0.174011
+## [4,] 0.008274 -0.00519 -0.174011  1.000000
 ```
 
 
@@ -1235,11 +1241,11 @@ mycorr2
 ```
 
 ```
-##         V1       V2       V3       V4
-## 1  1.00000 -0.05195 -0.08902 -0.03014
-## 2 -0.05195  1.00000  0.14512 -0.02188
-## 3 -0.08902  0.14512  1.00000 -0.11259
-## 4 -0.03014 -0.02188 -0.11259  1.00000
+##         V1       V2        V3        V4
+## 1 1.000000  0.04689  0.007272  0.008274
+## 2 0.046890  1.00000  0.167042 -0.005190
+## 3 0.007272  0.16704  1.000000 -0.174011
+## 4 0.008274 -0.00519 -0.174011  1.000000
 ```
 
 
@@ -1444,15 +1450,7 @@ str(df[, 25:32])
 ```
 
 ```
-## 'data.frame':	2700 obs. of  8 variables:
-##  $ district  : int  3 3 3 3 3 3 3 3 3 3 ...
-##  $ schoolhigh: int  0 0 0 0 0 0 0 0 0 0 ...
-##  $ schoolavg : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ schoollow : int  0 0 0 0 0 0 0 0 0 0 ...
-##  $ readSS    : num  357 264 370 347 373 ...
-##  $ mathSS    : num  387 303 365 344 441 ...
-##  $ proflvl   : Factor w/ 4 levels "advanced","basic",..: 2 3 2 2 2 4 4 4 3 2 ...
-##  $ race      : Factor w/ 5 levels "A","B","H","I",..: 2 2 2 2 2 2 2 2 2 2 ...
+## Error: object of type 'closure' is not subsettable
 ```
 
 - Data frames must have consistent dimensions
@@ -1496,21 +1494,34 @@ print(sessionInfo(), locale = FALSE)
 
 ```
 ## R version 2.15.1 (2012-06-22)
-## Platform: x86_64-pc-mingw32/x64 (64-bit)
+## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] mgcv_1.7-18   ggplot2_0.9.1 knitr_0.7    
+## [1] ggplot2_0.9.1  hexbin_1.26.0  lattice_0.20-6 mgcv_1.7-19   
+## [5] Cairo_1.5-1    knitr_0.7      plyr_1.7.1    
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.1       
-##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-19       
-## [10] Matrix_1.0-6       memoise_0.1        munsell_0.3       
-## [13] nlme_3.1-104       plyr_1.7.1         proto_0.3-9.2     
-## [16] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [19] stringr_0.6        tools_2.15.1      
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
+## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
+## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [16] stringr_0.6.1      tools_2.15.1      
 ```
+
+
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>
 
