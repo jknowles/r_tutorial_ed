@@ -11,6 +11,7 @@ In this lesson we hope to learn:
 - Optimize R with parallelization
 - Mixed effect models
 - Data mining with R
+- Animations
 
 # Basic Principles
 - Good professional data analysis is computer programming

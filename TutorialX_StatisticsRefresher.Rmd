@@ -1,0 +1,16 @@
+% Basic Statistical Concepts
+% R Bootcamp HTML Slides
+% Jared Knowles
+
+# Introduction
+We will review the following statistical concepts here through the lens of R:
+
+- Statistical distributions
+- Attributes of distributions
+- Samples
+- Standard deviations and standard errors
+- Statistical models
+- Univariate Regression
+- Multivariate Regression
+- Causality
+

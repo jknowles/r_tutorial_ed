@@ -4,17 +4,21 @@
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg')
+opts_chunk$set(fig.path='figure/slides7-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg')
+source('ggplot2themes.R')
 ```
 
 # Overview
+
 In this lesson we hope to learn:
+
 - Quick and basic export of results
 - Writing a basic report
 - Exporting graphics for use in other documents
 - Reproducible research
 
 # Why does Export Matter?
+
 - Need to be able to share work with others and present it
 - This can be tricky in R because R has so many choices for export
 - R can talk to a number of outside formats including Excel, Word, PDF, PNG, HTML
@@ -22,16 +26,28 @@ In this lesson we hope to learn:
 - We'll cover the basics, but there are a lot of outside resources for doing what you need in your own environment
 
 # Generating a basic report
+
 - There are a few key concepts that R allows that we should follow when preparing a report on data
+
   1. Include the data, source code, and output together in one package
   2. Have the source code available for raw data to finished product
   3. Present figures, tables, and code in a single document
+
 - Why do we do this?
+
   * Transparency
   * Reproducibility
   * It isn't much harder than the basic analysis itself
 
+# A few terms
+- **Rmarkdown** extension **.Rmd** and used for R flavored markdown in RStudio
+- **R script** extension **.R** used to store R code only
+- **R HTML** extension **.RHtml** used to store R HTML
+- **Text** extension **.txt** used to write plain text
+- ** R Sweave** extension **.Rnw** used to write LaTeX reports with embedded R code
+
 # Beginning
+
 - Open a new script file in RStudio--"R Markdown"
 - This opens a template file for an HTML report, the easiest type to create
 - In R there are a number of packages designed to help create reports and place them on a scale like so:
@@ -45,13 +61,133 @@ a+geom_text(aes(x=4.8,y=11.5,label='R Markdown'))+
   geom_text(aes(x=2.5,y=2.3,label='copy and paste'))+
   geom_text(aes(x=10,y=16.2,label='knitr to PDF'))+
   geom_text(aes(x=14,y=18.2,label='Sweave +bibtex'))+opts(
-    title='Quality v. Time Tradeoff in Exporting Information')
+    title='Quality v. Time Tradeoff in Exporting Information')+theme_dpi()
 ```
 
 # Get the tools
-- `install.packages('knitr')`; `sweave` is part of R base already
+- `install.packages('knitr','markdown')`; `sweave` is part of R base already
 - We need a LaTeX distribution for Tex documents
 - What is LaTeX?
+- An open source typsetting framework that can be used to produce complex technical documents
+- We won't mess with LaTeX today - instead we will focus on HTML and markdown
+
+# A Simple Example
+- Paste this in a new R script
+- Save the script in your working directory as `myscript.R`
+
+```{r dummyscript, echo=TRUE,eval=FALSE}
+#' This is some text
+#' 
+
+# + myplot, dev='svg',out.width='500px',out.height='400px'
+
+library(ggplot2)
+data(diamonds)
+qplot(carat,price,data=diamonds,alpha=I(.3),color=clarity)
+
+#' Diamond size is clearly related to price, but not in a linear fashion.
+#'
+```
+
+
+# Converting the Script
+- This happens in two steps to make an HTML file
+
+```{r spinr}
+o<-spin("C:/Path/To/myscript.R",knit=FALSE)
+knit2html(o,envir=new.env())
+```
+
+
+# Example Script II
+- Create `myscript2.R`
+
+```{r scriptr2,eval=FALSE,echo=TRUE}
+#' This is some text that I want to explain
+#' For example, this plot is important, let's look below
+
+# + myplot, dev='svg',out.width='500px',out.height='400px',warning=FALSE,message=FALSE
+
+library(ggplot2)
+load('PATH/TO/MY/DATA.rda')
+qplot(readSS,mathSS,data=df,alpha=I(.2))+geom_smooth()
+
+#' There is not a linear relationship, but it sure is close.
+#' Let's do some regression
+#' 
+
+test<-lm(mathSS~readSS+factor(grade),data=df)
+summary(test)
+
+#' It's all statistically significant
+```
+
+# Spin 2
+
+```{r spinr23, eval=FALSE,echo=TRUE}
+o<-spin("C:/Path/To/myscript2.R",knit=FALSE)
+knit2html(o,envir=new.env())
+# We specify that new environment is used to carry out the analysis, not the current environment
+```
+
+
+# Stitch
+- Stiching is similar to spinning, but we don't even have to mess around with anything but our R script
+- Just write the R code 
+- Any comments you write preceeded by the **#** denote something we want printed in the text
+- Even more simplified than `spin`
+
+# Stitch Example
+```{r stitching}
+## title: My Super Report ##
+## Author: Mr. Data ##
+
+# A plot and some text
+library(ggplot2)
+load('PATH/TO/MY/DATA')
+qplot(readSS,mathSS,data=df,alpha=I(.2))+geom_smooth()
+
+# Now a linear model
+test<-lm(mathSS~readSS+factor(grade),data=df)
+summary(test)
+
+# Ok!
+
+```
+
+# Stitch Spin
+- A number of different outputs
+
+```{r sdfafeaw, eval=FALSE,echo=TRUE}
+# Markdown
+stitch('PATH/TO/MY/SCRIPT',system.file("misc","knitr-template.Rmd",package="knitr"))
+knit2html("Path/To/My/Markdown.md")
+
+# Direct 2 Html
+stitch('PATH/TO/MY/SCRIPT',system.file("misc","knitr-template.html",package="knitr"))
+
+# Direct to PDF
+# Requires LaTeX
+stitch('PATH/TO/MY/SCRIPT')
+
+```
+
+# R Flavored Markdown
+- Creating a **.Rmd** file allows us to use the `knitr` package to give us in-depth control over R HTML files
+- Along the way we learn how to make great PDF files using the same toolkit
+- This unified platform greatly simplifies the way R can be used in the workflow to make analyses a single coherent package from raw data to outputs
+
+
+# R Report Concepts
+- a **chunk** is the technical term (no really) for a piece of R code inserted in a document
+- These slides are made up of text with some markup + chunks of R code
+- **opts** tell R how to use the chunk
+- Options allow us to keep or discard the chunk, display the results, source code, or both, display a figure or graph, and how to format the output we get from R
+- This is all incredibly flexible and incredibly easy to implement with a few basic parameters
+
+# Exporting a Single Plot
+
+# Reproducibility Matters
 
 # Exercises 
 1.
@@ -59,6 +195,8 @@ a+geom_text(aes(x=4.8,y=11.5,label='R Markdown'))+
 
 
 # References
+
+1. [How to Use knitr](http://yihui.name/knitr/)
 
 
 # Session Info

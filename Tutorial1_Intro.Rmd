@@ -177,6 +177,20 @@ a
 ```
 - **This is handy**
 
+# Comments in R
+- **#** denotes a comment in R
+- Anything after the **#** is not evaluated and ignored in R
+- This is handy for making things reproducible
+
+```{r poundsigns,eval=FALSE,echo=TRUE}
+# Something I want to keep from R
+# Like my secret from the R engine
+# Maybe intended for a human and not the computer
+# Like: Look at this cool plot!
+
+myplot(readSS,mathSS,data=df)
+```
+
 # R Advanced Math
 - R also supports advanced mathematical features and expressions
 - R can take integrals and derivatives and express complex functions
@@ -404,6 +418,15 @@ class(A)
 class(b)
 class(c)
 ```
+
+# A Note on Vectors
+- Vectors are collections of consistent data types
+- **numeric** can either be double or integer depending on the *bytes* size
+- **logical**
+- **character**
+- **complex**
+- **raw**
+- All vectors must be consistent among types, but some data objects can consist of vectors with different types
 
 # Factor
 - A factor is a very special and sometimes frustrating data type in R
@@ -692,6 +715,7 @@ str(df[,25:32])
 - [Video Tutorials](http://www.twotorials.com/)
 - [Google's R Style Guide](http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html)
 - [Hadley Wickham's R Style Guide](https://github.com/hadley/devtools/wiki/Style)
+- [JSM 2012 R Introduction by Jay Emerson](http://www.stat.yale.edu/~jay/JSM2012/PDFs/intro.pdf)
 
 
 # Session Info

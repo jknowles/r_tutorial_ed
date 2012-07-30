@@ -4,12 +4,14 @@
 
 ```{r setuph, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides6-', cache.path='cache/slides6-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='svg',out.width='600px',out.height='350px')
+opts_chunk$set(fig.path='figure/slides6-', cache.path='cache/slides6-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='600px',out.height='350px')
 source('ggplot2themes.R')
 ```
 
 # Overview
 In this lesson we hope to learn:
+
+- What is data visualization and why does it matter?
 - How to draw diagnostic plots in base graphics
 - Colors
 - `ggplot2' 
@@ -30,7 +32,25 @@ dropbox_source<-function(myurl){
 # Graphics Matter
 - Graphics are a huge part of R and R encourages its users to use visualization to aid and present analysis
 - Graphics are hard to get right, but tools can help make it easier
-- Lots of great resources to help available for this online
+- Lots of great resources to help available for this online and linked to at the end of this document
+
+# Visualization Philosophy
+- Visualization is about thinking about what objects in our dataset map with what visual cues for the viewer
+  - liberal use of `names(object)` helps
+- What is the best way to show discrete variables, continuous variables, and connected variables
+- We also need to be unafraid about trying transformations of variables, recoding variables, and reshaping variables to tell the story we are looking for
+- What is a plot?
+
+# Our data for this exercise
+- As we now know, student data is quite fascinating
+- We have many discrete attribute variables
+  - Race, gender, economics, etc.
+- We have some continuous variables
+  - Test scores, attendance
+- We have some grouping variables
+  - Schools, districts, students, teachers
+- Rich ground to make a number of visualizations that are useful
+
 
 # Base graphics
 - R has base graphics which are useful for quickly doing some plots
@@ -46,44 +66,226 @@ hist(df$readSS)
 
 # Base graphics has some limitations
 - What if we try to do a scatterplot of lots of data?
-```{r basescatter}
+
+```{r basescatter,out.width='300px',out.height='200px'}
 plot(df$readSS,df$mathSS)
 ```
+
+- To add a line, we have to use another line of code 
+
+```{r scatterbaseline,out.width='300px',out.height='200px'}
+plot(df$readSS,df$mathSS)
+lines(lowess(df$readSS~df$mathSS),col='red')
+```
+
 
 # Basic Plot
 - Don't use R base graphics
 - `ggplot2` is pretty much the new standard in R
 - Create beautiful, clear plots with a nice consistent set of language conventions
 
-```{r plot1}
+```{r plot1,out.height='325px'}
 library(ggplot2)
 qplot(readSS,mathSS,data=df)
 ```
-- Consider this basic scatterplot
 
-# Variations
-```{r plot2,out.width='400px',out.height='300px'}
-qplot(readSS,mathSS,data=df)+geom_smooth()
-qplot(readSS,mathSS,data=df,alpha=I(0.3))
-qplot(readSS,mathSS,data=df)+xlab('Reading Score')+ylab('Math Score')
-qplot(readSS,mathSS,data=df,color=race)+scale_color_brewer(type='qual',palette=2)
+
+# Now, how?
+- Apply best visualization principles, particularly the "Grammar of Graphics"
+- `ggplot2` an R package does just this by breaking plots into a few basic components
+  - aesthetics, geoms, layers, and scales
+- Making high quality graphics is just a matter of applying the right data to the right aesthetics in an appropriate geom, adding layer for detail, and ensuring the scale is appropriate
+- Let's talk about how to do that next
+
+# What are the basic plot types?
+```{r ggplot2plottypes,echo=FALSE,out.width='850px',out.height='520px'}
+p1<-qplot(factor(grade),readSS,data=df,geom='boxplot')+theme_dpi(base_size=12)
+p2<-qplot(readSS,data=df,geom='density')+theme_dpi(base_size=12)
+p3<-qplot(readSS,data=df)+theme_dpi(base_size=12)
+p4<-qplot(grade,readSS,data=df,geom='line',group=1,stat='quantile')+theme_dpi(base_size=12)
+p5<-qplot(mathSS,readSS,data=df)+theme_dpi(base_size=12)
+library(plyr)
+df2<-ddply(df,.(schid),summarize,mean_math=mean(mathSS,na.rm=T))
+p6<-qplot(factor(schid),mean_math,data=df2,geom='bar',stat='identity')+theme_dpi(base_size=12)
+grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
 ```
 
-# Visualization Philosophy
-- Visualization is about thinking about what objects in our dataset map with what visual cues for the viewer
-  - liberal use of `names(object)` helps
-- What is the best way to show discrete variables, continuous variables, and connected variables
-- We also need to be unafraid about trying transformations of variables, recoding variables, and reshaping variables to tell the story we are looking for
 
-# Our data for this exercise
-- As we now know, student data is quite fascinating
-- We have many discrete attribute variables
-  - Race, gender, economics, etc.
-- We have some continuous variables
-  - Test scores, attendance
-- We have some grouping variables
-  - Schools, districts, students, teachers
-- Rich ground to make a number of visualizations that are useful
+# What are some advanced plot types?
+```{r ggplot2plottypesadv,echo=FALSE,out.width='850px',out.height='520px'}
+p1<-qplot(factor(grade),readSS,data=df,geom='boxplot')+theme_dpi(base_size=12)+ stat_summary(fun.data = "mean_cl_boot", colour = "red",size=(1.2))
+p2<-qplot(readSS,data=df,geom='density',fill=race)+theme_dpi(base_size=12)+opts(legend.position='bottom')
+p3<-qplot(readSS,data=df,fill=factor(female),position='stack')+theme_dpiPNG(base_size=12)+opts(legend.position='bottom')
+p4<-qplot(grade,readSS,data=df,geom='line',group=1,stat='quantile')+theme_dpi(base_size=12)+geom_jitter(alpha=(.2))
+p5<-qplot(mathSS,readSS,data=df,alpha=I(.25))+theme_dpi(base_size=12)+stat_density2d(aes(color=factor(df$disab)),size=I(1.03))+opts(legend.position='bottom')
+library(plyr)
+df2<-ddply(df,.(schid),summarize,mean_math=mean(mathSS,na.rm=T),sd_math=sd(mathSS,na.rm=T))
+p6<-ggplot(df2,aes(x=factor(schid),y=mean_math,ymin=mean_math-2*sd_math,ymax=mean_math+2*sd_math))+geom_pointrange()+geom_errorbar(size=I(1.03),width=.25,color='grey40')+theme_dpi(base_size=12)
+grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
+```
+
+# 
+Your Turn: What are some examples of interesting visualizations we could use?
+-------------------------------------------------------------------
+
+
+# Understanding Grammar of Graphics through A Scatterplot
+```{r smallscatter,out.width='300px',out.height='240px'}
+qplot(readSS,mathSS,data=df,alpha=I(.3))+theme_dpi()
+```
+
+- What is a scatterplot?
+- A 2d representation of data as coordinates, in this case the `readSS` is the x coordinate and `mathSS` is the y coordinate for each observation in our data
+- Each observation is a point (*geom*)
+- Both axes scale in a linear fashion (*scales*)
+
+# Grammar of Graphics
+- In one way of thinking about this, each data visualization has four components
+- **Geometries** that represent data (*points, bars, lines*)
+- **Statistics** that represent information about the data (*identity, mean, median, deviance*)
+- **Scales** that map the geometries and statistics to space (*linear, quadratic, logrithmic*)
+- A **coordinate system** and canvas to put all on
+
+
+# Geoms
+- **Geoms** are the way data is represented, you can think of it like a chart type in another programming language
+- We have seen a number of examples, and **geoms** can be combined in unique ways to convey more data
+- Quiz: Represent `df$mathSS` using **3 separate geoms**
+
+# Geom Quiz
+```{r geomquiz,out.width='350px',out.height='260px'}
+qplot(mathSS,readSS,data=df)+theme_dpi()
+qplot(mathSS,data=df)+theme_dpi()
+qplot(factor(grade),mathSS,data=df,geom='line',group=stuid,alpha=I(.2))+theme_dpi()
+```
+
+# Aesthetics
+- **geoms** allow us to only display a couple of data elements at once, to do more we need to map to other visual representations
+- This is what *aesthetics* are
+- aesthetics are colors, glyphs (shapes), and sizes of graph objects mapped to visual cues
+- `ggplot2` has an extended syntax that makes this obvious
+
+```{r extended,out.height='240px'}
+ggplot(df,aes(x=readSS,y=mathSS))+geom_point()
+# Identical to: qplot(readSS,mathSS,data=df)
+```
+
+- `aes` says we are specifying aesthetics, here we specified x and y to make a two dimensional graphic
+
+# Examples of Aesthetics
+
+
+```{r plot2,out.width='400px',out.height='300px'}
+data(mpg)
+qplot(displ,cty,data=mpg)+theme_dpi()
+qplot(displ,cty,data=mpg,size=cyl)+theme_dpi()
+qplot(displ,cty,data=mpg,shape=drv,size=I(3))+theme_dpi()
+qplot(displ,cty,data=mpg,color=class)+theme_dpi()
+```
+
+# Experiment with Aesthetics
+### Draw some plots with different aesthetics using our student level dataset
+
+# Some Considerations with Aesthetics
+
+- **aesthetics** are very sensitive to whether a variable is continuous or discrete or ordered
+- **R** isn't always so worried about this!
+- Why does it matter? Let's see a few examples
+
+# Aesthetics Considerations (ordered)
+
+```{r racesizemapping}
+qplot(mathSS,readSS,data=df[1:100,],size=race,alpha=I(.8))+theme_dpi()
+```
+- Does this make sense?
+
+# Another Aesthetics Concern (ordered)
+
+```{r proflvlcolor}
+df$proflvl2<-factor(df$proflvl,levels=c('advanced','basic','proficient','below basic'))
+df$proflvl2<-ordered(df$proflvl2)
+qplot(mathSS,readSS,data=df[1:100,],color=proflvl2,size=I(3))+scale_color_brewer(type='seq')+theme_dpi()
+```
+
+# Aesthetics Concern 2 (discrete and continuous)
+- What aesthetics can we map continuous variables like `mathSS` to, and waht can we map discrete characteristics like `race` to?
+
+```{r badcontinuousmapping}
+qplot(factor(grade),readSS,data=df[1:100,],color=mathSS,geom='jitter',size=I(3.2))+theme_dpi()
+```
+- What's wrong?
+
+# Aesthetics Concern 2
+
+```{r baddiscretemap}
+qplot(factor(grade),readSS,data=df[1:100,],color=dist,geom='jitter',size=I(3.2))+theme_dpi()
+```
+- What's wrong?
+
+# Thinking about Aesthetics
+
+- One concern is discrete v. continuous variables
+
+Aesthetic | Discrete | Continuous
+----------| -------- | ----------
+Color     | Disparate colors | Sequential or divergent colors
+Size      | Unique size for each value | linear or logrithmic mapping to radius of value
+Shape     | A shape for each value | **does not make sense**
+
+# Another is ordered v. unordered
+
+
+Aesthetic | Ordered | Unordered
+----------| -------- | ----------
+Color     | Sequential or divergent colors | Rainbow
+Size      | Increasing or decreasing radius | **does not make sense**
+Shape     | **does not make sense** | A shape for each value
+
+
+
+# Scales
+- Scales are the way the numeric/categorical data is mapped to a visual representation
+- They transform the geoms and aesthetics
+- Scales preserve the mapping, but allow us to explore reshaping the data
+
+```{r scaleexample,echo=FALSE}
+p1<-qplot(factor(grade),mathSS,data=df,geom='jitter',alpha=I(.3))+theme_dpi(base_size=12)
+p2<-qplot(factor(grade),mathSS,data=df,geom='jitter',alpha=I(.3))+scale_y_sqrt()+theme_dpi(base_size=12)
+p3<-qplot(factor(grade),log2(mathSS),data=df,geom='jitter',alpha=I(.3))+theme_dpi(base_size=12)
+p4<-qplot(grade,log2(mathSS),data=df,geom='jitter',alpha=I(.3))+
+  scale_x_continuous(breaks=c(3,6,8),labels=c('young','middle','old'))+theme_dpi(base_size=12)
+p5<-qplot(factor(grade),mathSS,data=df,geom='jitter',alpha=I(.3))+
+  scale_y_reverse()+theme_dpi(base_size=12)
+p6<-qplot(factor(grade),mathSS,data=df,geom='jitter',alpha=I(.3))+
+  scale_y_continuous(breaks=c(250,400,600,700),
+                     labels=c('minimal','basic','proficient','advanced'))+theme_dpi(base_size=12)
+grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
+```
+
+# Scales Caveats
+- Despite not changing the  mapping of data to space, scales can dramatically influence the interpretation of our data
+- Rescaling data should be done thoughtfully and with care
+- Picking a good scale can be really difficult, and sometimes, a good scale just won't exist without reshaping or subsetting the data!
+
+# Scales also apply to color and fill
+- 
+
+# Layers
+- Exactly what they sound like, each plot is a simple series of layers
+- One way to do layers is to break plots up into small multiples (see Tufte)
+
+```{r smallfacets}
+qplot(readSS,mathSS,data=df)+facet_wrap(~grade)+theme_dpi(base_size=12)+
+  geom_smooth(method='lm',se=FALSE,size=I(1.2))
+```
+
+# We can also facet across more attributes
+
+```{r smallfacets2}
+qplot(readSS,mathSS,data=df)+facet_grid(ell~grade)+theme_dpi(base_size=12)+
+  geom_smooth(method='lm',se=FALSE,size=I(1.2))
+```
+
 
 
 # A few pro tips
@@ -98,7 +300,7 @@ qplot(readSS,mathSS,data=df,color=race)+scale_color_brewer(type='qual',palette=2
 
 
 # Draw a Colorwheel to show this problem
-```{r colorwheel}
+```{r colorwheel,out.width='300px',out.height='240px'}
 colwheel<-"https://dl.dropbox.com/u/1811289/colorwheel.R"
 dropbox_source(colwheel)
 col.wheel("magenta",nearby=2)
@@ -106,8 +308,9 @@ col.wheel("orange",nearby=2)
 col.wheel("brown",nearby=2)
 ```
 
-# Start with a great example
-```{r premier,echo=FALSE,out.width='800px',out.height='650px'}
+
+# Above and Beyond
+```{r premier,echo=FALSE,out.width='800px',out.height='520px'}
 library(grid)
 p1<-qplot(readSS,..density..,data=df,fill=race,
       position='fill',geom='density')+scale_fill_brewer(
@@ -155,40 +358,18 @@ print(p2,vp=vp)
 
 ```
 
-# Now, how?
-- `ggplot2` can be understood as combining a few concepts
-  - aesthetics, geoms, layers, and scales
-- Making high quality graphics is just a matter of applying the right data to the right aesthetics in an appropriate geom, adding layer for detail, and ensuring the scale is appropriate
-- Let's talk about how to do that next
-
-# Aesthetics
-- aesthetics are the axes, colors, glyphs, and sizes of the data mapped to visual cues
-- `ggplot2` has an extended syntax that makes this obvious
-```{r extended}
-ggplot(df,aes(x=readSS,y=mathSS))+geom_point()
-```
-- We've seen this guy before
-- This makes `ggplot2` like a sublanguage under R
-- `aes` says we are specifying aesthetics, here we specified x and y to make a two dimensional graphic
-
-# Layers
-- Exactly what they sound like, each plot is a simple series of layers
-- Show examples
-
-# Geoms
-- Geoms are the way data is represented, you can think of it like a chart type in another programming language
-- 
-
-# Scales
-- Scales are the way the numeric/categorical data is mapped to a visual representation
-- They transform the geoms and aesthetics
-- Scales preserve the mapping, but allow us to explore reshaping the data
 
 # Exercises 
+
 1.
+
 2.
 
 # References
+1. [Hadley Wickham's JSM 2012 Presentation](http://www.stat.yale.edu/~jay/JSM2012/PDFs/ggplot2.pdf)
+2. [Hadley Wickam's GGPLOT2 Intro Presentation](http://had.co.nz/ggplot2/resources/2007-vanderbilt.pdf)
+3. [The GGPLOT2 Homepage](http://had.co.nz/ggplot2/)
+4. [GGPLOT2 Documentation](http://had.co.nz/ggplot2/docs)
 
 
 # Session Info
