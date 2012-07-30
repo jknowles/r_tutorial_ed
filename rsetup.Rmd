@@ -51,6 +51,9 @@ install_new('quantreg')
 install_new('zoo')
 install_new('devtools')
 install_new('xtable')
+install_new('lme4')
+install_new('R2SWF')
+install_new('caret')
 
 ```
 

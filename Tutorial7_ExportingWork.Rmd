@@ -260,6 +260,8 @@ dev.off()
 - Of course, other times we need to export raw data or results of our analyses
 - R is very flexible in these cases, and depending on what you want to do, you are probably best served by Googling a specific results
 - However, a few functions are indispensible for such work
+- These are the `foreign` library, `save`, `write.csv`, and `write.dta`
+- Note that R can also write SPSS files, SAS files, and files for just about any statistics program (sometimes even Excel, but CSV is preferred for this purpose)
 
 
 

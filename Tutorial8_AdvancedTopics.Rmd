@@ -4,8 +4,10 @@
 
 ```{r setuph, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides8-', cache.path='cache/slides8-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='600px',out.height='350px')
+opts_knit$set(animation.fun=hook_r2swf)
+opts_chunk$set(fig.path='figure/slides8-', cache.path='cache/slides8-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='700px',out.height='500px',cache=TRUE)
 source('ggplot2themes.R')
+library(ggplot2)
 load('data/smalldata.rda')
 ```
 
@@ -100,15 +102,209 @@ summary(as.character(a))
 - Functions can have many arguments and be much more complex
 - They can also be incredibly specialized--remember we are writing code for us!
 
-
-# Optimizing R
-
 # Mixed Effect Models
+- Mixed effect models, or random effect models, are a staple for analyzing data that exists in groups (like students in classrooms)
+- The underlying belief is that observations in the same group, to some degree, look more like one another than would be randomly expected (or than members of the other group)
+- Random effects help us measure and parse out this similarity to avoid it biasing our statistical model (fixed effects is another alternative)
+- In R we use the `lme4` package to do this work, or in a Bayesian framework (*fancy*) we can use winBUGS or JAGS
+- We'll stick with `lme4` by Doug Bates (a retired UW-Madison Professor of Statistics)
+
+# The Basics of lme4
+`mymod_me<-lmer(readSS~factor(grade)+factor(race)+female+disab+ell+(1|dist)+(1|stuid),data=df)`
+
+- items in `(1|dist)` denote a random effect. In this case we are measuring a random effect for the variable `dist` in our data.
+- Otherwise the formula is the same as a regular `lm` formula (by design
+- The output is tricky to interpret, but a basic mixed model is more accurate than the non-mixed version of the model (at least in nested school/district student test data)
+
+```{r lme4mod}
+library(lme4)
+mymod_me<-lmer(readSS~factor(grade)+factor(race)+female+disab+ell+(1|dist)+(1|stuid),data=df)
+print(mymod_me,correlation=FALSE)
+```
+
+# LMER vs. LM
+
+```{r modelcomp,fig.show='asis',dev='png',out.width='700px',out.height='500px'}
+mymod<-lm(readSS~factor(grade)+factor(race)+female+disab+ell,data=df)
+
+qplot(readSS,predict(mymod),data=df,alpha=I(.3),color=I('blue'))+geom_point(aes(x=df$readSS,y=fitted(mymod_me)),alpha=I(.4),color='dark green')+
+  theme_dpi()+xlab('Observed')+ylab('Predicted')+
+  geom_text(aes(x=370,y=700),label='Green is Results of the \n Mixed Model')
+```
 
 # Data Mining with R
+- When prediction is all that matters and we do not need to understand the *what* of prediction, just to accurately classify groups, then `caret` provides best in class data mining tools to us
+- More and more data miners in competitions, industry, and high stakes settings are using algorithms programmed and developed in R to do their work
+- We don't have time to fully implement such an analysis here, but just show what a typical workflow for the `caret` package looks like
+
+# Using the caret
+```{r caretscript,echo=TRUE,eval=TRUE}
+library(caret)
+# Set aside test set
+testset<-sample(unique(df$stuid),500)
+df$case<-0
+df$case[df$stuid %in% testset]<-1
+# Draw a training set of data (random subset of students)
+training<-subset(df,case==0)
+testing<-subset(df,case==1)
+
+training<-training[,c(3,6:16,21,22,28,29,30)] # subset vars
+trainX<-training[,1:15]
+refac<-function(x) as.factor(as.character(x))
+trainX$stuid<-refac(trainX$stuid)
+trainX$dist<-refac(trainX$dist)
+trainX$year<-refac(trainX$year)
+
+# Parameters
+ctrl <- trainControl(method = "repeatedcv", number=7,repeats=3,
+                     summaryFunction = defaultSummary)
+# Search grid
+grid<-expand.grid(.interaction.depth=seq(2,6,by=1),
+                  .n.trees=seq(200,800,by=50),
+                  .shrinkage=c(0.05,0.1))
+# Boosted tree search
+gbmTune<-train(x=trainX,
+               y=training$mathSS,
+               method="gbm",
+               metric="RMSE",
+               trControl=ctrl,
+               tuneGrid=grid,
+               verbose=FALSE)
+
+gbmPred<-predict(gbmTune,testing[,names(trainX)])
+
+```
+
+# Plot GBM
+```{r gbmplot,out.width='700px',out.height='500px'}
+plot(gbmTune)
+```
+
+# Optimizing R
+- For **big** data problems, sometimes R can be a little slow
+- There are two ways to speed R up--compiling code on the fly and running code in parallel
+- Compiling code turns our function into **bytecode** which can be executed by the computer faster
+- Running parallel uses the multiple *processor cores* in just about every modern PC to simultaneously calculate parts of a problem
+- Unfortunately, when you write your code in parallel it really depends on what operating system you are using since different functions to do parallel work are set up differently on each OS
+
+# A Quick Windows Parallel Example
+```{r parallelwindows,eval=TRUE,include=FALSE}
+xint <- c(-1,2)
+yint <- c(-1,2)
+func <- function(x,y) x^3-3*x + y^3-3*y
+g <- expand.grid(x = seq(xint[1],xint[2],0.1), y = seq(yint[1],yint[2],0.1))
+g$z <- func(g$x,g$y)
+
+# Dumb for loop
+integLoop <- function(func, xint, yint, n)
+ {
+ erg <- 0
+ # interval sizes
+ xincr <- ( xint[2]-xint[1] ) / n
+ yincr <- ( yint[2]-yint[1] ) / n
+ for(xi in seq(xint[1],xint[2], length.out=n)){
+ for(yi in seq(yint[1],yint[2], length.out=n)){
+ # Calculating one rectangular box
+ box <- func(xi, yi) * xincr * yincr
+ # Summarizing
+ erg <- erg + box
+  }
+  }
+ return(erg)
+}
+
+# Vectorized 
+
+integVec <- function(func, xint, yint, n)
+ {
+ xincr <- ( xint[2]-xint[1] ) / n
+ yincr <- ( yint[2]-yint[1] ) / n
+ # using vectors instead of loops
+ erg <- sum( func( seq(xint[1],xint[2], length.out=n),
+ seq(yint[1],yint[2], length.out=n) ) ) * xincr * yincr * n
+ return(erg)
+ }
+
+# Using Apply
+
+ integApply <- function (func, xint, yint, n)
+ {
+ applyfunc <- function(xrange, xint, yint, n, func)
+ {
+ # calculates for every x interval the complete volume
+ yrange <- seq(yint[1],yint[2], length.out=n)
+ xincr <- ( xint[2]-xint[1] ) / n
+ yincr <- ( yint[2]-yint[1] ) / n
+ erg <- sum( sapply(xrange, function(x) sum( func(x,yrange) )) ) * xincr * yincr
+ return(erg)
+ }
+ xrange <- seq(xint[1],xint[2],length.out=n)
+ erg <- sapply(xrange, applyfunc, xint, yint, n, func)
+ return( sum(erg) )
+ }
+
+integSnow <- function(cluster, func, xint, yint, n)
+ {
+ nslaves <- length(cluster)
+ erg <- clusterApplyLB(cluster, 1:nslaves, slavefunc, nslaves, xint, yint, n, func)
+ return( sum(unlist(erg)) )
+}
+
+# Parallel in Snow
+integSnow <- function(cluster, func, xint, yint, n)
+ {
+ nslaves <- length(cluster)
+ erg <- clusterApplyLB(cluster, 1:nslaves, slavefunc, nslaves, xint, yint, n, func)
+ return( sum(unlist(erg)) )
+ }
+
+
+slavefunc<- function(id, nslaves, xint, yint, n, func){
+ xrange <- seq(xint[1],xint[2],length.out=n)[seq(id,n,nslaves)]
+ yrange <- seq(yint[1],yint[2], length.out=n)
+ xincr <- ( xint[2]-xint[1] ) / n
+ yincr <- ( yint[2]-yint[1] ) / n
+ erg <- sapply(xrange, function(x)sum( func(x,yrange ) ))* xincr * yincr
+ return( sum(erg) )
+ }
+
+```
+
+```{r parallelperformancetest, echo=TRUE}
+n<-10000
+rep<-5
+tLoop <- replicate(rep, system.time( integLoop(func, xint, yint, n) ))
+summary(tLoop[3,])
+tVec <- replicate(rep, system.time( integVec(func, xint, yint, n) ))
+summary(tVec[3,])
+tApply <- replicate(rep, system.time( integApply(func, xint, yint, n) ))
+summary(tApply[3,])
+
+# 2 Core Cluster
+library(snow)
+c1<-makeCluster(c("localhost","localhost"),type="SOCK")
+tSnow1 <- replicate(rep, system.time( integSnow(c1, func, xint, yint, n) ))
+summary(tSnow1[3])
+stopCluster(c1)
+
+```
+
 
 # Animations
+- R can produce animated plots as well
+- Though animations get a bad rap in the data visualization community, they can be effective at illustrating things to users 
+- Requires GMCONVERT and FFMPEG
 
+# Test
+```{r animationtest,echo=FALSE,fig.show='animate',dev='png',out.width='700px',out.height='500px'}
+# require(R2SWF)
+
+x<-seq(-4,4)
+for (i in 10:100){
+  print(qplot(rnorm(i),geom='density')+
+    theme_dpi()+xlim(c(-4,4))+ylim(c(0,.5))+coord_cartesian())
+}
+```
 
 # Git and GitHub
 - Working alone or in a group, `git` and GitHub can help
@@ -119,7 +315,7 @@ summary(as.character(a))
 2.
 
 # References
-
+1. [Technical Report on Parallel Computing in R](http://dirk.eddelbuettel.com/papers/parallelR_techRep.pdf)
 
 # Session Info
 
