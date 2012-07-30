@@ -4,3 +4,5 @@
 cache
 figure
 handouts
+*.md
+.md
