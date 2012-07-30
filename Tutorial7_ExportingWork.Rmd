@@ -52,7 +52,7 @@ In this lesson we hope to learn:
 - This opens a template file for an HTML report, the easiest type to create
 - In R there are a number of packages designed to help create reports and place them on a scale like so:
 
-```{r tradeoff,dev='svg',echo=FALSE}
+```{r tradeoff,dev='svg',echo=FALSE,out.height='400px',out.width='700px'}
 library(ggplot2)
 pub<-c(1,12,17,20)
 time<-c(1,4,10,15)
@@ -184,8 +184,84 @@ stitch('PATH/TO/MY/SCRIPT')
 - **opts** tell R how to use the chunk
 - Options allow us to keep or discard the chunk, display the results, source code, or both, display a figure or graph, and how to format the output we get from R
 - This is all incredibly flexible and incredibly easy to implement with a few basic parameters
+- You can view the source code of each one of these tutorials online to get a feel for the format (**.Rmd**)
+
+# A quick example
+
+```
+# Start .Rmd file on next line
+My Super Report on Student Testing
+------------------------------------
+Dr. Debateman
+==============
+
+In this report I plan to show you all the results of student testing in Myoming.
+
+#```{r chunksetup, include=FALSE} (remove # in actual document)
+load("PATH/TO/MY/DATA.rda")
+source("myscript.R")
+library(ggplot2)
+#```
+
+The most important thing to look at is this plot:
+#```{r plot1,dev='png',fig.width=9,fig.height=6}
+qplot(readSS,mathSS,data=df)
+#```
+
+And my model output can be included a few ways because it is so great.
+#```{r mystatmodel,results='markup'}
+mymod<-lm(readSS~mathSS+factor(grade),data=df)
+summary(mymod)
+#```
+
+#```{r mystatmodel2,results='asis'}
+mymod<-lm(readSS~mathSS+factor(grade),data=df)
+print(xtable(summary(mymod)),type='html')
+#```
+
+And because I am awesome, I'm done.
+```
+# Check for Understanding
+- Paste the text into a .Rmd file
+- Delete the first line
+- Change "PATH/TO/MY/DATA" to the path to our data
+- Click "Knit HTML" in RStudio
+- Or:
+
+```{r eval=FALSE}
+knit("PATH/TO/myscript.Rmd",envir=new.env())
+knit2html("Path/To/Myscript.md")
+```
+
+# Advanced Topics
+- Using `pandoc` or `slidify` to create HTML5 slides in R
+- Writing full blown LaTeX reports
+- Embedding video and visualization
+- Changes CSS styles of reports
 
 # Exporting a Single Plot
+- Sometimes we don't need to produce a whole report, but just save a particular plot and share it
+- We do this with the `dev` argument where `dev` is equivalent to the graphic type we want to export
+
+```{r singlegraphicoutput,echo=TRUE,eval=FALSE}
+#PDF
+pdf(file="PATH/TO/MYPLOT.PDF",width=10,heigh=8)
+print(qplot(readSS,mathSS,data=df,alpha=I(.2)))
+dev.off()
+# PNG
+png(file="PATH/TO/MYPLOT.png",width=1200,heigh=900)
+print(qplot(readSS,mathSS,data=df,alpha=I(.2)))
+dev.off()
+```
+
+- We can also always directly export from RStudio, which gives us a lot of options!
+
+# Exporting data
+- Of course, other times we need to export raw data or results of our analyses
+- R is very flexible in these cases, and depending on what you want to do, you are probably best served by Googling a specific results
+- However, a few functions are indispensible for such work
+
+
 
 # Reproducibility Matters
 

@@ -287,7 +287,6 @@ qplot(readSS,mathSS,data=df)+facet_grid(ell~grade)+theme_dpi(base_size=12)+
 ```
 
 
-
 # A few pro tips
 - Don't be afraid to manipulate the data
   - Aggregate, combine, rescale variables to make the story easier to understand
@@ -298,8 +297,11 @@ qplot(readSS,mathSS,data=df)+facet_grid(ell~grade)+theme_dpi(base_size=12)+
   - Make your visual depictions as easy as possible to immediately understand that data
 - Don't plot everything all at once
 
+# Colors in R
 
-# Draw a Colorwheel to show this problem
+
+
+# The R Colorspace is Huge
 ```{r colorwheel,out.width='300px',out.height='240px'}
 colwheel<-"https://dl.dropbox.com/u/1811289/colorwheel.R"
 dropbox_source(colwheel)

@@ -39,7 +39,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="overview">
 <h1>Overview</h1>
-<p>In this lesson we hope to learn: - Coding Style - Git, GitHub, and add-on packages - Write a `for’ loop - Write a basic function - Optimize R with parallelization - Mixed effect models - Data mining with R</p>
+<p>In this lesson we hope to learn: - Coding Style - Write a `for’ loop - Write a basic function - Optimize R with parallelization - Mixed effect models - Data mining with R - Animations - Git, GitHub, and add-on packages</p>
 </div>
 <div class="section slide level1" id="basic-principles">
 <h1>Basic Principles</h1>
@@ -55,26 +55,62 @@ R Bootcamp HTML Slides
 <ul class="incremental">
 <li>An important part of making work reproducible is making your code readable and understandable</li>
 <li>Much of this involves looking into where to break lines and how to simplify expressions without making them obscure</li>
-<li>You can also take some cues about how to make your code consistent and clean</li>
+<li>You can also take some cues about how to make your code consistent and clean from reading code of others on GitHub</li>
+<li>A few tips help though</li>
 </ul>
 </div>
 <div class="section slide level1" id="for-looping">
 <h1>For Looping</h1>
 <ul class="incremental">
-<li>Don’t do it</li>
+<li>Don’t do it for reasons we have discussed, R is very slow at these</li>
+<li>Sometimes it is inevitable, so here is how to do it:</li>
 </ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Loop to calculate number of students per grade</span>
+
+nstudents &lt;- <span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">6</span>)
+for (i in <span class="kw">unique</span>(df$grade)) {
+    nstudents[[i - <span class="dv">2</span>]] &lt;- <span class="kw">length</span>(df$stuid[df$grade == i])
+}
+nstudents</code></pre>
+<pre><code>## [1] 500 400 500 400 500 400</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">factor</span>(df$grade))</code></pre>
+<pre><code>##   3   4   5   6   7   8 
+## 500 400 500 400 500 400 </code></pre>
+</div>
+<div class="section slide level1" id="why-is-a-loop-slow">
+<h1>Why is a loop slow?</h1>
+<ul class="incremental">
+<li>Run a simple test <a href="http://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r">from StackOverflow</a></li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">A = <span class="kw">matrix</span>(<span class="kw">as.numeric</span>(<span class="dv">1</span>:<span class="fl">1e+05</span>))
+
+<span class="kw">system.time</span>({
+    Sum = <span class="dv">0</span>
+    for (i in <span class="kw">seq_along</span>(A)) {
+        Sum = Sum + A[[i]]
+    }
+    Sum
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.16    0.00    0.15 </code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">system.time</span>({
+    <span class="kw">sum</span>(A)
+})</code></pre>
+<pre><code>##    user  system elapsed 
+##       0       0       0 </code></pre>
 </div>
 <div class="section slide level1" id="write-a-simple-function">
 <h1>Write a simple function</h1>
 <ul class="incremental">
 <li>Functions are easy</li>
 <li>To view any function in R just type <code>print(myfunction)</code></li>
-<li>For speed, some functions are not viewable</li>
+<li>For speed, some functions are not viewable because they are bytecompiled</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(mean)  <span class="co">#bytecode, we can't see it</span></code></pre>
 <pre><code>## function (x, ...) 
 ## UseMethod(&quot;mean&quot;)
-## &lt;bytecode: 0x0755d1c4&gt;
+## &lt;bytecode: 0x000000000add9148&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(order)</code></pre>
 <pre><code>## function (..., na.last = TRUE, decreasing = FALSE) 
@@ -102,8 +138,32 @@ R Bootcamp HTML Slides
 ##     keep &lt;- seq_along(ok)[ok]
 ##     ans[ans %in% keep]
 ## }
-## &lt;bytecode: 0x047b9dfc&gt;
+## &lt;bytecode: 0x0000000006e6ace0&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
+</div>
+<div class="section slide level1" id="still-we-can-write-a-number-of-simple-functions-very-quickly">
+<h1>Still, we can write a number of simple functions very quickly</h1>
+<ul class="incremental">
+<li>Let’s write a function to turn factors into characters</li>
+<li>Because typing <code>x&lt;-as.character(x)</code> is really obnoxious</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">defac &lt;- function(x) {
+    <span class="co"># assign function a name, and list its arguments</span>
+    x &lt;- <span class="kw">as.character</span>(x)  <span class="co"># what does function do?</span>
+    x  <span class="co"># last line is output of function</span>
+}
+
+a &lt;- <span class="kw">factor</span>(letters)
+<span class="kw">summary</span>(a)
+<span class="kw">summary</span>(<span class="kw">defac</span>(a))
+<span class="kw">summary</span>(<span class="kw">as.character</span>(a))</code></pre>
+</div>
+<div class="section slide level1" id="complicating-functions">
+<h1>Complicating Functions</h1>
+<ul class="incremental">
+<li>Functions can have many arguments and be much more complex</li>
+<li>They can also be incredibly specialized–remember we are writing code for us!</li>
+</ul>
 </div>
 <div class="section slide level1" id="git-and-github">
 <h1>Git and GitHub</h1>
@@ -124,25 +184,24 @@ R Bootcamp HTML Slides
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
 ## [1] grid      stats     graphics  grDevices utils     datasets  methods  
 ## [8] base     
 ## 
 ## other attached packages:
-##  [1] stringr_0.6.1  quantreg_4.81  SparseM_0.96   lmtest_0.9-30 
-##  [5] zoo_1.7-7      gridExtra_0.9  ggplot2_0.9.1  hexbin_1.26.0 
-##  [9] lattice_0.20-6 mgcv_1.7-19    Cairo_1.5-1    knitr_0.7     
-## [13] plyr_1.7.1    
+## [1] gridExtra_0.9  xtable_1.7-0   mgcv_1.7-19    markdown_0.5.2
+## [5] ggplot2_0.9.1  knitr_0.7     
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
 ##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
-##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
-## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
-## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [16] tools_2.15.1      </code></pre>
+##  [7] lattice_0.20-6     MASS_7.3-19        Matrix_1.0-6      
+## [10] memoise_0.1        munsell_0.3        nlme_3.1-104      
+## [13] plyr_1.7.1         proto_0.3-9.2      RColorBrewer_1.0-5
+## [16] reshape2_1.2.1     scales_0.2.1       stringr_0.6.1     
+## [19] tools_2.15.1      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

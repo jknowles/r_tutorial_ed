@@ -2,16 +2,25 @@
 % R Bootcamp HTML Slides
 % Jared Knowles
 
+```{r setuph, include=FALSE}
+# set global chunk options
+opts_chunk$set(fig.path='figure/slides8-', cache.path='cache/slides8-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='600px',out.height='350px')
+source('ggplot2themes.R')
+load('data/smalldata.rda')
+```
+
+
 # Overview
 In this lesson we hope to learn:
 - Coding Style
-- Git, GitHub, and add-on packages
 - Write a `for' loop
 - Write a basic function
 - Optimize R with parallelization
 - Mixed effect models
 - Data mining with R
 - Animations
+- Git, GitHub, and add-on packages
+
 
 # Basic Principles
 - Good professional data analysis is computer programming
@@ -22,20 +31,83 @@ In this lesson we hope to learn:
 # Coding Style
 - An important part of making work reproducible is making your code readable and understandable
 - Much of this involves looking into where to break lines and how to simplify expressions without making them obscure
-- You can also take some cues about how to make your code consistent and clean
+- You can also take some cues about how to make your code consistent and clean from reading code of others on GitHub
+- A few tips help though
+
+
 
 # For Looping
-- Don't do it
+- Don't do it for reasons we have discussed, R is very slow at these
+- Sometimes it is inevitable, so here is how to do it:
+
+```{r writeaforloop}
+# Loop to calculate number of students per grade
+
+nstudents<-rep(NA,6)
+for (i in unique(df$grade)){
+  nstudents[[i-2]]<-length(df$stuid[df$grade==i])
+}
+nstudents
+summary(factor(df$grade))
+```
+
+# Why is a loop slow?
+- Run a simple test [from StackOverflow](http://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r)
+
+```{r timingloops}
+A = matrix(as.numeric(1:100000))
+
+system.time({
+    Sum = 0
+    for (i in seq_along(A)) {
+        Sum = Sum + A[[i]]
+    }
+    Sum
+})
+
+system.time({
+  sum(A)
+  })
+```
 
 # Write a simple function
 - Functions are easy
 - To view any function in R just type `print(myfunction)`
-- For speed, some functions are not viewable
+- For speed, some functions are not viewable because they are bytecompiled
 
 ```{r reviewingfunction}
 print(mean) #bytecode, we can't see it
 print(order)
 ```
+
+# Still, we can write a number of simple functions very quickly
+- Let's write a function to turn factors into characters
+- Because typing `x<-as.character(x)` is really obnoxious
+
+```{r writefunction,eval=FALSE}
+defac<-function(x){ # assign function a name, and list its arguments
+  x<-as.character(x) # what does function do?
+  x                  # last line is output of function
+}
+
+a<-factor(letters)
+summary(a)
+summary(defac(a))
+summary(as.character(a))
+```
+
+# Complicating Functions
+- Functions can have many arguments and be much more complex
+- They can also be incredibly specialized--remember we are writing code for us!
+
+
+# Optimizing R
+
+# Mixed Effect Models
+
+# Data Mining with R
+
+# Animations
 
 
 # Git and GitHub

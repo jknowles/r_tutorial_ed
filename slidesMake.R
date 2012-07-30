@@ -1,15 +1,22 @@
-library(knitr)
-knit("Tutorial0_Overview.Rmd")
-knit("Tutorial1_Intro.Rmd")
-knit("Tutorial2_DataImport.Rmd")
-knit("Tutorial3_DataSort.Rmd")
-knit("Tutorial4_CleaningData.Rmd")
-knit("Tutorial5_BasicAnalytics.Rmd")
-knit("Tutorial6_Visualization.Rmd")
-knit("Tutorial7_ExportingWork.Rmd")
-knit("Tutorial8_AdvancedTopics.Rmd")
-knit("rsetup.Rmd")
+# Load knitr library
+# Knit all the Rmd files into Md files in plain markdown
+# From markdown we can make the files what we want
 
+library(knitr)
+knit("Tutorial0_Overview.Rmd",envir=new.env())
+knit("Tutorial1_Intro.Rmd",envir=new.env())
+knit("Tutorial2_DataImport.Rmd",envir=new.env())
+knit("Tutorial3_DataSort.Rmd",envir=new.env())
+knit("Tutorial4_CleaningData.Rmd",envir=new.env())
+knit("Tutorial5_BasicAnalytics.Rmd",envir=new.env())
+knit("Tutorial6_Visualization.Rmd",envir=new.env())
+knit("Tutorial7_ExportingWork.Rmd",envir=new.env())
+knit("Tutorial8_AdvancedTopics.Rmd",envir=new.env())
+knit("rsetup.Rmd",envir=new.env())
+
+# We need pandoc installed
+# This part allows pandoc to do the work of taking the md files
+# and converting them into nice looking HTML5 slides
 
 system("pandoc -s -S -i -t slidy Tutorial0_Overview.md -o Tutorial0_Overview.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial1_Intro.md -o Tutorial1_Intro.html --self-contained")
@@ -20,8 +27,6 @@ system("pandoc -s -S -i -t slidy Tutorial5_BasicAnalytics.md -o Tutorial5_BasicA
 system("pandoc -s -S -i -t slidy Tutorial6_Visualization.md -o Tutorial6_Visualization.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial7_ExportingWork.md -o Tutorial7_ExportingWork.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial8_AdvancedTopics.md -o Tutorial8_AdvancedTopics.html --self-contained")
-
-
 system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
 
 # Make a notes sheet by knitting to HTML, but not converting it to slides
@@ -39,5 +44,17 @@ knit("Tutorial7_ExportingWork.Rmd",output="handouts/Tutorial7_handout.html")
 knit("Tutorial8_AdvancedTopics.Rmd",output="handouts/Tutorial8_handout.html")
 knit("rsetup.Rmd",output="handouts/settingupR_handout.html")
 
+# PURL the Rmd files to extract the R code
 
+dir.create("handouts/scripts")
+purl("Tutorial0_Overview.Rmd",output="handouts/scripts/Tutorial0.R")
+purl('Tutorial1_Intro.Rmd',output="handouts/scripts/Tutorial1.R")
+purl("Tutorial2_DataImport.Rmd",output="handouts/scripts/Tutorial2.R")
+purl("Tutorial3_DataSort.Rmd",output="handouts/scripts/Tutorial3.R")
+purl("Tutorial4_CleaningData.Rmd",output="handouts/scripts/Tutorial4.R")
+purl("Tutorial5_BasicAnalytics.Rmd",output="handouts/scripts/Tutorial5.R")
+purl("Tutorial6_Visualization.Rmd",output="handouts/scripts/Tutorial6.R")
+purl("Tutorial7_ExportingWork.Rmd",output="handouts/scripts/Tutorial7.R")
+purl("Tutorial8_AdvancedTopics.Rmd",output="handouts/scripts/Tutorial8.R")
+purl("rsetup.Rmd",output="handouts/scripts/settingupR.R")
 

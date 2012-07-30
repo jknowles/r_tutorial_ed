@@ -50,6 +50,7 @@ install_new('knitr')
 install_new('quantreg')
 install_new('zoo')
 install_new('devtools')
+install_new('xtable')
 
 ```
 
