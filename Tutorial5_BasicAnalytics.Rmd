@@ -105,12 +105,14 @@ midsch_sub<-subset(midsch,midsch$grade==5 &
 - How many observations in `midsch_sub`?
 
 # How to specify a regression in R
+
 `my_mod<-lm(ss2~ss1,data=midsch_sub)`
+
 - OLS regression is done by the trusty `lm` function
 - The `~` character divides the dependent variable `ss2` from the independent variable `ss1`
 - We want to store the results of our function so we can capture it by `my_mod<-`
 - `data` means we don't have to write: `lm(midsch_sub$ss2~midsch_sub$ss1)`
-- Hooray
+
 
 # Run the regression
 - To implement the regression described above is simple in this framework
@@ -444,22 +446,136 @@ summary(my_megamod2)
 
 # Comparison
 - How do we test between these two?
+- An F test, which we can run in ANOVA--how?
 
 # Answer
 ```{r anovamega}
 anova(my_megamod,my_megamod2)
 ```
 
+# Interaction Terms
+- R model syntax makes it easy to include interaction terms as well
+- An interaction fits a parameter for all combinations of factors in the interaction and can be inserted simply with a `*`
+
+```{r modelinteraction}
+megamodeli<-lm(ss2~ss1+as.factor(grade)+subject*factor(test_year),data=midsch)
+summary(megamodeli)
+```
+
+
+# Interaction Terms II
+- The `:` in this case only includes the interactions, but not the main effects in every combination
+
+```{r modelinteraction2}
+megamodelii<-lm(ss2~ss1+as.factor(grade)+subject:factor(test_year),data=midsch)
+summary(megamodelii)
+```
+
+- How is this different, and why does it matter?
+
+# Meganova for fun
+
+```{r meagnova}
+anova(my_megamod,my_megamod2,megamodelii,megamodeli)
+```
+
+
 # What about nesting the data?
+
+- One problem here is that observations--which are grades--are nested within schools and districts
 - Why can't we include a variable for each school in our replication model from earlier?
 - What happens if we try?
+
 ```{r breakrep}
-badidea<-lm(ss2~ss1+factor(school_id),data=midsch_sub)
-head(summary(blah))
+badidea<-lm(ss2~ss1+as.factor(grade)+
+  as.factor(test_year)+subject+factor(district_id),data=midsch)
+summary(badidea)
 ```
+
 
 # Adjusting for Heteroskedasticity
 - We do this with the `sandwich` package, which allows us to manipulate the variance-covariance matrix and adjust our estimates of standard errors appropriately to correct for non-independence
+
+```{r sandwiching}
+library(sandwich)
+vcovHC(ss_mod,type="HC4")
+```
+
+- This is ugly. I wrote a function to make it easy for the univariate case. For the multivariate case functions are still pending. 
+
+# Function
+```{r glsfunction,eval=FALSE}
+gls.correct <-
+function(lm){
+  require(sandwich)
+  rob<-t(sapply(c('const','HC0','HC1','HC2','HC3','HC4','HC5'),function (x)
+    sqrt(diag(vcovHC(lm,type=x)))))
+  a<-c(NA,(rob[2,1]-rob[1,1])/rob[1,1],(rob[3,1]-rob[1,1])/rob[1,1],
+       (rob[4,1]-rob[1,1])/rob[1,1],(rob[5,1]-rob[1,1])/rob[1,1],
+       (rob[6,1]-rob[1,1])/rob[1,1],(rob[7,1]-rob[1,1])/rob[1,1])
+  rob<-cbind(rob,round(a*100,2))
+  a<-c(NA,(rob[2,2]-rob[1,2])/rob[1,2],(rob[3,2]-rob[1,2])/rob[1,2],
+       (rob[4,2]-rob[1,2])/rob[1,2],(rob[5,2]-rob[1,2])/rob[1,2],
+       (rob[6,2]-rob[1,2])/rob[1,2],(rob[7,2]-rob[1,2])/rob[1,2])
+  rob<-cbind(rob,round(a*100,2))
+  rob<-as.data.frame(rob)
+  names(rob)<-c('alpha','beta','alpha.pchange','beta.pchange')
+  rob$id2<-rownames(rob)
+  rob
+}
+```
+
+# Results of GLS Function
+```{r glscorrect}
+gls.correct(ss_mod)
+```
+- So our standard errors were underestimated by about 18%
+
+# How to Explore Substantive Significance
+- One way is to plot the effects across the range of the variables
+
+```{r substantiveeffect,echo=FALSE}
+a<-coef(ssN1_mod)
+xdat<-seq(min(midsch_sub$ss1),max(midsch_sub$ss1),length.out=20)
+ydat<-xdat*a[2]+a[1]+(median(midsch_sub$n1)*a[3])
+ydatsmall<-xdat*a[2]+a[1]+(min(midsch_sub$n1)*a[3])
+ydatbig<-xdat*a[2]+a[1]+(max(midsch_sub$n1)*a[3])
+
+myx<-rep(xdat,3)
+myy<-c(ydat,ydatsmall,ydatbig)
+mymod<-rep(c("mean","low","high"),each=length(xdat))
+
+newdat<-data.frame(x=myx,y=myy,type=mymod)
+
+ggplot(newdat,aes(x=x,y=y,color=mymod))+geom_line(aes(linetype=mymod),size=I(.8))+coord_cartesian()+theme_dpi()
+```
+
+# Clumsy Code to Do This
+```{r codeforlineplots,eval=FALSE}
+a<-coef(ssN1_mod)
+xdat<-seq(min(midsch_sub$ss1),max(midsch_sub$ss1),length.out=20)
+ydat<-xdat*a[2]+a[1]+(median(midsch_sub$n1)*a[3])
+ydatsmall<-xdat*a[2]+a[1]+(min(midsch_sub$n1)*a[3])
+ydatbig<-xdat*a[2]+a[1]+(max(midsch_sub$n1)*a[3])
+
+myx<-rep(xdat,3)
+myy<-c(ydat,ydatsmall,ydatbig)
+mymod<-rep(c("mean","low","high"),each=length(xdat))
+
+newdat<-data.frame(x=myx,y=myy,type=mymod)
+
+ggplot(newdat,aes(x=x,y=y,color=mymod))+geom_line(aes(linetype=mymod),size=I(.8))+coord_cartesian()+theme_dpi()
+```
+
+# Coefficient Plots
+```{r coefplots,fig.width=12,fig.height=6,out.width='600px',out.height='300px'}
+b<-sqrt(diag(vcov(ssN1_mod)))
+mycoef<-data.frame(var=names(b),y=a,se=b)
+
+ggplot(mycoef[2:3,],aes(x=var,y=y,ymin=y-2*se,ymax=y+2*se))+geom_pointrange()+theme_dpi()+geom_hline(yintercept=0,size=I(1.1),color=I('red'))
+
+```
+
 
 # Exercises
 
@@ -468,6 +584,8 @@ head(summary(blah))
 2. Does `megamodel2` exhibit non-linearity? Can you fit a quantile regression model of this?
 
 3. Can you write a synthetic model with multiple variables? What does it look like?
+
+Bonus: Write better code for the plot with different lines for different values of variable 2.
 
 # Other References
 - [Video Tutorials](http://www.twotorials.com/)

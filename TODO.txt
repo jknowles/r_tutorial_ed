@@ -6,5 +6,4 @@
 - Add non R figures where necessary
 - Figure out how to convert animations from SWF to VIDEO
 - Statistics refresher
-- Finish Tutorial 5 and 6 and 7 in terms of content slides
-- Add CSS tips to Tutorial 7
+- Finish Tutorial 6 and 7 in terms of content slides

@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="R Bootcamp HTML Slides" />
+  <meta name="author" content="DPI R Bootcamp" />
   <title>Tutorial 3: Manipulating Data in R</title>
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -33,13 +33,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div class="slide titlepage">
   <h1 class="title">Tutorial 3: Manipulating Data in R</h1>
   <p class="author">
-R Bootcamp HTML Slides
+DPI R Bootcamp
   </p>
   <p class="date">Jared Knowles</p>
 </div>
 <div class="section slide level1" id="overview">
 <h1>Overview</h1>
 <p>In this lesson we hope to learn: - Aggregating data - Organizing our data - Manipulating vectors - Dealing with missing data</p>
+<p align="center">
+<img src="data:image/png;base64,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" height="81" width="138">
+</p>
+
+
+
+
+
 </div>
 <div class="section slide level1" id="again-read-in-our-dataset">
 <h1>Again, read in our dataset</h1>
@@ -295,12 +303,9 @@ R Bootcamp HTML Slides
 <pre class="sourceCode r"><code class="sourceCode r">z &lt;- <span class="kw">aggregate</span>(readSS ~ dist, <span class="dt">FUN =</span> mean, <span class="dt">data =</span> df)
 z</code></pre>
 <pre><code>##   dist readSS
-## 1    6  493.8
-## 2   15  496.4
-## 3   45  492.1
-## 4   66  507.2
-## 5   75  496.6
-## 6  105  491.0</code></pre>
+## 1  205  496.5
+## 2  402  500.5
+## 3  495  491.6</code></pre>
 <ul class="incremental">
 <li>But I want more! I want to aggregate multiple variables. I want to do it across multiple groups. I want the output to be a dataframe I can work on.</li>
 <li>Thank you <code>plyr</code></li>
@@ -324,12 +329,12 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
         <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS))
 <span class="kw">head</span>(myag)</code></pre>
 <pre><code>##   dist grade mean_read mean_math sd_read sd_math count_read count_math
-## 1    6     3     409.8     425.5   70.82   78.30         50         50
-## 2    6     4     471.6     426.2   83.95   68.70        100        100
-## 3    6     5     466.2     485.8   75.58   78.00         50         50
-## 4    6     6     502.9     476.4   90.29   75.57        100        100
-## 5    6     7     536.1     539.9   64.38   76.63         50         50
-## 6    6     8     541.6     536.2   66.58   67.05        100        100</code></pre>
+## 1  205     3     451.7     406.1   93.52   72.45        200        200
+## 2  205     4     438.9     459.9   77.76   79.10        100        100
+## 3  205     5     487.9     462.6   85.30   75.10        200        200
+## 4  205     6     514.7     526.8   76.83   66.04        100        100
+## 5  205     7     530.0     521.5   84.82   74.85        200        200
+## 6  205     8     575.5     581.2   79.58   83.45        100        100</code></pre>
 </div>
 <div class="section slide level1" id="more-plyr">
 <h1>More plyr</h1>
@@ -344,12 +349,12 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
         <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
 <span class="kw">summary</span>(myag[, <span class="dv">7</span>:<span class="dv">10</span>])</code></pre>
 <pre><code>##    count_read    count_math   count_black     per_black    
-##  Min.   : 50   Min.   : 50   Min.   :15.0   Min.   :0.300  
-##  1st Qu.: 50   1st Qu.: 50   1st Qu.:20.8   1st Qu.:0.378  
-##  Median : 75   Median : 75   Median :30.0   Median :0.400  
-##  Mean   : 75   Mean   : 75   Mean   :30.8   Mean   :0.411  
-##  3rd Qu.:100   3rd Qu.:100   3rd Qu.:40.0   3rd Qu.:0.453  
-##  Max.   :100   Max.   :100   Max.   :48.0   Max.   :0.480  </code></pre>
+##  Min.   :100   Min.   :100   Min.   :36.0   Min.   :0.360  
+##  1st Qu.:100   1st Qu.:100   1st Qu.:41.2   1st Qu.:0.386  
+##  Median :150   Median :150   Median :60.5   Median :0.412  
+##  Mean   :150   Mean   :150   Mean   :61.7   Mean   :0.411  
+##  3rd Qu.:200   3rd Qu.:200   3rd Qu.:82.0   3rd Qu.:0.439  
+##  Max.   :200   Max.   :200   Max.   :92.0   Max.   :0.480  </code></pre>
 </div>
 <div class="section slide level1" id="quick-check">
 <h1>Quick Check</h1>
@@ -370,19 +375,13 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
         <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
 <span class="kw">subset</span>(myag2, ell == <span class="dv">1</span> &amp; grade == <span class="dv">4</span>)</code></pre>
 <pre><code>##    dist grade ell mean_read mean_math sd_read sd_math count_read
-## 4     6     4   1     424.6     375.8   76.98   41.74         17
-## 16   15     4   1     425.4     420.6   84.18   18.74          6
-## 28   45     4   1     405.5     422.8   93.56   89.99          6
-## 40   66     4   1     469.4     407.0   78.71   63.82         12
-## 52   75     4   1     389.6     376.3   49.68   39.15         10
-## 64  105     4   1     411.6     439.8   68.48   55.78          7
+## 4   205     4   1     403.0     392.9   64.52   39.09         16
+## 16  402     4   1     443.1     388.7   79.52   53.28         29
+## 28  495     4   1     408.8     431.9   77.47   70.77         13
 ##    count_math count_black per_black
-## 4          17           3    0.1765
-## 16          6           0    0.0000
-## 28          6           0    0.0000
-## 40         12           3    0.2500
-## 52         10           2    0.2000
-## 64          7           1    0.1429</code></pre>
+## 4          16           2   0.12500
+## 16         29           6   0.20690
+## 28         13           1   0.07692</code></pre>
 </div>
 <div class="section slide level1" id="sorting">
 <h1>Sorting</h1>
@@ -490,7 +489,7 @@ mytab[<span class="kw">order</span>(mytab[, <span class="dv">1</span>]), ]</code
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all rows that meet this requirement</span>
 df[df$readSS &gt; <span class="dv">800</span>, ]</code></pre>
 <pre><code>##            X school  stuid grade schid dist white black hisp indian asian
-## 1631 1281061    852 145205     8   205   15     1     0    0      0     0
+## 1631 1281061    852 145205     8    15  205     1     0    0      0     0
 ##      econ female ell disab sch_fay dist_fay luck ability measerr teachq
 ## 1631    0      1   0     0       0        0    0   108.3   6.325  155.7
 ##      year attday schoolscore district schoolhigh schoolavg schoollow
@@ -530,7 +529,7 @@ myag$spread[myag$sd_read &gt; <span class="dv">75</span>] &lt;- <span class="st"
 myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)
 <span class="kw">summary</span>(myag$spread)</code></pre>
 <pre><code>## high  low 
-##   26   10 </code></pre>
+##   15    3 </code></pre>
 </div>
 <div class="section slide level1" id="how-does-it-work">
 <h1>How does it work?</h1>
@@ -563,16 +562,13 @@ myag$schoolperf[myag$grade == <span class="dv">8</span> &amp; myag$mean_math &gt
 myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <span class="kw">summary</span>(myag$schoolperf)</code></pre>
 <pre><code>## hi lo 
-## 18 18 </code></pre>
+##  9  9 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(myag$dist, myag$schoolperf)</code></pre>
 <pre><code>##      
 ##       hi lo
-##   6    3  3
-##   15   3  3
-##   45   3  3
-##   66   3  3
-##   75   3  3
-##   105  3  3</code></pre>
+##   205  3  3
+##   402  3  3
+##   495  3  3</code></pre>
 </div>
 <div class="section slide level1" id="lets-replace-data">
 <h1>Let’s replace data</h1>
@@ -582,8 +578,8 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
 <pre><code>##   dist grade mean_read mean_math
-## 1    6     3        NA     425.5
-## 2    6     4     471.6     426.2</code></pre>
+## 1  205     3     451.7     406.1
+## 2  205     4     438.9     459.9</code></pre>
 <ul class="incremental">
 <li>Let’s replace one data element with another</li>
 </ul>
@@ -591,8 +587,8 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
     <span class="dv">6</span> &amp; myag$grade == <span class="dv">4</span>]
 <span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
 <pre><code>##   dist grade mean_read mean_math
-## 1    6     3     471.6     425.5
-## 2    6     4     471.6     426.2</code></pre>
+## 1  205     3     451.7     406.1
+## 2  205     4     438.9     459.9</code></pre>
 <ul class="incremental">
 <li>Voila</li>
 </ul>
@@ -605,12 +601,12 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">head</span>(myag[<span class="kw">order</span>(myag$grade), <span class="dv">1</span>:<span class="dv">4</span>])</code></pre>
 <pre><code>##    dist grade mean_read mean_math
-## 1     6     3        NA     425.5
-## 7    15     3        NA     403.8
-## 13   45     3        NA     404.9
-## 19   66     3        NA     438.3
-## 25   75     3        NA     408.4
-## 31  105     3        NA     406.1</code></pre>
+## 1   205     3        NA     406.1
+## 7   402     3        NA     431.9
+## 13  495     3        NA     405.5
+## 2   205     4     438.9     459.9
+## 8   402     4     474.9     432.8
+## 14  495     4     447.8     469.1</code></pre>
 </div>
 <div class="section slide level1" id="nas-ii">
 <h1>NAs II</h1>
@@ -637,16 +633,16 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>What if we want to know the number of rows that have a <code>mean_read</code> of less than 500?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$dist[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
-<pre><code>## [1] 20</code></pre>
+<pre><code>## [1] 10</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
-<pre><code>## [1]    NA 471.6 466.2    NA 436.1 490.9</code></pre>
+<pre><code>## [1]    NA 438.9 487.9    NA 474.9 472.5</code></pre>
 <ul class="incremental">
 <li>And what if we want to add the standard deviation to these vectors?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">badvar &lt;- myag$mean_read + myag$sd_read
 <span class="kw">summary</span>(badvar)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##     505     566     589     587     612     658       6 </code></pre>
+##     517     566     592     587     614     655       3 </code></pre>
 </div>
 <div class="section slide level1" id="so-we-need-to-filter-nas-explicitly">
 <h1>So we need to filter NAs explicitly</h1>
@@ -655,9 +651,9 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$sd_read[myag$count_read &lt; <span class="dv">100</span> &amp; myag$mean_read &lt; <span class="dv">550</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span>])</code></pre>
-<pre><code>## [1] 30</code></pre>
+<pre><code>## [1] 16</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span> &amp; !<span class="kw">is.na</span>(myag$mean_read)])</code></pre>
-<pre><code>## [1] 24</code></pre>
+<pre><code>## [1] 13</code></pre>
 <ul class="incremental">
 <li>What is <code>!is.na()</code> ?</li>
 <li><code>is.na()</code> is a helpful function to identify TRUE if a value is missing</li>
@@ -734,9 +730,9 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df[, <span class="dv">1</span>:<span class="dv">10</span>], <span class="dv">3</span>)</code></pre>
 <pre><code>##     X school  stuid grade schid dist white black hisp indian
-## 1  44      1 149995     3   495  105     0     1    0      0
-## 2  53      1  13495     3   495   45     0     1    0      0
-## 3 116      1 106495     3   495   45     0     1    0      0</code></pre>
+## 1  44      1 149995     3   105  495     0     1    0      0
+## 2  53      1  13495     3    45  495     0     1    0      0
+## 3 116      1 106495     3    45  495     0     1    0      0</code></pre>
 <ul class="incremental">
 <li>Now let’s look at wide:</li>
 </ul>
@@ -746,9 +742,9 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 ## 2       263.9       302.6  below basic         B  531000           1
 ## 3       369.7       365.5        basic         B 1161000           1
 ##   grade.2001 schid.2001 dist.2001 white.2001 black.2001 hisp.2001
-## 1          4        495       105          0          1         0
-## 2          4        495        45          0          1         0
-## 3          4        495        45          0          1         0
+## 1          4        105       495          0          1         0
+## 2          4         45       495          0          1         0
+## 3          4         45       495          0          1         0
 ##   indian.2001
 ## 1           0
 ## 2           0
@@ -839,10 +835,11 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <div class="section slide level1" id="other-references">
 <h1>Other References</h1>
 <ul class="incremental">
-<li><a href="https://github.com/hadley/devtools/wiki/vocabulary">An R Vocabulary for Starting Out</a></li>
 <li><a href="http://www.statmethods.net/management/index.html">Quick-R: Data Management</a></li>
 <li><a href="http://www.ats.ucla.edu/stat/r/faq/default.htm">UCLA ATS: R FAQ on Data Management</a></li>
 <li><a href="http://www.twotorials.com/">Video Tutorials</a></li>
+<li><a href="http://www.ats.ucla.edu/stat/r/faq/sort.htm">Quick-R: Sorting Data</a></li>
+<li><a href="http://www.ats.ucla.edu/stat/r/faq/sort.htm">UCLA R Data Sorting Tutorial</a></li>
 </ul>
 </div>
 <div class="section slide level1" id="session-info">
@@ -850,17 +847,23 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] plyr_1.7.1 knitr_0.7 
+## [1] plyr_1.7.1     knitr_0.7      sandwich_2.2-9 zoo_1.7-7     
+## [5] gridExtra_0.9  ggplot2_0.9.1 
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6.1 
-## [5] tools_2.15.1  </code></pre>
+##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] lattice_0.20-6     MASS_7.3-19        memoise_0.1       
+## [10] munsell_0.3        proto_0.3-9.2      RColorBrewer_1.0-5
+## [13] reshape2_1.2.1     scales_0.2.1       stringr_0.6.1     
+## [16] tools_2.15.1      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

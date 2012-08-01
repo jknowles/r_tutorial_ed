@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="R Bootcamp HTML Slides" />
+  <meta name="author" content="DPI R Bootcamp" />
   <title>Tutorial 4: Cleaning and Merging Data</title>
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -33,7 +33,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div class="slide titlepage">
   <h1 class="title">Tutorial 4: Cleaning and Merging Data</h1>
   <p class="author">
-R Bootcamp HTML Slides
+DPI R Bootcamp
   </p>
   <p class="date">Jared Knowles</p>
 </div>
@@ -46,6 +46,13 @@ R Bootcamp HTML Slides
 <li>Recoding data and changing data types</li>
 <li>Diagnostics and error checks</li>
 </ul>
+<p align="center">
+<img src="data:image/png;base64,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" height="81" width="138">
+</p>
+
+
+
+
 </div>
 <div class="section slide level1" id="data-setup">
 <h1>Data Setup</h1>
@@ -492,7 +499,8 @@ tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_yea
 <div class="section slide level1" id="exercises">
 <h1>Exercises</h1>
 <ol class="incremental" style="list-style-type: decimal">
-<li>Sort <code>df</code> on <code>measerr</code> and <code>mathss</code>. What are the highest 5 values of each.</li>
+<li><p>Sort <code>df</code> on <code>measerr</code> and <code>mathss</code>. What are the highest 5 values of each.</p></li>
+<li><p>Complete the next part of the SDP toolkit!</p></li>
 </ol>
 </div>
 <div class="section slide level1" id="other-references">
@@ -509,17 +517,23 @@ tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_yea
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] plyr_1.7.1 knitr_0.7 
+## [1] plyr_1.7.1     knitr_0.7      sandwich_2.2-9 zoo_1.7-7     
+## [5] gridExtra_0.9  ggplot2_0.9.1 
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.5.2   evaluate_0.4.2 formatR_0.6    stringr_0.6   
-## [5] tools_2.15.1  </code></pre>
+##  [1] codetools_0.2-8    colorspace_1.1-1   dichromat_1.2-4   
+##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
+##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-19       
+## [10] memoise_0.1        munsell_0.3        proto_0.3-9.2     
+## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [16] stringr_0.6.1      tools_2.15.1      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

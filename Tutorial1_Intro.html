@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="R Bootcamp HTML Slides" />
+  <meta name="author" content="DPI R Bootcamp" />
   <title>Tutorial 1: Getting Started</title>
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -33,9 +33,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div class="slide titlepage">
   <h1 class="title">Tutorial 1: Getting Started</h1>
   <p class="author">
-R Bootcamp HTML Slides
+DPI R Bootcamp
   </p>
   <p class="date">Jared Knowles</p>
+</div>
+<div class="section slide level1" id="overview">
+<h1>Overview</h1>
+<ul class="incremental">
+<li>What is R?</li>
+<li>What is RStudio?</li>
+<li>How does it work?</li>
+<li>What makes the language different?</li>
+<li>Why learn it?
+<p align="center">
+<img src="data:image/png;base64,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" height="81" width="138">
+</p>
+</li>
+</ul>
 </div>
 <div class="section slide level1" id="r">
 <h1>R</h1>
@@ -220,7 +234,7 @@ R Bootcamp HTML Slides
 <pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> * pi  <span class="co">#multiply by a constant</span></code></pre>
 <pre><code>## [1] 6.283</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="dv">7</span> + <span class="kw">runif</span>(<span class="dv">1</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">1</span>)  <span class="co">#add a random variable</span></code></pre>
-<pre><code>## [1] 7.058</code></pre>
+<pre><code>## [1] 7.281</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="dv">4</span>^<span class="dv">4</span>  <span class="co"># powers</span></code></pre>
 <pre><code>## [1] 256</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">4</span>^<span class="dv">4</span>)  <span class="co"># functions</span></code></pre>
@@ -267,6 +281,18 @@ a</code></pre>
 <ul class="incremental">
 <li><strong>This is handy</strong></li>
 </ul>
+</div>
+<div class="section slide level1" id="comments-in-r">
+<h1>Comments in R</h1>
+<ul class="incremental">
+<li><strong>#</strong> denotes a comment in R</li>
+<li>Anything after the <strong>#</strong> is not evaluated and ignored in R</li>
+<li>This is handy for making things reproducible</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Something I want to keep from R Like my secret from the R engine Maybe</span>
+<span class="co"># intended for a human and not the computer Like: Look at this cool plot!</span>
+
+<span class="kw">myplot</span>(readSS, mathSS, <span class="dt">data =</span> df)</code></pre>
 </div>
 <div class="section slide level1" id="r-advanced-math">
 <h1>R Advanced Math</h1>
@@ -388,13 +414,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <li>A common example is applying the `summary’ function to a variety of object types and seeing how it adapts</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df[, <span class="dv">28</span>:<span class="dv">31</span>])  <span class="co">#summary look at df object</span></code></pre>
-<pre><code>## Error: error in evaluating the argument 'object' in selecting a method for
-## function 'summary': Error in df[, 28:31] : object of type 'closure' is not
-## subsettable</code></pre>
+<pre><code>## Error: object of type 'closure' is not subsettable</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df$readSS)  <span class="co">#summary of a single column</span></code></pre>
-<pre><code>## Error: error in evaluating the argument 'object' in selecting a method for
-## function 'summary': Error in df$readSS : object of type 'closure' is not
-## subsettable</code></pre>
+<pre><code>## Error: object of type 'closure' is not subsettable</code></pre>
 <p>-The <code>$</code> says to look for object <strong>readSS</strong> in object <strong>df</strong></p>
 </div>
 <div class="section slide level1" id="graphics-too">
@@ -569,6 +591,18 @@ a</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(c)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
+</div>
+<div class="section slide level1" id="a-note-on-vectors">
+<h1>A Note on Vectors</h1>
+<ul class="incremental">
+<li>Vectors are collections of consistent data types</li>
+<li><strong>numeric</strong> can either be double or integer depending on the <em>bytes</em> size</li>
+<li><strong>logical</strong></li>
+<li><strong>character</strong></li>
+<li><strong>complex</strong></li>
+<li><strong>raw</strong></li>
+<li>All vectors must be consistent among types, but some data objects can consist of vectors with different types</li>
+</ul>
 </div>
 <div class="section slide level1" id="factor">
 <h1>Factor</h1>
@@ -808,19 +842,19 @@ newmat</code></pre>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">foo.mat &lt;- <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">100</span>), <span class="kw">runif</span>(<span class="dv">100</span>), <span class="kw">runif</span>(<span class="dv">100</span>), <span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">2</span>)), <span class="dt">ncol =</span> <span class="dv">4</span>)
 <span class="kw">head</span>(foo.mat)</code></pre>
-<pre><code>##         [,1]   [,2]    [,3] [,4]
-## [1,]  0.4250 0.8902 0.56339    1
-## [2,]  0.7037 0.7115 0.95235    3
-## [3,] -0.8088 0.4341 0.20168    4
-## [4,]  0.4723 0.1548 0.80516    2
-## [5,]  1.2076 0.6567 0.08112    2
-## [6,]  0.1388 0.4342 0.96520    2</code></pre>
+<pre><code>##         [,1]   [,2]     [,3] [,4]
+## [1,]  0.1314 0.5297 0.336076    2
+## [2,]  0.3949 0.9237 0.371770    2
+## [3,]  2.0453 0.7439 0.004249    2
+## [4,]  1.6246 0.6094 0.807935    1
+## [5,] -0.5778 0.1786 0.697509    1
+## [6,] -0.7622 0.7833 0.061871    1</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">cor</span>(foo.mat)</code></pre>
-<pre><code>##          [,1]     [,2]      [,3]      [,4]
-## [1,] 1.000000  0.04689  0.007272  0.008274
-## [2,] 0.046890  1.00000  0.167042 -0.005190
-## [3,] 0.007272  0.16704  1.000000 -0.174011
-## [4,] 0.008274 -0.00519 -0.174011  1.000000</code></pre>
+<pre><code>##           [,1]     [,2]      [,3]     [,4]
+## [1,]  1.000000  0.15730 -0.002028 -0.05938
+## [2,]  0.157302  1.00000 -0.033214 -0.07311
+## [3,] -0.002028 -0.03321  1.000000 -0.02428
+## [4,] -0.059375 -0.07311 -0.024282  1.00000</code></pre>
 <ul class="incremental">
 <li>The result is a matrix itself, but we can force it to be something else</li>
 </ul>
@@ -837,11 +871,11 @@ newmat</code></pre>
 <span class="kw">class</span>(mycorr2)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">mycorr2</code></pre>
-<pre><code>##         V1       V2        V3        V4
-## 1 1.000000  0.04689  0.007272  0.008274
-## 2 0.046890  1.00000  0.167042 -0.005190
-## 3 0.007272  0.16704  1.000000 -0.174011
-## 4 0.008274 -0.00519 -0.174011  1.000000</code></pre>
+<pre><code>##          V1       V2        V3       V4
+## 1  1.000000  0.15730 -0.002028 -0.05938
+## 2  0.157302  1.00000 -0.033214 -0.07311
+## 3 -0.002028 -0.03321  1.000000 -0.02428
+## 4 -0.059375 -0.07311 -0.024282  1.00000</code></pre>
 </div>
 <div class="section slide level1" id="arrays">
 <h1>Arrays</h1>
@@ -996,8 +1030,8 @@ newmat</code></pre>
 <ol class="incremental" style="list-style-type: decimal">
 <li><p>Create a matrix of 5x6 dimensions. Add a vector to it (as either a row or column). Identify element 2,3.</p></li>
 <li><p>Read in the sample datafile. Find the <code>readSS</code> (reading scale score) for student 205 in grade 4.</p></li>
+<li><p>Create a list of two attributes for each district in the <code>df</code> datafile.</p></li>
 </ol>
-<p>3.</p>
 </div>
 <div class="section slide level1" id="other-references">
 <h1>Other References</h1>
@@ -1009,6 +1043,20 @@ newmat</code></pre>
 <li><a href="http://www.twotorials.com/">Video Tutorials</a></li>
 <li><a href="http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html">Google’s R Style Guide</a></li>
 <li><a href="https://github.com/hadley/devtools/wiki/Style">Hadley Wickham’s R Style Guide</a></li>
+<li><a href="http://www.stat.yale.edu/~jay/JSM2012/PDFs/intro.pdf">JSM 2012 R Introduction by Jay Emerson</a></li>
+<li><a href="http://www.johndcook.com/R_language_for_programmers.html">Notes on R for Programmers by John Cook</a></li>
+</ul>
+</div>
+<div class="section slide level1" id="books">
+<h1>Books</h1>
+<ul class="incremental">
+<li>There are a number of great R books available for learning the beginnings of R and for learning specific statistical techniques</li>
+<li>“Discovering Statistics Using R” by Andy Field</li>
+<li>“Applied Econometrics with R” by Achim Zeileis and Christian Kleiber</li>
+<li>“The Art of R Programming” by Norman Matloff</li>
+<li><a href="http://www.burns-stat.com/pages/Tutor/R_inferno.pdf">The R Inferno</a></li>
+<li>The R Book by Michael J. Crawley (new version imminent)</li>
+<li>The R Cookbook</li>
 </ul>
 </div>
 <div class="section slide level1" id="session-info">
@@ -1016,21 +1064,21 @@ newmat</code></pre>
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
 ## [1] grid      stats     graphics  grDevices utils     datasets  methods  
 ## [8] base     
 ## 
 ## other attached packages:
-## [1] ggplot2_0.9.1  hexbin_1.26.0  lattice_0.20-6 mgcv_1.7-19   
-## [5] Cairo_1.5-1    knitr_0.7      plyr_1.7.1    
+## [1] knitr_0.7      sandwich_2.2-9 zoo_1.7-7      gridExtra_0.9 
+## [5] ggplot2_0.9.1 
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
 ##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
-##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
-## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
+##  [7] lattice_0.20-6     MASS_7.3-19        memoise_0.1       
+## [10] munsell_0.3        plyr_1.7.1         proto_0.3-9.2     
 ## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
 ## [16] stringr_0.6.1      tools_2.15.1      </code></pre>
 </div>
