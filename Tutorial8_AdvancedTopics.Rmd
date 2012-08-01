@@ -70,6 +70,7 @@ system.time({
 system.time({
   sum(A)
   })
+rm(A)
 ```
 
 # Write a simple function
@@ -160,7 +161,7 @@ ctrl <- trainControl(method = "repeatedcv", number=7,repeats=3,
                      summaryFunction = defaultSummary)
 # Search grid
 grid<-expand.grid(.interaction.depth=seq(2,6,by=1),
-                  .n.trees=seq(200,800,by=50),
+                  .n.trees=seq(200,700,by=100),
                   .shrinkage=c(0.05,0.1))
 # Boosted tree search
 gbmTune<-train(x=trainX,
@@ -171,7 +172,7 @@ gbmTune<-train(x=trainX,
                tuneGrid=grid,
                verbose=FALSE)
 
-gbmPred<-predict(gbmTune,testing[,names(trainX)])
+#gbmPred<-predict(gbmTune,testing[,names(trainX)])
 
 ```
 
@@ -273,8 +274,8 @@ slavefunc<- function(id, nslaves, xint, yint, n, func){
 ```{r parallelperformancetest, echo=TRUE}
 n<-10000
 rep<-5
-tLoop <- replicate(rep, system.time( integLoop(func, xint, yint, n) ))
-summary(tLoop[3,])
+#tLoop <- replicate(rep, system.time( integLoop(func, xint, yint, n) ))
+#summary(tLoop[3,])
 tVec <- replicate(rep, system.time( integVec(func, xint, yint, n) ))
 summary(tVec[3,])
 tApply <- replicate(rep, system.time( integApply(func, xint, yint, n) ))
@@ -293,16 +294,22 @@ stopCluster(c1)
 # Animations
 - R can produce animated plots as well
 - Though animations get a bad rap in the data visualization community, they can be effective at illustrating things to users 
-- Requires GMCONVERT and FFMPEG
+- Requires GMCONVERT and FFMPEG and potentially other tools
 
-# Test
+```{r anisetup,include=FALSE}
+x<-rnorm(10)
+p<-ggplot()+geom_density(aes(x=x,color=length(x)))+geom_vline(aes(xintercept=mean(x)),color=I('red'),alpha=I(0.2))+scale_color_gradient(limits=c(10,30))
+p<-p+theme_dpi()+xlim(c(-4,4))+ylim(c(0,.5))+coord_cartesian()
+```
+
+# Animating a Random Normal Distribution
 ```{r animationtest,echo=FALSE,fig.show='animate',dev='png',out.width='700px',out.height='500px'}
-# require(R2SWF)
-
-x<-seq(-4,4)
-for (i in 10:100){
-  print(qplot(rnorm(i),geom='density')+
-    theme_dpi()+xlim(c(-4,4))+ylim(c(0,.5))+coord_cartesian())
+for (i in 10:30){
+  x<-rnorm(i)
+  print(
+    ggplot()+geom_density(aes(x=x,color=length(x)))+scale_color_gradient(limits=c(10,30))+
+    geom_vline(aes(xintercept=mean(x)),color=I('red'),alpha=I(0.3))+theme_dpi()
+    )
 }
 ```
 

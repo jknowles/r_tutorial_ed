@@ -6,6 +6,7 @@
 # set global chunk options
 opts_chunk$set(fig.path='figure/slides7-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg')
 source('ggplot2themes.R')
+load('data/smalldata.rda')
 ```
 
 # Overview
@@ -233,12 +234,6 @@ knit("PATH/TO/myscript.Rmd",envir=new.env())
 knit2html("Path/To/Myscript.md")
 ```
 
-# Advanced Topics
-- Using `pandoc` or `slidify` to create HTML5 slides in R
-- Writing full blown LaTeX reports
-- Embedding video and visualization
-- Changes CSS styles of reports
-
 # Exporting a Single Plot
 - Sometimes we don't need to produce a whole report, but just save a particular plot and share it
 - We do this with the `dev` argument where `dev` is equivalent to the graphic type we want to export
@@ -263,13 +258,72 @@ dev.off()
 - These are the `foreign` library, `save`, `write.csv`, and `write.dta`
 - Note that R can also write SPSS files, SAS files, and files for just about any statistics program (sometimes even Excel, but CSV is preferred for this purpose)
 
+# Here's an Example
+- When you want to save data you can use a simple line of code
 
+```{r writedataout,eval=FALSE}
+write.csv(df,file='PATH/TO/MY.csv')
+write.dta(df,file='PATH/TO/MY.dta')
+# save in the R file
+save(df,file='PATH/TO/MY.rda',compress='xz')
+```
+
+# Exporting Tables 
+- Sometimes we need to export a table that is attractive
+
+```{r uglytable}
+table(df$female,df$schid)
+```
+
+- This is ugly and hard to tell what it means
+- We need a better way
+
+# We need XTABLE
+- The `xtable` package provides a good way to do this output
+
+```{r xtableexamp1,results='asis',echo=FALSE}
+require(xtable)
+print(xtable(table(df$ell,df$schid)),type='html')
+print(xtable(as.table(cor(df[,26:30],df[,26:30]))),type='html')
+```
+
+# How?
+
+```{r xtablecode,eval=FALSE,echo=TRUE}
+require(xtable)
+print(xtable(table(df$ell,df$schid)),type='html')
+```
+
+- A bit annoyingly we have to wrap our table in two functions: 
+- `xtable` reformats the table to an xtable object
+- `print` exports the xtable object to the screen so whatever document processing system we use can grab it
+- Lots of objects can be coerced into `xtable` objects, which helps
+- `xtable` can be HTML or LaTeX output, giving flexibility for how we build our document
+
+# Other options
+- `apsrtable` for beautiful looking regression tables
+- `Hmisc` has some nice output functions as well for HTML in particular
+- Many specialty packages have their own way of wrapping some mark up language around their output
+- We can always export with CSV directly to Excel
 
 # Reproducibility Matters
+- Point and click interfaces do not allow work to be reproduced
+- Time is wasted when work cannot be repeated and produce the same results
+- Not valid and reliable for decision making
+
+
+# Advanced Topics
+- Using `pandoc` or `slidify` to create HTML5 slides in R
+- Writing full blown LaTeX reports
+- Embedding video and visualization
+- Changes CSS styles of reports
+
 
 # Exercises 
+
 1.
 2.
+3.
 
 
 # References
