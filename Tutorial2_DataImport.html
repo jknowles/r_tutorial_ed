@@ -97,6 +97,12 @@ DPI R Bootcamp
 <div class="section slide level1" id="some-must-have-packages">
 <h1>Some Must Have Packages</h1>
 <p><code>plyr</code> <code>ggplot2</code> <code>lme4</code> <code>sp</code> <code>knitr</code></p>
+<ul class="incremental">
+<li>These packages come with data, code, functions, and utilities that you can access</li>
+<li>If you want to learn about them, check them out in the RStudio Packages tab, which gives an index of their help files and handy links to their help documentation</li>
+<li>Some packages also have <code>vignettes</code> which walk you through use cases for the package</li>
+<li><code>caret</code> has a great example</li>
+</ul>
 </div>
 <div class="section slide level1" id="data-management">
 <h1>Data Management</h1>
@@ -108,6 +114,7 @@ DPI R Bootcamp
 <li>All object names are unique (not strictly so, but let’s not violate this)</li>
 <li>To reference items within an object type we need to give it an address like in <code>mydata$thingIwant</code> or <code>mydata@thingIwant</code></li>
 <li>The <code>$</code> and <code>@</code> distinction depends on whether this is an S3 or an S4 class</li>
+<li>R will warn you if you do it wrong, so just remember when <code>$</code> doesn’t work, use <code>@</code></li>
 </ul>
 </div>
 <div class="section slide level1" id="preliminaries">
@@ -126,7 +133,7 @@ DPI R Bootcamp
 <li>R needs to know where it is in your file system to be able to access data and write output</li>
 <li>Check this by typing <code>getwd()</code></li>
 <li>R work is best done in a selfcontained directory, like <code>C:/Users/My Documents/My Project/</code> which is then set as the working directory</li>
-<li>How to set the working directory? The <code>setwd()</code> command: `setwd(“PATH/TO/MY PROJECT/”)</li>
+<li>How to set the working directory? The <code>setwd()</code> command: <code>setwd(&quot;PATH/TO/MY PROJECT/&quot;)</code></li>
 </ul>
 </div>
 <div class="section slide level1" id="rstudio-shortcuts">
@@ -153,6 +160,9 @@ DPI R Bootcamp
 <li>Never</li>
 <li>It breaks the ability to pass a project directory to a coauthor/collaborator</li>
 <li>But when you must…</li>
+<li>When you have something on a whole different drive or network store</li>
+<li>When you don’t think you’ll migrate your code to a new operating system or a different machine/network environment</li>
+<li>When the project is simple</li>
 </ul>
 </div>
 <div class="section slide level1" id="ground-rules">
@@ -189,6 +199,11 @@ a &lt;- <span class="kw">c</span>(a, <span class="ot">NA</span>)
 <pre><code>## [1]  1  2  3 NA</code></pre>
 <ul class="incremental">
 <li><code>NA</code> can hold a place, <code>NULL</code> cannot</li>
+</ul>
+</div>
+<div class="section slide level1" id="what-the-heck-is-not-a-number">
+<h1>What the heck is Not a Number?</h1>
+<ul class="incremental">
 <li><code>NaN</code> is even more special, and only holds things like imaginary numbers</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">b &lt;- <span class="dv">1</span>
@@ -207,12 +222,12 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <ul class="incremental">
 <li>Now let’s set up our analysis project</li>
 <li>It is best to keep projects discrete in directories</li>
-<li>Create a few subdirectories</li>
+<li><p>Create a few subdirectories</p></li>
 <li>Data</li>
 <li>Functions / R src</li>
 <li>Figures / Plots</li>
-<li>Cleaned Data</li>
-<li>See the ProjectTemplate package for a more detailed philosophy about organizing projects</li>
+<li><p>Cleaned Data</p></li>
+<li><p>See the <code>ProjectTemplate</code> package for a more detailed philosophy about organizing projects</p></li>
 </ul>
 </div>
 <div class="section slide level1" id="organization-of-a-project-is-key">
@@ -222,6 +237,15 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <li>Separate automatic scripts from interactive scripts</li>
 <li>Put figures apart from both of these</li>
 <li><strong>Always keep your raw data</strong></li>
+</ul>
+</div>
+<div class="section slide level1" id="create-our-project">
+<h1>Create our Project</h1>
+<ul class="incremental">
+<li>Make an “RBootcamp” folder on your machine</li>
+<li>Underneath this make a “data” and a “figure” folder</li>
+<li>Create an R script in the “RBootcamp” folder called “myscriptname.R”</li>
+<li>Put all the data files in the “data” folder</li>
 </ul>
 </div>
 <div class="section slide level1" id="read-in-data">
@@ -262,7 +286,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(df)</code></pre>
 <pre><code>## [1] 2700   32</code></pre>
-<p>-</p>
+<ul class="incremental">
+<li><code>summary</code></li>
+</ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df[, <span class="dv">1</span>:<span class="dv">5</span>])</code></pre>
 <pre><code>##        X               school         stuid            grade     
 ##  Min.   :     44   Min.   :   1   Min.   :   205   Min.   :3.00  
@@ -278,7 +304,12 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ##  Mean   : 52.0  
 ##  3rd Qu.: 75.0  
 ##  Max.   :105.0  </code></pre>
-<p>-</p>
+</div>
+<div class="section slide level1" id="checking-your-data-ii">
+<h1>Checking your data II</h1>
+<ul class="incremental">
+<li><code>names</code></li>
+</ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df)</code></pre>
 <pre><code>##  [1] &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;       &quot;grade&quot;       &quot;schid&quot;      
 ##  [6] &quot;dist&quot;        &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
@@ -287,7 +318,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
 ## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
 ## [31] &quot;proflvl&quot;     &quot;race&quot;       </code></pre>
-<p>-</p>
+<ul class="incremental">
+<li><code>attributes</code> and <code>class</code></li>
+</ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">attributes</span>(df))</code></pre>
 <pre><code>## [1] &quot;names&quot;     &quot;row.names&quot; &quot;class&quot;    </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(df)</code></pre>
@@ -309,13 +342,16 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <li>The basics of the RODBC package are easy to understand</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RODBC)  <span class="co"># interface driver for R</span>
-channel &lt;- <span class="kw">odbcConnect</span>(<span class="st">&quot;Mydatabase.location&quot;</span>, <span class="dt">uid =</span> <span class="st">&quot;useR&quot;</span>, <span class="dt">pwd =</span> <span class="st">&quot;secret&quot;</span>)  <span class="co"># establish connection</span>
-<span class="co"># we can do multiple connections in the same R session credentials stored</span>
-<span class="co"># in plain text unless you do some magic</span>
-table_list &lt;- <span class="kw">sqltables</span>(channel, <span class="dt">schema =</span> <span class="st">&quot;My_DB&quot;</span>)  <span class="co"># Get a list of tables in the connection</span>
-<span class="kw">colnames</span>(<span class="kw">sqlFetch</span>(channel, <span class="st">&quot;My_DB.TABLE_NAME&quot;</span>, <span class="dt">max =</span> <span class="dv">1</span>))  <span class="co"># get the column names of a table</span>
-
-datapull &lt;- <span class="kw">sqlQuery</span>(channel, <span class="st">&quot;SELECT DATA1, DATA2, DATA3 FROM My_DB.TABLE_NAME&quot;</span>)  <span class="co"># execute some SQLquery, can paste any SQLquery as a string into this space</span></code></pre>
+channel &lt;- <span class="kw">odbcConnect</span>(<span class="st">&quot;Mydatabase.location&quot;</span>, <span class="dt">uid =</span> <span class="st">&quot;useR&quot;</span>, <span class="dt">pwd =</span> <span class="st">&quot;secret&quot;</span>)
+<span class="co"># establish connection we can do multiple connections in the same R</span>
+<span class="co"># session credentials stored in plain text unless you do some magic</span>
+table_list &lt;- <span class="kw">sqltables</span>(channel, <span class="dt">schema =</span> <span class="st">&quot;My_DB&quot;</span>)
+<span class="co"># Get a list of tables in the connection</span>
+<span class="kw">colnames</span>(<span class="kw">sqlFetch</span>(channel, <span class="st">&quot;My_DB.TABLE_NAME&quot;</span>, <span class="dt">max =</span> <span class="dv">1</span>))
+<span class="co"># get the column names of a table</span>
+datapull &lt;- <span class="kw">sqlQuery</span>(channel, <span class="st">&quot;SELECT DATA1, DATA2, DATA3 FROM My_DB.TABLE_NAME&quot;</span>)
+<span class="co"># execute some SQLquery, can paste any SQLquery as a string into this</span>
+<span class="co"># space</span></code></pre>
 </div>
 <div class="section slide level1" id="missing-data">
 <h1>Missing Data</h1>
@@ -327,6 +363,9 @@ random2 &lt;- <span class="kw">sample</span>(<span class="kw">unique</span>(df$s
 messdf &lt;- df
 messdf$readSS[messdf$stuid %in% random] &lt;- <span class="ot">NA</span>
 messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code></pre>
+<ul class="incremental">
+<li>Don’t try this at home!</li>
+</ul>
 </div>
 <div class="section slide level1" id="checking-for-missing-data">
 <h1>Checking for Missing Data</h1>
@@ -336,20 +375,20 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(messdf[, <span class="kw">c</span>(<span class="st">&quot;stuid&quot;</span>, <span class="st">&quot;readSS&quot;</span>, <span class="st">&quot;mathSS&quot;</span>)])</code></pre>
 <pre><code>##      stuid            readSS        mathSS   
 ##  Min.   :   205   Min.   :252   Min.   :210  
-##  1st Qu.: 44205   1st Qu.:430   1st Qu.:421  
-##  Median : 88205   Median :495   Median :482  
-##  Mean   : 99229   Mean   :496   Mean   :485  
-##  3rd Qu.:132205   3rd Qu.:563   3rd Qu.:544  
+##  1st Qu.: 44205   1st Qu.:431   1st Qu.:419  
+##  Median : 88205   Median :496   Median :480  
+##  Mean   : 99229   Mean   :497   Mean   :484  
+##  3rd Qu.:132205   3rd Qu.:564   3rd Qu.:542  
 ##  Max.   :324953   Max.   :833   Max.   :828  
-##                   NA's   :208   NA's   :259  </code></pre>
+##                   NA's   :214   NA's   :276  </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(messdf[!<span class="kw">complete.cases</span>(messdf), ])  <span class="co"># number of rows with missing data</span></code></pre>
-<pre><code>## [1] 457</code></pre>
+<pre><code>## [1] 467</code></pre>
 <ul class="incremental">
 <li>To get rid of missing data, we can copy our data with all missing cases dropped using the <code>na.omit</code> function</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">cleandf &lt;- <span class="kw">na.omit</span>(messdf)
 <span class="kw">nrow</span>(cleandf)</code></pre>
-<pre><code>## [1] 2243</code></pre>
+<pre><code>## [1] 2233</code></pre>
 </div>
 <div class="section slide level1" id="now-we-have-the-data">
 <h1>Now we have the data</h1>
@@ -371,6 +410,9 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 ##  $ schoolscore: num  29.2 56 56 56 56 ...
 ##  $ district   : int  3 3 3 3 3 3 3 3 3 3 ...
 ##  $ schoolhigh : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+</div>
+<div class="section slide level1" id="looking-at-data-structure">
+<h1>Looking at data structure</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(messdf)</code></pre>
 <pre><code>##  [1] &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;       &quot;grade&quot;       &quot;schid&quot;      
 ##  [6] &quot;dist&quot;        &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
@@ -404,6 +446,10 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 ## Levels: A B H I W</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$disab)</code></pre>
 <pre><code>## [1] 0 1</code></pre>
+<ul class="incremental">
+<li>Which are factors?</li>
+<li>Which are not?</li>
+</ul>
 </div>
 <div class="section slide level1" id="next-steps">
 <h1>Next Steps</h1>
@@ -434,28 +480,23 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: x86_64-pc-mingw32/x64 (64-bit)
+## Platform: i386-pc-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] splines   grid      stats     graphics  grDevices utils     datasets 
-## [8] methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-##  [1] lme4_0.999999-0  Matrix_1.0-6     caret_5.15-023   foreach_1.4.0   
-##  [5] cluster_1.14.2   reshape_0.8.4    gbm_1.6-3.2      lattice_0.20-6  
-##  [9] snow_0.3-10      R2SWF_0.4        xtable_1.7-0     stringr_0.6.1   
-## [13] Hmisc_3.9-3      survival_2.36-14 quantreg_4.81    SparseM_0.96    
-## [17] lmtest_0.9-30    mgcv_1.7-19      plyr_1.7.1       knitr_0.7       
-## [21] sandwich_2.2-9   zoo_1.7-7        gridExtra_0.9    ggplot2_0.9.1   
+## [1] plyr_1.7.1     Cairo_1.5-1    mgcv_1.7-19    hexbin_1.26.0 
+## [5] lattice_0.20-6 ggplot2_0.9.1  knitr_0.7     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] codetools_0.2-8    colorspace_1.1-1   dichromat_1.2-4   
-##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
-##  [7] iterators_1.0.6    labeling_0.1       markdown_0.5.2    
-## [10] MASS_7.3-19        memoise_0.1        munsell_0.3       
-## [13] nlme_3.1-104       proto_0.3-9.2      RColorBrewer_1.0-5
-## [16] RCurl_1.91-1.1     reshape2_1.2.1     scales_0.2.1      
-## [19] stats4_2.15.1      tools_2.15.1      </code></pre>
+##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
+##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
+##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
+## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
+## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [16] stringr_0.6.1      tools_2.15.1      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

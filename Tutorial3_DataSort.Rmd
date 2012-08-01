@@ -4,6 +4,7 @@
 
 # Overview
 In this lesson we hope to learn:
+
 - Aggregating data
 - Organizing our data
 - Manipulating vectors
@@ -14,6 +15,7 @@ In this lesson we hope to learn:
 ```{r setup, include=FALSE}
 # set global chunk options
 opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg',size='tiny')
+library(plyr)
 ```
 
 
@@ -39,6 +41,7 @@ table(df$grade,df$year)
 ```
 
 - The first command gives the rows, the second gives the columns
+- Ugly, but effective
 
 # Aggregation can be more complex
 - Let's aggregate by race and year
@@ -63,11 +66,9 @@ with(df[df$grade==3,],{table(year,race)})
 - Can you find the number of black students in each grade in each year?
 - hint: `with(df[df$___=="B",]...)`
 - How many in year 2002, grade 6?
-
-  * 48
+  - 48
 - How many in 2001, grade 7?
-
-  * 39
+  - 39
 
 
 # Answer
@@ -107,6 +108,9 @@ round(prop.table(table(df$race,df$proflvl),1),digits=3)
 ```
 
 - The `1` tells R we want proportions rowise, a `2` goes columnwise
+- `round` tells R to cut off some digits for us
+- Proportions are just that, not in percentage terms (we need to multiply by 100 for this)
+- Can you make this table express percentages instead of proportions? How might that code look?
 - A few more problems arise--this pools all observations, including students across years
 
 # Aggregating Data
@@ -132,6 +136,7 @@ aggregate(cbind(readSS,mathSS)~race,data=df,mean)
 ```{r aggregate3}
 head(aggregate(cbind(readSS,mathSS)~race+grade,data=df,mean),8)
 ```
+- `head` or `tail` just tell R to present us the firxt **X** items in an object, in this case **8** objects
 
 # Crosstabs
 - We can build a systematic cross-tab now
@@ -206,6 +211,11 @@ myag<-ddply(df, .(dist,grade),summarize,
 head(myag)
 ```
 
+- This looks complex, but it only has a few components.
+- The first argument is the dataframe we are working on, the next argument is the level of identification we want to aggregate to 
+- `summarize` tells `ddply` what we are doing to the data frame
+- Then we make a list of new variable names, and how to calculate them on each of the subsets in our large data frame
+- That's it!
 
 # More plyr
 - This is great, we can quickly build a summary dataset from individual records
@@ -225,7 +235,7 @@ summary(myag[,7:10])
 ```
 
 
-# Quick Check
+# Quick Exercises in ddply
 - What if we want to compare how districts do on educating ELL students?
 - What district ID has the highest mean score for 4th grade ELL students on reading? Math?
 
@@ -284,7 +294,8 @@ head(df[with(df,order(-readSS,-attday)),c(3,23,29,30)])
 
 # About sorting
 
-- Sorting works differently on some data types, matrices are slightly different
+- Sorting works differently on some data types, matrices are slightly different, like matrices
+
 ```{r matrixsort}
 M<-matrix(c(1,2,2,2,3,6,4,5),4,2,byrow=FALSE,dimnames=list(NULL,c("a","b")))
 M[order(M[,"a"],-M[,"b"]),] # can't use "with"
@@ -356,15 +367,14 @@ myag$spread<-as.factor(myag$spread)
 
 - Create a new variable in `myag` called `schoolperf` for `mean_math` scores with the following coding scheme:
 
-
-Grade | Score Range | Code
------ | ----------- | ----
-3     |   >425      | "Hi"
-4     |   >450      | "Hi"
-5     |   >475      | "Hi"
-6     |   >500      | "Hi"
-7     |   >525      | "Hi"
-8     |   >575      | "Hi"
+Grade|Score Range|Code
+-----|-----------|----
+3|>425|"Hi"
+4|>450|"Hi"
+5|>475|"Hi"
+6|>500|"Hi"
+7|>525|"Hi"
+8|>575|"Hi"
 
 - All other values are coded as "lo"
 - How many "hi" and "lo" observations do we have?

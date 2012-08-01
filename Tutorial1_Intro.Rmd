@@ -34,7 +34,7 @@ The R workspace in RStudio
 - In 1988 it was rewritten from a Fortran base to a C base
 - Version 4 of S, the latest version, was finished in 1998, and won several awards
 
-# The Philosophy
+### The Philosophy
 John Chambers, in describing the logic behind the S language said:
 
 > [W]e wanted users to be able to begin in an interactive
@@ -88,6 +88,7 @@ R Can Compliment Other Tools
 - R only has features that the community contributes
 - Not the ideal solution to all problems
 - R is a programming language and not a software package--steeper learning curve
+- R can be much slower than compiled languages
 
 # Google Scholar Hits
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS
@@ -135,17 +136,26 @@ Usage of the R listserv for help has really exploded recently
 # Open Source Toolchain
 - This really represents a completely open source toolchain to going from a data analysis idea, to a full fledged professional report
 - These tools are free, updated regularly, and available on **any** platform **today**
+- This toolchain is scriptable, reproducible, and has been around for quite some time so it is stable and robust
+- Lots of other programming languages use aspects of this toolchain
 
 # Some Notes about Maintaining R
 - Adding packages onto R means you also have to update them with the `update.packages()` command
-- Upgrading R, which is on a 6 month release cycle, is not straightforward
-- We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported
+- Package updates are at the whim of the package developer which may be a corporation, an R Core Member, an academic, or me
+- Upgrading R, which is on a 6 month release cycle, is not straightforward yet, but there are lots of how-to guides online
+- Generally, upgrading is recommended as there are usually a lot of performance enhancements, even with minor (2.15.X) releases
+- We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported in your organization
 
 # Self-help
 - In the spirit of open-source R is very much a self-guided tool
 - Let's see, type: `?summary`
 - Now type: `??regression`
 - For tricky questions, funky error messages (there are many), and other issues, use Google (include "in R" to the end of your query)
+- StackOverflow has become a great resource with many questions for many specific packages in R, and a rating system for answers
+- A number of R Core members contribute there
+- Sometimes R Help can be a bit prickly and unfriendly...
+- The most important part of getting help is being able to ask your question with a reproducible example (i.e. some short simulated data and code that doesn't do what you want)
+- For R Help etiquette (for the tough problems) see [the great advice here](https://github.com/hadley/devtools/wiki/Reproducibility)
 
 
 # R As A Calculator
@@ -203,7 +213,10 @@ myplot(readSS,mathSS,data=df)
 - R also supports advanced mathematical features and expressions
 - R can take integrals and derivatives and express complex functions
 - Easiest of all, R can generate distributions of data very easily
-- This comes in handy when writing examples and building analyses
+
+  - e.g. `rnorm(100)` or `rbinom(100)`
+
+- This comes in handy when writing examples and building analyses because it is trivial to generate a synthetic piece of data to use as an example
 
 
 # Using the Workspace
@@ -244,6 +257,10 @@ A<-c(3,4)
 print(A)
 ```
 - `c` stands for concatenate and allows vectors to have multiple elements
+- If you ever need two elements in a vector, you need to wrap it up in `c`, which is one of the most used functions you will ever use
+- `c` is important to put numeric, character, factor, or any other type of data together
+
+
 
 # Language
 - In language there are a number of ways to say the same thing
@@ -261,18 +278,25 @@ c[i]<-a[i]*b[i]
 d<-a*b
 identical(c,d) # Test equality
 ```
-- Which is nicer?
+- Which is nicer? **c** or **d**?
 
 # More Language ~~Bugs~~ Features
 - R is maddeningly inconsistent
+
   * Some functions are `camelCase`; others `are.dot.separated`; others `use_underscores`
   * Function results are stored in a variety of ways across function implementations
   * R has multiple graphics packages that different functions use for default plot construction (`base`, `grid`, `lattice`, and `ggplot2`)
-
+  * R has multiple packages and functions to do the same analysis as well, though some standardization has started to occur
+  * Be flexible and be aware of R's flexibility
+  
 # Reading Data In
 - To read data in we have to tell R where it currently is on the filesystem by setting a working directory
 - Then we have to tell it where to look for the dataset and what format that dataset is in
-- CSV files are **simplest** for beginning use cases, but R is flexible `{r load('data/smalldata.rda')}`
+- CSV files are **simplest** for beginning use cases, but R is flexible `load("data/smalldata.rda")`
+```{r eval=TRUE,echo=FALSE}
+load("data/smalldata.rda")
+```
+
 ```{r eval=FALSE}
 # Set working directory to the tutorial director
 # In RStudio can do this in "Tools" tab
@@ -295,7 +319,7 @@ summary(df$readSS) #summary of a single column
 
 # Graphics too
 
-```{r graphics1, results='fig',message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=7.8, fig.height=4.5}
+```{r graphics1,message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=7.8, fig.height=4.5}
 library(ggplot2) # Load graphics Package
 qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_bw()+
   opts(title='Test Score Relationship')+
@@ -692,13 +716,21 @@ attributes(myarray)[1:2][2]
 
 # Dataframes
 - Dataframes are combinations of vectors of the same length, but can be of different types
-```{r dataframetypes}
-str(df[,25:32])
+
+```{r dataframetypes,echo=TRUE,results='markup'}
+str(df[ ,25:32])
 ```
+
 - Data frames must have consistent dimensions
 - Dataframes are what we use most commonly as a "dataset" for analysis
 - Dataframes are what sets R apart from other programming languages like C, C++, Python, and Perl. 
 - The dataframe structure is much more complex and much easier to use than any datastructure in these languages--though Python is catching up!
+
+# Converting Between Types
+- R has built in functions to allow you to force objects to move between types
+- These follow the general form `as.whatIwant` as in `as.factor` or `as.table` or `as.data.frame`
+- You will use these commands a lot to convert output from various functions into a form you can input into a different function
+- A good example is converting correlation matrices into dataframes so we can plot them
 
 # Summing it Up
 - Vectors are used to store bits of data

@@ -51,6 +51,11 @@ update.packages() # Gonna update them all
 # Some Must Have Packages
 `plyr` `ggplot2` `lme4` `sp` `knitr`
 
+- These packages come with data, code, functions, and utilities that you can access
+- If you want to learn about them, check them out in the RStudio Packages tab, which gives an index of their help files and handy links to their help documentation
+- Some packages also have `vignettes` which walk you through use cases for the package
+- `caret` has a great example
+
 # Data Management
 - Data management in R used to be managed by the `ls()` command 
 - Go ahead, type it. 
@@ -59,6 +64,7 @@ update.packages() # Gonna update them all
 - All object names are unique (not strictly so, but let's not violate this)
 - To reference items within an object type we need to give it an address like in `mydata$thingIwant` or `mydata@thingIwant`
 - The `$` and `@` distinction depends on whether this is an S3 or an S4 class
+- R will warn you if you do it wrong, so just remember when `$` doesn't work, use `@`
 
 # Preliminaries
 - Get and set the working directory
@@ -71,7 +77,7 @@ update.packages() # Gonna update them all
 - R needs to know where it is in your file system to be able to access data and write output
 - Check this by typing `getwd()`
 - R work is best done in a selfcontained directory, like `C:/Users/My Documents/My Project/` which is then set as the working directory
-- How to set the working directory? The `setwd()` command: `setwd("PATH/TO/MY PROJECT/")
+- How to set the working directory? The `setwd()` command: `setwd("PATH/TO/MY PROJECT/")`
 
 # RStudio Shortcuts
 - RStudio makes this so much easier!
@@ -89,6 +95,9 @@ update.packages() # Gonna update them all
 - Never
 - It breaks the ability to pass a project directory to a coauthor/collaborator
 - But when you must...
+- When you have something on a whole different drive or network store
+- When you don't think you'll migrate your code to a new operating system or a different machine/network environment
+- When the project is simple
 
 # Ground Rules
 - Get used to plain text input files
@@ -116,6 +125,8 @@ a<-c(a,NA)
 print(a)
 ```
 - `NA` can hold a place, `NULL` cannot
+
+# What the heck is Not a Number?
 - `NaN` is even more special, and only holds things like imaginary numbers
 ```{r nan, warning=TRUE}
 b<-1
@@ -129,17 +140,25 @@ pi/0
 - Now let's set up our analysis project
 - It is best to keep projects discrete in directories
 - Create a few subdirectories
+
   - Data
   - Functions / R src
   - Figures / Plots
   - Cleaned Data
-- See the ProjectTemplate package for a more detailed philosophy about organizing projects
+
+- See the `ProjectTemplate` package for a more detailed philosophy about organizing projects
 
 # Organization of a project is key
 - Separate data from scripts
 - Separate automatic scripts from interactive scripts
 - Put figures apart from both of these
 - **Always keep your raw data**
+
+# Create our Project
+- Make an "RBootcamp" folder on your machine
+- Underneath this make a "data" and a "figure" folder
+- Create an R script in the "RBootcamp" folder called "myscriptname.R"
+- Put all the data files in the "data" folder
 
 # Read in Data
 - Reading in data is one of the trickiest issues for R
@@ -171,15 +190,19 @@ str(df[27:32])
 ```{r dim}
   dim(df)
 ```
--
+- `summary`
 ```{r summary}
   summary(df[,1:5])
 ```
--
+
+# Checking your data II
+- `names`
+
 ```{r names}
   names(df)
 ```
--
+- `attributes` and `class`
+
 ```{r attributes}
   names(attributes(df))
   class(df)
@@ -198,13 +221,16 @@ str(df[27:32])
 
 ```{r rodbc, eval=FALSE}
 library(RODBC) # interface driver for R
-channel<-odbcConnect("Mydatabase.location",uid="useR",pwd="secret") # establish connection
+channel<-odbcConnect("Mydatabase.location",uid="useR",pwd="secret") 
+# establish connection
 # we can do multiple connections in the same R session
 # credentials stored in plain text unless you do some magic
-table_list<-sqltables(channel,schema="My_DB") # Get a list of tables in the connection
-colnames(sqlFetch(channel,'My_DB.TABLE_NAME',max=1)) # get the column names of a table
-
-datapull<-sqlQuery(channel,"SELECT DATA1, DATA2, DATA3 FROM My_DB.TABLE_NAME") # execute some SQLquery, can paste any SQLquery as a string into this space
+table_list<-sqltables(channel,schema="My_DB")
+# Get a list of tables in the connection
+colnames(sqlFetch(channel,'My_DB.TABLE_NAME',max=1)) 
+# get the column names of a table
+datapull<-sqlQuery(channel,"SELECT DATA1, DATA2, DATA3 FROM My_DB.TABLE_NAME") 
+# execute some SQLquery, can paste any SQLquery as a string into this space
 ```
 
 # Missing Data
@@ -217,6 +243,7 @@ messdf<-df
 messdf$readSS[messdf$stuid %in% random]<-NA
 messdf$mathSS[messdf$stuid %in% random2]<-NA
 ```
+- Don't try this at home!
 
 # Checking for Missing Data
 - The `summary` function helps identify missing data
@@ -237,6 +264,11 @@ nrow(cleandf)
 ```{r datafirstcut}
 dim(messdf)
 str(messdf[,18:26])
+```
+
+# Looking at data structure
+
+```{r datafirstcut2}
 names(messdf)
 ```
 - It looks like we have a number of `id` variables, this is useful and it is good to check if these variables have multiple rows per id or not and we do this using `length` and `unique`
@@ -256,6 +288,8 @@ unique(messdf$econ)
 unique(messdf$race)
 unique(messdf$disab)
 ```
+- Which are factors?
+- Which are not?
 
 # Next Steps
 - In the next section we will learn to aggregate, explore, reshape, and recode data
