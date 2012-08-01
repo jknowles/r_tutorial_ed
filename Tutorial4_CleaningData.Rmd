@@ -47,7 +47,7 @@ head(stuatt[,1:4],7)
 # Toolkit--Data Cleaning
 - The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data
 - This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here (Clean Data Building)
-- You can get the toolkit lesson, adapted here for the purposes of the bootcamp, [online](http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf)
+- You can get the toolkit lesson that this tutorial is adapted from [online](http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf)
 - There are five toolkits in addition to a data guide that are incredibly helpful, so we are just touching the tip of the iceberg
 - Other modules include:
 
@@ -63,7 +63,7 @@ head(stuatt[,1:4],7)
 ```{r dropvar9}
 stuatt$first_9th_year_reported<-NULL
 ```
-- Later in the tutorial a new variable like this will be created
+- To drop variables in R we assign them `NULL`, another R quirk
 
 # SDP Task 1 - Step 1: Consistent Gender
 - Is gender unique for each student?
@@ -74,6 +74,10 @@ length(unique(stuatt$sid,stuatt$male))
 ```
 - Nah, we have 21,803 unique students in our dataset, but  unique combinations of 21,806 unique combinations of gender and student
 
+# Testing Uniqueness
+- Below we write a small function that automates the check we did on the last slide
+- How does this work?
+
 ```{r uniquenesstest}
 testuniqueness<-function(id,group){
   length(unique(id))==length(unique(id,group))
@@ -83,12 +87,16 @@ testuniqueness(stuatt$sid,stuatt$race_ethnicity)
 testuniqueness(stuatt$sid,stuatt$birth_date)
 ```
 
+- Messy...
+
 # Where is the data messy?
 
 ```{r seethegenderprob}
 stuatt[17:21,1:3]
 ```
-- How do we fix this?
+- Student 7 has an inconsistently reported gender in our data
+- We need a business rule to handle fixing this, and a way to implement it
+- SDP provides the rule, R provides the systematic implementation
 
 # How do we correct this?
 - We employ a similar procedure, in R this is known as "split, apply, and combine"
@@ -232,7 +240,7 @@ summary(stuatt$race_ethnicity)
 - Let's consider student 3 in our dataset
 
 ```{r student3}
-stuatt[7:9,c(1,2,4)]
+stuatt[7:9,c("sid","school_year","race_ethnicity")]
 ```
 
 - How is this different from our prior problem?
@@ -241,30 +249,35 @@ stuatt[7:9,c(1,2,4)]
 # Business Rule
 - Again, we are implementing a business rule which means we are making some arbitrary decisions about the data
 - In this case, if a student is _hispanic_ we will code both values as hispanic
-- If the student is _not hispanic_ in either observation, we will code the student as _multiple_
+- If the student is _not hispanic_ in either observation, we will code the student as _multiple
 
-# Let's do it anyway
+# Let's calculate the number of values per year
 ```{r createnvalswithinyearI}
 nvals<-ddply(stuatt,.(sid,school_year),summarize,
              nvals_race=length(unique(race_ethnicity)),
              tmphispanic=length(which(race_ethnicity=="H")))
 tempdf<-merge(stuatt,nvals)
+# Clean up
 rm(nvals)
+# Recode race_ethnicity
 tempdf$race2<-tempdf$race_ethnicity
 tempdf$race2[tempdf$nvals_race>1 & tempdf$tmphispanic==1]<-"H"
 tempdf$race2[tempdf$nvals_race>1 & tempdf$tmphispanic!=1]<-"M/O"
 tempdf$race_ethnicity<-tempdf$race2
+
+# Clean up by removing old variables
 tempdf$race2<-NULL
 tempdf$nvals_race<-NULL
 tempdf$tmphispanic<-NULL
+# Resort our result
 tempdf<-tempdf[order(tempdf$sid,tempdf$school_year),]
 ```
 
 # Compare them
 ```{r racewithinyearcompare,echo=FALSE}
-subset(tempdf[,c(1,2,4)],sid==3 &school_year<2007 | sid==8552 &school_year<2007 | sid==11382 &school_year<2007)
+subset(tempdf[,c("sid","school_year","race_ethnicity")],sid==3 &school_year<2007 | sid==8552 &school_year<2007 | sid==11382 &school_year<2007)
 
-subset(stuatt[,c(1,2,4)],sid==3 &school_year<2007 | sid==8552 &school_year<2007 | sid==11382 &school_year<2007)
+subset(stuatt[,c("sid","school_year","race_ethnicity")],sid==3 &school_year<2007 | sid==8552 &school_year<2007 | sid==11382 &school_year<2007)
 ```
 
 # OK
@@ -305,7 +318,7 @@ tempdf$temp_ishispanic[tempdf$race_ethnicity=="H"& tempdf$nvals_race>1]<-1
 - No, our data still has messiness across years:
 
 ```{r raceunique}
-head(stuatt[,1:4])
+head(stuatt[,c("sid","school_year","race_ethnicity")])
 ```
 
 - Student 1 and 2 are both listed as black and hispanic at alternate times

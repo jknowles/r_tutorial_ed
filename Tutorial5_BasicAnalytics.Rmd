@@ -4,6 +4,7 @@
 
 # Overview
 In this lesson we hope to learn:
+
 - How to use summary statistics to look at data
 - How to run basic statistical tests on a dataset
 - How to use formulas to build a statistical model
@@ -20,6 +21,7 @@ source('ggplot2themes.R')
 
 # Datasets
 In this tutorial we will use a number of datasets of different types:
+
 - `stulong`: student-level assessment and demographics data (simulated and research ready)
 - `midwest_schools.csv`: aggregate school level test score averages from a large Midwest state
 

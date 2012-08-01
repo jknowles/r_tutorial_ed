@@ -57,12 +57,13 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="again-read-in-our-dataset">
 <h1>Again, read in our dataset</h1>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set working directory to the tutorial directory In RStudio can do this</span>
-<span class="co"># in 'Tools' tab</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set working directory to the tutorial directory In RStudio can do</span>
+<span class="co"># this in 'Tools' tab</span>
 <span class="kw">setwd</span>(<span class="st">&quot;~/GitHub/r_tutorial_ed&quot;</span>)
 <span class="co"># Load some data</span>
 <span class="kw">load</span>(<span class="st">&quot;data/smalldata.rda&quot;</span>)
-<span class="co"># Note if we don't assign data to 'df' R just prints contents of table</span></code></pre>
+<span class="co"># Note if we don't assign data to 'df' R just prints contents of</span>
+<span class="co"># table</span></code></pre>
 </div>
 <div class="section slide level1" id="aggregation">
 <h1>Aggregation</h1>
@@ -229,7 +230,8 @@ DPI R Bootcamp
 <ul class="incremental">
 <li>We can add multiple grouping varialbes using the <code>formula</code> syntax</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">aggregate</span>(<span class="kw">cbind</span>(readSS, mathSS) ~ race + grade, <span class="dt">data =</span> df, mean), <span class="dv">8</span>)</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">aggregate</span>(<span class="kw">cbind</span>(readSS, mathSS) ~ race + grade, <span class="dt">data =</span> df, mean), 
+    <span class="dv">8</span>)</code></pre>
 <pre><code>##   race grade readSS mathSS
 ## 1    A     3  397.8  454.8
 ## 2    B     3  409.8  371.6
@@ -338,16 +340,23 @@ z</code></pre>
 <h1>plyr in Action</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(plyr)
 myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, 
-        <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS))
+    <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), 
+    <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS))
 <span class="kw">head</span>(myag)</code></pre>
-<pre><code>##   dist grade mean_read mean_math sd_read sd_math count_read count_math
-## 1  205     3     451.7     406.1   93.52   72.45        200        200
-## 2  205     4     438.9     459.9   77.76   79.10        100        100
-## 3  205     5     487.9     462.6   85.30   75.10        200        200
-## 4  205     6     514.7     526.8   76.83   66.04        100        100
-## 5  205     7     530.0     521.5   84.82   74.85        200        200
-## 6  205     8     575.5     581.2   79.58   83.45        100        100</code></pre>
+<pre><code>##   dist grade mean_read mean_math sd_read sd_math count_read
+## 1  205     3     451.7     406.1   93.52   72.45        200
+## 2  205     4     438.9     459.9   77.76   79.10        100
+## 3  205     5     487.9     462.6   85.30   75.10        200
+## 4  205     6     514.7     526.8   76.83   66.04        100
+## 5  205     7     530.0     521.5   84.82   74.85        200
+## 6  205     8     575.5     581.2   79.58   83.45        100
+##   count_math
+## 1        200
+## 2        100
+## 3        200
+## 4        100
+## 5        200
+## 6        100</code></pre>
 <ul class="incremental">
 <li>This looks complex, but it only has a few components.</li>
 <li>The first argument is the dataframe we are working on, the next argument is the level of identification we want to aggregate to</li>
@@ -363,8 +372,8 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 <li>A few advanced tricks. How do we build counts and percentages into our dataset?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, 
-        <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), 
+    <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), 
+    <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), 
     <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == 
         <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
 <span class="kw">summary</span>(myag[, <span class="dv">7</span>:<span class="dv">10</span>])</code></pre>
@@ -389,10 +398,10 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 <div class="section slide level1" id="answer-iii">
 <h1>Answer III</h1>
 <pre class="sourceCode r"><code class="sourceCode r">myag2 &lt;- <span class="kw">ddply</span>(df, .(dist, grade, ell), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, 
-    <span class="dt">na.rm =</span> T), <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), 
-    <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == 
-        <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
+    <span class="dt">na.rm =</span> T), <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, 
+    <span class="dt">na.rm =</span> T), <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), 
+    <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), 
+    <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
 <span class="kw">subset</span>(myag2, ell == <span class="dv">1</span> &amp; grade == <span class="dv">4</span>)</code></pre>
 <pre><code>##    dist grade ell mean_read mean_math sd_read sd_math count_read
 ## 4   205     4   1     403.0     392.9   64.52   39.09         16
@@ -508,14 +517,14 @@ mytab[<span class="kw">order</span>(mytab[, <span class="dv">1</span>]), ]</code
 <h1>Basic Filtering a Column</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all rows that meet this requirement</span>
 df[df$readSS &gt; <span class="dv">800</span>, ]</code></pre>
-<pre><code>##            X school  stuid grade schid dist white black hisp indian asian
-## 1631 1281061    852 145205     8    15  205     1     0    0      0     0
-##      econ female ell disab sch_fay dist_fay luck ability measerr teachq
-## 1631    0      1   0     0       0        0    0   108.3   6.325  155.7
-##      year attday schoolscore district schoolhigh schoolavg schoollow
-## 1631 2001    137       227.7       19          0         1         0
-##      readSS mathSS  proflvl race
-## 1631  833.2  828.4 advanced    W</code></pre>
+<pre><code>##            X school  stuid grade schid dist white black hisp indian
+## 1631 1281061    852 145205     8    15  205     1     0    0      0
+##      asian econ female ell disab sch_fay dist_fay luck ability
+## 1631     0    0      1   0     0       0        0    0   108.3
+##      measerr teachq year attday schoolscore district schoolhigh
+## 1631   6.325  155.7 2001    137       227.7       19          0
+##      schoolavg schoollow readSS mathSS  proflvl race
+## 1631         1         0  833.2  828.4 advanced    W</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">df$grade[df$mathSS &gt; <span class="dv">800</span>]</code></pre>
 <pre><code>## [1] 8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all values of grade that meet this requirement</span></code></pre>
@@ -563,7 +572,47 @@ myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)</code></pre>
 <ul class="incremental">
 <li>Create a new variable in <code>myag</code> called <code>schoolperf</code> for <code>mean_math</code> scores with the following coding scheme:</li>
 </ul>
-<p>Grade|Score Range|Code —–|———–|—- 3|&gt;425|“Hi” 4|&gt;450|“Hi” 5|&gt;475|“Hi” 6|&gt;500|“Hi” 7|&gt;525|“Hi” 8|&gt;575|“Hi”</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Grade</th>
+<th align="left">Score Range</th>
+<th align="right">Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">&gt;425</td>
+<td align="right">“Hi”</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="left">&gt;450</td>
+<td align="right">“Hi”</td>
+</tr>
+<tr class="odd">
+<td align="left">5</td>
+<td align="left">&gt;475</td>
+<td align="right">“Hi”</td>
+</tr>
+<tr class="even">
+<td align="left">6</td>
+<td align="left">&gt;500</td>
+<td align="right">“Hi”</td>
+</tr>
+<tr class="odd">
+<td align="left">7</td>
+<td align="left">&gt;525</td>
+<td align="right">“Hi”</td>
+</tr>
+<tr class="even">
+<td align="left">8</td>
+<td align="left">&gt;575</td>
+<td align="right">“Hi”</td>
+</tr>
+</tbody>
+</table>
 <ul class="incremental">
 <li>All other values are coded as “lo”</li>
 <li>How many “hi” and “lo” observations do we have?</li>
@@ -697,9 +746,9 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>What are the variables that <strong>link</strong> these two together?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myag)</code></pre>
-<pre><code>##  [1] &quot;dist&quot;        &quot;grade&quot;       &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;    
-##  [6] &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
-## [11] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
+<pre><code>##  [1] &quot;dist&quot;        &quot;grade&quot;       &quot;mean_read&quot;   &quot;mean_math&quot;  
+##  [5] &quot;sd_read&quot;     &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot; 
+##  [9] &quot;count_black&quot; &quot;per_black&quot;   &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df[, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>)])</code></pre>
 <pre><code>## [1] &quot;school&quot; &quot;stuid&quot;  &quot;grade&quot;  &quot;dist&quot;  </code></pre>
 <ul class="incremental">
@@ -716,14 +765,16 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">simple_merge &lt;- <span class="kw">merge</span>(df, myag)
 <span class="kw">names</span>(simple_merge)</code></pre>
-<pre><code>##  [1] &quot;grade&quot;       &quot;dist&quot;        &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;      
-##  [6] &quot;schid&quot;       &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
-## [11] &quot;asian&quot;       &quot;econ&quot;        &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;      
-## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
-## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
-## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
-## [31] &quot;proflvl&quot;     &quot;race&quot;        &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;    
-## [36] &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
+<pre><code>##  [1] &quot;grade&quot;       &quot;dist&quot;        &quot;X&quot;           &quot;school&quot;     
+##  [5] &quot;stuid&quot;       &quot;schid&quot;       &quot;white&quot;       &quot;black&quot;      
+##  [9] &quot;hisp&quot;        &quot;indian&quot;      &quot;asian&quot;       &quot;econ&quot;       
+## [13] &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;       &quot;sch_fay&quot;    
+## [17] &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
+## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot;
+## [25] &quot;district&quot;    &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;  
+## [29] &quot;readSS&quot;      &quot;mathSS&quot;      &quot;proflvl&quot;     &quot;race&quot;       
+## [33] &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;     &quot;sd_math&quot;    
+## [37] &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
 ## [41] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
 <ul class="incremental">
 <li>It looks like it did a good job</li>
@@ -867,10 +918,11 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] stats     graphics  grDevices utils     datasets  methods  
+## [7] base     
 ## 
 ## other attached packages:
 ## [1] plyr_1.7.1 knitr_0.7 

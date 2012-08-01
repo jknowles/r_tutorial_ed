@@ -106,7 +106,7 @@ DPI R Bootcamp
 <ul class="incremental">
 <li>The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data</li>
 <li>This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here (Clean Data Building)</li>
-<li>You can get the toolkit lesson, adapted here for the purposes of the bootcamp, <a href="http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf">online</a></li>
+<li>You can get the toolkit lesson that this tutorial is adapted from <a href="http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf">online</a></li>
 <li>There are five toolkits in addition to a data guide that are incredibly helpful, so we are just touching the tip of the iceberg</li>
 <li>Other modules include:</li>
 </ul>
@@ -125,7 +125,7 @@ DPI R Bootcamp
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">stuatt$first_9th_year_reported &lt;- <span class="ot">NULL</span></code></pre>
 <ul class="incremental">
-<li>Later in the tutorial a new variable like this will be created</li>
+<li>To drop variables in R we assign them <code>NULL</code>, another R quirk</li>
 </ul>
 </div>
 <div class="section slide level1" id="sdp-task-1---step-1-consistent-gender">
@@ -140,6 +140,13 @@ DPI R Bootcamp
 <ul class="incremental">
 <li>Nah, we have 21,803 unique students in our dataset, but unique combinations of 21,806 unique combinations of gender and student</li>
 </ul>
+</div>
+<div class="section slide level1" id="testing-uniqueness">
+<h1>Testing Uniqueness</h1>
+<ul class="incremental">
+<li>Below we write a small function that automates the check we did on the last slide</li>
+<li>How does this work?</li>
+</ul>
 <pre class="sourceCode r"><code class="sourceCode r">testuniqueness &lt;- function(id, group) {
     <span class="kw">length</span>(<span class="kw">unique</span>(id)) == <span class="kw">length</span>(<span class="kw">unique</span>(id, group))
 }  <span class="co"># Need better varname and some optimization to the speed of this code</span>
@@ -149,6 +156,9 @@ DPI R Bootcamp
 <pre><code>## [1] FALSE</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">testuniqueness</span>(stuatt$sid, stuatt$birth_date)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
+<ul class="incremental">
+<li>Messy…</li>
+</ul>
 </div>
 <div class="section slide level1" id="where-is-the-data-messy">
 <h1>Where is the data messy?</h1>
@@ -160,7 +170,9 @@ DPI R Bootcamp
 ## 20   7        2007    0
 ## 21   7        2008    1</code></pre>
 <ul class="incremental">
-<li>How do we fix this?</li>
+<li>Student 7 has an inconsistently reported gender in our data</li>
+<li>We need a business rule to handle fixing this, and a way to implement it</li>
+<li>SDP provides the rule, R provides the systematic implementation</li>
 </ul>
 </div>
 <div class="section slide level1" id="how-do-we-correct-this">
@@ -349,11 +361,11 @@ stuatt$race_ethnicity &lt;- <span class="kw">factor</span>(stuatt$race_ethnicity
 <ul class="incremental">
 <li>Let’s consider student 3 in our dataset</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">stuatt[<span class="dv">7</span>:<span class="dv">9</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)]</code></pre>
-<pre><code>##   sid school_year birth_date
-## 7   3        2006      11724
-## 8   3        2006      11724
-## 9   3        2007      11724</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">stuatt[<span class="dv">7</span>:<span class="dv">9</span>, <span class="kw">c</span>(<span class="st">&quot;sid&quot;</span>, <span class="st">&quot;school_year&quot;</span>, <span class="st">&quot;race_ethnicity&quot;</span>)]</code></pre>
+<pre><code>##   sid school_year race_ethnicity
+## 7   3        2006              H
+## 8   3        2006              B
+## 9   3        2007              B</code></pre>
 <ul class="incremental">
 <li>How is this different from our prior problem?</li>
 <li>Since student 3 was recorded twice in the same year and given a different <em>race/ethnicity</em> we now have to figure out some rules for assigning a consistent value</li>
@@ -364,44 +376,49 @@ stuatt$race_ethnicity &lt;- <span class="kw">factor</span>(stuatt$race_ethnicity
 <ul class="incremental">
 <li>Again, we are implementing a business rule which means we are making some arbitrary decisions about the data</li>
 <li>In this case, if a student is <em>hispanic</em> we will code both values as hispanic</li>
-<li>If the student is <em>not hispanic</em> in either observation, we will code the student as <em>multiple</em></li>
+<li>If the student is <em>not hispanic</em> in either observation, we will code the student as _multiple</li>
 </ul>
 </div>
-<div class="section slide level1" id="lets-do-it-anyway">
-<h1>Let’s do it anyway</h1>
+<div class="section slide level1" id="lets-calculate-the-number-of-values-per-year">
+<h1>Let’s calculate the number of values per year</h1>
 <pre class="sourceCode r"><code class="sourceCode r">nvals &lt;- <span class="kw">ddply</span>(stuatt, .(sid, school_year), summarize, <span class="dt">nvals_race =</span> <span class="kw">length</span>(<span class="kw">unique</span>(race_ethnicity)), 
     <span class="dt">tmphispanic =</span> <span class="kw">length</span>(<span class="kw">which</span>(race_ethnicity == <span class="st">&quot;H&quot;</span>)))
 tempdf &lt;- <span class="kw">merge</span>(stuatt, nvals)
+<span class="co"># Clean up</span>
 <span class="kw">rm</span>(nvals)
+<span class="co"># Recode race_ethnicity</span>
 tempdf$race2 &lt;- tempdf$race_ethnicity
 tempdf$race2[tempdf$nvals_race &gt; <span class="dv">1</span> &amp; tempdf$tmphispanic == <span class="dv">1</span>] &lt;- <span class="st">&quot;H&quot;</span>
 tempdf$race2[tempdf$nvals_race &gt; <span class="dv">1</span> &amp; tempdf$tmphispanic != <span class="dv">1</span>] &lt;- <span class="st">&quot;M/O&quot;</span>
 tempdf$race_ethnicity &lt;- tempdf$race2
+
+<span class="co"># Clean up by removing old variables</span>
 tempdf$race2 &lt;- <span class="ot">NULL</span>
 tempdf$nvals_race &lt;- <span class="ot">NULL</span>
 tempdf$tmphispanic &lt;- <span class="ot">NULL</span>
+<span class="co"># Resort our result</span>
 tempdf &lt;- tempdf[<span class="kw">order</span>(tempdf$sid, tempdf$school_year), ]</code></pre>
 </div>
 <div class="section slide level1" id="compare-them">
 <h1>Compare them</h1>
-<pre><code>##         sid school_year birth_date
-## 56201     3        2006      11724
-## 56202     3        2006      11724
-## 81064  8552        2005      12334
-## 81065  8552        2006      12334
-## 81066  8552        2006      12334
-## 6162  11382        2005      13097
-## 6163  11382        2005      13097
-## 6164  11382        2006      13097</code></pre>
-<pre><code>##         sid school_year birth_date
-## 7         3        2006      11724
-## 8         3        2006      11724
-## 34290  8552        2005      12334
-## 34291  8552        2006      12334
-## 34292  8552        2006      12334
-## 45674 11382        2005      13097
-## 45675 11382        2005      13097
-## 45676 11382        2006      13097</code></pre>
+<pre><code>##         sid school_year race_ethnicity
+## 56201     3        2006              H
+## 56202     3        2006              H
+## 81064  8552        2005              W
+## 81065  8552        2006            M/O
+## 81066  8552        2006            M/O
+## 6162  11382        2005              H
+## 6163  11382        2005              H
+## 6164  11382        2006              H</code></pre>
+<pre><code>##         sid school_year race_ethnicity
+## 7         3        2006              H
+## 8         3        2006              B
+## 34290  8552        2005              W
+## 34291  8552        2006              A
+## 34292  8552        2006              W
+## 45674 11382        2005              H
+## 45675 11382        2005            M/O
+## 45676 11382        2006              H</code></pre>
 </div>
 <div class="section slide level1" id="ok">
 <h1>OK</h1>
@@ -438,14 +455,14 @@ tempdf$temp_ishispanic[tempdf$race_ethnicity == <span class="st">&quot;H&quot;</
 <li>So we are in the clear right?</li>
 <li>No, our data still has messiness across years:</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(stuatt[, <span class="dv">1</span>:<span class="dv">4</span>])</code></pre>
-<pre><code>##       sid school_year race_ethnicity birth_date
-## 1       1        2004              B      10869
-## 2       1        2005              H      10869
-## 3       1        2006              H      10869
-## 4       1        2007              H      10869
-## 44618   2        2006              W      11948
-## 44619   2        2007              B      11948</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(stuatt[, <span class="kw">c</span>(<span class="st">&quot;sid&quot;</span>, <span class="st">&quot;school_year&quot;</span>, <span class="st">&quot;race_ethnicity&quot;</span>)])</code></pre>
+<pre><code>##       sid school_year race_ethnicity
+## 1       1        2004              B
+## 2       1        2005              H
+## 3       1        2006              H
+## 4       1        2007              H
+## 44618   2        2006              W
+## 44619   2        2007              B</code></pre>
 <ul class="incremental">
 <li>Student 1 and 2 are both listed as black and hispanic at alternate times</li>
 </ul>
@@ -520,20 +537,14 @@ tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_yea
 ## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] plyr_1.7.1     knitr_0.7      sandwich_2.2-9 zoo_1.7-7     
-## [5] gridExtra_0.9  ggplot2_0.9.1 
+## [1] plyr_1.7.1 knitr_0.7 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] codetools_0.2-8    colorspace_1.1-1   dichromat_1.2-4   
-##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
-##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-19       
-## [10] memoise_0.1        munsell_0.3        proto_0.3-9.2     
-## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [16] stringr_0.6.1      tools_2.15.1      </code></pre>
+## [1] codetools_0.2-8 digest_0.5.2    evaluate_0.4.2  formatR_0.6    
+## [5] stringr_0.6.1   tools_2.15.1   </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

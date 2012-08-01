@@ -15,6 +15,7 @@ In this lesson we hope to learn:
 ```{r setup, include=FALSE}
 # set global chunk options
 opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg',size='tiny')
+options(width=70)
 library(plyr)
 ```
 
@@ -367,14 +368,14 @@ myag$spread<-as.factor(myag$spread)
 
 - Create a new variable in `myag` called `schoolperf` for `mean_math` scores with the following coding scheme:
 
-Grade|Score Range|Code
------|-----------|----
-3|>425|"Hi"
-4|>450|"Hi"
-5|>475|"Hi"
-6|>500|"Hi"
-7|>525|"Hi"
-8|>575|"Hi"
+Grade  Score Range   Code
+-----  -----------  ----
+3         >425      "Hi"
+4         >450      "Hi"
+5         >475      "Hi"
+6         >500      "Hi"
+7         >525      "Hi"
+8         >575      "Hi"
 
 - All other values are coded as "lo"
 - How many "hi" and "lo" observations do we have?
