@@ -1,5 +1,5 @@
 % Tutorial 8: Advanced Topics
-% R Bootcamp HTML Slides
+% DPI R Bootcamp 
 % Jared Knowles
 
 ```{r setuph, include=FALSE}
@@ -23,6 +23,7 @@ In this lesson we hope to learn:
 - Animations
 - Git, GitHub, and add-on packages
 
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 # Basic Principles
 - Good professional data analysis is computer programming
@@ -316,10 +317,12 @@ for (i in 10:30){
 # Git and GitHub
 - Working alone or in a group, `git` and GitHub can help
 - [Learn Git and GitHub](http://try.github.com/)
+- Just try GitHub for a project, it is a great way to organize code
+- Of course, you can find all these tutorials [on GitHub](http://www.github.com/jknowles/r_tutorial_ed)
 
 # Exercises 
-1.
-2.
+1. Enjoy R!!!!
+
 
 # References
 1. [Technical Report on Parallel Computing in R](http://dirk.eddelbuettel.com/papers/parallelR_techRep.pdf)

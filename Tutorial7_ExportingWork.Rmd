@@ -1,5 +1,5 @@
 % Tutorial 7: Exporting Your Work
-% R Bootcamp HTML Slides
+% DPI R Bootcamp
 % Jared Knowles
 
 ```{r setup, include=FALSE}
@@ -17,6 +17,8 @@ In this lesson we hope to learn:
 - Writing a basic report
 - Exporting graphics for use in other documents
 - Reproducible research
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 # Why does Export Matter?
 
@@ -234,6 +236,27 @@ knit("PATH/TO/myscript.Rmd",envir=new.env())
 knit2html("Path/To/Myscript.md")
 ```
 
+# Making the Report a Bit Prettier
+- A frustrating thing about R reports can be that they don't fit into our institutional reporting requirements
+- The HTML framework is simple, but doesn't give us much flexibility (we need LaTeX for total control)
+- But, with a bit of CSS hacking, we can get somewhere in between by pasting this at the head of our document
+
+```
+<style type="text/css">
+body, td {
+   font-size: 14px;
+}
+r.code{
+  font-size: 10px;
+}
+pre {
+  font-size: 10px
+}
+</style>
+
+```
+
+
 # Exporting a Single Plot
 - Sometimes we don't need to produce a whole report, but just save a particular plot and share it
 - We do this with the `dev` argument where `dev` is equivalent to the graphic type we want to export
@@ -329,6 +352,9 @@ print(xtable(table(df$ell,df$schid)),type='html')
 # References
 
 1. [How to Use knitr](http://yihui.name/knitr/)
+2. [CRAN Taskview: Reproducible Research](http://cran.r-project.org/web/views/ReproducibleResearch.html)
+3. [A Sweave Demo](http://users.stat.umn.edu/~geyer/Sweave/)
+4. [Donald Knuth on Literate Programming](http://www-cs-faculty.stanford.edu/~knuth/lp.html)
 
 
 # Session Info

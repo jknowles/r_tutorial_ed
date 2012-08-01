@@ -1,5 +1,5 @@
 % Tutorial 3: Manipulating Data in R
-% R Bootcamp HTML Slides
+% DPI R Bootcamp 
 % Jared Knowles
 
 # Overview
@@ -9,6 +9,7 @@ In this lesson we hope to learn:
 - Manipulating vectors
 - Dealing with missing data
 
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 ```{r setup, include=FALSE}
 # set global chunk options
@@ -194,7 +195,7 @@ z
 # plyr in Action
 
 ```{r plyr1}
-library(plyr)
+  library(plyr)
 myag<-ddply(df, .(dist,grade),summarize,
             mean_read=mean(readSS,na.rm=T),
             mean_math=mean(mathSS,na.rm=T),
@@ -571,10 +572,11 @@ identical(g4,g4_b)
 3. Find the highest proportion of black students in any school/grade/year combination.
 
 # Other References
-- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
 - [Quick-R: Data Management](http://www.statmethods.net/management/index.html)
 - [UCLA ATS: R FAQ on Data Management](http://www.ats.ucla.edu/stat/r/faq/default.htm)
 - [Video Tutorials](http://www.twotorials.com/)
+- [Quick-R: Sorting Data](http://www.ats.ucla.edu/stat/r/faq/sort.htm)
+- [UCLA R Data Sorting Tutorial](http://www.ats.ucla.edu/stat/r/faq/sort.htm)
 
 # Session Info
 

@@ -1,5 +1,5 @@
 % Tutorial 4: Cleaning and Merging Data
-% R Bootcamp HTML Slides
+% DPI R Bootcamp
 % Jared Knowles
 
 # Overview
@@ -9,6 +9,8 @@ In this lesson we hope to learn about:
 - Checking data for errors
 - Recoding data and changing data types
 - Diagnostics and error checks
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 ```{r setup, include=FALSE}
 # set global chunk options
@@ -358,6 +360,8 @@ tempdf<-task1(stuatt,stuatt$sid,stuatt$school_year,stuatt$race_ethnicity)
 
 # Exercises
 1. Sort `df` on `measerr` and `mathss`. What are the highest 5 values of each. 
+
+2. Complete the next part of the SDP toolkit!
 
 
 

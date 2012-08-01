@@ -1,5 +1,5 @@
 % Tutorial 1: Getting Started
-% R Bootcamp HTML Slides
+% DPI R Bootcamp
 % Jared Knowles
 
 ```{r setup, include=FALSE}
@@ -8,6 +8,14 @@ opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE
 # upload images automatically
 #opts_knit$set(upload.fun = imgur_upload)
 ```
+
+# Overview
+- What is R?
+- What is RStudio?
+- How does it work?
+- What makes the language different?
+- Why learn it?
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 # R
 - R is an Open Source (and freely available) environment for statistical computing and graphics
@@ -701,11 +709,12 @@ str(df[,25:32])
 
 
 # Exercises
+
 1. Create a matrix of 5x6 dimensions. Add a vector to it (as either a row or column). Identify element 2,3. 
 
 2. Read in the sample datafile. Find the `readSS` (reading scale score) for student 205 in grade 4. 
 
-3. 
+3. Create a list of two attributes for each district in the `df` datafile. 
 
 # Other References
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
@@ -716,7 +725,16 @@ str(df[,25:32])
 - [Google's R Style Guide](http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html)
 - [Hadley Wickham's R Style Guide](https://github.com/hadley/devtools/wiki/Style)
 - [JSM 2012 R Introduction by Jay Emerson](http://www.stat.yale.edu/~jay/JSM2012/PDFs/intro.pdf)
+- [Notes on R for Programmers by John Cook](http://www.johndcook.com/R_language_for_programmers.html)
 
+# Books
+- There are a number of great R books available for learning the beginnings of R and for learning specific statistical techniques
+- "Discovering Statistics Using R" by Andy Field
+- "Applied Econometrics with R" by Achim Zeileis and Christian Kleiber
+- "The Art of R Programming" by Norman Matloff
+- [The R Inferno](http://www.burns-stat.com/pages/Tutor/R_inferno.pdf)
+- The R Book by Michael J. Crawley (new version imminent)
+- The R Cookbook
 
 # Session Info
 

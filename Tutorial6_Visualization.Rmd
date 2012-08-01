@@ -1,5 +1,5 @@
 % Tutorial 6: Visualizations
-% R Bootcamp HTML Slides
+% DPI R Bootcamp
 % Jared Knowles
 
 ```{r setuph, include=FALSE}
@@ -18,6 +18,8 @@ In this lesson we hope to learn:
 - Basic geoms
 - Layering and faceting plots
 - Putting it together
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 ```{r setup, message=FALSE,warning=FALSE,echo=FALSE,comment=FALSE}
 load('data/smalldata.rda')
@@ -363,15 +365,20 @@ print(p2,vp=vp)
 
 # Exercises 
 
-1.
+1. Embed one plot in another plot in R using two different data elements from our data set. For example, plot a histogram of `readSS` inside a scatterplot of `readSS` and `mathSS`
 
-2.
+2. Explore some examples on the ggplot2 website. What are some ways to overlay more than 3 dimensions of data in a single plot?
+
+3. What types of data work best for what types of visualizations?
 
 # References
 1. [Hadley Wickham's JSM 2012 Presentation](http://www.stat.yale.edu/~jay/JSM2012/PDFs/ggplot2.pdf)
-2. [Hadley Wickam's GGPLOT2 Intro Presentation](http://had.co.nz/ggplot2/resources/2007-vanderbilt.pdf)
-3. [The GGPLOT2 Homepage](http://had.co.nz/ggplot2/)
-4. [GGPLOT2 Documentation](http://had.co.nz/ggplot2/docs)
+2. [Hadley Wickam's ggplot2 Intro Presentation](http://had.co.nz/ggplot2/resources/2007-vanderbilt.pdf)
+3. [The ggplot2 Homepage](http://had.co.nz/ggplot2/)
+4. [ggplot2 Documentation](http://had.co.nz/ggplot2/docs)
+5. [Quick R: Basic Graphs](http://www.statmethods.net/graphs/index.html)
+6. [Quick R: Advanced Graphs](http://www.statmethods.net/advgraphs/index.html)
+
 
 
 # Session Info

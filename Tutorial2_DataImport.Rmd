@@ -1,5 +1,5 @@
 % Tutorial 2: Getting Data In
-% R Bootcamp HTML Slides
+% DPI R Bootcamp
 % Jared Knowles
 
 # Overview
@@ -9,6 +9,8 @@
 - Load a CSV file
 - Organize an analysis project
 - Query a database
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 # A quick note on R `packages`
 - `packages` are essentially free and open source add-ons for R
@@ -44,6 +46,7 @@ update.packages() # Gonna update them all
   * Google "doing X in R package"
   * Look at CRAN taskviews
 - CRAN taskviews are great to find a bunch of packages related to a problem you are trying to solve
+- You can find [all CRAN taskviews here](http://cran.r-project.org/web/views/)
 
 # Some Must Have Packages
 `plyr` `ggplot2` `lme4` `sp` `knitr`
@@ -259,15 +262,18 @@ unique(messdf$disab)
 - Questions?
 
 # Exercises
-1.
-2.
-3. 
+
+1. Read in the CSV file from the T drive
+
+2. Read in the R data file from the T drive
+
+3. Think about your own data warehouse environment. Could R interface with it? How?
 
 # Other References
 - [UCLA Academic Technology Services: Reading in Raw Data](http://www.ats.ucla.edu/stat/r/pages/raw_data.htm)
-- [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
 - [Quick-R: Data Import](http://www.statmethods.net/input/importingdata.html)
 - [Video Tutorials](http://www.twotorials.com/)
+- [Long CRAN Manual on Data Import/Export](http://cran.r-project.org/doc/manuals/R-data.html)
 
 
 # Session Info

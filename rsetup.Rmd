@@ -1,5 +1,11 @@
 % Setting Up R
+% DPI R Bootcamp
 % Jared Knowles
+
+# Getting Ready for the DPI R Bootcamp
+- How to get up and running with R in no time!
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 # Materials
 - [Download R](http://cran.r-project.org/)

@@ -1,5 +1,5 @@
 % Tutorial 5: Analytics
-% R Bootcamp HTML Slides
+% DPI R Bootcamp 
 % Jared Knowles
 
 # Overview
@@ -8,6 +8,8 @@ In this lesson we hope to learn:
 - How to run basic statistical tests on a dataset
 - How to use formulas to build a statistical model
 - Analyze subsets of data
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 ```{r setup, include=FALSE}
 # set global chunk options
@@ -456,14 +458,21 @@ badidea<-lm(ss2~ss1+factor(school_id),data=midsch_sub)
 head(summary(blah))
 ```
 
+# Adjusting for Heteroskedasticity
+- We do this with the `sandwich` package, which allows us to manipulate the variance-covariance matrix and adjust our estimates of standard errors appropriately to correct for non-independence
 
 # Exercises
-1. 
-2. 
-3. 
+
+1. Test our new megamodel for heteroskedacticty. What do you find?
+
+2. Does `megamodel2` exhibit non-linearity? Can you fit a quantile regression model of this?
+
+3. Can you write a synthetic model with multiple variables? What does it look like?
 
 # Other References
 - [Video Tutorials](http://www.twotorials.com/)
+- [Quick R: Multiple Regression in R](http://www.statmethods.net/stats/regression.html)
+- [UCLA Regression Guide](http://www.ats.ucla.edu/stat/r/sk/books_pra.htm)
 
 
 # Session Info

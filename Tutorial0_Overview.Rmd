@@ -1,10 +1,12 @@
 % Overview of the Day
-% R Bootcamp HTML Slides
+% DPI R Bootcamp
 % Jared Knowles
 
 
 # Welcome
 Thanks for being here today and joining us in Madison Wisconsin for the first inaugural Wisconsin DPI R Bootcamp!
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
 # Outline
 We hope to move through the following topics in the next couple of days.
