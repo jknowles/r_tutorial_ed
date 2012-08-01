@@ -33,16 +33,17 @@ system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contain
 # Store this in the "handouts" subdirectory
 
 dir.create("handouts")
-knit("Tutorial0_Overview.Rmd",output="handouts/Tutorial0_handout.html")
-knit("Tutorial1_Intro.Rmd",output="handouts/Tutorial1_handout.html")
-knit("Tutorial2_DataImport.Rmd",output="handouts/Tutorial2_handout.html")
-knit("Tutorial3_DataSort.Rmd",output="handouts/Tutorial3_handout.html")
-knit("Tutorial4_CleaningData.Rmd",output="handouts/Tutorial4_handout.html")
-knit("Tutorial5_BasicAnalytics.Rmd",output="handouts/Tutorial5_handout.html")
-knit("Tutorial6_Visualization.Rmd",output="handouts/Tutorial6_handout.html")
-knit("Tutorial7_ExportingWork.Rmd",output="handouts/Tutorial7_handout.html")
-knit("Tutorial8_AdvancedTopics.Rmd",output="handouts/Tutorial8_handout.html")
-knit("rsetup.Rmd",output="handouts/settingupR_handout.html")
+opts_knit$set(self.contained=TRUE)
+knit2html("Tutorial0_Overview.Rmd",output="handouts/Tutorial0_handout.html",envir=new.env())
+knit2html("Tutorial1_Intro.Rmd",output="handouts/Tutorial1_handout.html",envir=new.env())
+knit2html("Tutorial2_DataImport.Rmd",output="handouts/Tutorial2_handout.html")
+knit2html("Tutorial3_DataSort.Rmd",output="handouts/Tutorial3_handout.html")
+knit2html("Tutorial4_CleaningData.Rmd",output="handouts/Tutorial4_handout.html")
+knit2html("Tutorial5_BasicAnalytics.Rmd",output="handouts/Tutorial5_handout.html")
+knit2html("Tutorial6_Visualization.Rmd",output="handouts/Tutorial6_handout.html")
+knit2html("Tutorial7_ExportingWork.Rmd",output="handouts/Tutorial7_handout.html")
+knit2html("Tutorial8_AdvancedTopics.Rmd",output="handouts/Tutorial8_handout.html")
+knit2html("rsetup.Rmd",output="handouts/settingupR_handout.html",envir=new.env())
 
 # PURL the Rmd files to extract the R code
 

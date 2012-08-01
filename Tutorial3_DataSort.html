@@ -328,13 +328,6 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
     <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, 
         <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS))
 <span class="kw">head</span>(myag)</code></pre>
-<pre><code>##   dist grade mean_read mean_math sd_read sd_math count_read count_math
-## 1  205     3     451.7     406.1   93.52   72.45        200        200
-## 2  205     4     438.9     459.9   77.76   79.10        100        100
-## 3  205     5     487.9     462.6   85.30   75.10        200        200
-## 4  205     6     514.7     526.8   76.83   66.04        100        100
-## 5  205     7     530.0     521.5   84.82   74.85        200        200
-## 6  205     8     575.5     581.2   79.58   83.45        100        100</code></pre>
 </div>
 <div class="section slide level1" id="more-plyr">
 <h1>More plyr</h1>
@@ -348,13 +341,6 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
     <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == 
         <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
 <span class="kw">summary</span>(myag[, <span class="dv">7</span>:<span class="dv">10</span>])</code></pre>
-<pre><code>##    count_read    count_math   count_black     per_black    
-##  Min.   :100   Min.   :100   Min.   :36.0   Min.   :0.360  
-##  1st Qu.:100   1st Qu.:100   1st Qu.:41.2   1st Qu.:0.386  
-##  Median :150   Median :150   Median :60.5   Median :0.412  
-##  Mean   :150   Mean   :150   Mean   :61.7   Mean   :0.411  
-##  3rd Qu.:200   3rd Qu.:200   3rd Qu.:82.0   3rd Qu.:0.439  
-##  Max.   :200   Max.   :200   Max.   :92.0   Max.   :0.480  </code></pre>
 </div>
 <div class="section slide level1" id="quick-check">
 <h1>Quick Check</h1>
@@ -374,14 +360,6 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
     <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == 
         <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
 <span class="kw">subset</span>(myag2, ell == <span class="dv">1</span> &amp; grade == <span class="dv">4</span>)</code></pre>
-<pre><code>##    dist grade ell mean_read mean_math sd_read sd_math count_read
-## 4   205     4   1     403.0     392.9   64.52   39.09         16
-## 16  402     4   1     443.1     388.7   79.52   53.28         29
-## 28  495     4   1     408.8     431.9   77.47   70.77         13
-##    count_math count_black per_black
-## 4          16           2   0.12500
-## 16         29           6   0.20690
-## 28         13           1   0.07692</code></pre>
 </div>
 <div class="section slide level1" id="sorting">
 <h1>Sorting</h1>
@@ -528,8 +506,6 @@ myag$spread[myag$sd_read &lt; <span class="dv">75</span>] &lt;- <span class="st"
 myag$spread[myag$sd_read &gt; <span class="dv">75</span>] &lt;- <span class="st">&quot;high&quot;</span>
 myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)
 <span class="kw">summary</span>(myag$spread)</code></pre>
-<pre><code>## high  low 
-##   15    3 </code></pre>
 </div>
 <div class="section slide level1" id="how-does-it-work">
 <h1>How does it work?</h1>
@@ -560,15 +536,8 @@ myag$schoolperf[myag$grade == <span class="dv">6</span> &amp; myag$mean_math &gt
 myag$schoolperf[myag$grade == <span class="dv">7</span> &amp; myag$mean_math &gt; <span class="dv">525</span>] &lt;- <span class="st">&quot;hi&quot;</span>
 myag$schoolperf[myag$grade == <span class="dv">8</span> &amp; myag$mean_math &gt; <span class="dv">575</span>] &lt;- <span class="st">&quot;hi&quot;</span>
 myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
-<span class="kw">summary</span>(myag$schoolperf)</code></pre>
-<pre><code>## hi lo 
-##  9  9 </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(myag$dist, myag$schoolperf)</code></pre>
-<pre><code>##      
-##       hi lo
-##   205  3  3
-##   402  3  3
-##   495  3  3</code></pre>
+<span class="kw">summary</span>(myag$schoolperf)
+<span class="kw">table</span>(myag$dist, myag$schoolperf)</code></pre>
 </div>
 <div class="section slide level1" id="lets-replace-data">
 <h1>Let’s replace data</h1>
@@ -577,18 +546,12 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
-<pre><code>##   dist grade mean_read mean_math
-## 1  205     3     451.7     406.1
-## 2  205     4     438.9     459.9</code></pre>
 <ul class="incremental">
 <li>Let’s replace one data element with another</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- myag$mean_read[myag$dist == 
     <span class="dv">6</span> &amp; myag$grade == <span class="dv">4</span>]
 <span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
-<pre><code>##   dist grade mean_read mean_math
-## 1  205     3     451.7     406.1
-## 2  205     4     438.9     459.9</code></pre>
 <ul class="incremental">
 <li>Voila</li>
 </ul>
@@ -600,31 +563,20 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">head</span>(myag[<span class="kw">order</span>(myag$grade), <span class="dv">1</span>:<span class="dv">4</span>])</code></pre>
-<pre><code>##    dist grade mean_read mean_math
-## 1   205     3        NA     406.1
-## 7   402     3        NA     431.9
-## 13  495     3        NA     405.5
-## 2   205     4     438.9     459.9
-## 8   402     4     474.9     432.8
-## 14  495     4     447.8     469.1</code></pre>
 </div>
 <div class="section slide level1" id="nas-ii">
 <h1>NAs II</h1>
 <ul class="incremental">
 <li>Now let’s calculate a few statistics:</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math)</code></pre>
-<pre><code>## [1] 490.7</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_read)</code></pre>
-<pre><code>## [1] NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math)
+<span class="kw">mean</span>(myag$mean_read)</code></pre>
 <ul class="incremental">
 <li>Remember, NA values propogate, so R assumes an NA value could take literally any value, and as such it is impossible to know the <code>mean</code> of a vector with NA</li>
 <li>We can override this though:</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math, <span class="dt">na.rm =</span> T)</code></pre>
-<pre><code>## [1] 490.7</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_read, <span class="dt">na.rm =</span> T)</code></pre>
-<pre><code>## [1] 507.5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math, <span class="dt">na.rm =</span> T)
+<span class="kw">mean</span>(myag$mean_read, <span class="dt">na.rm =</span> T)</code></pre>
 </div>
 <div class="section slide level1" id="beyond-the-mean">
 <h1>Beyond the Mean</h1>
@@ -632,17 +584,13 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>But for other problems it is tricky</li>
 <li>What if we want to know the number of rows that have a <code>mean_read</code> of less than 500?</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$dist[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
-<pre><code>## [1] 10</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
-<pre><code>## [1]    NA 438.9 487.9    NA 474.9 472.5</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$dist[myag$mean_read &lt; <span class="dv">500</span>])
+<span class="kw">head</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
 <ul class="incremental">
 <li>And what if we want to add the standard deviation to these vectors?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">badvar &lt;- myag$mean_read + myag$sd_read
 <span class="kw">summary</span>(badvar)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##     517     566     592     587     614     655       3 </code></pre>
 </div>
 <div class="section slide level1" id="so-we-need-to-filter-nas-explicitly">
 <h1>So we need to filter NAs explicitly</h1>
@@ -650,10 +598,8 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>Consider the case where two sets of variables have different missing elements</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$sd_read[myag$count_read &lt; <span class="dv">100</span> &amp; myag$mean_read &lt; <span class="dv">550</span>] &lt;- <span class="ot">NA</span>
-<span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span>])</code></pre>
-<pre><code>## [1] 16</code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span> &amp; !<span class="kw">is.na</span>(myag$mean_read)])</code></pre>
-<pre><code>## [1] 13</code></pre>
+<span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span>])
+<span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span> &amp; !<span class="kw">is.na</span>(myag$mean_read)])</code></pre>
 <ul class="incremental">
 <li>What is <code>!is.na()</code> ?</li>
 <li><code>is.na()</code> is a helpful function to identify TRUE if a value is missing</li>
@@ -676,11 +622,8 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>We have two data objects <code>df</code> which has multiple rows per student and <code>myag</code> which has multiple rows per school</li>
 <li>What are the variables that <strong>link</strong> these two together?</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myag)</code></pre>
-<pre><code>##  [1] &quot;dist&quot;        &quot;grade&quot;       &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;    
-##  [6] &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
-## [11] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df[, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>)])</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myag)
+<span class="kw">names</span>(df[, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>)])</code></pre>
 <pre><code>## [1] &quot;school&quot; &quot;stuid&quot;  &quot;grade&quot;  &quot;dist&quot;  </code></pre>
 <ul class="incremental">
 <li>It looks like <code>dist</code> and <code>grade</code> are in common. Is this ok?</li>
@@ -696,15 +639,6 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">simple_merge &lt;- <span class="kw">merge</span>(df, myag)
 <span class="kw">names</span>(simple_merge)</code></pre>
-<pre><code>##  [1] &quot;grade&quot;       &quot;dist&quot;        &quot;X&quot;           &quot;school&quot;      &quot;stuid&quot;      
-##  [6] &quot;schid&quot;       &quot;white&quot;       &quot;black&quot;       &quot;hisp&quot;        &quot;indian&quot;     
-## [11] &quot;asian&quot;       &quot;econ&quot;        &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;      
-## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
-## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
-## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
-## [31] &quot;proflvl&quot;     &quot;race&quot;        &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;    
-## [36] &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
-## [41] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
 <ul class="incremental">
 <li>It looks like it did a good job</li>
 </ul>
@@ -850,20 +784,25 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 ## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] splines   grid      stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
 ## 
 ## other attached packages:
-## [1] plyr_1.7.1     knitr_0.7      sandwich_2.2-9 zoo_1.7-7     
-## [5] gridExtra_0.9  ggplot2_0.9.1 
+##  [1] lme4_0.999999-0  Matrix_1.0-6     caret_5.15-023   foreach_1.4.0   
+##  [5] cluster_1.14.2   reshape_0.8.4    gbm_1.6-3.2      lattice_0.20-6  
+##  [9] snow_0.3-10      R2SWF_0.4        xtable_1.7-0     stringr_0.6.1   
+## [13] Hmisc_3.9-3      survival_2.36-14 quantreg_4.81    SparseM_0.96    
+## [17] lmtest_0.9-30    mgcv_1.7-19      plyr_1.7.1       knitr_0.7       
+## [21] sandwich_2.2-9   zoo_1.7-7        gridExtra_0.9    ggplot2_0.9.1   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
-##  [7] lattice_0.20-6     MASS_7.3-19        memoise_0.1       
-## [10] munsell_0.3        proto_0.3-9.2      RColorBrewer_1.0-5
-## [13] reshape2_1.2.1     scales_0.2.1       stringr_0.6.1     
-## [16] tools_2.15.1      </code></pre>
+##  [1] codetools_0.2-8    colorspace_1.1-1   dichromat_1.2-4   
+##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
+##  [7] iterators_1.0.6    labeling_0.1       markdown_0.5.2    
+## [10] MASS_7.3-19        memoise_0.1        munsell_0.3       
+## [13] nlme_3.1-104       proto_0.3-9.2      RColorBrewer_1.0-5
+## [16] RCurl_1.91-1.1     reshape2_1.2.1     scales_0.2.1      
+## [19] stats4_2.15.1      tools_2.15.1      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

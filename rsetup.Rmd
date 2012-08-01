@@ -38,6 +38,7 @@ First, watch this tutorial<br>
 
 # Install Packages (2)
 - Now, copy and paste the code below into the bottom left window in RStudio (the R terminal):
+
 ```{r, eval=FALSE,echo=TRUE}
 install_new<-function(mypkg){
   if (mypkg %in% installed.packages()) cat("Package already installed")
@@ -74,6 +75,7 @@ install.packages(c('plyr','lmtest','ggplot2','gridExtra','stringr','knitr','quan
 # Run RStudio
 - You should be able to run RStudio now and load any of the packages above.
 - Run the code below in the RStudio terminal window (bottom left) to test this:
+
 ```{r eval=FALSE,echo=TRUE}
 library(lmtest)
 example(gqtest)
@@ -95,6 +97,7 @@ qplot(sample=y,stat="qq")
 
 # Results
 ```{r,echo=TRUE,fig.width=9,fig.height=6}
+
 library(ggplot2)
 y<-rt(200,df=5)
 qplot(sample=y,stat="qq")
@@ -108,11 +111,10 @@ qplot(sample=y,stat="qq")
 See you on August 2nd and 3rd to find out how to go from these basic steps to using R to learn from your data. Can't wait to see you in Madison!
 
 # Attribution and License
+
 <p xmlns:dct="http://purl.org/dc/terms/">
 <a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
-<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
-     style="border-style: none;" alt="Public Domain Mark" />
-</a>
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"  style="border-style: none;" alt="Public Domain Mark" /> </a>
 <br />
 This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
 </p>
