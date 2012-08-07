@@ -96,7 +96,7 @@ qplot(carat,price,data=diamonds,alpha=I(.3),color=clarity)
 # Converting the Script
 - This happens in two steps to make an HTML file
 
-```{r spinr}
+```{r spinr,eval=FALSE}
 o<-spin("C:/Path/To/myscript.R",knit=FALSE)
 knit2html(o,envir=new.env())
 ```
@@ -191,7 +191,7 @@ stitch('PATH/TO/MY/SCRIPT')
 
 # A quick example
 
-```
+```{r, eval=FALSE,echo=TRUE}
 # Start .Rmd file on next line
 My Super Report on Student Testing
 ------------------------------------
@@ -224,6 +224,7 @@ print(xtable(summary(mymod)),type='html')
 
 And because I am awesome, I'm done.
 ```
+
 # Check for Understanding
 - Paste the text into a .Rmd file
 - Delete the first line

@@ -228,20 +228,20 @@ qplot(factor(grade),readSS,data=df[1:100,],color=dist,geom='jitter',size=I(3.2))
 
 - One concern is discrete v. continuous variables
 
-Aesthetic | Discrete | Continuous
-----------| -------- | ----------
-Color     | Disparate colors | Sequential or divergent colors
-Size      | Unique size for each value | linear or logrithmic mapping to radius of value
-Shape     | A shape for each value | **does not make sense**
+Aesthetic   Discrete   Continuous
+----------  --------  -----------
+Color       Disparate colors   Sequential or divergent colors
+Size        Unique size for each value  linear or logrithmic mapping to radius of value
+Shape       A shape for each value  **does not make sense**
 
 # Another is ordered v. unordered
 
 
-Aesthetic | Ordered | Unordered
-----------| -------- | ----------
-Color     | Sequential or divergent colors | Rainbow
-Size      | Increasing or decreasing radius | **does not make sense**
-Shape     | **does not make sense** | A shape for each value
+Aesthetic   Ordered   Unordered
+----------  --------  ----------
+Color       Sequential or divergent colors   Rainbow
+Size        Increasing or decreasing radius   **does not make sense**
+Shape       **does not make sense**   A shape for each value
 
 
 

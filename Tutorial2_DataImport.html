@@ -374,13 +374,13 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(messdf[, <span class="kw">c</span>(<span class="st">&quot;stuid&quot;</span>, <span class="st">&quot;readSS&quot;</span>, <span class="st">&quot;mathSS&quot;</span>)])</code></pre>
 <pre><code>##      stuid            readSS        mathSS   
-##  Min.   :   205   Min.   :252   Min.   :210  
-##  1st Qu.: 44205   1st Qu.:431   1st Qu.:419  
-##  Median : 88205   Median :496   Median :480  
+##  Min.   :   205   Min.   :252   Min.   :234  
+##  1st Qu.: 44205   1st Qu.:431   1st Qu.:421  
+##  Median : 88205   Median :496   Median :481  
 ##  Mean   : 99229   Mean   :497   Mean   :484  
-##  3rd Qu.:132205   3rd Qu.:564   3rd Qu.:542  
+##  3rd Qu.:132205   3rd Qu.:563   3rd Qu.:544  
 ##  Max.   :324953   Max.   :833   Max.   :828  
-##                   NA's   :214   NA's   :276  </code></pre>
+##                   NA's   :222   NA's   :273  </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(messdf[!<span class="kw">complete.cases</span>(messdf), ])  <span class="co"># number of rows with missing data</span></code></pre>
 <pre><code>## [1] 467</code></pre>
 <ul class="incremental">
@@ -480,23 +480,22 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 <p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: i386-pc-mingw32/i386 (32-bit)
+## Platform: x86_64-pc-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] plyr_1.7.1     Cairo_1.5-1    mgcv_1.7-19    hexbin_1.26.0 
-## [5] lattice_0.20-6 ggplot2_0.9.1  knitr_0.7     
+## [1] mgcv_1.7-19   ggplot2_0.9.1 knitr_0.7    
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        labeling_0.1      
-##  [7] MASS_7.3-19        Matrix_1.0-6       memoise_0.1       
-## [10] munsell_0.3        nlme_3.1-104       proto_0.3-9.2     
-## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
-## [16] stringr_0.6.1      tools_2.15.1      </code></pre>
+##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.1       
+##  [7] labeling_0.1       lattice_0.20-6     MASS_7.3-19       
+## [10] Matrix_1.0-6       memoise_0.1        munsell_0.3       
+## [13] nlme_3.1-104       plyr_1.7.1         proto_0.3-9.2     
+## [16] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.1      
+## [19] stringr_0.6.1      tools_2.15.1      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>
