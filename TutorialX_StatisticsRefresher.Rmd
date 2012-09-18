@@ -2,6 +2,11 @@
 % R Bootcamp HTML Slides
 % Jared Knowles
 
+```{r loading, include=FALSE}
+library(ggplot2)
+
+```
+
 # Introduction
 We will review the following statistical concepts here through the lens of R:
 
@@ -13,4 +18,21 @@ We will review the following statistical concepts here through the lens of R:
 - Univariate Regression
 - Multivariate Regression
 - Causality
+
+# Describing Data
+- At it's most basic level, statistics is about summarizing and understanding data
+- Data are themselves abstractions of real world concepts we care about
+- 
+
+
+# Spread of the Data
+- Data spread describes how scattered a data set is
+- Consider the two plots below:
+
+```{r varianceplot}
+qplot(wt,mpg,data=mtcars)
+
+qplot(mpg,data=mtcars)
+qplot(wt,data=mtcars)
+```
 
