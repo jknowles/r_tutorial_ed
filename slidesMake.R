@@ -13,6 +13,8 @@ knit("Tutorial6_Visualization.Rmd",envir=new.env())
 knit("Tutorial7_ExportingWork.Rmd",envir=new.env())
 knit("Tutorial8_AdvancedTopics.Rmd",envir=new.env())
 knit("rsetup.Rmd",envir=new.env())
+knit("TutorialX_StatisticsRefresher.Rmd",envir=new.env())
+
 
 # We need pandoc installed
 # This part allows pandoc to do the work of taking the md files
@@ -27,7 +29,9 @@ system("pandoc -s -S -i -t slidy Tutorial5_BasicAnalytics.md -o Tutorial5_BasicA
 system("pandoc -s -S -i -t slidy Tutorial6_Visualization.md -o Tutorial6_Visualization.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial7_ExportingWork.md -o Tutorial7_ExportingWork.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial8_AdvancedTopics.md -o Tutorial8_AdvancedTopics.html --self-contained")
+system("pandoc -s -S -i -t slidy TutorialX_StatisticsRefresher.md -o TutorialX_StatisticsRefresher.html --self-contained")
 system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
+
 
 # Make a notes sheet by knitting to HTML, but not converting it to slides
 # Store this in the "handouts" subdirectory
@@ -44,6 +48,7 @@ knit2html("Tutorial6_Visualization.Rmd",output="handouts/Tutorial6_handout.html"
 knit2html("Tutorial7_ExportingWork.Rmd",output="handouts/Tutorial7_handout.html")
 knit2html("Tutorial8_AdvancedTopics.Rmd",output="handouts/Tutorial8_handout.html")
 knit2html("rsetup.Rmd",output="handouts/settingupR_handout.html",envir=new.env())
+knit2html("TutorialX_StatisticsRefresher.Rmd",output="handouts/TutorialX_handout.html")
 
 # PURL the Rmd files to extract the R code
 
@@ -58,4 +63,6 @@ purl("Tutorial6_Visualization.Rmd",output="handouts/scripts/Tutorial6.R")
 purl("Tutorial7_ExportingWork.Rmd",output="handouts/scripts/Tutorial7.R")
 purl("Tutorial8_AdvancedTopics.Rmd",output="handouts/scripts/Tutorial8.R")
 purl("rsetup.Rmd",output="handouts/scripts/settingupR.R")
+purl("TutorialX_StatisticsRefresher.Rmd",output="handouts/scripts/TutorialX.R")
+
 

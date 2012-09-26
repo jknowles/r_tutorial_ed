@@ -4,7 +4,8 @@
 
 ```{r loading, include=FALSE}
 library(ggplot2)
-
+opts_knit$get(animation.fun = hook_scianimator)
+opts_chunk$set(fig.path='figure/slidesX-', cache.path='cache/slidesX-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='600px',out.height='350px')
 ```
 
 # Introduction
@@ -27,12 +28,120 @@ We will review the following statistical concepts here through the lens of R:
 
 # Spread of the Data
 - Data spread describes how scattered a data set is
-- Consider the two plots below:
+- One type of data, categorical data, describes groups
 
-```{r varianceplot}
-qplot(wt,mpg,data=mtcars)
-
-qplot(mpg,data=mtcars)
-qplot(wt,data=mtcars)
+```{r barplot}
+qplot(factor(cyl),data=mtcars)+labs(x='cylinder',title='Car models by Cylinder Count')
 ```
+
+- What can we learn here?
+
+# Let's try another
+- What can we learn from this chart type about the data?
+
+```{r diamondplot}
+data(diamonds)
+qplot(factor(cut),data=diamonds)+labs(x='Cut',title='Diamonds by Cut Quality')
+```
+
+- What else might we want to learn?
+
+# How about?
+
+```{r diamondplot2}
+qplot(factor(color),data=diamonds)+labs(x='Color',title='Diamonds by Color and Clarity')+
+  facet_wrap(~clarity,nrow=2)
+```
+
+# Still more
+- With diamonds we immediately want to look at price
+
+```{r diamondplot3}
+qplot(carat,price,data=diamonds,color=color)+geom_smooth(aes(group=1))
+```
+- What do you see?
+- Outliers?
+- Data modes?
+- Clusters?
+
+# Graphical Depictions of Data
+- These are ways to show data with graphics
+- Graphical displays are driven by the concept of dimensions
+- One dimension--a single category
+- Two dimensions--two categories
+
+# Levels of Measurement
+- Any given dimension may be measured at different [levels of measure](http://en.wikipedia.org/wiki/Level_of_measurement)
+- Nominal: unordered categories of data
+- Ordinal: ordered categories of data, relative size and degree of difference between categories is unknown
+- Interval: ordered categories of data, fixed width, like discrete temperature scales
+- Continuous (ratio): a measurement scale in a continuous space with a meaningful zero--physical measurements
+- Derived by Stanley Smith Stevens in the 1940s and 50s
+
+# Quiz 1
+- Car color is what level of measurement?
+- 
+
+# Levels of measurement matter
+- How you depict the data
+- What you can calculate using the data
+
+
+# Describing Data with Numbers
+- What types of measures can we use to describe different levels of measurement?
+
+Level of Meas.  | Stats
+------------- | -------------
+Nominal       | mode, Chi-squared
+Ordinal       | median, percentile, (plus above)
+Interval      | mean, standard deviation, correlation, ANOVA, plus above
+Continuous    | geometric mean, harmonic mean, coefficient of variation, logarithms, plus above
+
+# Let's talk about these statistics
+- **STATISTIC:** a single measure of some attribute of a sample (e.g. its arithmetic mean value). It is calculated by applying a function (statistical algorithm) to the values of the items comprising the sample which are known together as a set of data. (Wikipedia)[http://en.wikipedia.org/wiki/Statistic]
+- These statistics can measure a number of features of a dataset, but we tend to think of them as measuring either **central tendency**, **spread**, or **association**
+- We'll focus on these today.
+
+# Measures of Central Tendency
+- These are the three canonical measures of central tendency:
+  * Mean
+  * Median
+  * Mode
+- How are these different? What properties do they have? Why does this matter?
+
+```{r centraltend}
+qplot(hwy,data=mpg,geom='density')+geom_vline(xintercept=median(mpg$hwy),color=I("blue"),size=I(1.1))+
+  geom_vline(xintercept=mean(mpg$hwy),color=I("gold"),size=I(1.1))+
+  geom_vline(xintercept=26,color=I("orange"),size=I(1.1))+
+  geom_text(aes(x=median(mpg$hwy)+1.5,y=0.08,label="Median"),size=I(4.5))+
+  geom_text(aes(x=mean(mpg$hwy)-1.5,y=0.06,label="Mean"),size=I(4.5))+
+  geom_text(aes(x=26+1.5,y=0.05,label="Mode"),size=I(4.5))
+```
+
+```{r mpgtable}
+library(xtable)
+print(xtable(table(mpg$hwy)),type="html")
+```
+
+# Session Info
+
+It is good to include the session info, e.g. this document is produced with **knitr** version `r packageVersion('knitr')`. Here is my session info:
+
+```{r session-info}
+print(sessionInfo(), locale=FALSE)
+```
+
+
+# Attribution and License
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
+<img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
+     style="border-style: none;" alt="Public Domain Mark" />
+</a>
+<br />
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>
+
+
+
 
