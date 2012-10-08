@@ -90,12 +90,12 @@ qplot(carat,price,data=diamonds,color=color)+geom_smooth(aes(group=1))
 # Describing Data with Numbers
 - What types of measures can we use to describe different levels of measurement?
 
-Level of Meas.  | Stats
-------------- | -------------
-Nominal       | mode, Chi-squared
-Ordinal       | median, percentile, (plus above)
-Interval      | mean, standard deviation, correlation, ANOVA, plus above
-Continuous    | geometric mean, harmonic mean, coefficient of variation, logarithms, plus above
+Level of Meas.    Stats
+----------------- ------------------------------------------
+Nominal           mode, Chi-squared
+Ordinal           median, percentile, (plus above)
+Interval          mean, standard deviation, correlation, ANOVA, plus above
+Continuous        geometric mean, harmonic mean, coefficient of variation, logarithms, plus above
 
 # Let's talk about these statistics
 - **STATISTIC:** a single measure of some attribute of a sample (e.g. its arithmetic mean value). It is calculated by applying a function (statistical algorithm) to the values of the items comprising the sample which are known together as a set of data. (Wikipedia)[http://en.wikipedia.org/wiki/Statistic]
@@ -118,10 +118,46 @@ qplot(hwy,data=mpg,geom='density')+geom_vline(xintercept=median(mpg$hwy),color=I
   geom_text(aes(x=26+1.5,y=0.05,label="Mode"),size=I(4.5))
 ```
 
-```{r mpgtable}
+```{r mpgtable,results='asis'}
 library(xtable)
 print(xtable(table(mpg$hwy)),type="html")
 ```
+
+# The Mean
+- Commonly thought of as the average
+- Add up all the values, divide by the number of observations
+- 2 + 6 + 3 + 9 + 1 = 21 
+- Divide by 5 
+- 4.2
+- The mean is sensitive to the number of observations and the spread of the data
+
+# Chart
+<p align="center"><img src="figure/scatterplot_mean.gif" height="600" width="800"></p>
+
+# The Median
+- This is a measure of the value the middle observation takes
+- Order the data: 1 2 3 6 9 ; get the length (5)
+- Count (length / 2) + 1 in this case, the 3rd observation = 3
+- What if we add another number?
+- 1 2 3 6 9 13
+- Count (length /2) from each side and average the two observations that remain
+- 3 + 6 = 9
+- 9/2 = 4.5
+- The median is sensitive to the spread of the data
+
+# The Mode
+- The most common value in a dataset
+
+# Measures of spread
+- Quantiles, standard deviation
+
+# Quartiles
+- Blah
+
+# Standard Deviation
+- Blah
+
+# Distributions of Data
 
 # Session Info
 
