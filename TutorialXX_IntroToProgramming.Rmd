@@ -16,10 +16,100 @@ In this session we will be learning a little about what computer programming is 
 * Algorithms
 * 
 
+# What is a programming language?
+- "A language intended for use by a person to express a process by which a computer can solve a problem" ~ Hope and Jiping
+- "A set of conventions for communicating an algorithm" ~ E. Horowitz
+- "the art of programming is the art of organizing complexity" ~ Dijkstra 1972
 
-# References
+# History (Ancient)
+- 300 BC -- First algorithm developed by Euclid (greatest common divisor)
+- 1820-1850 -- Charles Babbage invents mechanical computational devices
+  * Difference Engine
+  * Analytical Engine
+  * Countess Ada Augusta of Lovelace, first computer programmer
+  * Wrote the first algorithm to be processed by the Analytical Engine, to compute Bernoulli numbers
+  * Only legitimate child of Lord Byron
+
+# History (less ancient)
+- 1940s -- ENIAC developed to calculate trajectories by US DOD
+- 1950s -- First high level programming language invented
+  * John Backus
+  * Fortran (R is based on this)
+  * For punch card machines, to compute on numerical data
+- 1956-1962 -- John McCarthy deveops LISP
+  * Developed for non-numerical computation
+  * Has garbage collection for memory management
+- 1974 -- C developed at Bell Labs
+  * D. Ritchie
+  * Still heavily used today (in R)
+  
+# History (recent)
+- 1985 -- C++ developed at Bell Labs by Bjorne Stroustrup
+  * type-safe object oriented language
+  * compile-time type checking
+- 1995 -- Java developed by J. Gosling at SUN
+  * Widely used across the web today
+  * Portability across platform through use of abstract machine that implements language 
+
+# HistoRy
+- R plays nicely with many of these languages including Python, C++, Java, and of course C and Fortran
 - 
 
+
+# Basic Principles
+- A computer program (or software) is: 
+  * A set of instructions which a computer can interpret to solve problems, make calculations, perform tasks
+- A programming language is: 
+  * A formal "language" that humans use to write programs that computers can understand
+- An algorithm is: 
+  * A precise set of instructions for solving a particular type of problem
+  * Classic example is "Peanut Butter and Jelly Sandwich (PBJS) Algorithm"
+  
+# Programs and Algorithms
+  - A computer program is the specific set of instructions that tells the hardward how to complete a particular algorithm
+  - Different instructions can use different methods (mathematically equivalent) to reach the same end
+  - 2+2 = 4
+  - 2/1 + 2/1 = 4/1
+  
+# Algorithms
+  - Conceptual and can be written in *psuedo code* (if this, then this)
+  - Or as flow charts
+  
+# Models
+- A model is an abstract (usually simplified) representation of something
+  * Formulas that model physical processes
+  * A line representing a trend in a data
+  * Musical notation as a model of a song
+- Computer programs interact with models to test scientific theories, processes, events, finance, games, etc.
+
+# Desired Features
+- Readable
+  * Comments
+  * Names
+  * Syntax
+- Simple to learn
+  * A small number of concepts combine regularly without exceptions
+- Portable
+  * Standard across architectures
+- Abstraction
+  * Control and data structures that hide detail
+- Efficient
+
+# Compilation vs. Interpretation
+- Compiled languages are translated into machine executable language
+- Interpreted languages have programs translated and executed one step at a time by a "virtual machine"
+
+# Syntax and Rules
+
+# Formalization
+- Syntax and grammar of computer program languages force us to specify what we want the computer to do very carefully
+- Example: Calculate the mean reading score for a school
+- Use words to explain how the computer should do this?
+
+# References
+- http://nlp.cs.nyu.edu/meyers/V22.0002/class%20slide%20pdfs/Intro-talk.pdf
+- http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf
+- http://www.python.org/doc/essays/cp4e.html
 
 # Session Info
 
