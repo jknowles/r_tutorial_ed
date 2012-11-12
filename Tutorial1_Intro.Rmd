@@ -151,6 +151,7 @@ Usage of the R listserv for help has really exploded recently
 - Let's see, type: `?summary`
 - Now type: `??regression`
 - For tricky questions, funky error messages (there are many), and other issues, use Google (include "in R" to the end of your query)
+- We can also use [RSeek](http://www.rseek.org/)--the search engine just for R!
 - StackOverflow has become a great resource with many questions for many specific packages in R, and a rating system for answers
 - A number of R Core members contribute there
 - Sometimes R Help can be a bit prickly and unfriendly...
@@ -260,8 +261,6 @@ print(A)
 - If you ever need two elements in a vector, you need to wrap it up in `c`, which is one of the most used functions you will ever use
 - `c` is important to put numeric, character, factor, or any other type of data together
 
-
-
 # Language
 - In language there are a number of ways to say the same thing
   *  <font color="green">The dog chased the cat.</font> 
@@ -289,22 +288,9 @@ identical(c,d) # Test equality
   * R has multiple packages and functions to do the same analysis as well, though some standardization has started to occur
   * Be flexible and be aware of R's flexibility
   
-# Reading Data In
-- To read data in we have to tell R where it currently is on the filesystem by setting a working directory
-- Then we have to tell it where to look for the dataset and what format that dataset is in
-- CSV files are **simplest** for beginning use cases, but R is flexible `load("data/smalldata.rda")`
+
 ```{r eval=TRUE,echo=FALSE}
 load("data/smalldata.rda")
-```
-
-```{r eval=FALSE}
-# Set working directory to the tutorial director
-# In RStudio can do this in "Tools" tab
-setwd('~/r_tutorial_ed')
-#Load some data
-df<-read.csv('data/smalldata.csv')
-# Note if we don't assign data to 'df'
-# R just prints contents of table
 ```
 
 # Objects
@@ -744,9 +730,9 @@ str(df[ ,25:32])
 
 1. Create a matrix of 5x6 dimensions. Add a vector to it (as either a row or column). Identify element 2,3. 
 
-2. Read in the sample datafile. Find the `readSS` (reading scale score) for student 205 in grade 4. 
+2. Convert the matrix to a data frame.
 
-3. Create a list of two attributes for each district in the `df` datafile. 
+3. Look at the difference between data frames and matrices.
 
 # Other References
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)

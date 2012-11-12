@@ -21,6 +21,15 @@
 # Installing R on Windows
 <p align='center'><iframe src="http://www.screenr.com/embed/kzT8" width="650" height="396" frameborder="0"></iframe></p>
 
+# Installing R on a Mac
+- Get the install file from [CRAN](http://cran.r-project.org/bin/macosx/)
+- Get [RStudio](http://www.rstudio.org/) 
+- Run the R installer, and then run the RStudio installer
+
+# Installing R on Ubuntu or Debian Linux
+- Read the [install notes online](http://cran.r-project.org/bin/linux/ubuntu/README)
+- Get [RStudio](http://www.rstudio.org/) 
+- Run the R installer, and then run the RStudio installer
 
 # Step 2: RStudio
 - Now run the RStudio installer
@@ -51,15 +60,12 @@ install_new<-function(mypkg){
 install_new('plyr')
 install_new('lmtest')
 install_new('ggplot2')
-install_new('gridExtra')
+install_new('eeptools')
 install_new('stringr')
 install_new('knitr')
 install_new('quantreg')
-install_new('zoo')
-install_new('devtools')
 install_new('xtable')
 install_new('lme4')
-install_new('R2SWF')
 install_new('caret')
 
 ```
@@ -68,7 +74,7 @@ install_new('caret')
 - If you want or if you have troubles with the above, you can overwrite any existing versions of those packages and do the install in one line, shown below:
 
 ```{r eval=FALSE,echo=TRUE}
-install.packages(c('plyr','lmtest','ggplot2','gridExtra','stringr','knitr','quantreg','zoo','devtools'),repos="http://cran.wustl.edu/")
+install.packages(c('plyr','lmtest','ggplot2','gridExtra','stringr','knitr','quantreg','xtable','lme4','eeptools','caret'),repos="http://cran.wustl.edu/")
 ```
 ```
 
@@ -108,7 +114,7 @@ qplot(sample=y,stat="qq")
 - Did you see the plot in the lower right? 
 
 # You are ready to go!
-See you on August 2nd and 3rd to find out how to go from these basic steps to using R to learn from your data. Can't wait to see you in Madison!
+See you on December 3rd to the 5th to find out how to go from these basic steps to using R to learn from your data. Can't wait to see you in Madison!
 
 # Attribution and License
 
