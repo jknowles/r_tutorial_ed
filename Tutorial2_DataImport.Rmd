@@ -301,7 +301,11 @@ unique(messdf$disab)
 
 2. Read in the R data file from the T drive
 
-3. Think about your own data warehouse environment. Could R interface with it? How?
+3. Read in the sample datafile. Find the `readSS` (reading scale score) for student 205 in grade 4. 
+
+4. Create a list of two attributes for each district in the `df` datafile. 
+
+5. Think about your own data warehouse environment. Could R interface with it? How?
 
 # Other References
 - [UCLA Academic Technology Services: Reading in Raw Data](http://www.ats.ucla.edu/stat/r/pages/raw_data.htm)

@@ -21,7 +21,7 @@ We hope to move through the following topics in the next couple of days.
 - Writing Functions, Advanced Analytics, and other topics
 
 # Agenda
-### Day 1: August 2nd, 2012
+### Day 1: December 3rd, 2012
 
 - 8:30am Convene
   - Topic 1: Introduction to R
@@ -36,18 +36,30 @@ We hope to move through the following topics in the next couple of days.
 - 04:30pm Adjourn + Questions
 
 # Agenda (II)
+### Day 2: December 4th, 2012
+- 8:30am Convene (*optional*)
+  - Intro to programming principles
+  - Coffee Break
+  - Intro to statistics
+- 12:00pm Lunch
 
-### Day 2: August 3rd, 2012
-
-- 8:30am Convene
+# Agenda (III)
+### Day 2: December 4th, 2012
+- 1:00pm Convene
   - Topic 5: Basic Analytics (part 2)
-  - Coffee break
   - Topic 6: Visualization
-- 12:00pm Lunch (on your own)
-- 1:00pm Reconvene
+- 4:30pm Q&A and Adjourn
+
+# Agenda (IV)
+### Day 3: December 5th, 2012
+- 8:30am Convene
+  - Topic 6: Visualization (part2)
+  - Break
   - Topic 7: Exporting/sharing Your Work
+- Lunch
   - Topic 8: Advanced Topics
   - Break
+  - Work on projects
 - 4:00pm Q & A
 - 4:30pm Adjourn
 
@@ -97,10 +109,8 @@ install_new('stringr')
 install_new('knitr')
 install_new('quantreg')
 install_new('zoo')
-install_new('devtools')
 install_new('xtable')
 install_new('lme4')
-install_new('R2SWF')
 install_new('caret')
 
 ```

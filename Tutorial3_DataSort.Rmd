@@ -65,7 +65,7 @@ with(df[df$grade==3,],{table(year,race)})
 
 # Quick exercise
 - Can you find the number of black students in each grade in each year?
-- hint: `with(df[df$___=="B",]...)`
+- hint: `with(df[df$___==___,]...)`
 - How many in year 2002, grade 6?
   - 48
 - How many in 2001, grade 7?
@@ -235,6 +235,12 @@ myag<-ddply(df, .(dist,grade),summarize,
 summary(myag[,7:10])            
 ```
 
+# Note for SQL Junkies
+- There is an alternate package to plyr called `data.table` which is really handy
+- It allows SQL like querying of R data frames
+- It is incredibly fast
+- It will be incorporated into the next `plyr` version
+- You can [read up on it online](http://datatable.r-forge.r-project.org/)
 
 # Quick Exercises in ddply
 - What if we want to compare how districts do on educating ELL students?
@@ -244,7 +250,6 @@ summary(myag[,7:10])
 - How many students are in these classes?
 
   * 12 and 7 respectively
-
 
 # Answer III
 
@@ -295,7 +300,7 @@ head(df[with(df,order(-readSS,-attday)),c(3,23,29,30)])
 
 # About sorting
 
-- Sorting works differently on some data types, matrices are slightly different, like matrices
+- Sorting works differently on some data types like matrices
 
 ```{r matrixsort}
 M<-matrix(c(1,2,2,2,3,6,4,5),4,2,byrow=FALSE,dimnames=list(NULL,c("a","b")))
@@ -377,8 +382,8 @@ Grade  Score Range   Code
 7         >525      "Hi"
 8         >575      "Hi"
 
-- All other values are coded as "lo"
-- How many "hi" and "lo" observations do we have?
+- All other values are coded as "low"
+- How many "high" and "low" observations do we have?
 - By `dist`?
 
 # Results
