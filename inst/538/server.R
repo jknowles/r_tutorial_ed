@@ -13,7 +13,7 @@ shinyServer(function(input,output){
       names(XX)[XX == max(XX)]
       
     }
-    
+    election.data$ERROR<-election.data$ERROR+input$error
     Electoral.Votes <- c()
     for ( i in 1:input$sims)  {
       Election.Draw <- ddply(election.data,

@@ -10,7 +10,9 @@ shinyUI(pageWithSidebar(
   
   sidebarPanel(
     sliderInput("sims","Number of simulations:",
-                min=0,max=3000,value=20)
+                min=1,max=300,step=25,value=1),
+    sliderInput("error","Adjust the error:",
+                min=-2,max=10,step=1,value=0)
   ),
   
   # GGPLOT
