@@ -10,11 +10,11 @@ opts_chunk$set(fig.path='figure/slidesXX-', cache.path='cache/slidesXX-',fig.wid
 
 # Introduction
 In this session we will be learning a little about what computer programming is through the following topics
-* History
-* Basic Principles
-* Syntax
-* Memory Management
-* 
+- History
+- Basic Principles
+- Syntax
+- Memory Management
+
 
 # What is a programming language?
 - "A language intended for use by a person to express a process by which a computer can solve a problem" ~ Hope and Jiping
@@ -53,7 +53,6 @@ In this session we will be learning a little about what computer programming is 
 
 # HistoRy
 - R plays nicely with many of these languages including Python, C++, Java, and of course C and Fortran
-- 
 
 
 # Basic Principles
@@ -110,6 +109,20 @@ In this session we will be learning a little about what computer programming is 
 - http://nlp.cs.nyu.edu/meyers/V22.0002/class%20slide%20pdfs/Intro-talk.pdf
 - http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf
 - http://www.python.org/doc/essays/cp4e.html
+
+# R Example
+- I want to include this code, but not evaluate it
+
+```{r,eval=FALSE}
+5*5
+```
+
+# R Example 2
+- Do evaluate this and show me the results
+
+```{r}
+2+2
+```
 
 # Session Info
 

@@ -12,6 +12,7 @@ opts_chunk$set(fig.path='figure/slidesX-', cache.path='cache/slidesX-',fig.width
 # Introduction
 We will review the following statistical concepts here through the lens of R:
 
+- Probability and hypothesis testing
 - Statistical distributions
 - Attributes of distributions
 - Samples
@@ -20,6 +21,49 @@ We will review the following statistical concepts here through the lens of R:
 - Univariate Regression
 - Multivariate Regression
 - Causality
+
+# What is statistics?
+- What do you think?
+- From [Wikipedia](http://en.wikipedia.org/wiki/Statistics): 
+
+> "Statistics is the study of the collection, organization, analysis, interpretation, and presentation of data.[1][2] It deals with all aspects of this, including the planning of data collection "
+
+- Statistics gives us a way to quantify and express our uncertainty about the future or about the relationship of a sample to the population
+
+### Key Concepts to Statistical Thinking
+
+1. Probability
+2. How to describe data
+3. Drawing inferences from data
+4. Causation
+
+# Probability
+- Probability rests on the concepts of randomness
+- Randomness is an abstract principle that describes the behavior of events in the world
+- Random phenomena have outcomes we cannot perfectly predict, but that have a regular distribution over many repetitions
+- Probability describes the the proportion of times an event will occur in many repeated trials of observation
+- The probability of the Packers winning the coin toss is 0.5
+
+# Probability's uses
+- Probability allows us to express and quantify our uncertainty about the world around us
+- For truly random independent events like coin flips, this is easy and uncertainty can become certainty
+- But, what about events that depend on one another?
+
+# But...
+- What does it mean then when someone says "Kobe Bryant's 3 has a 40% chance of going in."
+- Or "Mason Crosby has a 65% chance of making that field goal?"
+- These aren't random events, are they?
+- But we can model them as such with large enough sample size
+
+# Interdependence and Independence
+- Coins are obviously independent in their flipping, but other events are not
+- 
+
+
+# Hypothesis testing
+- What does it mean when someone says something is statistically significant?
+- "A significance is a formal procedure for comparing observed data with a hypothesis whose truth we want to assess."~ Moore and McCabe p. 436
+
 
 # Describing Data
 - At it's most basic level, statistics is about summarizing and understanding data

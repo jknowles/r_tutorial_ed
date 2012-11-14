@@ -14,7 +14,7 @@ knit("Tutorial7_ExportingWork.Rmd",envir=new.env())
 knit("Tutorial8_AdvancedTopics.Rmd",envir=new.env())
 knit("rsetup.Rmd",envir=new.env())
 knit("TutorialX_StatisticsRefresher.Rmd",envir=new.env())
-
+knit("TutorialXX_IntroToProgramming.Rmd",envir=new.env())
 
 # We need pandoc installed
 # This part allows pandoc to do the work of taking the md files
@@ -30,6 +30,8 @@ system("pandoc -s -S -i -t slidy Tutorial6_Visualization.md -o Tutorial6_Visuali
 system("pandoc -s -S -i -t slidy Tutorial7_ExportingWork.md -o Tutorial7_ExportingWork.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial8_AdvancedTopics.md -o Tutorial8_AdvancedTopics.html --self-contained")
 system("pandoc -s -S -i -t slidy TutorialX_StatisticsRefresher.md -o TutorialX_StatisticsRefresher.html --self-contained")
+system("pandoc -s -S -i -t slidy TutorialXX_IntroToProgramming.md -o TutorialXX_IntroToProgramming.html --self-contained")
+
 system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
 
 

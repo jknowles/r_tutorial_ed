@@ -2,13 +2,39 @@ library(shiny)
 library(ggplot2)
 library(eeptools)
 
+
+load("../../data/smalldata.rda")
 shinyServer(function(input,output){
-  data(smalldata)
+
+  groupInput<-reactive(function(){
+    switch(input$group,
+           "race"= 'race',
+           "female"= 'factor(female)',
+           "disab"= 'factor(disab)',
+           "ELL" = 'factor(ell)')
+    
+  })
+  
+  dataInput<-reactive(function(){
+    if(input$grade=="all"){
+      return(df)
+    }
+    else if (input$grade!="all"){
+      df<-subset(df,grade==input$grade)
+      return(df)
+    }
+  })
   
   output$distPlot<-reactivePlot(function(){
-    a<-qplot(mathSS,readSS,data=df,alpha=I(0.7),group=eval(parse(text=paste(input$group))),
-             color=eval(parse(text=paste(input$group))))+theme_dpi()
-    print(a+geom_smooth(aes(alpha=I(1))))
+    a<-ggplot(dataInput())+geom_point(aes_string(x="readSS",y="mathSS",
+                                        group=groupInput(),
+                                        color=groupInput()),
+                                        alpha=I(0.7))
+    a<-a+theme_dpi()+geom_smooth(aes_string(x="readSS",y="mathSS",
+                                            group=groupInput(),
+                                            color=groupInput()),
+                                 se=FALSE,size=I(1.1))
+    print(a)#+geom_smooth(aes(alpha=I(1))))
   })
   
   
