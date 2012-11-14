@@ -16,22 +16,21 @@ shinyServer(function(input,output){
       Die2[i] <- sample(c(1,2,3,4,5,6), 1)
       DieTot[i] <- Die1[i]+Die2[i]
     }
-    a<-prop.table(table(Coin,Die1))
+    a<-table(Coin,Die1)
     #b<-matrix(rep(1/12,12),nrow=2)
     c<-as.data.frame(a)
     p<-qplot(factor(Die1),factor(Coin),
-          fill=Freq,data=c,geom='tile',label=round(Freq*100,digits=2))+geom_text()+
+          data=c,geom='tile',label=Freq,fill=I("white"),
+             color=I("black"))+geom_text()+
       theme_dpi()+coord_cartesian()
     print(p)
   })
   
-  output$distPlot2<-reactivePlot(function(){
-    b2<-matrix(rep(1/12,12),nrow=2)
+  output$view<-reactiveTable(function(){
+    b2<-matrix(rep((1/12)*input$obs,12),nrow=2)
     p2<-as.table(b2)
-    p2<-melt(p2)
-    m<-qplot(X2,X1,fill=value,data=p2,geom='tile',label=round(value*100,digits=2))+
-      theme_dpi()+geom_text()+coord_cartesian()
-    print(m)
+    p2
+
   })
   
   
@@ -46,7 +45,7 @@ shinyServer(function(input,output){
 # Die2 <- c()
 # DieTot <- c()
 # 
-# for (i in 20:input$obs) {
+# for (i in 1:100) {
 #   Coin[i] <- sample(c("Heads", "Tails"), 1)
 #   Die1[i] <- sample(c(1,2,3,4,5,6), 1)
 #   Die2[i] <- sample(c(1,2,3,4,5,6), 1)
@@ -54,6 +53,8 @@ shinyServer(function(input,output){
 # }
 # 
 # a<-prop.table(table(Coin,Die1))
+# a<-table(Coin,Die1)
+# c<-as.data.frame(a)
 # b<-matrix(rep(1/12,12),nrow=2)
 # 
 # 

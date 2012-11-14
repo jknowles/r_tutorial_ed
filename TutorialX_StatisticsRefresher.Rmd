@@ -16,7 +16,6 @@ We will review the following statistical concepts here through the lens of R:
 - Statistical distributions
 - Attributes of distributions
 - Samples
-- Standard deviations and standard errors
 - Statistical models
 - Univariate Regression
 - Multivariate Regression
@@ -43,9 +42,9 @@ We will review the following statistical concepts here through the lens of R:
 - Random phenomena have outcomes we cannot perfectly predict, but that have a regular distribution over many repetitions
 - Probability describes the the proportion of times an event will occur in many repeated trials of observation
 - The probability of the Packers winning the coin toss is 0.5
+- Let's look at an example of coin tosses!
 
 # Probability's uses
-- Probability allows us to express and quantify our uncertainty about the world around us
 - For truly random independent events like coin flips, this is easy and uncertainty can become certainty
 - But, what about events that depend on one another?
 
@@ -68,7 +67,7 @@ We will review the following statistical concepts here through the lens of R:
 # Describing Data
 - At it's most basic level, statistics is about summarizing and understanding data
 - Data are themselves abstractions of real world concepts we care about
-- 
+- There are a number of useful ways to describe a set of data, some of which we have become familiar with so far
 
 
 # Spread of the Data
@@ -94,7 +93,8 @@ qplot(factor(cut),data=diamonds)+labs(x='Cut',title='Diamonds by Cut Quality')
 # How about?
 
 ```{r diamondplot2}
-qplot(factor(color),data=diamonds)+labs(x='Color',title='Diamonds by Color and Clarity')+
+qplot(factor(color),data=diamonds)+
+  labs(x='Color',title='Diamonds by Color and Clarity')+
   facet_wrap(~clarity,nrow=2)
 ```
 
@@ -121,11 +121,15 @@ qplot(carat,price,data=diamonds,color=color)+geom_smooth(aes(group=1))
 - Ordinal: ordered categories of data, relative size and degree of difference between categories is unknown
 - Interval: ordered categories of data, fixed width, like discrete temperature scales
 - Continuous (ratio): a measurement scale in a continuous space with a meaningful zero--physical measurements
-- Derived by Stanley Smith Stevens in the 1940s and 50s
+- This classification was derived by Stanley Smith Stevens in the 1940s and 50s
 
 # Quiz 1
-- Car color is what level of measurement?
+- Color (of diamonds) is what level of measurement?
+- Nominal
+- Carats are what level of measurement?
+- Continuous
 - 
+
 
 # Levels of measurement matter
 - How you depict the data
