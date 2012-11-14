@@ -15,7 +15,7 @@ In this lesson we hope to learn:
 ```{r setup, include=FALSE}
 # set global chunk options
 opts_chunk$set(fig.path='figure/slides5-', cache.path='cache/slides5-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png')
-source('ggplot2themes.R')
+library(eeptools)
 ```
 
 
@@ -61,6 +61,83 @@ qplot(ss1,ss2,data=midsch,alpha=I(.07))+theme_dpi()+geom_smooth()+
 ```
 
 # Frequencies, Crosstabs, and t-tests
+- Some of the most basic analyses we can implement in R are sometimes the most useful
+- Before we dive in to linear regression and evaluating a linear regression, we will first look into tests of differences among groups
+- This is really useful in an education context or for evaluating experiments quickly when we are interested in whether the difference we observe in groups is real, or due to chance
+
+# Let's take a simple example of cars
+
+- Sometimes we want to compare groups of data to other groups or a fixed value
+- We use a t-test for this, but only if we believe the data are normally distributed
+
+```{r carsdata}
+data(mtcars) # load the data from R
+head(mtcars)
+```
+
+
+# Check for normality
+- The Shapiro-Wilk normality test checks this for us:
+
+```{r normtest}
+shapiro.test(mtcars$mpg)
+shapiro.test(mtcars$hp)
+```
+
+- Which of these is normally distributed?
+- For more on hypothesis testing, see the optional intro to statistics module
+
+# T-test
+
+- We can t-test the `mpg` variable then
+- Let's test it against an assumption about the population using a one-sided test
+
+```{r onewayttest}
+mean(mtcars$mpg)
+t.test(mtcars$mpg,mu=18,alternative="greater")
+t.test(mtcars$mpg,mu=22,alternative="less")
+```
+
+- What does `r t.test(mtcars$mpg,mu=18)` test?
+
+# Two sample t-test
+- What if we want to compare two groups?
+- For example cars with and without automatic transmissions
+- How might we do this?
+- Look at the documentation?
+
+# Answer
+
+```{r twowaytest}
+t.test(mpg~am,data=mtcars)
+```
+
+# If data is non-normal
+- You can do `r wilcox.test(mtcars$hp,mu=102)`
+- Or `r wilcox.test(hp~am,data=mtcars)`
+- Just Google it!
+
+# Chi-Square
+- Placebo v. aspirin
+- Heartattack or no
+
+```{r aspirindata}
+aspirin <- matrix(c(189,104,10845,10933),ncol=2,dimnames=list(c("Placebo","Aspirin"),
+                                                              c("MI","No MI")))
+aspirin
+```
+
+- We want to know how independent from one another heart attacks and taking the placebo are. If it is unlikely that they are independent, then we would conclude these two variables have some relationship in our population (assuming the data was collected well)
+
+# Test it
+- To test these we use a chi-squared test statistic 
+```{r chi-squaretest}
+chisq.test(aspirin,correct=FALSE)
+fisher.test(aspirin)
+```
+
+# Crosstables
+
 
 # What questions do we have?
 - Let's imagine that a journalist has used this dataset to detect testing "irregularities" using publicly available aggregate test data
@@ -585,7 +662,7 @@ ggplot(mycoef[2:3,],aes(x=var,y=y,ymin=y-2*se,ymax=y+2*se))+geom_pointrange()+th
 
 2. Does `megamodel2` exhibit non-linearity? Can you fit a quantile regression model of this?
 
-3. Can you write a synthetic model with multiple variables? What does it look like?
+3. Can you simulate a model with multiple variables? What does it look like?
 
 Bonus: Write better code for the plot with different lines for different values of variable 2.
 

@@ -14,6 +14,7 @@ shinyServer(function(input,output){
       
     }
     election.data$ERROR<-election.data$ERROR+input$error
+    election.data$OBAMA<-election.data$OBAMA+input$bias
     Electoral.Votes <- c()
     for ( i in 1:input$sims)  {
       Election.Draw <- ddply(election.data,

@@ -6,7 +6,7 @@
 # set global chunk options
 opts_knit$set(animation.fun=hook_r2swf)
 opts_chunk$set(fig.path='figure/slides8-', cache.path='cache/slides8-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='700px',out.height='500px',cache=TRUE)
-source('ggplot2themes.R')
+library(eeptools)
 library(ggplot2)
 load('data/smalldata.rda')
 ```

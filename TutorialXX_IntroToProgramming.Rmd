@@ -13,7 +13,7 @@ In this session we will be learning a little about what computer programming is 
 * History
 * Basic Principles
 * Syntax
-* Algorithms
+* Memory Management
 * 
 
 # What is a programming language?

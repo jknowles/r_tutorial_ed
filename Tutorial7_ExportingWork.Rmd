@@ -222,7 +222,7 @@ mymod<-lm(readSS~mathSS+factor(grade),data=df)
 print(xtable(summary(mymod)),type='html')
 #```
 
-And because I am awesome, I'm done.
+And because I am awesome, I am done.
 ```
 
 # Check for Understanding
@@ -256,7 +256,6 @@ pre {
 </style>
 
 ```
-
 
 # Exporting a Single Plot
 - Sometimes we don't need to produce a whole report, but just save a particular plot and share it
@@ -341,13 +340,6 @@ print(xtable(table(df$ell,df$schid)),type='html')
 - Writing full blown LaTeX reports
 - Embedding video and visualization
 - Changes CSS styles of reports
-
-
-# Exercises 
-
-1.
-2.
-3.
 
 
 # References

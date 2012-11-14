@@ -14,6 +14,4 @@
 - Intro to RStudio
 - More consistent alignment with data files and R script
 - Name df<-smalldata
-- Add some sugar to the introduction
-- Reorder tutorials to spread boring concepts around!
 - Make a references page

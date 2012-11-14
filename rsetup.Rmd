@@ -60,6 +60,7 @@ install_new<-function(mypkg){
 install_new('plyr')
 install_new('lmtest')
 install_new('ggplot2')
+install_new('gridExtra')
 install_new('eeptools')
 install_new('stringr')
 install_new('knitr')
@@ -80,7 +81,7 @@ install.packages(c('plyr','lmtest','ggplot2','gridExtra','stringr','knitr','quan
 
 # Run RStudio
 - You should be able to run RStudio now and load any of the packages above.
-- Run the code below in the RStudio terminal window (bottom left) to test this:
+- Run the code below in the RStudio terminal panel (bottom left) to test this:
 
 ```{r eval=FALSE,echo=TRUE}
 library(lmtest)
@@ -112,6 +113,25 @@ qplot(sample=y,stat="qq")
 # That's all
 - Did you see the output like the slides above?
 - Did you see the plot in the lower right? 
+
+# Optional
+- If you want to see the cutting edge of R development--interactive web-based data applications, you can install the following beta software
+
+```{r,echo=TRUE,eval=FALSE}
+options(repos=c(RStudio='http://rstudio.org/_packages', getOption('repos')))
+install.packages('shiny')
+```
+
+# Optional Cont.
+- To check if it worked (and it might not depending on your machine's configuration)
+
+```{r echo=TRUE,eval=FALSE}
+library(shiny)
+runExample("06_tabsets")
+```
+
+- Does a new browser window or tab open up? 
+- In RStudio hit the "stop" button in the terminal panel to exit the demo
 
 # You are ready to go!
 See you on December 3rd to the 5th to find out how to go from these basic steps to using R to learn from your data. Can't wait to see you in Madison!

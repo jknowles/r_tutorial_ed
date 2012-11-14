@@ -10,12 +10,13 @@ shinyUI(pageWithSidebar(
   
   sidebarPanel(
     sliderInput("sims","Number of simulations:",
-                min=1,max=300,step=25,value=1),
+                min=1,max=300,step=25,value=50),
     sliderInput("error","Adjust the error:",
-                min=-2,max=10,step=1,value=0)
+                min=-2,max=6,step=0.5,value=0),
+    sliderInput("bias","Adjust the bias:",
+                min=-3,max=3,step=0.25,value=0)
   ),
   
-  # GGPLOT
   
   mainPanel(
     plotOutput("voteplot")

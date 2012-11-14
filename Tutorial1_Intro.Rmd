@@ -151,12 +151,41 @@ Usage of the R listserv for help has really exploded recently
 - Let's see, type: `?summary`
 - Now type: `??regression`
 - For tricky questions, funky error messages (there are many), and other issues, use Google (include "in R" to the end of your query)
-- We can also use [RSeek](http://www.rseek.org/)--the search engine just for R!
+- We can also use [RSeek](http://www.rseek.org/) - the search engine just for R!
 - StackOverflow has become a great resource with many questions for many specific packages in R, and a rating system for answers
 - A number of R Core members contribute there
 - Sometimes R Help can be a bit prickly and unfriendly...
 - The most important part of getting help is being able to ask your question with a reproducible example (i.e. some short simulated data and code that doesn't do what you want)
 - For R Help etiquette (for the tough problems) see [the great advice here](https://github.com/hadley/devtools/wiki/Reproducibility)
+
+# Let's Open RStudio
+- Go ahead and open RStudio now and let's see what we get
+- 4 panels, various tabs
+- Help, plots, file structure
+- Workspace, history, version control
+- Working files
+- The R Console
+
+# The Data Frame
+
+- What happens when you type:
+
+```{r dataframeintro,echo=TRUE,results='hide'}
+data(mtcars)
+mtcars
+```
+
+
+```{r dataframeintro2,echo=FALSE,results='markup'}
+mtcars[1:8,]
+```
+
+# A Data Frame
+- A data frame is a lot like a traditional spreadsheet and is the central feature of data analysis in R
+- You'll see we have names, stored with numbers, which other programming languages are not so keen on doing
+- This is really handy, and data frames are the primary method we use to store data, manipulate data, etc.
+- The difference between a data frame and spreadsheet in Excel is that in almost all cases, everything we do to the data frame will either be by entire row, or by entire column
+- This sounds limiting, but in fact, it is incredibly powerful!
 
 
 # R As A Calculator

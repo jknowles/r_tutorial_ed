@@ -132,7 +132,7 @@ Let's get started!
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
 - [R Features List](http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/)
 - [Olivia Lau's R Programming Crash Course](http://www.user2010.org/tutorials/Lau.html)
-
+- [Josef Fruehwald's R Notes](http://www.ling.upenn.edu/~joseff/rstudy/)
 
 # Attribution and License
 <p xmlns:dct="http://purl.org/dc/terms/">

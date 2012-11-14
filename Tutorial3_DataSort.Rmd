@@ -169,14 +169,7 @@ aggregate(cbind(readSS,mathSS)~disab+grade,data=df,mean)
 ```
 
 
-# Aggregate Isn't Enough
 
-- `aggregate` is cool, but it isn't very flexible
-- We can only use aggregate output as a table, which we have to convert to a data frame
-- There is a better way; the `plyr` package
-- `plyr` is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type
-- We will focus here on summarizing and aggregating a data frame, but later in the bootcamp we'll apply functions to lists and turn lists into data frames as well
-- This is cool!
 
 # School Means
 - Consider the case we want to turn our student level data into school level data
@@ -191,7 +184,47 @@ z
 - But I want more! I want to aggregate multiple variables. I want to do it across multiple groups. I want the output to be a dataframe I can work on.
 - Thank you `plyr`
 
+# Aggregate Isn't Enough
+
+- `aggregate` is cool, but it isn't very flexible
+- We can only use aggregate output as a table, which we have to convert to a data frame
+- There is a better way; the `plyr` package
+- `plyr` is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type
+- We will focus here on summarizing and aggregating a data frame, but later in the bootcamp we'll apply functions to lists and turn lists into data frames as well
+- This is cool!
+
+# The Logic of plyr
+
+- In R this is known as "split, apply, and combine"
+- Why? First, we **split** the data into groups by
+- Then we **apply** some function or another to that group (i.e. count the unique values of a variable) 
+- Then we **combine** the data back together 
+- This has some advantages--unlike other methods, the data does not have to be ordered by our id variable for this to work
+- The disadvantage is that this method is computationally expensive, even in R, and requires copying our data frame using up RAM
+
+# An Aside about Split-Apply-Combine
+
+- The `plyr` package has a number of utilities to help us split-apply-combine across data types for both input and output
+- In R we can't just use `for` loops to iterate over groups of students, because in R `for` loops are [slow, inefficient, and impractical](http://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r)
+- `plyr` to the rescue, while not as fast as a compiled language, it is pretty dang good!
+- And still readable
+
+<p align="center"><img src="img/plyrfunctions.png" height="150" width="650"></p>
+
+# The logic of plyr
+
+- This shows how the dataframe is broken up into pieces and each piece then gets whatever functions, summaries, or transformations we apply to it
+
+<p align="center"><img src="img/dataframesplit.png" height="300" width="650"></p>
+
+# How plyr works on dataframes like what we will be doing
+
+- And this shows the output `ddply` has before it combines it back for us when we do the call `ddply(df,.(sex,age),"nrow")`
+
+<p align="center"><img src="img/plyrddplyoutput.png" height="260" width="650"></p>
+
 # Using plyr
+
 - `plyr` has a straightforward syntax
 - All `plyr` functions are in the format **XX**ply. The two X's specify what the input file we are applying a function to is, and then what way we would like it outputted.
 - In `plyr` d = dataframe, l= list, m=matrix, and a=array. By far the most common usage is `ddply`
