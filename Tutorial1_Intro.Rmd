@@ -4,7 +4,8 @@
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE)
+opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE,
+               comment=NA)
 # upload images automatically
 #opts_knit$set(upload.fun = imgur_upload)
 ```
@@ -52,7 +53,7 @@ John Chambers, in describing the logic behind the S language said:
 - R is made public in 1993, and in 1995 Martin Maechler convinces the creators to make it open source with the GNU General Public License
 - 1997 R Core Group is formed--the maintainers and main developers of R (about 14 members today)
 - 2000 version 1.0.0 ships
-- 2012 version 2.15.1 is available
+- 2012 version 2.15.2 is available (2.16.0 is due out early in 2013)
 
 
 # Why Use R
@@ -80,8 +81,8 @@ R Can Compliment Other Tools
 ------------------------------------
 - R plays nicely with data from Stata, SPSS, SAS and others
 - R can check work, produce output, visualize results from other programs
-- R can do bleeding edge analysis that aren't available in proprietary packages yet
-- R is becoming more prevalent in undergraduate statistics courses
+- R can do bleeding edge analyses that aren't available in proprietary packages yet
+- R is becoming more prevalent in undergraduate statistics courses--more and more potential employees are learning it each year
 
 # R's Drawbacks
 - R is based on S, which is close to 40 years old
@@ -90,7 +91,7 @@ R Can Compliment Other Tools
 - R is a programming language and not a software package--steeper learning curve
 - R can be much slower than compiled languages
 
-# Google Scholar Hits
+# R's Popularity
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS
 
 <p align="center"><img src="img/googlescholar.png" height="500" width="700"></p>
@@ -110,24 +111,26 @@ Usage of the R listserv for help has really exploded recently
 
 <p align="center"><img src="img/rlistserv.png" height="500" width="700"></p>
 
+Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity/)
+
 # R Vocabulary
-- **packages** are add on features to R that include data, new functions and methods, and extended capabilities. Think of them as ``apps'' on your phone.
+- **packages** are add on features to R that include data, new functions and methods, and extended capabilities. Think of them as ``apps'' on your phone. We've already installed several!
 - **terminal** this is the main window of R where you enter commands
-- **scripts** these are where you store commands to be run in the terminal later, like syntax in SPSS or .do files in Stata
+- **scripts** these are where you store commands to be run in the terminal later, like syntax files in SPSS or .do files in Stata
 - **functions** commands that do something to an object in R
 - **dataframe** the main element for statistical purposes, an object with rows and columns that includes numbers, factors, and other data types
-- **workspace** the working memory of R where all objects in the current session are stored
+- **workspace** the working memory of R where all objects are stored
 - **vector** the basic unit of data in R
-- **symbols** anything not starting with a digit, can be used to name and store objects or to designate operations/functions
+- **symbols** used to name and store objects or to designate operations/functions
 - **attributes** determine how functions act on objects
 
 # Components of an R Setup
-- **R** - obviously we need R. R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
+- **R** - R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
 - **RStudio** - a much better way to work in R that allows editing of scripts, operation of R, viewing of the workspace, and R help all on one screen [download](http://rstudio.org/download/)
+- We've already installed and configured these, but what might you want to use to go further after the Bootcamp is complete?
+
+# Advanced R Setup
 - **LaTeX** - for producing documents using R this is less necessary, but still useful. download [WIN](http://miktex.org/2.9/setup) [MAC](http://www.tug.org/mactex/2011/)
-
-**ADVANCED**
-
 - **Dev Tools for R** - on Windows this is Rtools, on Linux and Mac it is installing the development mode of R download [WIN](http://www.stats.ox.ac.uk/pub/Rtools/R215x.html) [MAC](http://cran.r-project.org/bin/macosx/tools/)
 - **Git** - for version control, sharing code, and collaboration this is essential. It integrates well with RStudio. [download](http://git-scm.com/download)
 - **pandoc** - for converting output into other formats for sharing with non-user**R**s! [download](http://johnmacfarlane.net/pandoc/installing.html)
@@ -142,7 +145,7 @@ Usage of the R listserv for help has really exploded recently
 # Some Notes about Maintaining R
 - Adding packages onto R means you also have to update them with the `update.packages()` command
 - Package updates are at the whim of the package developer which may be a corporation, an R Core Member, an academic, or me
-- Upgrading R, which is on a 6 month release cycle, is not straightforward yet, but there are lots of how-to guides online
+- Upgrading R on Windows, which is on a 6 month release cycle, is not straightforward yet, but there are lots of how-to guides online
 - Generally, upgrading is recommended as there are usually a lot of performance enhancements, even with minor (2.15.X) releases
 - We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported in your organization
 
@@ -154,9 +157,17 @@ Usage of the R listserv for help has really exploded recently
 - We can also use [RSeek](http://www.rseek.org/) - the search engine just for R!
 - StackOverflow has become a great resource with many questions for many specific packages in R, and a rating system for answers
 - A number of R Core members contribute there
+
+# Self-help (2)
 - Sometimes R Help can be a bit prickly and unfriendly...
 - The most important part of getting help is being able to ask your question with a reproducible example (i.e. some short simulated data and code that doesn't do what you want)
 - For R Help etiquette (for the tough problems) see [the great advice here](https://github.com/hadley/devtools/wiki/Reproducibility)
+
+```{r echo=TRUE,error=TRUE}
+foo<-c(1,"b",5,7,0)
+bar<-c(1,2,3,4,5)
+foo+bar
+```
 
 # Let's Open RStudio
 - Go ahead and open RStudio now and let's see what we get
@@ -186,7 +197,6 @@ mtcars[1:8,]
 - This is really handy, and data frames are the primary method we use to store data, manipulate data, etc.
 - The difference between a data frame and spreadsheet in Excel is that in almost all cases, everything we do to the data frame will either be by entire row, or by entire column
 - This sounds limiting, but in fact, it is incredibly powerful!
-
 
 # R As A Calculator
 
@@ -230,7 +240,7 @@ a
 - Anything after the **#** is not evaluated and ignored in R
 - This is handy for making things reproducible
 
-```{r poundsigns,eval=FALSE,echo=TRUE}
+```{r poundsigns,eval=FALSE,echo=TRUE,tidy=FALSE}
 # Something I want to keep from R
 # Like my secret from the R engine
 # Maybe intended for a human and not the computer
@@ -288,7 +298,7 @@ print(A)
 ```
 - `c` stands for concatenate and allows vectors to have multiple elements
 - If you ever need two elements in a vector, you need to wrap it up in `c`, which is one of the most used functions you will ever use
-- `c` is important to put numeric, character, factor, or any other type of data together
+- `c` is important to put any vector together, but remember that objects within a vector must all be of the same type
 
 # Language
 - In language there are a number of ways to say the same thing
@@ -309,7 +319,7 @@ identical(c,d) # Test equality
 - Which is nicer? **c** or **d**?
 
 # More Language ~~Bugs~~ Features
-- R is maddeningly inconsistent
+- R is maddeningly inconsistent in it's naming conventions
 
   * Some functions are `camelCase`; others `are.dot.separated`; others `use_underscores`
   * Function results are stored in a variety of ways across function implementations
@@ -334,9 +344,9 @@ summary(df$readSS) #summary of a single column
 
 # Graphics too
 
-```{r graphics1,message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=7.8, fig.height=4.5}
+```{r graphics1,message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=7.8, fig.height=4.5,tidy=FALSE,warning=FALSE}
 library(ggplot2) # Load graphics Package
-qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_bw()+
+qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_dpi()+
   opts(title='Test Score Relationship')+
   geom_smooth()
 ```
@@ -393,7 +403,7 @@ big[big %in% small]
 - No `NA`
 
 # Special operators (IV)
-- The logical operators `||` (or) and `&&` (and) can be used to combine two logical values and produce another logical value as the result. The operator `!` (not) negates a logical value. These operators allow complex conditions to be constructed.
+- The logical operators `|` (or) and `&` (and) can be used to combine two logical values and produce another logical value as the result. The operator `!` (not) negates a logical value. These operators allow complex conditions to be constructed.
 ```{r vectorlogic}
 foo<-c('a',NA,4,9,8.7)
 !is.na(foo) # Returns TRUE for non-NA
@@ -403,34 +413,27 @@ a
 class(a)
 ```
 
-# Simple Data Cleaning Function
-- What if we want to extract the numeric elements out of `foo` which has both a character and a missing value?
-
-```{r declassfunction}
-extractN<-function(x){
-  x<-suppressWarnings(as.numeric(x))
-  #ignore warnings because we don't care
-  x<-x[!is.na(x)]
-  x
-}
-extractN(foo)
-A<-extractN(foo)
-```
-
-
 # Special operators (V)
-- The operators `|` and `&` are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
+- The operators `||` and `&&` are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
+
+```{r vectorlogic2}
+zap<-c(1,4,8,2,9,11)
+zap[zap>2 | zap<8]
+zap[zap>2 & zap<8]
+```
 
 # Regular Expressions
 - R also supports a full suite of regular expressions
-- This could be material for a full tutorial and another time\
-- We can talk about this in the advanced topics section
+- This could be material for a full tutorial in a more advanced bootcamp
+- If you know and use regex, then rest assured you can keep using it in R
 
-
-# Data Modes in R (numeric)
+# R Data Modes
 - R allows users to implement a number of different types of data
 - The three basic data types are numeric data, character data, and logical data
-- **numeric** includes valid numbers
+- Vectors must be of one consistent type of data, so if you make a vector with multiple types, it generally defaults to being a character vector
+
+# Data Modes in R (numeric)
+- **numeric** vectors contain, as you would guess, numbers!
 
 ```{r}
 is.numeric(A)
@@ -449,6 +452,7 @@ is.numeric(b)
 
 # Data Modes (Logical)
 - **logical** is TRUE or FALSE values, useful for logical testing and programming
+- We've already seen these returned when we have asked R a question before
 
 ```{r}
 c<-c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE)
@@ -473,7 +477,7 @@ class(c)
 - **character**
 - **complex**
 - **raw**
-- All vectors must be consistent among types, but some data objects can consist of vectors with different types
+- All vectors must be consistent among types, but some data objects like data frames can combine multiple vectors of different types
 
 # Factor
 - A factor is a very special and sometimes frustrating data type in R
@@ -687,7 +691,6 @@ dimnames(myarray)
 myarray
 ```
 
-
 # Lists
 - Lists are arbitrary collections of objects. 
 - The objects do not have to be of the same type or same element or same dimensions
@@ -793,12 +796,13 @@ print(sessionInfo(), locale=FALSE)
 
 
 # Attribution and License
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>
 <p xmlns:dct="http://purl.org/dc/terms/">
 <a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
 <img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"
      style="border-style: none;" alt="Public Domain Mark" />
 </a>
 <br />
-This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
-</p>
+
 

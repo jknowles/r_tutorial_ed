@@ -48,7 +48,7 @@ DPI R Bootcamp
 <div class="section slide level1" id="outline">
 <h1>Outline</h1>
 <p>We hope to move through the following topics in the next couple of days.</p>
-<ul class="incremental">
+<ul>
 <li>Introduction to R</li>
 <li>Getting Data In</li>
 <li>Handling Data in R</li>
@@ -61,8 +61,8 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="agenda">
 <h1>Agenda</h1>
-<h3 id="day-1-august-2nd-2012">Day 1: August 2nd, 2012</h3>
-<ul class="incremental">
+<h3 id="day-1-december-3rd-2012">Day 1: December 3rd, 2012</h3>
+<ul>
 <li>8:30am Convene</li>
 <li>Topic 1: Introduction to R</li>
 <li>Coffee Break</li>
@@ -78,17 +78,37 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="agenda-ii">
 <h1>Agenda (II)</h1>
-<h3 id="day-2-august-3rd-2012">Day 2: August 3rd, 2012</h3>
-<ul class="incremental">
-<li>8:30am Convene</li>
+<h3 id="day-2-december-4th-2012">Day 2: December 4th, 2012</h3>
+<ul>
+<li>8:30am Convene (<em>optional</em>)</li>
+<li>Intro to programming principles</li>
+<li>Coffee Break</li>
+<li>Intro to statistics</li>
+<li>12:00pm Lunch</li>
+</ul>
+</div>
+<div class="section slide level1" id="agenda-iii">
+<h1>Agenda (III)</h1>
+<h3 id="day-2-december-4th-2012-1">Day 2: December 4th, 2012</h3>
+<ul>
+<li>1:00pm Convene</li>
 <li>Topic 5: Basic Analytics (part 2)</li>
-<li>Coffee break</li>
 <li>Topic 6: Visualization</li>
-<li>12:00pm Lunch (on your own)</li>
-<li>1:00pm Reconvene</li>
+<li>4:30pm Q&amp;A and Adjourn</li>
+</ul>
+</div>
+<div class="section slide level1" id="agenda-iv">
+<h1>Agenda (IV)</h1>
+<h3 id="day-3-december-5th-2012">Day 3: December 5th, 2012</h3>
+<ul>
+<li>8:30am Convene</li>
+<li>Topic 6: Visualization (part2)</li>
+<li>Break</li>
 <li>Topic 7: Exporting/sharing Your Work</li>
+<li>Lunch</li>
 <li>Topic 8: Advanced Topics</li>
 <li>Break</li>
+<li>Work on projects</li>
 <li>4:00pm Q &amp; A</li>
 <li>4:30pm Adjourn</li>
 </ul>
@@ -96,7 +116,7 @@ DPI R Bootcamp
 <div class="section slide level1" id="materials">
 <h1>Materials</h1>
 <p>If you don’t have it already, now might be a good time to install R and RStudio to get started.</p>
-<ul class="incremental">
+<ul>
 <li><a href="http://cran.r-project.org/">Download R</a></li>
 <li><a href="http://www.rstudio.org/">RStudio</a></li>
 <li>We’ll also want to install a few basic packages. This can be done on the fly later, but a few include <code>ggplot2</code>;<code>knitr</code>;<code>plyr</code></li>
@@ -110,7 +130,7 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="installation-tips">
 <h1>Installation Tips</h1>
-<ul class="incremental">
+<ul>
 <li>Setting up R on Windows XP is straightforward. On Windows 7 or Vista you may need to run in administrator mode to install extensions.</li>
 <li>Standard R interface in Windows is pretty ugly, which is why we use RStudio!</li>
 </ul>
@@ -118,12 +138,12 @@ DPI R Bootcamp
 <div class="section slide level1" id="next-install-packages">
 <h1>Next Install packages</h1>
 <p>First, watch this tutorial<br></p>
-<iframe src="http://www.screenr.com/embed/Fps8" width="650" height="396" frameborder="0"></iframe>
+<p align="center"><iframe src="http://www.screenr.com/embed/Fps8" width="650" height="396" frameborder="0"></iframe></p>
 
 </div>
 <div class="section slide level1" id="install-packages">
 <h1>Install Packages</h1>
-<ul class="incremental">
+<ul>
 <li>Are you running RStudio in administrator mode on Windows Vista or Windows 7?</li>
 <li>If not, you need to be. Right click on RStudio and then click “Run as Administrator”</li>
 <li>If you are on a Mac or Windows XP you can disregard this</li>
@@ -131,39 +151,49 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="install-packages-2">
 <h1>Install Packages (2)</h1>
-<ul class="incremental">
+<ul>
 <li>Now, copy and paste the code below into the bottom left window in RStudio (the R terminal):</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">install_new &lt;- function(mypkg) {
-    if (mypkg %in% <span class="kw">installed.packages</span>()) 
-        <span class="kw">cat</span>(<span class="st">&quot;Package already installed&quot;</span>) else {
-        <span class="kw">cat</span>(<span class="st">&quot;Package not found, so installing with dependencies... Press CTRL C to abort.&quot;</span>)
-        <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)
-        <span class="kw">install.packages</span>(mypkg, <span class="dt">repos =</span> <span class="st">&quot;http://cran.wustl.edu/&quot;</span>)
-    }
+<pre class="sourceCode r"><code class="sourceCode r">install_new&lt;-function(mypkg){
+  if (mypkg %in% <span class="kw">installed.packages</span>()) <span class="kw">cat</span>(<span class="st">&quot;Package already installed&quot;</span>)
+  else{<span class="kw">cat</span>(<span class="st">&quot;Package not found, so installing with dependencies... /n</span>
+<span class="st">           Press CTRL C to abort.&quot;</span>)
+    <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)
+    <span class="kw">install.packages</span>(mypkg,<span class="dt">repos=</span><span class="st">&quot;http://cran.wustl.edu/&quot;</span>)
+}
 }
 
-<span class="kw">install_new</span>(<span class="st">&quot;plyr&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;lmtest&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;ggplot2&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;gridExtra&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;stringr&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;knitr&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;quantreg&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;zoo&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;devtools&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;xtable&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;lme4&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;R2SWF&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;caret&quot;</span>)</code></pre>
+<span class="kw">install_new</span>(<span class="st">'plyr'</span>)
+<span class="kw">install_new</span>(<span class="st">'lmtest'</span>)
+<span class="kw">install_new</span>(<span class="st">'ggplot2'</span>)
+<span class="kw">install_new</span>(<span class="st">'gridExtra'</span>)
+<span class="kw">install_new</span>(<span class="st">'stringr'</span>)
+<span class="kw">install_new</span>(<span class="st">'knitr'</span>)
+<span class="kw">install_new</span>(<span class="st">'quantreg'</span>)
+<span class="kw">install_new</span>(<span class="st">'zoo'</span>)
+<span class="kw">install_new</span>(<span class="st">'xtable'</span>)
+<span class="kw">install_new</span>(<span class="st">'lme4'</span>)
+<span class="kw">install_new</span>(<span class="st">'caret'</span>)</code></pre>
+</div>
+<div class="section slide level1" id="how-it-works">
+<h1>How it Works</h1>
+<ul>
+<li>I will present a mixture of concepts and examples that illustrate various features of R</li>
+<li>Periodically we will stop and do some exercises to practice what we have talked about</li>
+<li>You have been provided with the data used and all the code in the examples on the screen</li>
+<li>For each tutorial simply open the “Tutorial X.R” file associated with the tutorial number to get access to the R code associated with each slide</li>
+<li>We’ll talk about how to load the data</li>
+<li>You can follow along as I move through the slides, or wait until we pause for an example and run the code</li>
+<li>Please hold questions until either the exercise period or the end of each tutorial due to the large size of the class!</li>
+</ul>
 </div>
 <div class="section slide level1" id="housekeeping">
 <h1>Housekeeping</h1>
-<ul class="incremental">
+<ul>
 <li>No food in the Training Center (drinks only with covered lids!)</li>
 <li>Feel free to get up at any time as necessary</li>
-<li>If you get stuck, raise your hand and someone will stop over to look</li>
-<li>If no one is available, feel free to ask the instructor</li>
+<li>Let’s make sure now everyone can launch R, RStudio, and has downloaded and can access the materials for the training</li>
+<li>Also, make sure you are set up with the wi-fi password!</li>
 </ul>
 </div>
 <div class="section slide level1" id="have-fun">
@@ -172,20 +202,21 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="references-and-resources">
 <h1>References and Resources</h1>
-<ul class="incremental">
+<ul>
 <li><a href="http://www.twotorials.com/">Video Tutorials on R</a></li>
 <li><a href="https://github.com/hadley/devtools/wiki/vocabulary">An R Vocabulary for Starting Out</a></li>
 <li><a href="http://www.revolutionanalytics.com/what-is-open-source-r/r-language-features/">R Features List</a></li>
 <li><a href="http://www.user2010.org/tutorials/Lau.html">Olivia Lau’s R Programming Crash Course</a></li>
+<li><a href="http://www.ling.upenn.edu/~joseff/rstudy/">Josef Fruehwald’s R Notes</a></li>
 </ul>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>
-<p xmlns:dct="http://purl.org/dc/terms/">
-<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPNQTFRFv7+/7+/vX19fDw8PHx8fn5+fLy8v39/fz8/Pb29vr6+vT09Pj4+P+fn5/f39ZWVl5eXlzs7O6urq8fHx9/f36ejovr6++/v7jY2N4+Pj2dnZp6enzc3Nenp69PT08/PzXFxc8vLyTk5OIyMj9fX13d3d5ubmXl5eDAwMNjY2JiYmra2t1NTUxcXF4uLiLCsrFxcXVVVV/v7+GRkZMTExW1tbyMjIt7e3np6ednZ2mJiY7Ozsjo6O1dXV3t7e7e3t09PTkJCQi4uL7u7uy8vLU1NTCgsJ4eHh1tbWioqKysrK5+fnf39/Pz8/7erh////AAAA7t9IFQAAArpJREFUeNq0ludy2zAQhA8dLJLl3u303nt3ejMuwPs/Te4AmrIzYn7YEjTUsIAfib1dgBDTQlqE9GchLUGKC2n/gD2AnztYGCzyNCaORz8eXlDkHmzU9KS+ezB5cWcuYCGZV9UAdcVPuLR+7+XVeYBJBWVORGkJ/Xzb737PPTCEYJMOmjdNB1IlGfhKwHwV/wOuUrJiqryzKe1vL7/OPULugPRs2pAPIEF2fwypjXRbMwiGjisMvRDbQuiU7j/Ye1TASUXowZi86MEqeqUEDIJ5SK6vH5ZHXVm9vl/AoY2mB3sXTQ9GHuuwxj7vFd14h4dLxdy5sVHAVFHVgyuEqKdguknKITBd1N1hgEqWqKS09fajLVJQs7HGOloG15HYiMgaC9FIGsEAGOm2kg7V9iVU6ebhh8c9ONXs9SxTloLDRWCk/k4PgW0efVFLVS52BsS1ydKpnhbtjPsV4rDGxVInEicJHXh0vHSxgNhUdeC6zcNCcwrMAeE0Yg2GQxL4FNVLlz/UocnxmakxS9cWQxSxNTGaAiZXOLIfRgFRkDsoD57tGLgOyM6Imj0zA0zqcg2yK3ztobPPu9Hxs6545Ic6l4ISGI3OPneCPFnAMACui8id15WPLk9Ey2uTWx24IYf5zrlOVNHxCKTzBWzoNxMcdVJiSsZiYxwfvukiTRuCUORKwrT0JgDJRC9YAzpDth4AG34nDnKF2PAkJ8hZG6OV2yeRFo5kqCufJwsXJYASnpIeClgPgfm0PLWuCJqv5Obqbj+71fQgyo5jUbGNCkBy6J0rYB7RbDC/oe1XO+Cjo2vvn85jBbF5saPUuew3+2W00sxlzRNn5r/wZPPytzktpiRgt5wq6eJ4befVp8+/zt22zn5XAK0gJks9Ppj83Pv6+9xteehLaDxaXVk/Pn9bTwv8dltQ+yvAAF/L4Ldao5NwAAAAAElFTkSuQmCC" style="border-style: none;" alt="Public Domain Mark" /> </a> <br /> This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
 </p>
 
-
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPNQTFRFv7+/7+/vX19fDw8PHx8fn5+fLy8v39/fz8/Pb29vr6+vT09Pj4+P+fn5/f39ZWVl5eXlzs7O6urq8fHx9/f36ejovr6++/v7jY2N4+Pj2dnZp6enzc3Nenp69PT08/PzXFxc8vLyTk5OIyMj9fX13d3d5ubmXl5eDAwMNjY2JiYmra2t1NTUxcXF4uLiLCsrFxcXVVVV/v7+GRkZMTExW1tbyMjIt7e3np6ednZ2mJiY7Ozsjo6O1dXV3t7e7e3t09PTkJCQi4uL7u7uy8vLU1NTCgsJ4eHh1tbWioqKysrK5+fnf39/Pz8/7erh////AAAA7t9IFQAAArpJREFUeNq0ludy2zAQhA8dLJLl3u303nt3ejMuwPs/Te4AmrIzYn7YEjTUsIAfib1dgBDTQlqE9GchLUGKC2n/gD2AnztYGCzyNCaORz8eXlDkHmzU9KS+ezB5cWcuYCGZV9UAdcVPuLR+7+XVeYBJBWVORGkJ/Xzb737PPTCEYJMOmjdNB1IlGfhKwHwV/wOuUrJiqryzKe1vL7/OPULugPRs2pAPIEF2fwypjXRbMwiGjisMvRDbQuiU7j/Ye1TASUXowZi86MEqeqUEDIJ5SK6vH5ZHXVm9vl/AoY2mB3sXTQ9GHuuwxj7vFd14h4dLxdy5sVHAVFHVgyuEqKdguknKITBd1N1hgEqWqKS09fajLVJQs7HGOloG15HYiMgaC9FIGsEAGOm2kg7V9iVU6ebhh8c9ONXs9SxTloLDRWCk/k4PgW0efVFLVS52BsS1ydKpnhbtjPsV4rDGxVInEicJHXh0vHSxgNhUdeC6zcNCcwrMAeE0Yg2GQxL4FNVLlz/UocnxmakxS9cWQxSxNTGaAiZXOLIfRgFRkDsoD57tGLgOyM6Imj0zA0zqcg2yK3ztobPPu9Hxs6545Ic6l4ISGI3OPneCPFnAMACui8id15WPLk9Ey2uTWx24IYf5zrlOVNHxCKTzBWzoNxMcdVJiSsZiYxwfvukiTRuCUORKwrT0JgDJRC9YAzpDth4AG34nDnKF2PAkJ8hZG6OV2yeRFo5kqCufJwsXJYASnpIeClgPgfm0PLWuCJqv5Obqbj+71fQgyo5jUbGNCkBy6J0rYB7RbDC/oe1XO+Cjo2vvn85jBbF5saPUuew3+2W00sxlzRNn5r/wZPPytzktpiRgt5wq6eJ4befVp8+/zt22zn5XAK0gJks9Ppj83Pv6+9xteehLaDxaXVk/Pn9bTwv8dltQ+yvAAF/L4Ldao5NwAAAAAElFTkSuQmCC" style="border-style: none;" alt="Public Domain Mark" /> </a> <br />
 </div>
 </body>
 </html>

@@ -80,6 +80,7 @@ DPI R Bootcamp
 <li>Note, on Windows Vista and later R either needs to be run as an administrator to install packages, or you have to fiddle with where the packages are installed</li>
 <li>Packages are stored in something called the <strong>library</strong> which is just a collection of packages</li>
 <li>Sometimes folks call packages <strong>libraries</strong></li>
+<li>Loading a package couldn’t be easier <code>library(ggplot2)</code> and you’re done!</li>
 </ul>
 </div>
 <div class="section slide level1" id="finding-packages">
@@ -117,15 +118,6 @@ DPI R Bootcamp
 <li>R will warn you if you do it wrong, so just remember when <code>$</code> doesn’t work, use <code>@</code></li>
 </ul>
 </div>
-<div class="section slide level1" id="preliminaries">
-<h1>Preliminaries</h1>
-<ul class="incremental">
-<li>Get and set the working directory</li>
-<li>Understand file system paths</li>
-<li>Understand relative and full paths</li>
-<li>Find out where things are</li>
-</ul>
-</div>
 <div class="section slide level1" id="the-working-directory">
 <h1>The Working Directory</h1>
 <ul class="incremental">
@@ -134,6 +126,18 @@ DPI R Bootcamp
 <li>Check this by typing <code>getwd()</code></li>
 <li>R work is best done in a selfcontained directory, like <code>C:/Users/My Documents/My Project/</code> which is then set as the working directory</li>
 <li>How to set the working directory? The <code>setwd()</code> command: <code>setwd(&quot;PATH/TO/MY PROJECT/&quot;)</code></li>
+</ul>
+</div>
+<div class="section slide level1" id="preliminaries">
+<h1>Preliminaries</h1>
+<ul class="incremental">
+<li>Get and set the working directory</li>
+<li>Understand file system paths</li>
+<li>Understand relative and full paths</li>
+<li>Find out where things are</li>
+<li>To start, we’ll download the Bootcamp files and open up “Tutorial 2.R”</li>
+<li>We’ll notice that in the Bootcamp folder we have a number of subfolders for things like <code>data</code> and <code>handouts</code></li>
+<li>When you do an R project, it really helps to put it into a self-contained folder so you can reference everything you need easily within the file system</li>
 </ul>
 </div>
 <div class="section slide level1" id="rstudio-shortcuts">
@@ -145,9 +149,18 @@ DPI R Bootcamp
 <li>So RStudio shortcuts can’t help there</li>
 </ul>
 </div>
+<div class="section slide level1" id="rstudio-projects">
+<h1>RStudio Projects</h1>
+<ul class="incremental">
+<li>A great feature of RStudio is that it allows us to create a <strong>project</strong> which allows us to quickly jump from folder to folder, store data, and keep open tasks and scripts</li>
+<li>If you have multiple R tasks at once (how lucky!) you have to use projects</li>
+<li>Let’s walkthrough creating a Project in RStudio and understand it a little bit</li>
+</ul>
+</div>
 <div class="section slide level1" id="manipulating-project-paths">
 <h1>Manipulating Project Paths</h1>
 <ul class="incremental">
+<li>Paths are strings that tell R where to find files on your computer</li>
 <li>R uses both full and relative paths</li>
 <li>When we want to call files from different directories or write to different directories, we can use relative paths within the project</li>
 <li>Relative paths look like <code>/data</code> or <code>~data</code> which means, look for the <code>data</code> folder in our current working directory</li>
@@ -205,6 +218,7 @@ a &lt;- <span class="kw">c</span>(a, <span class="ot">NA</span>)
 <h1>What the heck is Not a Number?</h1>
 <ul class="incremental">
 <li><code>NaN</code> is even more special, and only holds things like imaginary numbers</li>
+<li><code>NaN</code> stands for “Not a Number”</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">b &lt;- <span class="dv">1</span>
 b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
@@ -214,7 +228,8 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">pi/<span class="dv">0</span></code></pre>
 <pre><code>## [1] Inf</code></pre>
 <ul class="incremental">
-<li>Inf is a special case as well representing an infinite value; just for fun <code>sin(Inf)</code> = <code>NaN</code></li>
+<li>Inf is a special case as well representing an infinite value</li>
+<li>Just for fun <code>sin(Inf)</code> = <code>NaN</code></li>
 </ul>
 </div>
 <div class="section slide level1" id="beginning-analysis">
@@ -222,12 +237,13 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <ul class="incremental">
 <li>Now let’s set up our analysis project</li>
 <li>It is best to keep projects discrete in directories</li>
-<li><p>Create a few subdirectories</p></li>
+<li>Create a few subdirectories</li>
 <li>Data</li>
 <li>Functions / R src</li>
 <li>Figures / Plots</li>
-<li><p>Cleaned Data</p></li>
-<li><p>See the <code>ProjectTemplate</code> package for a more detailed philosophy about organizing projects</p></li>
+<li>Cleaned Data</li>
+<li>We’ve already done this in the Bootcamp folder itself!</li>
+<li>See the <code>ProjectTemplate</code> package for a more detailed philosophy about organizing projects</li>
 </ul>
 </div>
 <div class="section slide level1" id="organization-of-a-project-is-key">
@@ -303,7 +319,7 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ##  Median : 55.5  
 ##  Mean   : 52.0  
 ##  3rd Qu.: 75.0  
-##  Max.   :105.0  </code></pre>
+##  Max.   :105.0</code></pre>
 </div>
 <div class="section slide level1" id="checking-your-data-ii">
 <h1>Checking your data II</h1>
@@ -317,14 +333,17 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
 ## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
 ## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
-## [31] &quot;proflvl&quot;     &quot;race&quot;       </code></pre>
+## [31] &quot;proflvl&quot;     &quot;race&quot;</code></pre>
 <ul class="incremental">
 <li><code>attributes</code> and <code>class</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">attributes</span>(df))</code></pre>
-<pre><code>## [1] &quot;names&quot;     &quot;row.names&quot; &quot;class&quot;    </code></pre>
+<pre><code>## [1] &quot;names&quot;     &quot;row.names&quot; &quot;class&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(df)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<ul class="incremental">
+<li><code>str</code> which lists all data elements in an object and their type</li>
+</ul>
 </div>
 <div class="section slide level1" id="data-warehouses-oracle-sql-and-rodbc">
 <h1>Data Warehouses, Oracle, SQL and RODBC</h1>
@@ -344,7 +363,9 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RODBC)  <span class="co"># interface driver for R</span>
 channel &lt;- <span class="kw">odbcConnect</span>(<span class="st">&quot;Mydatabase.location&quot;</span>, <span class="dt">uid =</span> <span class="st">&quot;useR&quot;</span>, <span class="dt">pwd =</span> <span class="st">&quot;secret&quot;</span>)
 <span class="co"># establish connection we can do multiple connections in the same R</span>
-<span class="co"># session credentials stored in plain text unless you do some magic</span>
+<span class="co"># session</span>
+<span class="co"># </span>
+<span class="co"># WARNING: credentials stored in plain text unless you do some magic</span>
 table_list &lt;- <span class="kw">sqltables</span>(channel, <span class="dt">schema =</span> <span class="st">&quot;My_DB&quot;</span>)
 <span class="co"># Get a list of tables in the connection</span>
 <span class="kw">colnames</span>(<span class="kw">sqlFetch</span>(channel, <span class="st">&quot;My_DB.TABLE_NAME&quot;</span>, <span class="dt">max =</span> <span class="dv">1</span>))
@@ -364,6 +385,8 @@ messdf &lt;- df
 messdf$readSS[messdf$stuid %in% random] &lt;- <span class="ot">NA</span>
 messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code></pre>
 <ul class="incremental">
+<li>What is this code doing?</li>
+<li>How can we find out?</li>
 <li>Don’t try this at home!</li>
 </ul>
 </div>
@@ -375,20 +398,20 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(messdf[, <span class="kw">c</span>(<span class="st">&quot;stuid&quot;</span>, <span class="st">&quot;readSS&quot;</span>, <span class="st">&quot;mathSS&quot;</span>)])</code></pre>
 <pre><code>##      stuid            readSS        mathSS   
 ##  Min.   :   205   Min.   :252   Min.   :210  
-##  1st Qu.: 44205   1st Qu.:430   1st Qu.:418  
-##  Median : 88205   Median :495   Median :482  
-##  Mean   : 99229   Mean   :496   Mean   :485  
-##  3rd Qu.:132205   3rd Qu.:562   3rd Qu.:546  
+##  1st Qu.: 44205   1st Qu.:430   1st Qu.:417  
+##  Median : 88205   Median :495   Median :479  
+##  Mean   : 99229   Mean   :496   Mean   :483  
+##  3rd Qu.:132205   3rd Qu.:562   3rd Qu.:544  
 ##  Max.   :324953   Max.   :833   Max.   :828  
-##                   NA's   :226   NA's   :271  </code></pre>
+##                   NA's   :219   NA's   :264</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(messdf[!<span class="kw">complete.cases</span>(messdf), ])  <span class="co"># number of rows with missing data</span></code></pre>
-<pre><code>## [1] 473</code></pre>
+<pre><code>## [1] 471</code></pre>
 <ul class="incremental">
 <li>To get rid of missing data, we can copy our data with all missing cases dropped using the <code>na.omit</code> function</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">cleandf &lt;- <span class="kw">na.omit</span>(messdf)
 <span class="kw">nrow</span>(cleandf)</code></pre>
-<pre><code>## [1] 2227</code></pre>
+<pre><code>## [1] 2229</code></pre>
 </div>
 <div class="section slide level1" id="now-we-have-the-data">
 <h1>Now we have the data</h1>
@@ -420,7 +443,7 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 ## [16] &quot;sch_fay&quot;     &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
 ## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
 ## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
-## [31] &quot;proflvl&quot;     &quot;race&quot;       </code></pre>
+## [31] &quot;proflvl&quot;     &quot;race&quot;</code></pre>
 <ul class="incremental">
 <li>It looks like we have a number of <code>id</code> variables, this is useful and it is good to check if these variables have multiple rows per id or not and we do this using <code>length</code> and <code>unique</code></li>
 </ul>
@@ -461,8 +484,10 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 <div class="section slide level1" id="exercises">
 <h1>Exercises</h1>
 <ol class="incremental" style="list-style-type: decimal">
-<li><p>Read in the CSV file from the T drive</p></li>
-<li><p>Read in the R data file from the T drive</p></li>
+<li><p>Read in the CSV file from the T drive or the project folder</p></li>
+<li><p>Read in the R data file from the T drive or the project folder</p></li>
+<li><p>Read in the sample datafile. Find the <code>readSS</code> (reading scale score) for student 205 in grade 4.</p></li>
+<li><p>Create a list of two attributes for each district in the <code>df</code> datafile.</p></li>
 <li><p>Think about your own data warehouse environment. Could R interface with it? How?</p></li>
 </ol>
 </div>
@@ -477,24 +502,29 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 </div>
 <div class="section slide level1" id="session-info">
 <h1>Session Info</h1>
-<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.7</code>. Here is my session info:</p>
+<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
-<pre><code>## R version 2.15.1 (2012-06-22)
-## Platform: x86_64-pc-mingw32/x64 (64-bit)
+<pre><code>## R version 2.15.2 (2012-10-26)
+## Platform: i386-w64-mingw32/i386 (32-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] knitr_0.7
+##  [1] plyr_1.7.1       Cairo_1.5-2      mgcv_1.7-22      hexbin_1.26.0   
+##  [5] lattice_0.20-10  ggplot2_0.9.2.1  lmtest_0.9-30    zoo_1.7-9       
+##  [9] knitr_0.8        shiny_0.1.9      websockets_1.1.5 digest_0.5.2    
+## [13] caTools_1.13     bitops_1.0-4.2  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.1-1   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        ggplot2_0.9.1     
-##  [7] grid_2.15.1        labeling_0.1       MASS_7.3-19       
-## [10] memoise_0.1        munsell_0.3        plyr_1.7.1        
+##  [1] colorspace_1.2-0   dichromat_1.2-4    evaluate_0.4.2    
+##  [4] formatR_0.6        gtable_0.1.1       labeling_0.1      
+##  [7] markdown_0.5.3     MASS_7.3-22        Matrix_1.0-10     
+## [10] memoise_0.1        munsell_0.4        nlme_3.1-105      
 ## [13] proto_0.3-9.2      RColorBrewer_1.0-5 reshape2_1.2.1    
-## [16] scales_0.2.1       stringr_0.6.1      tools_2.15.1      </code></pre>
+## [16] RJSONIO_1.0-1      scales_0.2.2       stringr_0.6.1     
+## [19] tools_2.15.1       xtable_1.7-0</code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

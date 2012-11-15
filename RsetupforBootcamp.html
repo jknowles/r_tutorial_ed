@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="DPI R Bootcamp" />
+  <meta name="author" content="DPI R Bootcamp Dec. 3rd to 5th, 2012" />
   <title>Setting Up R</title>
   <style type="text/css">
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
@@ -33,7 +33,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <div class="slide titlepage">
   <h1 class="title">Setting Up R</h1>
   <p class="author">
-DPI R Bootcamp
+DPI R Bootcamp Dec. 3rd to 5th, 2012
   </p>
   <p class="date">Jared Knowles</p>
 </div>
@@ -67,7 +67,22 @@ DPI R Bootcamp
 <h1>Installing R on Windows</h1>
 <p align="center"><iframe src="http://www.screenr.com/embed/kzT8" width="650" height="396" frameborder="0"></iframe></p>
 
-
+</div>
+<div class="section slide level1" id="installing-r-on-a-mac">
+<h1>Installing R on a Mac</h1>
+<ul>
+<li>Get the install file from <a href="http://cran.r-project.org/bin/macosx/">CRAN</a></li>
+<li>Get <a href="http://www.rstudio.org/">RStudio</a></li>
+<li>Run the R installer, and then run the RStudio installer</li>
+</ul>
+</div>
+<div class="section slide level1" id="installing-r-on-ubuntu-or-debian-linux">
+<h1>Installing R on Ubuntu or Debian Linux</h1>
+<ul>
+<li>Read the <a href="http://cran.r-project.org/bin/linux/ubuntu/README">install notes online</a></li>
+<li>Get <a href="http://www.rstudio.org/">RStudio</a></li>
+<li>Run the R installer, and then run the RStudio installer</li>
+</ul>
 </div>
 <div class="section slide level1" id="step-2-rstudio">
 <h1>Step 2: RStudio</h1>
@@ -79,14 +94,15 @@ DPI R Bootcamp
 <div class="section slide level1" id="step-3-install-packages">
 <h1>Step 3: Install packages</h1>
 <p>First, watch this tutorial<br></p>
-<iframe src="http://www.screenr.com/embed/Fps8" width="650" height="396" frameborder="0"></iframe>
+<p align="center"><iframe src="http://www.screenr.com/embed/Fps8" width="650" height="396" frameborder="0"></iframe></p>
 
 </div>
 <div class="section slide level1" id="install-packages">
 <h1>Install Packages</h1>
 <ul>
 <li>Are you running RStudio in administrator mode on Windows Vista or Windows 7?</li>
-<li>If not, you need to be. Right click on RStudio and then click “Run as Administrator”</li>
+<li>If not, you need to be to install packages (in most cases)</li>
+<li>When you launch RStudio, right click on the icon for RStudio and then click “Run as Administrator”</li>
 <li>If you are on a Mac or Windows XP you can disregard this</li>
 </ul>
 </div>
@@ -95,43 +111,41 @@ DPI R Bootcamp
 <ul>
 <li>Now, copy and paste the code below into the bottom left window in RStudio (the R terminal):</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">install_new &lt;- function(mypkg) {
-    if (mypkg %in% <span class="kw">installed.packages</span>()) 
-        <span class="kw">cat</span>(<span class="st">&quot;Package already installed&quot;</span>) else {
-        <span class="kw">cat</span>(<span class="st">&quot;Package not found, so installing with dependencies... Press CTRL C to abort.&quot;</span>)
-        <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)
-        <span class="kw">install.packages</span>(mypkg, <span class="dt">repos =</span> <span class="st">&quot;http://cran.wustl.edu/&quot;</span>)
-    }
+<pre class="sourceCode r"><code class="sourceCode r">install_new&lt;-function(mypkg){
+  if (mypkg %in% <span class="kw">installed.packages</span>()) <span class="kw">cat</span>(<span class="st">&quot;Package already installed&quot;</span>)
+  else{<span class="kw">cat</span>(<span class="st">&quot;Package not found, so installing with dependencies...</span><span class="ch">\n</span><span class="st"> </span>
+<span class="st">           Press CTRL C to abort.&quot;</span>)
+    <span class="kw">Sys.sleep</span>(<span class="dv">5</span>)
+    <span class="kw">install.packages</span>(mypkg,<span class="dt">repos=</span><span class="st">&quot;http://cran.wustl.edu/&quot;</span>)
+}
 }
 
-<span class="kw">install_new</span>(<span class="st">&quot;plyr&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;lmtest&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;ggplot2&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;gridExtra&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;stringr&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;knitr&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;quantreg&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;zoo&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;devtools&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;xtable&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;lme4&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;R2SWF&quot;</span>)
-<span class="kw">install_new</span>(<span class="st">&quot;caret&quot;</span>)</code></pre>
+<span class="kw">install_new</span>(<span class="st">'plyr'</span>)
+<span class="kw">install_new</span>(<span class="st">'lmtest'</span>)
+<span class="kw">install_new</span>(<span class="st">'ggplot2'</span>)
+<span class="kw">install_new</span>(<span class="st">'gridExtra'</span>)
+<span class="kw">install_new</span>(<span class="st">'eeptools'</span>)
+<span class="kw">install_new</span>(<span class="st">'stringr'</span>)
+<span class="kw">install_new</span>(<span class="st">'knitr'</span>)
+<span class="kw">install_new</span>(<span class="st">'quantreg'</span>)
+<span class="kw">install_new</span>(<span class="st">'xtable'</span>)
+<span class="kw">install_new</span>(<span class="st">'lme4'</span>)
+<span class="kw">install_new</span>(<span class="st">'caret'</span>)</code></pre>
 </div>
 <div class="section slide level1" id="alternate-install">
 <h1>Alternate Install</h1>
 <ul>
 <li>If you want or if you have troubles with the above, you can overwrite any existing versions of those packages and do the install in one line, shown below:</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;plyr&quot;</span>, <span class="st">&quot;lmtest&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;gridExtra&quot;</span>, <span class="st">&quot;stringr&quot;</span>, <span class="st">&quot;knitr&quot;</span>, 
-    <span class="st">&quot;quantreg&quot;</span>, <span class="st">&quot;zoo&quot;</span>, <span class="st">&quot;devtools&quot;</span>), <span class="dt">repos =</span> <span class="st">&quot;http://cran.wustl.edu/&quot;</span>)</code></pre>
-<p>```</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">'plyr'</span>,<span class="st">'lmtest'</span>,<span class="st">'ggplot2'</span>,<span class="st">'gridExtra'</span>,<span class="st">'stringr'</span>,
+                   <span class="st">'knitr'</span>,<span class="st">'quantreg'</span>,<span class="st">'xtable'</span>,<span class="st">'lme4'</span>,<span class="st">'eeptools'</span>,<span class="st">'caret'</span>),
+                 <span class="dt">repos=</span><span class="st">&quot;http://cran.wustl.edu/&quot;</span>)</code></pre>
 </div>
 <div class="section slide level1" id="run-rstudio">
 <h1>Run RStudio</h1>
 <ul>
 <li>You should be able to run RStudio now and load any of the packages above.</li>
-<li>Run the code below in the RStudio terminal window (bottom left) to test this:</li>
+<li>Run the code below in the RStudio terminal panel (bottom left) to test this:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(lmtest)
 <span class="kw">example</span>(gqtest)</code></pre>
@@ -158,7 +172,7 @@ DPI R Bootcamp
 ##  Goldfeld-Quandt test
 ## 
 ## data:  y1 ~ x 
-## GQ = 2.789, df1 = 48, df2 = 48, p-value = 0.0002684
+## GQ = 2.976, df1 = 48, df2 = 48, p-value = 0.0001208
 ## 
 ## 
 ## gqtest&gt; gqtest(y2 ~ x)
@@ -166,8 +180,7 @@ DPI R Bootcamp
 ##  Goldfeld-Quandt test
 ## 
 ## data:  y2 ~ x 
-## GQ = 0.8169, df1 = 48, df2 = 48, p-value = 0.7568
-## </code></pre>
+## GQ = 0.8111, df1 = 48, df2 = 48, p-value = 0.7645</code></pre>
 </div>
 <div class="section slide level1" id="and-test-the-graphics">
 <h1>And test the graphics…</h1>
@@ -183,7 +196,7 @@ y &lt;- <span class="kw">rt</span>(<span class="dv">200</span>, <span class="dt"
 y &lt;- <span class="kw">rt</span>(<span class="dv">200</span>, <span class="dt">df =</span> <span class="dv">5</span>)
 <span class="kw">qplot</span>(<span class="dt">sample =</span> y, <span class="dt">stat =</span> <span class="st">&quot;qq&quot;</span>)</code></pre>
 <div class="figure">
-<img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-6" /><p class="caption">plot of chunk unnamed-chunk-6</p>
+<img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-6" /><p class="caption">plot of chunk unnamed-chunk-6</p>
 </div>
 </div>
 <div class="section slide level1" id="thats-all">
@@ -193,17 +206,38 @@ y &lt;- <span class="kw">rt</span>(<span class="dv">200</span>, <span class="dt"
 <li>Did you see the plot in the lower right?</li>
 </ul>
 </div>
+<div class="section slide level1" id="optional">
+<h1>Optional</h1>
+<ul>
+<li>If you want to see the cutting edge of R development–interactive web-based data applications, you can install the following beta software</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">repos =</span> <span class="kw">c</span>(<span class="dt">RStudio =</span> <span class="st">&quot;http://rstudio.org/_packages&quot;</span>, <span class="kw">getOption</span>(<span class="st">&quot;repos&quot;</span>)))
+<span class="kw">install.packages</span>(<span class="st">&quot;shiny&quot;</span>)</code></pre>
+</div>
+<div class="section slide level1" id="optional-cont.">
+<h1>Optional Cont.</h1>
+<ul>
+<li>To check if it worked (and it might not depending on your machine’s configuration)</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(shiny)
+<span class="kw">runExample</span>(<span class="st">&quot;06_tabsets&quot;</span>)</code></pre>
+<ul>
+<li>Does a new browser window or tab open up?</li>
+<li>In RStudio hit the “stop” button in the terminal panel to exit the demo</li>
+</ul>
+</div>
 <div class="section slide level1" id="you-are-ready-to-go">
 <h1>You are ready to go!</h1>
-<p>See you on August 2nd and 3rd to find out how to go from these basic steps to using R to learn from your data. Can’t wait to see you in Madison!</p>
+<p>See you on December 3rd to the 5th to find out how to go from these basic steps to using R to learn from your data.</p>
+<p>Can’t wait to see you in Madison!</p>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>
-<p xmlns:dct="http://purl.org/dc/terms/">
-<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPNQTFRFv7+/7+/vX19fDw8PHx8fn5+fLy8v39/fz8/Pb29vr6+vT09Pj4+P+fn5/f39ZWVl5eXlzs7O6urq8fHx9/f36ejovr6++/v7jY2N4+Pj2dnZp6enzc3Nenp69PT08/PzXFxc8vLyTk5OIyMj9fX13d3d5ubmXl5eDAwMNjY2JiYmra2t1NTUxcXF4uLiLCsrFxcXVVVV/v7+GRkZMTExW1tbyMjIt7e3np6ednZ2mJiY7Ozsjo6O1dXV3t7e7e3t09PTkJCQi4uL7u7uy8vLU1NTCgsJ4eHh1tbWioqKysrK5+fnf39/Pz8/7erh////AAAA7t9IFQAAArpJREFUeNq0ludy2zAQhA8dLJLl3u303nt3ejMuwPs/Te4AmrIzYn7YEjTUsIAfib1dgBDTQlqE9GchLUGKC2n/gD2AnztYGCzyNCaORz8eXlDkHmzU9KS+ezB5cWcuYCGZV9UAdcVPuLR+7+XVeYBJBWVORGkJ/Xzb737PPTCEYJMOmjdNB1IlGfhKwHwV/wOuUrJiqryzKe1vL7/OPULugPRs2pAPIEF2fwypjXRbMwiGjisMvRDbQuiU7j/Ye1TASUXowZi86MEqeqUEDIJ5SK6vH5ZHXVm9vl/AoY2mB3sXTQ9GHuuwxj7vFd14h4dLxdy5sVHAVFHVgyuEqKdguknKITBd1N1hgEqWqKS09fajLVJQs7HGOloG15HYiMgaC9FIGsEAGOm2kg7V9iVU6ebhh8c9ONXs9SxTloLDRWCk/k4PgW0efVFLVS52BsS1ydKpnhbtjPsV4rDGxVInEicJHXh0vHSxgNhUdeC6zcNCcwrMAeE0Yg2GQxL4FNVLlz/UocnxmakxS9cWQxSxNTGaAiZXOLIfRgFRkDsoD57tGLgOyM6Imj0zA0zqcg2yK3ztobPPu9Hxs6545Ic6l4ISGI3OPneCPFnAMACui8id15WPLk9Ey2uTWx24IYf5zrlOVNHxCKTzBWzoNxMcdVJiSsZiYxwfvukiTRuCUORKwrT0JgDJRC9YAzpDth4AG34nDnKF2PAkJ8hZG6OV2yeRFo5kqCufJwsXJYASnpIeClgPgfm0PLWuCJqv5Obqbj+71fQgyo5jUbGNCkBy6J0rYB7RbDC/oe1XO+Cjo2vvn85jBbF5saPUuew3+2W00sxlzRNn5r/wZPPytzktpiRgt5wq6eJ4befVp8+/zt22zn5XAK0gJks9Ppj83Pv6+9xteehLaDxaXVk/Pn9bTwv8dltQ+yvAAF/L4Ldao5NwAAAAAElFTkSuQmCC" style="border-style: none;" alt="Public Domain Mark" /> </a> <br /> This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
 </p>
 
-
+<p xmlns:dct="http://purl.org/dc/terms/">
+<a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAPNQTFRFv7+/7+/vX19fDw8PHx8fn5+fLy8v39/fz8/Pb29vr6+vT09Pj4+P+fn5/f39ZWVl5eXlzs7O6urq8fHx9/f36ejovr6++/v7jY2N4+Pj2dnZp6enzc3Nenp69PT08/PzXFxc8vLyTk5OIyMj9fX13d3d5ubmXl5eDAwMNjY2JiYmra2t1NTUxcXF4uLiLCsrFxcXVVVV/v7+GRkZMTExW1tbyMjIt7e3np6ednZ2mJiY7Ozsjo6O1dXV3t7e7e3t09PTkJCQi4uL7u7uy8vLU1NTCgsJ4eHh1tbWioqKysrK5+fnf39/Pz8/7erh////AAAA7t9IFQAAArpJREFUeNq0ludy2zAQhA8dLJLl3u303nt3ejMuwPs/Te4AmrIzYn7YEjTUsIAfib1dgBDTQlqE9GchLUGKC2n/gD2AnztYGCzyNCaORz8eXlDkHmzU9KS+ezB5cWcuYCGZV9UAdcVPuLR+7+XVeYBJBWVORGkJ/Xzb737PPTCEYJMOmjdNB1IlGfhKwHwV/wOuUrJiqryzKe1vL7/OPULugPRs2pAPIEF2fwypjXRbMwiGjisMvRDbQuiU7j/Ye1TASUXowZi86MEqeqUEDIJ5SK6vH5ZHXVm9vl/AoY2mB3sXTQ9GHuuwxj7vFd14h4dLxdy5sVHAVFHVgyuEqKdguknKITBd1N1hgEqWqKS09fajLVJQs7HGOloG15HYiMgaC9FIGsEAGOm2kg7V9iVU6ebhh8c9ONXs9SxTloLDRWCk/k4PgW0efVFLVS52BsS1ydKpnhbtjPsV4rDGxVInEicJHXh0vHSxgNhUdeC6zcNCcwrMAeE0Yg2GQxL4FNVLlz/UocnxmakxS9cWQxSxNTGaAiZXOLIfRgFRkDsoD57tGLgOyM6Imj0zA0zqcg2yK3ztobPPu9Hxs6545Ic6l4ISGI3OPneCPFnAMACui8id15WPLk9Ey2uTWx24IYf5zrlOVNHxCKTzBWzoNxMcdVJiSsZiYxwfvukiTRuCUORKwrT0JgDJRC9YAzpDth4AG34nDnKF2PAkJ8hZG6OV2yeRFo5kqCufJwsXJYASnpIeClgPgfm0PLWuCJqv5Obqbj+71fQgyo5jUbGNCkBy6J0rYB7RbDC/oe1XO+Cjo2vvn85jBbF5saPUuew3+2W00sxlzRNn5r/wZPPytzktpiRgt5wq6eJ4befVp8+/zt22zn5XAK0gJks9Ppj83Pv6+9xteehLaDxaXVk/Pn9bTwv8dltQ+yvAAF/L4Ldao5NwAAAAAElFTkSuQmCC" style="border-style: none;" alt="Public Domain Mark" /> </a> <br />
 </div>
 </body>
 </html>

@@ -100,6 +100,20 @@ summary(defac(a))
 summary(as.character(a))
 ```
 
+# Simple Data Cleaning Function
+- What if we want to extract the numeric elements out of `foo` which has both a character and a missing value?
+
+```{r declassfunction}
+extractN<-function(x){
+  x<-suppressWarnings(as.numeric(x))
+  #ignore warnings because we don't care
+  x<-x[!is.na(x)]
+  x
+}
+extractN(foo)
+A<-extractN(foo)
+```
+
 # Complicating Functions
 - Functions can have many arguments and be much more complex
 - They can also be incredibly specialized--remember we are writing code for us!

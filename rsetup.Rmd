@@ -1,5 +1,5 @@
 % Setting Up R
-% DPI R Bootcamp
+% DPI R Bootcamp Dec. 3rd to 5th, 2012
 % Jared Knowles
 
 # Getting Ready for the DPI R Bootcamp
@@ -38,20 +38,22 @@
 # Step 3: Install packages
 First, watch this tutorial<br>
 
-<iframe src="http://www.screenr.com/embed/Fps8" width="650" height="396" frameborder="0"></iframe>
+<p align='center'><iframe src="http://www.screenr.com/embed/Fps8" width="650" height="396" frameborder="0"></iframe></p>
 
 # Install Packages
 - Are you running RStudio in administrator mode on Windows Vista or Windows 7?
-- If not, you need to be. Right click on RStudio and then click "Run as Administrator"
+- If not, you need to be to install packages (in most cases) 
+- When you launch RStudio, right click on the icon for RStudio and then click "Run as Administrator" 
 - If you are on a Mac or Windows XP you can disregard this
 
 # Install Packages (2)
 - Now, copy and paste the code below into the bottom left window in RStudio (the R terminal):
 
-```{r, eval=FALSE,echo=TRUE}
+```{r, eval=FALSE,echo=TRUE,tidy=FALSE}
 install_new<-function(mypkg){
   if (mypkg %in% installed.packages()) cat("Package already installed")
-  else{cat("Package not found, so installing with dependencies... Press CTRL C to abort.")
+  else{cat("Package not found, so installing with dependencies...\n 
+           Press CTRL C to abort.")
     Sys.sleep(5)
     install.packages(mypkg,repos="http://cran.wustl.edu/")
 }
@@ -74,10 +76,12 @@ install_new('caret')
 # Alternate Install
 - If you want or if you have troubles with the above, you can overwrite any existing versions of those packages and do the install in one line, shown below:
 
-```{r eval=FALSE,echo=TRUE}
-install.packages(c('plyr','lmtest','ggplot2','gridExtra','stringr','knitr','quantreg','xtable','lme4','eeptools','caret'),repos="http://cran.wustl.edu/")
+```{r eval=FALSE,echo=TRUE,tidy=FALSE}
+install.packages(c('plyr','lmtest','ggplot2','gridExtra','stringr',
+                   'knitr','quantreg','xtable','lme4','eeptools','caret'),
+                 repos="http://cran.wustl.edu/")
 ```
-```
+
 
 # Run RStudio
 - You should be able to run RStudio now and load any of the packages above.
@@ -134,13 +138,17 @@ runExample("06_tabsets")
 - In RStudio hit the "stop" button in the terminal panel to exit the demo
 
 # You are ready to go!
-See you on December 3rd to the 5th to find out how to go from these basic steps to using R to learn from your data. Can't wait to see you in Madison!
+See you on December 3rd to the 5th to find out how to go from these basic steps to using R to learn from your data. 
+
+Can't wait to see you in Madison!
 
 # Attribution and License
+
+This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
+</p>
 
 <p xmlns:dct="http://purl.org/dc/terms/">
 <a rel="license" href="http://creativecommons.org/publicdomain/mark/1.0/">
 <img src="http://i.creativecommons.org/p/mark/1.0/88x31.png"  style="border-style: none;" alt="Public Domain Mark" /> </a>
 <br />
-This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
-</p>
+

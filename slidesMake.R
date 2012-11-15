@@ -3,6 +3,7 @@
 # From markdown we can make the files what we want
 
 library(knitr)
+knit("rsetup.Rmd",envir=new.env())
 knit("Tutorial0_Overview.Rmd",envir=new.env())
 knit("Tutorial1_Intro.Rmd",envir=new.env())
 knit("Tutorial2_DataImport.Rmd",envir=new.env())
@@ -12,7 +13,6 @@ knit("Tutorial5_BasicAnalytics.Rmd",envir=new.env())
 knit("Tutorial6_Visualization.Rmd",envir=new.env())
 knit("Tutorial7_ExportingWork.Rmd",envir=new.env())
 knit("Tutorial8_AdvancedTopics.Rmd",envir=new.env())
-knit("rsetup.Rmd",envir=new.env())
 knit("TutorialX_StatisticsRefresher.Rmd",envir=new.env())
 knit("TutorialXX_IntroToProgramming.Rmd",envir=new.env())
 
@@ -20,7 +20,8 @@ knit("TutorialXX_IntroToProgramming.Rmd",envir=new.env())
 # This part allows pandoc to do the work of taking the md files
 # and converting them into nice looking HTML5 slides
 
-system("pandoc -s -S -i -t slidy Tutorial0_Overview.md -o Tutorial0_Overview.html --self-contained")
+system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
+system("pandoc -s -S -t slidy Tutorial0_Overview.md -o Tutorial0_Overview.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial1_Intro.md -o Tutorial1_Intro.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial2_DataImport.md -o Tutorial2_DataImport.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial3_DataSort.md -o Tutorial3_DataSort.html --self-contained")
@@ -32,7 +33,6 @@ system("pandoc -s -S -i -t slidy Tutorial8_AdvancedTopics.md -o Tutorial8_Advanc
 system("pandoc -s -S -i -t slidy TutorialX_StatisticsRefresher.md -o TutorialX_StatisticsRefresher.html --self-contained")
 system("pandoc -s -S -i -t slidy TutorialXX_IntroToProgramming.md -o TutorialXX_IntroToProgramming.html --self-contained")
 
-system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
 
 
 # Make a notes sheet by knitting to HTML, but not converting it to slides

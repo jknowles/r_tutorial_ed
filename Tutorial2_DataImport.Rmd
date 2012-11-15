@@ -38,6 +38,7 @@ update.packages() # Gonna update them all
 - Note, on Windows Vista and later R either needs to be run as an administrator to install packages, or you have to fiddle with where the packages are installed
 - Packages are stored in something called the **library** which is just a collection of packages
   * Sometimes folks call packages **libraries**
+- Loading a package couldn't be easier `library(ggplot2)` and you're done!
 
 # Finding Packages
 - Official packages are found on CRAN (Comprehensive R A Network)
@@ -66,12 +67,6 @@ update.packages() # Gonna update them all
 - The `$` and `@` distinction depends on whether this is an S3 or an S4 class
 - R will warn you if you do it wrong, so just remember when `$` doesn't work, use `@`
 
-# Preliminaries
-- Get and set the working directory
-- Understand file system paths
-- Understand relative and full paths
-- Find out where things are
-
 # The Working Directory
 - The working directory, lovingly denoted by `wd` is both your friend and enemy
 - R needs to know where it is in your file system to be able to access data and write output
@@ -79,13 +74,28 @@ update.packages() # Gonna update them all
 - R work is best done in a selfcontained directory, like `C:/Users/My Documents/My Project/` which is then set as the working directory
 - How to set the working directory? The `setwd()` command: `setwd("PATH/TO/MY PROJECT/")`
 
+# Preliminaries
+- Get and set the working directory
+- Understand file system paths
+- Understand relative and full paths
+- Find out where things are
+- To start, we'll download the Bootcamp files and open up "Tutorial 2.R"
+- We'll notice that in the Bootcamp folder we have a number of subfolders for things like `data` and `handouts`
+- When you do an R project, it really helps to put it into a self-contained folder so you can reference everything you need easily within the file system
+
 # RStudio Shortcuts
 - RStudio makes this so much easier!
 - RStudio can set the working directory to the Files pane in the bottom right, or to the source file in the top left
 - The source file is the most likely path, but sometimes we need to access data in a separate folder and store results in another
 - So RStudio shortcuts can't help there
 
+# RStudio Projects
+- A great feature of RStudio is that it allows us to create a **project** which allows us to quickly jump from folder to folder, store data, and keep open tasks and scripts
+- If you have multiple R tasks at once (how lucky!) you have to use projects
+- Let's walkthrough creating a Project in RStudio and understand it a little bit
+
 # Manipulating Project Paths
+- Paths are strings that tell R where to find files on your computer
 - R uses both full and relative paths
 - When we want to call files from different directories or write to different directories, we can use relative paths within the project
 - Relative paths look like `/data` or `~data` which means, look for the `data` folder in our current working directory
@@ -128,24 +138,25 @@ print(a)
 
 # What the heck is Not a Number?
 - `NaN` is even more special, and only holds things like imaginary numbers
+- `NaN` stands for "Not a Number"
 ```{r nan, warning=TRUE}
 b<-1
 b<-sqrt(-b)
 print(b)
 pi/0
 ```
-- Inf is a special case as well representing an infinite value; just for fun `sin(Inf)` = `NaN`
+- Inf is a special case as well representing an infinite value
+- Just for fun `sin(Inf)` = `NaN`
 
 # Beginning Analysis
 - Now let's set up our analysis project
 - It is best to keep projects discrete in directories
 - Create a few subdirectories
-
   - Data
   - Functions / R src
   - Figures / Plots
   - Cleaned Data
-
+- We've already done this in the Bootcamp folder itself!
 - See the `ProjectTemplate` package for a more detailed philosophy about organizing projects
 
 # Organization of a project is key
@@ -207,7 +218,7 @@ str(df[27:32])
   names(attributes(df))
   class(df)
 ```
-  
+- `str` which lists all data elements in an object and their type  
 
 # Data Warehouses, Oracle, SQL and RODBC
 - Do you have data in a warehouse? 
@@ -224,13 +235,21 @@ library(RODBC) # interface driver for R
 channel<-odbcConnect("Mydatabase.location",uid="useR",pwd="secret") 
 # establish connection
 # we can do multiple connections in the same R session
-# credentials stored in plain text unless you do some magic
+#
+# WARNING: credentials stored in plain text unless you do some magic
+#
 table_list<-sqltables(channel,schema="My_DB")
+#
 # Get a list of tables in the connection
+#
 colnames(sqlFetch(channel,'My_DB.TABLE_NAME',max=1)) 
+#
 # get the column names of a table
+#
 datapull<-sqlQuery(channel,"SELECT DATA1, DATA2, DATA3 FROM My_DB.TABLE_NAME") 
+#
 # execute some SQLquery, can paste any SQLquery as a string into this space
+#
 ```
 
 # Missing Data
@@ -243,6 +262,8 @@ messdf<-df
 messdf$readSS[messdf$stuid %in% random]<-NA
 messdf$mathSS[messdf$stuid %in% random2]<-NA
 ```
+- What is this code doing?
+- How can we find out?
 - Don't try this at home!
 
 # Checking for Missing Data
@@ -297,9 +318,9 @@ unique(messdf$disab)
 
 # Exercises
 
-1. Read in the CSV file from the T drive
+1. Read in the CSV file from the T drive or the project folder
 
-2. Read in the R data file from the T drive
+2. Read in the R data file from the T drive or the project folder
 
 3. Read in the sample datafile. Find the `readSS` (reading scale score) for student 205 in grade 4. 
 
