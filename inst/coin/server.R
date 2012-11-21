@@ -1,4 +1,5 @@
 library(shiny)
+library(scales)
 
 shinyServer(function(input,output){
   trialInput<-reactive(function(){

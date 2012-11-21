@@ -4,7 +4,7 @@ library(eeptools)
 shinyUI(pageWithSidebar(
   
   # Title
-  headerPanel("Normality"),
+  headerPanel("When is a Fair Coin Fair?"),
   
   sidebarPanel(
     helpText('Imagine a friend asks you to bet on the outcome of some coin flips. 

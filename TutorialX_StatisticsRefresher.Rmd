@@ -25,7 +25,7 @@ We will review the following statistical concepts here through the lens of R:
 - What do you think?
 - From [Wikipedia](http://en.wikipedia.org/wiki/Statistics): 
 
-> "Statistics is the study of the collection, organization, analysis, interpretation, and presentation of data.[1][2] It deals with all aspects of this, including the planning of data collection "
+> "Statistics is the study of the collection, organization, analysis, interpretation, and presentation of data. It deals with all aspects of this, including the planning of data collection "
 
 - Statistics gives us a way to quantify and express our uncertainty about the future or about the relationship of a sample to the population
 
@@ -55,8 +55,10 @@ We will review the following statistical concepts here through the lens of R:
 - But we can model them as such with large enough sample size
 
 # Interdependence and Independence
-- Coins are obviously independent in their flipping, but other events are not
-- 
+- Coins are obviously independent in their flipping (though we can think of conditions where this is not true)
+- Other events have probability that varies based on other factors - joint probabilities
+- Let's look at a simple example of this
+- **DEMO**
 
 
 # Hypothesis testing
