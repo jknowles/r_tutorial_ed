@@ -191,7 +191,7 @@ stitch('PATH/TO/MY/SCRIPT')
 
 # A quick example
 
-```{r, eval=FALSE,echo=TRUE}
+```{r,tidy=FALSE,eval=FALSE,echo=TRUE}
 # Start .Rmd file on next line
 My Super Report on Student Testing
 ------------------------------------

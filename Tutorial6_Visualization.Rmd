@@ -210,7 +210,7 @@ qplot(mathSS,readSS,data=df[1:100,],color=proflvl2,size=I(3))+scale_color_brewer
 ```
 
 # Aesthetics Concern 2 (discrete and continuous)
-- What aesthetics can we map continuous variables like `mathSS` to, and waht can we map discrete characteristics like `race` to?
+- What aesthetics can we map continuous variables like `mathSS` to, and what can we map discrete characteristics like `race` to?
 
 ```{r badcontinuousmapping}
 qplot(factor(grade),readSS,data=df[1:100,],color=mathSS,geom='jitter',size=I(3.2))+theme_dpi()
@@ -228,20 +228,20 @@ qplot(factor(grade),readSS,data=df[1:100,],color=dist,geom='jitter',size=I(3.2))
 
 - One concern is discrete v. continuous variables
 
-Aesthetic   Discrete   Continuous
-----------  --------  -----------
-Color       Disparate colors   Sequential or divergent colors
-Size        Unique size for each value  linear or logrithmic mapping to radius of value
-Shape       A shape for each value  **does not make sense**
+Aesthetic       Discrete                 Continuous
+----------  ---------------------------  -----------
+Color       Disparate colors             Sequential or divergent colors
+Size        Unique size for each value   Linear or logrithmic mapping to radius of value
+Shape       A shape for each value       **does not make sense**
 
 # Another is ordered v. unordered
 
 
-Aesthetic   Ordered   Unordered
-----------  --------  ----------
-Color       Sequential or divergent colors   Rainbow
-Size        Increasing or decreasing radius   **does not make sense**
-Shape       **does not make sense**   A shape for each value
+Aesthetic      Ordered                           Unordered
+----------  -------------------------------     -------------------------
+Color       Sequential or divergent colors      Rainbow
+Size        Increasing or decreasing radius     **does not make sense**
+Shape       **does not make sense**             A shape for each value
 
 
 
@@ -270,7 +270,9 @@ grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
 - Picking a good scale can be really difficult, and sometimes, a good scale just won't exist without reshaping or subsetting the data!
 
 # Scales also apply to color and fill
-- 
+- The colors we choose can carry important meaning, as we have discussed
+- So can the shapes we use for points, or for lines
+- It is important to keep this in mind
 
 # Layers
 - Exactly what they sound like, each plot is a simple series of layers
@@ -303,7 +305,7 @@ qplot(readSS,mathSS,data=df)+facet_grid(ell~grade)+theme_dpi(base_size=12)+
 - ggplot2 default colors are based on maximizing space between colors using HCL
 - Read more here: [A tutorial on ggplot2 colors](http://is-r.tumblr.com/post/34693674524/ggtutorial-day-3-introduction-to-colors);  [HCL color](http://hclcolor.com)
 
-```{r, ggplot2colors,echo=FALSE}
+```{r ggplot2colors,echo=FALSE}
 library(gridExtra)
 X <- c(1)
 Y <- c(1)
@@ -395,7 +397,7 @@ print(p2,vp=vp)
 
 
 # Scary R Code
-```{r premiernoeval,eval=FALSE}
+```{r premiernoeval,eval=FALSE,tidy=FALSE}
 library(grid)
 p1<-qplot(readSS,..density..,data=df,fill=race,
       position='fill',geom='density')+scale_fill_brewer(

@@ -207,7 +207,9 @@ print(xtable(table(mpg$hwy)),type="html")
 
 # Standard Deviation and Variance
 - When we have multiple observations of data we are interested in how spread apart these values can be
-- The 
+- The standard way to measure this is to use the variance and standard deviation (which is the square root of the variance)
+- Variance measures how far away from the mean the data can be and can be easily calculated by subtracting each element of data from the mean, squaring that difference, adding them together, and dividing by the number of elements
+- 
 
 # Distributions of Data
 - Statisticians use the idea of a distribution to summarize how data generated through some process looks
@@ -218,6 +220,8 @@ print(xtable(table(mpg$hwy)),type="html")
 - A **distribution** describes our expectation not just about the mean of the data (the average value), but also of how spread out it is likely to be
 
 # Pictures of distributions
+- Let's look at some distributions of data and talk about what they might represent
+- Different distributions describe different data generating processes, and these processes can be used to represent a large array of data types
 
 # Normal
 - The bell curve
@@ -254,6 +258,12 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 
 ```
 
+# Sampling
+- Much of traditional statistics is based on the idea of samples
+
+# Regression and Statistical Models
+- Statistical models are mathematical representations of real world phenomena
+- We use statistical models to summarize and describe the relationships between pieces of data. 
 
 
 # Session Info
