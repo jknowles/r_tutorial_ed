@@ -12,12 +12,13 @@ opts_chunk$set(fig.path='figure/slidesX-', cache.path='cache/slidesX-',fig.width
 # Introduction
 We will review the following statistical concepts here through the lens of R:
 
-- Probability and hypothesis testing
+- Probability
 - Statistical distributions
 - Attributes of distributions
 - Samples
 - Statistical models
 - Univariate Regression
+- Hypothesis testing
 - Multivariate Regression
 - Causality
 
@@ -209,6 +210,9 @@ print(xtable(table(mpg$hwy)),type="html")
 - The standard way to measure this is to use the variance and standard deviation (which is the square root of the variance)
 - Variance measures how far away from the mean the data can be and can be easily calculated by subtracting each element of data from the mean, squaring that difference, adding them together, and dividing by the number of elements
 
+# Skew
+- **DEMO**
+- These parameters define distributions (there are others as well), but you can see what a distribution does--it summarizes data
 
 # Distributions of Data
 - All of the above are the concepts we use to describe a univariate group of data
@@ -260,13 +264,23 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 
 # Sampling
 - Much of traditional statistics is based on the idea of samples
+- Sampling
 
 # Measures of association
 - Correlation is not causation
+- Correlation is a measure of the dependence between two variables and there are a number of different versions of measuring correlation
+- The most common is [Pearson's *r*](http://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient) which measures linear dependence on a scale of -1 to 1
+- Rank correlation is an option as well using [Spearman's rank correlation coefficient](http://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient) or [Kendall's tau rank correlation coefficient](http://en.wikipedia.org/wiki/Kendall_tau_rank_correlation_coefficient)
+
+# Let's look at some of these
+- **DEMO**
+
 
 # Regression and Statistical Models
 - Statistical models are mathematical representations of real world phenomena
 - We use statistical models to summarize and describe the relationships between pieces of data. 
+- Let's look at the simplest version of regression model and the basis of many statistical techniques: Ordinary Least Squares regression (OLS)
+- **DEMO**
 
 # Hypothesis testing
 - What does it mean when someone says something is statistically significant?
