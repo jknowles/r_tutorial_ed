@@ -264,7 +264,8 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 
 # Sampling
 - Much of traditional statistics is based on the idea of samples
-- Sampling
+- Sampling is the process of picking observations out of a population in a way that makes the smaller set of observations reflective of the population
+
 
 # Measures of association
 - Correlation is not causation
@@ -272,13 +273,13 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 - The most common is [Pearson's *r*](http://en.wikipedia.org/wiki/Pearson_product-moment_correlation_coefficient) which measures linear dependence on a scale of -1 to 1
 - Rank correlation is an option as well using [Spearman's rank correlation coefficient](http://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient) or [Kendall's tau rank correlation coefficient](http://en.wikipedia.org/wiki/Kendall_tau_rank_correlation_coefficient)
 
-# Let's look at some of these
+# Let's look at Pearson's Coefficient
 - **DEMO**
 
 
 # Regression and Statistical Models
 - Statistical models are mathematical representations of real world phenomena
-- We use statistical models to summarize and describe the relationships between pieces of data. 
+- We use statistical models to summarize and describe the relationships between pieces of data
 - Let's look at the simplest version of regression model and the basis of many statistical techniques: Ordinary Least Squares regression (OLS)
 - **DEMO**
 

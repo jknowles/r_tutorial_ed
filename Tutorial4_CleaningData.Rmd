@@ -338,13 +338,6 @@ tempdf<-task1(stuatt,stuatt$sid,stuatt$school_year,stuatt$race_ethnicity)
 ```
 
 
-# Exercises
-1. Sort `df` on `measerr` and `mathss`. What are the highest 5 values of each. 
-
-2. Complete the next part of the SDP toolkit!
-
-
-
 # Other References
 - [The Strategic Data Project Toolkit](http://www.gse.harvard.edu/~pfpie/index.php/sdp/tools)
 - [UCLA ATS: R FAQ on Data Management](http://www.ats.ucla.edu/stat/r/faq/default.htm)
