@@ -33,19 +33,35 @@ shinyServer(function(input,output){
   trialInput<-reactive(function(){
     prob<-dat$per[dat$dist==groupInput()]
     reps<-input$obs
-    trials<-rbinom(500,reps,prob)
+    trials<-rbinom(1000,reps,prob)
+  })
+  
+  trialInput2<-reactive(function(){
+    prob<-dat2$per[dat2$dist==groupInput()]
+    reps<-input$obs
+    trials<-rbinom(1000,reps,prob)
   })
   
   
   output$simkicks<-reactivePlot(function(){
     trials<-trialInput()
     reps<-input$obs
-    p<-qplot(trials)+theme_dpi()
+    p<-qplot(trials,binwidth=1)+theme_dpi()+xlim(c((input$obs*.85)-30,input$obs+10))
+    print(p)
+  })
+  
+  output$simkicks2<-reactivePlot(function(){
+    trials<-trialInput2()
+    reps<-input$obs
+    p<-qplot(trials,binwidth=1)+theme_dpi()+xlim(c((input$obs*.85)-30,input$obs+10))
     print(p)
   })
   
   output$summary <- reactiveTable(function() {
     dat
+  })
+  output$summary2 <- reactiveTable(function() {
+    dat2
   })
   
 })

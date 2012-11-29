@@ -9,7 +9,7 @@ shinyUI(pageWithSidebar(
   
   sidebarPanel(
     sliderInput("obs","Number of tries:",
-                min=1,max=60,value=10,step=5),
+                min=20,max=200,value=100,step=20),
     selectInput("length", "Length in yards:",
                 list("all" = "all",
                      "0-19" = "under20", 
@@ -20,7 +20,9 @@ shinyUI(pageWithSidebar(
   
   mainPanel(
     plotOutput("simkicks"),
-    tableOutput("summary")
+    plotOutput("simkicks2"),
+    tableOutput("summary"),
+    tableOutput("summary2")
   )
   
   
