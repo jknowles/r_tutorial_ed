@@ -289,6 +289,32 @@ qplot(readSS,mathSS,data=df)+facet_grid(ell~grade)+theme_dpi(base_size=12)+
   geom_smooth(method='lm',se=FALSE,size=I(1.2))
 ```
 
+# Visualizing Categorical Data
+- Visualization is not just limited to continuous data using scatterplots
+- Sometimes we want to look at the density of data in different categories
+- Sometimes we want to look at the size of groups compared to an expected group size
+- What are some other examples?
+
+# Structural Plots
+```{r strucplot}
+library(vcd)
+df$proflvl<-factor(df$proflvl,levels=c("advanced","proficient","basic","below basic"))
+a<-structable(proflvl~race,data=df)
+mosaic(a,shade=TRUE)
+```
+
+# How do we interpret these plots?
+- We use size and color to express proportionality and expected values
+- This can be applied to other areas as well 
+
+# Another example
+```{r strucplot2}
+library(vcd)
+df$proflvl<-factor(df$proflvl,levels=c("advanced","proficient","basic","below basic"))
+a<-structable(female~race,data=df)
+mosaic(a,shade=TRUE)
+```
+
 
 # A few pro tips
 - Don't be afraid to manipulate the data

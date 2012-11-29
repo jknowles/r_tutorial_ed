@@ -177,9 +177,6 @@ print(xtable(table(mpg$hwy)),type="html")
 - 4.2
 - The mean is sensitive to the number of observations and the spread of the data
 
-# Chart
-- Coming soon
-
 # The Median
 - This is a measure of the value the middle observation takes
 - Order the data: 1 2 3 6 9 ; get the length (5)
@@ -265,6 +262,7 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 # Sampling
 - Much of traditional statistics is based on the idea of samples
 - Sampling is the process of picking observations out of a population in a way that makes the smaller set of observations reflective of the population
+- How we sample determines what conclusions we can draw in the population from our data
 
 
 # Measures of association
@@ -276,6 +274,15 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 # Let's look at Pearson's Coefficient
 - **DEMO**
 
+# We can identify other types of correlation though:
+```{r sophcorr,echo=FALSE}
+mydat<-data.frame(x=runif(600),y=rnorm(600),z=sample(c("A","B","C"),600,replace=TRUE))
+mydat$y[mydat$z=="C"]<-mydat$y[mydat$z=="C"]+2
+mydat$y[mydat$z=="B"]<-mydat$x[mydat$z=="B"] * 
+  runif(length(mydat$x[mydat$z=="B"]),1,3)+rnorm(length(mydat$x[mydat$z=="B"])) 
+
+qplot(x,y,data=mydat)+facet_wrap(~z)+theme_dpi()+geom_smooth(se=FALSE,method='lm')
+```
 
 # Regression and Statistical Models
 - Statistical models are mathematical representations of real world phenomena
@@ -286,6 +293,35 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 # Hypothesis testing
 - What does it mean when someone says something is statistically significant?
 - "A significance is a formal procedure for comparing observed data with a hypothesis whose truth we want to assess."~ Moore and McCabe p. 436
+- Hypothesis testing is based on the idea of sampling and centers around the question of "Do we have enough data to believe the relationship we are seeing in our sample is true in the population?"
+- In a hypothesis test we specify two hypotheses--the null hypothesis and the alternative hypothesis
+- A test of significance then assesses the evidence against the null hypothesis in terms of probability
+
+# Most Common Applications
+- The most common application of these is when you compare a sample to a population or a true fixed value
+- A classic example is fluctuation in weight, for an athlete for example
+
+```{r classicweight,echo=TRUE}
+wt<-c(190.5,189,195.5,187,191,190.4,186,183,193,188)
+t.test(wt,mu=187,alternative="two.sided")
+```
+
+# Questions
+```{r weightrepeat,echo=FALSE}
+t.test(wt,mu=187,alternative="two.sided")
+```
+- the P value reflects our belief about the probability of the test statistic taking a value as extreme or more extreme than what we observe
+- This translates into our belief about "extremeness" of the value of interest, the average weight, in relation to the comparison group, in this case **187**
+- Traditionally, researchers set a fixed value of *p* for comparison before conducting the test, usually **.05**, sometimes **.10** and sometimes **.01**
+- If our *p* is **less than** the pre-specified *p value* we set, then we say the observed value is **statistically significant**
+
+# Let's look at an example
+**DEMO**
+
+# Some practical advice about statistical signficance
+- Statistical significance is very different from substantive significance. Variables can be statistically significant but have no observable difference. For example, with enough precise measurements we could demonstrate a statistically significant difference in weight of 0.2 pounds, but in most cases this is substantively meaningless.
+- Statistical significance tells us nothing about the true value in the population except that it is **not** equal to the assumption of the null hypothesis. We are not testing what range of values our measurement could take in the real world, only if it is plausibly different from another set of values.
+- Statistical significance is only valid under assumptions about the data. What might be a few ways that the data in our weight example could invalidate the usefulness of a significance test?
 
 # Session Info
 
