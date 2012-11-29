@@ -20,6 +20,8 @@ knit("TutorialXX_IntroToProgramming.Rmd",envir=new.env())
 # This part allows pandoc to do the work of taking the md files
 # and converting them into nice looking HTML5 slides
 
+# Consider removing -S to avoid character problems
+
 system("pandoc -s -S -t slidy rsetup.md -o RsetupforBootcamp.html --self-contained")
 system("pandoc -s -S -t slidy Tutorial0_Overview.md -o Tutorial0_Overview.html --self-contained")
 system("pandoc -s -S -i -t slidy Tutorial1_Intro.md -o Tutorial1_Intro.html --self-contained")

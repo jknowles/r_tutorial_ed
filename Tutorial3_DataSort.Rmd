@@ -62,10 +62,15 @@ with(df[df$grade==3,],{table(year,race)})
 
 - `with` specifies a data object to work on, in this case all elements of `df` where `grade==3`
 - `table` is the same command as above, but since we specified the data object in the `with` statement, we don't need the `df$` in front of the variables of interest
+```{r table3.2}
+df2<-subset(df,grade==3)
+table(df2$year,df2$race)
+rm(df2)
+```
 
 # Quick exercise
 - Can you find the number of black students in each grade in each year?
-- hint: `with(df[df$___==___,]...)`
+- hint: **`with(df[df$___==___,]...)`**
 - How many in year 2002, grade 6?
   - 48
 - How many in 2001, grade 7?
@@ -73,20 +78,20 @@ with(df[df$grade==3,],{table(year,race)})
 
 
 # Answer
-```{r table4}
+```{r table4,tidy=FALSE}
 with(df[df$race=="B",],{table(year,grade)})
 ```
-
+- Quick question, how can we understand the three types of closures we have in this function: **()** **[]** and **{}**
 
 # Tables cont.
 - This is really powerful for looking at the descriptive dimensions of the data, we can ask questions like:
-- how many students are at each proficiency level each year?
+- How many students are at each proficiency level each year?
 
 ```{r proftable}
 table(df$year,df$proflvl)
 ```
 
-- how many students are at each proficiency level by race?
+- How many students are at each proficiency level by race?
 
 ```{r raceproftable}
 table(df$race,df$proflvl)
@@ -169,8 +174,6 @@ aggregate(cbind(readSS,mathSS)~disab+grade,data=df,mean)
 ```
 
 
-
-
 # School Means
 - Consider the case we want to turn our student level data into school level data
 - Who hasn't had to do this?!?
@@ -189,17 +192,17 @@ z
 - `aggregate` is cool, but it isn't very flexible
 - We can only use aggregate output as a table, which we have to convert to a data frame
 - There is a better way; the `plyr` package
-- `plyr` is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type
+- `plyr` is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type (or the same type)
 - We will focus here on summarizing and aggregating a data frame, but later in the bootcamp we'll apply functions to lists and turn lists into data frames as well
 - This is cool!
 
 # The Logic of plyr
 
 - In R this is known as "split, apply, and combine"
-- Why? First, we **split** the data into groups by
-- Then we **apply** some function or another to that group (i.e. count the unique values of a variable) 
+- Why? First, we **split** the data into groups by some factor or logical operator
+- Then we **apply** some function or another to that group (i.e. count the unique values of a variable, take the mean of a variable, etc.) 
 - Then we **combine** the data back together 
-- This has some advantages--unlike other methods, the data does not have to be ordered by our id variable for this to work
+- This has some advantages--unlike other methods, the data does not have to be ordered by our ID variable for this to work
 - The disadvantage is that this method is computationally expensive, even in R, and requires copying our data frame using up RAM
 
 # An Aside about Split-Apply-Combine
@@ -209,7 +212,7 @@ z
 - `plyr` to the rescue, while not as fast as a compiled language, it is pretty dang good!
 - And still readable
 
-<p align="center"><img src="img/plyrfunctions.png" height="150" width="650"></p>
+<p align="center"><img src="img/plyrfunctions.png" height="200" width="650"></p>
 
 # The logic of plyr
 
@@ -217,7 +220,7 @@ z
 
 <p align="center"><img src="img/dataframesplit.png" height="300" width="650"></p>
 
-# How plyr works on dataframes like what we will be doing
+# How plyr works on dataframes 
 
 - And this shows the output `ddply` has before it combines it back for us when we do the call `ddply(df,.(sex,age),"nrow")`
 
@@ -233,7 +236,7 @@ z
 
 # plyr in Action
 
-```{r plyr1}
+```{r plyr1,tidy=FALSE}
   library(plyr)
 myag<-ddply(df, .(dist,grade),summarize,
             mean_read=mean(readSS,na.rm=T),
@@ -242,7 +245,6 @@ myag<-ddply(df, .(dist,grade),summarize,
             sd_math=sd(mathSS,na.rm=T),
             count_read=length(readSS),
             count_math=length(mathSS))
-head(myag)
 ```
 
 - This looks complex, but it only has a few components.
@@ -251,11 +253,16 @@ head(myag)
 - Then we make a list of new variable names, and how to calculate them on each of the subsets in our large data frame
 - That's it!
 
+# Results
+```{r plyr1.1,tidy=FALSE}
+head(myag)
+```
+
 # More plyr
 - This is great, we can quickly build a summary dataset from individual records
 - A few advanced tricks. How do we build counts and percentages into our dataset?
 
-```{r plyr3}
+```{r plyr3,tidy=FALSE}
 myag<-ddply(df, .(dist,grade),summarize,
             mean_read=mean(readSS,na.rm=T),
             mean_math=mean(mathSS,na.rm=T),
@@ -286,7 +293,7 @@ summary(myag[,7:10])
 
 # Answer III
 
-```{r check2}
+```{r check2,tidy=FALSE}
 myag2<-ddply(df, .(dist,grade,ell),summarize,
             mean_read=mean(readSS,na.rm=T),
             mean_math=mean(mathSS,na.rm=T),
@@ -309,12 +316,11 @@ df.badsort<-order(df$readSS,df$mathSS)
 head(df.badsort)
 ```
 
-- Why is this wrong?
-- What is R giving us?
+- Why is this wrong? What is R giving us?
 - Rownames...
 
 # Correct Example
-- To fix it, we need to tell R to reorder the rownames in the order we want
+- To fix it, we need to tell R to reorder the dataframe using the rownames in the order we want
 
 ```{r sortright}
 df.sort<-df[ order(df$readSS,df$mathSS,df$attday),]
@@ -365,18 +371,19 @@ df$grade[df$mathSS>800]
 # Gives all values of grade that meet this requirement
 ```
 
-- This seems basic enough, let's filter on multiple dimensions
 - Before the brackets we specify what we want returned, and within the brackets we present the logical expression to evaluate
 - Behind the scenes R does a logical test and gets the row numbers that match the logical expression
 - It then combines them back with the object in front of the brackets to return the values
 - So great we don't have to do that!
+- This seems basic enough, let's filter on multiple dimensions
 
 # Multiple filters
 
 ```{r filterlayers}
 df$grade[df$black==1 & df$readSS>650]
 ```
-
+- The **&** operator tells R we want rows where **both** of these are true
+- How would we tell R we wanted rows where **either** were true?
 - What happens if we type `df$black=1` or `black==1`? 
 - Why won't this work?
 
@@ -392,7 +399,7 @@ myag$spread[myag$sd_read>75]<-"high"
 myag$spread<-as.factor(myag$spread)
 summary(myag$spread)
 ```
-
+- How did we define **spread** in this block of code?
 
 # How does it work?
 - The previous block of code is a useful way to learn how to recode variables
@@ -415,8 +422,8 @@ Grade  Score Range   Code
 7         >525      "Hi"
 8         >575      "Hi"
 
-- All other values are coded as "low"
-- How many "high" and "low" observations do we have?
+- All other values are coded as "lo"
+- How many "high" and "lo" observations do we have?
 - By `dist`?
 
 # Results
@@ -522,9 +529,9 @@ names(df[,c(2,3,4,6)])
 - Why might we want to consider re-aggregating with `year` as well?
 - For this example we won't just yet
 
-# Merging 3
+# Merge Options
 - We have a few options with `merge` we want to consider with `?merge`
-- In the simple case we let `merge` **automagically** 
+- In the simple case we let `merge` **automagically** combine the data
 ```{r simplemerge}
 simple_merge<-merge(df,myag)
 names(simple_merge)
@@ -561,7 +568,6 @@ head(widedf[,28:40],3)
 - The great debate
 - Most econometrics, panel, and time series datasets come wide and so these seem familiar
 - R for most cases prefers long data, including for most graphing and analysis functions
-- But, not all
 - So we have to learn both
 
 # The reshape Function
@@ -578,6 +584,7 @@ widedf<-reshape(df,timevar="year",idvar="stuid",direction="wide")
 ```
 - `idvar` represents the unit we want to represent a single row, in this case each unique student gets a single row
 - In this simple case `timevar` is the variable that differenaties between two rows with the same student ID
+- Note that `timevar` needn't always represent time!
 - `direction` tells R we are going to move to wide data
 - As written all data will move, but using the `varying` argument we can tell R explicitly which items we want to move wide
 
