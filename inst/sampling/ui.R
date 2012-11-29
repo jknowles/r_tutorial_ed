@@ -1,18 +1,17 @@
 # Script to demonstrate distributions
-library(VGAM)
 library(eeptools)
 library(shiny)
 library(ggplot2)
 shinyUI(pageWithSidebar(
   
   # Title
-  headerPanel("Simulating Data with Correlation"),
+  headerPanel("Sampling Regimes in R"),
   
   sidebarPanel(
     sliderInput("obs","Number of tries:",
-                min=200,max=5000,value=500,step=250),
-    sliderInput("rho","Correlation Coefficient",
-                min=-1,max=1,value=0,step=0.1)    
+                min=50,max=1000,value=100,step=50),
+    selectInput("sampling", "Choose a sample type:", 
+                choices = c("srs", "cluster", "sys","strat"))
   ),
   
   # GGPLOT
