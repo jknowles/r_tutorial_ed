@@ -57,7 +57,7 @@ DPI R Bootcamp
 <div class="section slide level1" id="data-setup">
 <h1>Data Setup</h1>
 <ul class="incremental">
-<li>Let’s read in a new dataset now that has some messiness to it</li>
+<li>Let's read in a new dataset now that has some messiness to it</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;data/Student_Attributes.rda&quot;</span>)
 <span class="kw">head</span>(stuatt[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">7</span>)</code></pre>
@@ -70,7 +70,7 @@ DPI R Bootcamp
 ## 6   2        2007    0              B
 ## 7   3        2006    1              H</code></pre>
 <ul class="incremental">
-<li>What’s wrong with this?</li>
+<li>What's wrong with this?</li>
 </ul>
 </div>
 <div class="section slide level1" id="how-can-r-help-correct-this">
@@ -89,7 +89,7 @@ DPI R Bootcamp
 <li>SDP was formed on two fundamental premises:</li>
 </ul>
 <ol class="incremental" style="list-style-type: decimal">
-<li>Policy and management decisions can directly influence schools’ and teachers’ ability to improve student achievement</li>
+<li>Policy and management decisions can directly influence schools' and teachers' ability to improve student achievement</li>
 <li>Valid and reliable data analysis significantly improves the quality of decision making</li>
 </ol>
 <ul class="incremental">
@@ -101,8 +101,8 @@ DPI R Bootcamp
 </p>
 
 </div>
-<div class="section slide level1" id="toolkitdata-cleaning">
-<h1>Toolkit–Data Cleaning</h1>
+<div class="section slide level1" id="toolkit--data-cleaning">
+<h1>Toolkit--Data Cleaning</h1>
 <ul class="incremental">
 <li>The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data</li>
 <li>This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here (Clean Data Building)</li>
@@ -157,7 +157,7 @@ DPI R Bootcamp
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">testuniqueness</span>(stuatt$sid, stuatt$birth_date)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <ul class="incremental">
-<li>Messy…</li>
+<li>Messy...</li>
 </ul>
 </div>
 <div class="section slide level1" id="where-is-the-data-messy">
@@ -197,7 +197,7 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 <ul class="incremental">
 <li>At this point there are a number of business rules we could adopt</li>
 <li>We could assign students the most recent value, the most frequent value, or even a random value!</li>
-<li>Let’s see if replacing it with the most frequent value works</li>
+<li>Let's see if replacing it with the most frequent value works</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># A function to find the most frequent value</span>
 <span class="kw">library</span>(eeptools)
@@ -215,7 +215,7 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 <ul class="incremental">
 <li>Now we have two objects <code>stuatt</code> and <code>sturow</code> and we need to replace some values from <code>stuatt</code> with some values from <code>sturow</code></li>
 <li><code>merge</code> to the rescue!</li>
-<li>Let’s <code>merge</code> our two data objects into a temporary data object called <code>tempdf</code></li>
+<li>Let's <code>merge</code> our two data objects into a temporary data object called <code>tempdf</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">tempdf &lt;- <span class="kw">merge</span>(stuatt, sturow)  <span class="co"># R finds the linking variable already</span>
 <span class="kw">head</span>(tempdf[<span class="dv">17</span>:<span class="dv">21</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">11</span>)])</code></pre>
@@ -248,7 +248,7 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 <h1>Recode Gender</h1>
 <ul class="incremental">
 <li>Two step process: first we assign <code>tempdf$male</code> to be the same as <code>tempdf$gender_mode</code></li>
-<li>Then, where <code>tempdf$male</code> is now a “.” indicating no modal category exists, we assign <code>tempdf$gender_recent</code> to be <code>tempdf$male</code></li>
+<li>Then, where <code>tempdf$male</code> is now a &quot;.&quot; indicating no modal category exists, we assign <code>tempdf$gender_recent</code> to be <code>tempdf$male</code></li>
 <li>Go ahead and try this and use <code>testuniqueness(tempdf$id,tempdf$male)</code> to check if it worked</li>
 </ul>
 </div>
@@ -260,7 +260,7 @@ tempdf$male[tempdf$male == <span class="st">&quot;.&quot;</span>] &lt;- tempdf$g
 <span class="kw">testuniqueness</span>(tempdf$id, tempdf$male)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <ul class="incremental">
-<li>Now let’s clean up our workspace, we created a lot of temporary variables that we don’t need</li>
+<li>Now let's clean up our workspace, we created a lot of temporary variables that we don't need</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(sturow)
 stuatt &lt;- tempdf
@@ -273,21 +273,21 @@ stuatt$gender_recent &lt;- <span class="ot">NULL</span>
 <div class="section slide level1" id="create-a-consistent-race-and-ethnicity-indicator">
 <h1>Create a consistent race and ethnicity indicator</h1>
 <ul class="incremental">
-<li>Let’s practice the same procedure on race</li>
+<li>Let's practice the same procedure on race</li>
 </ul>
 <h3 id="a-note-about-variable-types">A Note About Variable Types</h3>
 <ul class="incremental">
 <li>In the SDP Toolkit you are advised to convert the <code>race_ethnicity</code> variable to numeric and add labels to it</li>
-<li>This is because Stata and other statistical packages don’t have internal data structures that can handle the <code>factor</code> variable type like R can, and rely on numeric coding schemes</li>
-<li>Why don’t we need to do this in R?</li>
+<li>This is because Stata and other statistical packages don't have internal data structures that can handle the <code>factor</code> variable type like R can, and rely on numeric coding schemes</li>
+<li>Why don't we need to do this in R?</li>
 <li>In fact, in R, we should probably recode the <code>male</code> variable as a factor with values <code>M</code> and <code>F</code></li>
-<li>One problem is that our datafile uses ‘NA’ for Native American and we do have to recode that… why?</li>
+<li>One problem is that our datafile uses 'NA' for Native American and we do have to recode that... why?</li>
 </ul>
 </div>
 <div class="section slide level1" id="recoding-race">
 <h1>Recoding Race</h1>
 <ul class="incremental">
-<li>What’s wrong with our race variable?</li>
+<li>What's wrong with our race variable?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(stuatt$race_ethnicity)</code></pre>
 <pre><code>##     A     B     H   M/O     W  NA's 
@@ -299,7 +299,7 @@ stuatt$gender_recent &lt;- <span class="ot">NULL</span>
 stuatt$race_ethnicity[<span class="kw">is.na</span>(stuatt$race_ethnicity)] &lt;- <span class="st">&quot;AI&quot;</span>
 <span class="kw">summary</span>(stuatt$race_ethnicity)</code></pre>
 <ul class="incremental">
-<li>Why doesn’t this work?</li>
+<li>Why doesn't this work?</li>
 </ul>
 </div>
 <div class="section slide level1" id="correct-conversion">
@@ -314,13 +314,13 @@ stuatt$race_ethnicity &lt;- <span class="kw">factor</span>(stuatt$race_ethnicity
 ##  7303  1129 25321 30444  2809 20528</code></pre>
 <ul class="incremental">
 <li>Factors are pesky, even though they are useful and keep us from having to remember numeric representations of our data</li>
-<li>In fact, if you read the toolkit, this is a big drawback of <em>Stata</em> because you must constantly refer back to the numbers to remember what number corresponds to “hispanic”</li>
+<li>In fact, if you read the toolkit, this is a big drawback of <em>Stata</em> because you must constantly refer back to the numbers to remember what number corresponds to &quot;hispanic&quot;</li>
 </ul>
 </div>
 <div class="section slide level1" id="inconsistency-within-years">
 <h1>Inconsistency Within Years</h1>
 <ul class="incremental">
-<li>Let’s consider student 3 in our dataset</li>
+<li>Let's consider student 3 in our dataset</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">stuatt[<span class="dv">7</span>:<span class="dv">9</span>, <span class="kw">c</span>(<span class="st">&quot;sid&quot;</span>, <span class="st">&quot;school_year&quot;</span>, <span class="st">&quot;race_ethnicity&quot;</span>)]</code></pre>
 <pre><code>##   sid school_year race_ethnicity
@@ -341,7 +341,7 @@ stuatt$race_ethnicity &lt;- <span class="kw">factor</span>(stuatt$race_ethnicity
 </ul>
 </div>
 <div class="section slide level1" id="lets-calculate-the-number-of-values-per-year">
-<h1>Let’s calculate the number of values per year</h1>
+<h1>Let's calculate the number of values per year</h1>
 <pre class="sourceCode r"><code class="sourceCode r">nvals &lt;- <span class="kw">ddply</span>(stuatt, .(sid, school_year), summarize, <span class="dt">nvals_race =</span> <span class="kw">length</span>(<span class="kw">unique</span>(race_ethnicity)), 
     <span class="dt">tmphispanic =</span> <span class="kw">length</span>(<span class="kw">which</span>(race_ethnicity == <span class="st">&quot;H&quot;</span>)))
 tempdf &lt;- <span class="kw">merge</span>(stuatt, nvals)
@@ -428,8 +428,8 @@ tempdf$temp_ishispanic[tempdf$race_ethnicity == <span class="st">&quot;H&quot;</
 <li>Student 1 and 2 are both listed as black and hispanic at alternate times</li>
 </ul>
 </div>
-<div class="section slide level1" id="so">
-<h1>So…</h1>
+<div class="section slide level1" id="so...">
+<h1>So...</h1>
 <h2 id="what-do-we-do">What do we do?</h2>
 <h2 id="try-it-on-your-own">Try it on your own</h2>
 <h3 id="remember-this-is-tough-stuff-so-feel-free-to-ask-for-help">Remember, this is tough stuff, so feel free to ask for help!</h3>
@@ -465,7 +465,7 @@ tempdf &lt;- <span class="kw">merge</span>(stuatt, tempdf)
 <h1>A Faster Way</h1>
 <ul class="incremental">
 <li>The nice thing about R is we can role processes together once we understand them</li>
-<li>Let’s build a script to do this more efficiently</li>
+<li>Let's build a script to do this more efficiently</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">task1 &lt;- function(df, id, year, var) {
     <span class="kw">require</span>(plyr)
@@ -482,13 +482,6 @@ tempdf &lt;- <span class="kw">merge</span>(stuatt, tempdf)
 <span class="co"># Note data must be sorted</span>
 tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_year, stuatt$race_ethnicity)</code></pre>
 </div>
-<div class="section slide level1" id="exercises">
-<h1>Exercises</h1>
-<ol class="incremental" style="list-style-type: decimal">
-<li><p>Sort <code>df</code> on <code>measerr</code> and <code>mathss</code>. What are the highest 5 values of each.</p></li>
-<li><p>Complete the next part of the SDP toolkit!</p></li>
-</ol>
-</div>
 <div class="section slide level1" id="other-references">
 <h1>Other References</h1>
 <ul class="incremental">
@@ -500,10 +493,10 @@ tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_yea
 </div>
 <div class="section slide level1" id="session-info">
 <h1>Session Info</h1>
-<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
+<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.2 (2012-10-26)
-## Platform: i386-w64-mingw32/i386 (32-bit)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
 ## [1] grid      stats     graphics  grDevices utils     datasets  methods  
@@ -511,16 +504,18 @@ tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_yea
 ## 
 ## other attached packages:
 ##  [1] eeptools_0.1    mapproj_1.1-8.3 maps_2.2-6      proto_0.3-9.2  
-##  [5] stringr_0.6.1   plyr_1.7.1      ggplot2_0.9.2.1 lmtest_0.9-30  
-##  [9] zoo_1.7-9       knitr_0.8      
+##  [5] stringr_0.6.1   mgcv_1.7-22     plyr_1.7.1      gridExtra_0.9.1
+##  [9] quantreg_4.91   SparseM_0.96    sandwich_2.2-9  ggplot2_0.9.2.1
+## [13] lmtest_0.9-30   zoo_1.7-9       knitr_0.8      
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] codetools_0.2-8    colorspace_1.2-0   dichromat_1.2-4   
 ##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
 ##  [7] gtable_0.1.1       labeling_0.1       lattice_0.20-10   
-## [10] MASS_7.3-22        memoise_0.1        munsell_0.4       
-## [13] RColorBrewer_1.0-5 reshape2_1.2.1     scales_0.2.2      
-## [16] tools_2.15.1</code></pre>
+## [10] MASS_7.3-22        Matrix_1.0-9       memoise_0.1       
+## [13] munsell_0.4        nlme_3.1-105       RColorBrewer_1.0-5
+## [16] Rcpp_0.10.0        reshape2_1.2.1     scales_0.2.2      
+## [19] tools_2.15.2</code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

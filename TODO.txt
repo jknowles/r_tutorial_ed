@@ -2,6 +2,7 @@
 # TO DOs
 ###############################
 
+- Add to the resources : http://dss.princeton.edu/training/
 - Description of how to read and build slides
 - Add non R figures where necessary
 - Figure out how to convert animations from SWF to VIDEO

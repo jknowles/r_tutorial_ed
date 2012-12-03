@@ -98,7 +98,7 @@ t.test(mtcars$mpg,mu=18,alternative="greater")
 t.test(mtcars$mpg,mu=22,alternative="less")
 ```
 
-- What does `r t.test(mtcars$mpg,mu=18)` test?
+- What does `t.test(mtcars$mpg,mu=18)` test?
 
 # Two sample t-test
 - What if we want to compare two groups?
@@ -113,8 +113,8 @@ t.test(mpg~am,data=mtcars)
 ```
 
 # If data is non-normal
-- You can do `r wilcox.test(mtcars$hp,mu=102)`
-- Or `r wilcox.test(hp~am,data=mtcars)`
+- You can do `wilcox.test(mtcars$hp,mu=102)`
+- Or `wilcox.test(hp~am,data=mtcars)`
 - Just Google it!
 
 # Chi-Square
@@ -136,10 +136,8 @@ chisq.test(aspirin,correct=FALSE)
 fisher.test(aspirin)
 ```
 
-# Crosstables
 
-
-# What questions do we have?
+# Back to School Data
 - Let's imagine that a journalist has used this dataset to detect testing "irregularities" using publicly available aggregate test data
 - The journalist's methodology is to regress test scores for a school/grade/subject in one year on a school/grade/subject aggregate test score in the next year
 - For example, 2005-06, 3rd grade, reading scores are regressed on 2006-07, 4th grade, reading scores
@@ -228,10 +226,11 @@ summary(ssN1_mod)
 ssN2_mod<-lm(ss2~ss1+n2,data=midsch_sub)
 summary(ssN2_mod)
 ```
-- Both n1 and n2 seem to matter, or potentially to matter
-- How can we test this formally?
 
 # F Test
+- Both n1 and n2 seemed to matter, or potentially to matter
+- How can we test this formally?
+
 ```{r ftest}
 anova(ss_mod,ssN1_mod,ssN2_mod)
 AIC(ssN2_mod)

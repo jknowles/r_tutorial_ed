@@ -69,18 +69,18 @@ DPI R Bootcamp
 <h1>Aggregation</h1>
 <ul class="incremental">
 <li>Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset</li>
-<li>To do this quickly and easily–the <code>table</code> function is our friend</li>
-<li>Let’s look at our observations by year and grade</li>
+<li>To do this quickly and easily - the <code>table</code> function is our friend</li>
+<li>Let's look at our observations by year and grade</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(df$grade, df$year)</code></pre>
-<pre><code>##    
-##     2000 2001 2002
-##   3  200  100  200
-##   4  100  200  100
-##   5  200  100  200
-##   6  100  200  100
-##   7  200  100  200
-##   8  100  200  100</code></pre>
+<pre><code>   
+    2000 2001 2002
+  3  200  100  200
+  4  100  200  100
+  5  200  100  200
+  6  100  200  100
+  7  200  100  200
+  8  100  200  100</code></pre>
 <ul class="incremental">
 <li>The first command gives the rows, the second gives the columns</li>
 <li>Ugly, but effective</li>
@@ -89,14 +89,14 @@ DPI R Bootcamp
 <div class="section slide level1" id="aggregation-can-be-more-complex">
 <h1>Aggregation can be more complex</h1>
 <ul class="incremental">
-<li>Let’s aggregate by race and year</li>
+<li>Let's aggregate by race and year</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(df$year, df$race)</code></pre>
-<pre><code>##       
-##          A   B   H   I   W
-##   2000  16 370  93   7 414
-##   2001  16 370  93   7 414
-##   2002  16 370  93   7 414</code></pre>
+<pre><code>      
+         A   B   H   I   W
+  2000  16 370  93   7 414
+  2001  16 370  93   7 414
+  2002  16 370  93   7 414</code></pre>
 <ul class="incremental">
 <li>Race is consistent across years, interesting</li>
 <li>What if we want to only look at 3rd graders that year?</li>
@@ -107,21 +107,29 @@ DPI R Bootcamp
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(df[df$grade == <span class="dv">3</span>, ], {
     <span class="kw">table</span>(year, race)
 })</code></pre>
-<pre><code>##       race
-## year     A   B   H   I   W
-##   2000   4  78  22   4  92
-##   2001   1  44   8   2  45
-##   2002   0  74  20   1 105</code></pre>
+<pre><code>      race
+year     A   B   H   I   W
+  2000   4  78  22   4  92
+  2001   1  44   8   2  45
+  2002   0  74  20   1 105</code></pre>
 <ul class="incremental">
 <li><code>with</code> specifies a data object to work on, in this case all elements of <code>df</code> where <code>grade==3</code></li>
-<li><code>table</code> is the same command as above, but since we specified the data object in the <code>with</code> statement, we don’t need the <code>df$</code> in front of the variables of interest</li>
+<li><code>table</code> is the same command as above, but since we specified the data object in the <code>with</code> statement, we don't need the <code>df$</code> in front of the variables of interest</li>
 </ul>
+<pre class="sourceCode r"><code class="sourceCode r">df2 &lt;- <span class="kw">subset</span>(df, grade == <span class="dv">3</span>)
+<span class="kw">table</span>(df2$year, df2$race)</code></pre>
+<pre><code>      
+         A   B   H   I   W
+  2000   4  78  22   4  92
+  2001   1  44   8   2  45
+  2002   0  74  20   1 105</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(df2)</code></pre>
 </div>
 <div class="section slide level1" id="quick-exercise">
 <h1>Quick exercise</h1>
 <ul class="incremental">
 <li>Can you find the number of black students in each grade in each year?</li>
-<li>hint: <code>with(df[df$___==___,]...)</code></li>
+<li>hint: <strong><code>with(df[df$___==___,]...)</code></strong></li>
 <li>How many in year 2002, grade 6?</li>
 <li>48</li>
 <li>How many in 2001, grade 7?</li>
@@ -130,53 +138,54 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="answer">
 <h1>Answer</h1>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(df[df$race == <span class="st">&quot;B&quot;</span>, ], {
-    <span class="kw">table</span>(year, grade)
-})</code></pre>
-<pre><code>##       grade
-## year    3  4  5  6  7  8
-##   2000 78 48 87 39 74 44
-##   2001 44 78 48 87 39 74
-##   2002 74 44 78 48 87 39</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">with</span>(df[df$race==<span class="st">&quot;B&quot;</span>,],{<span class="kw">table</span>(year,grade)})</code></pre>
+<pre><code>      grade
+year    3  4  5  6  7  8
+  2000 78 48 87 39 74 44
+  2001 44 78 48 87 39 74
+  2002 74 44 78 48 87 39</code></pre>
+<ul class="incremental">
+<li>Quick question, how can we understand the three types of closures we have in this function: <strong>()</strong> <strong>[]</strong> and <strong>{}</strong></li>
+</ul>
 </div>
 <div class="section slide level1" id="tables-cont.">
 <h1>Tables cont.</h1>
 <ul class="incremental">
 <li>This is really powerful for looking at the descriptive dimensions of the data, we can ask questions like:</li>
-<li>how many students are at each proficiency level each year?</li>
+<li>How many students are at each proficiency level each year?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(df$year, df$proflvl)</code></pre>
-<pre><code>##       
-##        advanced basic below basic proficient
-##   2000       56   313         143        388
-##   2001      229   183          64        424
-##   2002      503    27           3        367</code></pre>
+<pre><code>      
+       advanced basic below basic proficient
+  2000       56   313         143        388
+  2001      229   183          64        424
+  2002      503    27           3        367</code></pre>
 <ul class="incremental">
-<li>how many students are at each proficiency level by race?</li>
+<li>How many students are at each proficiency level by race?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(df$race, df$proflvl)</code></pre>
-<pre><code>##    
-##     advanced basic below basic proficient
-##   A       19     7           3         19
-##   B      160   302         162        486
-##   H       54    76          33        116
-##   I        7     4           1          9
-##   W      548   134          11        549</code></pre>
+<pre><code>   
+    advanced basic below basic proficient
+  A       19     7           3         19
+  B      160   302         162        486
+  H       54    76          33        116
+  I        7     4           1          9
+  W      548   134          11        549</code></pre>
 </div>
 <div class="section slide level1" id="proportional-tables">
 <h1>Proportional Tables</h1>
 <ul class="incremental">
-<li>What if we aren’t interested in counts?</li>
+<li>What if we aren't interested in counts?</li>
 <li>R makes it really easy to calculate proportions</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.table</span>(<span class="kw">table</span>(df$race, df$proflvl))</code></pre>
-<pre><code>##    
-##      advanced     basic below basic proficient
-##   A 0.0070370 0.0025926   0.0011111  0.0070370
-##   B 0.0592593 0.1118519   0.0600000  0.1800000
-##   H 0.0200000 0.0281481   0.0122222  0.0429630
-##   I 0.0025926 0.0014815   0.0003704  0.0033333
-##   W 0.2029630 0.0496296   0.0040741  0.2033333</code></pre>
+<pre><code>   
+     advanced     basic below basic proficient
+  A 0.0070370 0.0025926   0.0011111  0.0070370
+  B 0.0592593 0.1118519   0.0600000  0.1800000
+  H 0.0200000 0.0281481   0.0122222  0.0429630
+  I 0.0025926 0.0014815   0.0003704  0.0033333
+  W 0.2029630 0.0496296   0.0040741  0.2033333</code></pre>
 <ul class="incremental">
 <li>Hmmm, this is goofy. This tells us the proportion of each cell out of the total. Also, the digits are distracting. How can we fix this?</li>
 </ul>
@@ -184,36 +193,45 @@ DPI R Bootcamp
 <div class="section slide level1" id="try-number-2">
 <h1>Try number 2</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">round</span>(<span class="kw">prop.table</span>(<span class="kw">table</span>(df$race, df$proflvl), <span class="dv">1</span>), <span class="dt">digits =</span> <span class="dv">3</span>)</code></pre>
-<pre><code>##    
-##     advanced basic below basic proficient
-##   A    0.396 0.146       0.062      0.396
-##   B    0.144 0.272       0.146      0.438
-##   H    0.194 0.272       0.118      0.416
-##   I    0.333 0.190       0.048      0.429
-##   W    0.441 0.108       0.009      0.442</code></pre>
+<pre><code>   
+    advanced basic below basic proficient
+  A    0.396 0.146       0.062      0.396
+  B    0.144 0.272       0.146      0.438
+  H    0.194 0.272       0.118      0.416
+  I    0.333 0.190       0.048      0.429
+  W    0.441 0.108       0.009      0.442</code></pre>
 <ul class="incremental">
 <li>The <code>1</code> tells R we want proportions rowise, a <code>2</code> goes columnwise</li>
 <li><code>round</code> tells R to cut off some digits for us</li>
 <li>Proportions are just that, not in percentage terms (we need to multiply by 100 for this)</li>
 <li>Can you make this table express percentages instead of proportions? How might that code look?</li>
-<li>A few more problems arise–this pools all observations, including students across years</li>
+<li>A few more problems arise - this pools all observations, including students across years</li>
+<li>To avoid these, we need to aggregate the data somehow</li>
+</ul>
+</div>
+<div class="section slide level1" id="checking-understanding">
+<h1>Checking Understanding</h1>
+<ul class="incremental">
+<li>We have seen how to chain functions together</li>
+<li>We have also seen how to examine a dataframe by looking at the observations in it</li>
+<li>We are now going to move on to aggregating data so we can look at unique cases when we have more than one observation for each unit</li>
 </ul>
 </div>
 <div class="section slide level1" id="aggregating-data">
 <h1>Aggregating Data</h1>
 <ul class="incremental">
-<li>One of the most common questions will be to compute aggregates of data</li>
+<li>One of the most common questions you need to answer is to compute aggregates of data</li>
 <li>R has an <code>aggregate</code> function that can be used and helps us avoid the clustering problems above</li>
 <li>This works great for simple aggregation like scale score by race, we just need a <code>formula</code> (think I want variable X <strong>by</strong> grouping factor Y) and the statistic we want to compute</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Reading Scores by Race</span>
 <span class="kw">aggregate</span>(readSS ~ race, <span class="dt">FUN =</span> mean, <span class="dt">data =</span> df)</code></pre>
-<pre><code>##   race readSS
-## 1    A  508.7
-## 2    B  460.2
-## 3    H  473.2
-## 4    I  485.2
-## 5    W  533.2</code></pre>
+<pre><code>  race readSS
+1    A  508.7
+2    B  460.2
+3    H  473.2
+4    I  485.2
+5    W  533.2</code></pre>
 </div>
 <div class="section slide level1" id="aggregate-ii">
 <h1>Aggregate (II)</h1>
@@ -221,29 +239,26 @@ DPI R Bootcamp
 <li><code>aggregate</code> can take us a little further, we can use aggregate multiple variables at a time</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(readSS, mathSS) ~ race, <span class="dt">data =</span> df, mean)</code></pre>
-<pre><code>##   race readSS mathSS
-## 1    A  508.7  477.9
-## 2    B  460.2  442.5
-## 3    H  473.2  442.7
-## 4    I  485.2  455.9
-## 5    W  533.2  529.8</code></pre>
+<pre><code>  race readSS mathSS
+1    A  508.7  477.9
+2    B  460.2  442.5
+3    H  473.2  442.7
+4    I  485.2  455.9
+5    W  533.2  529.8</code></pre>
 <ul class="incremental">
 <li>We can add multiple grouping varialbes using the <code>formula</code> syntax</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(<span class="kw">aggregate</span>(<span class="kw">cbind</span>(readSS, mathSS) ~ race + grade, <span class="dt">data =</span> df, mean), 
     <span class="dv">8</span>)</code></pre>
-<pre><code>##   race grade readSS mathSS
-## 1    A     3  397.8  454.8
-## 2    B     3  409.8  371.6
-## 3    H     3  417.7  364.2
-## 4    I     3  407.6  449.3
-## 5    W     3  481.1  450.7
-## 6    A     4  456.0  438.2
-## 7    B     4  426.9  408.1
-## 8    H     4  418.8  404.6</code></pre>
-<ul class="incremental">
-<li><code>head</code> or <code>tail</code> just tell R to present us the firxt <strong>X</strong> items in an object, in this case <strong>8</strong> objects</li>
-</ul>
+<pre><code>  race grade readSS mathSS
+1    A     3  397.8  454.8
+2    B     3  409.8  371.6
+3    H     3  417.7  364.2
+4    I     3  407.6  449.3
+5    W     3  481.1  450.7
+6    A     4  456.0  438.2
+7    B     4  426.9  408.1
+8    H     4  418.8  404.6</code></pre>
 </div>
 <div class="section slide level1" id="crosstabs">
 <h1>Crosstabs</h1>
@@ -252,24 +267,24 @@ DPI R Bootcamp
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">ag &lt;- <span class="kw">aggregate</span>(readSS ~ race + grade, <span class="dt">data =</span> df, mean)
 <span class="kw">xtabs</span>(readSS ~ ., <span class="dt">data =</span> ag)</code></pre>
-<pre><code>##     grade
-## race     3     4     5     6     7     8
-##    A 397.8 456.0 479.1 539.5 600.4 605.3
-##    B 409.8 426.9 447.6 470.9 492.3 523.5
-##    H 417.7 418.8 481.2 489.1 500.3 534.2
-##    I 407.6 531.1 547.6   0.0 405.5 518.0
-##    W 481.1 498.5 517.1 546.6 565.2 596.1</code></pre>
+<pre><code>    grade
+race     3     4     5     6     7     8
+   A 397.8 456.0 479.1 539.5 600.4 605.3
+   B 409.8 426.9 447.6 470.9 492.3 523.5
+   H 417.7 418.8 481.2 489.1 500.3 534.2
+   I 407.6 531.1 547.6   0.0 405.5 518.0
+   W 481.1 498.5 517.1 546.6 565.2 596.1</code></pre>
 <ul class="incremental">
 <li>And prettier output</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ftable</span>(<span class="kw">xtabs</span>(readSS ~ ., <span class="dt">data =</span> ag))</code></pre>
-<pre><code>##      grade     3     4     5     6     7     8
-## race                                          
-## A          397.8 456.0 479.1 539.5 600.4 605.3
-## B          409.8 426.9 447.6 470.9 492.3 523.5
-## H          417.7 418.8 481.2 489.1 500.3 534.2
-## I          407.6 531.1 547.6   0.0 405.5 518.0
-## W          481.1 498.5 517.1 546.6 565.2 596.1</code></pre>
+<pre><code>     grade     3     4     5     6     7     8
+race                                          
+A          397.8 456.0 479.1 539.5 600.4 605.3
+B          409.8 426.9 447.6 470.9 492.3 523.5
+H          417.7 418.8 481.2 489.1 500.3 534.2
+I          407.6 531.1 547.6   0.0 405.5 518.0
+W          481.1 498.5 517.1 546.6 565.2 596.1</code></pre>
 </div>
 <div class="section slide level1" id="check-your-work">
 <h1>Check your work</h1>
@@ -283,57 +298,57 @@ DPI R Bootcamp
 <div class="section slide level1" id="answer-ii">
 <h1>Answer II</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aggregate</span>(<span class="kw">cbind</span>(readSS, mathSS) ~ disab + grade, <span class="dt">data =</span> df, mean)</code></pre>
-<pre><code>##    disab grade readSS mathSS
-## 1      0     3  449.9  418.3
-## 2      1     3  421.1  376.3
-## 3      0     4  464.0  454.2
-## 4      1     4  438.2  425.1
-## 5      0     5  484.9  470.2
-## 6      1     5  475.1  431.0
-## 7      0     6  511.7  507.9
-## 8      1     6  481.8  476.9
-## 9      0     7  532.0  532.0
-## 10     1     7  516.1  474.3
-## 11     0     8  567.6  567.7
-## 12     1     8  518.8  534.1</code></pre>
+<pre><code>   disab grade readSS mathSS
+1      0     3  449.9  418.3
+2      1     3  421.1  376.3
+3      0     4  464.0  454.2
+4      1     4  438.2  425.1
+5      0     5  484.9  470.2
+6      1     5  475.1  431.0
+7      0     6  511.7  507.9
+8      1     6  481.8  476.9
+9      0     7  532.0  532.0
+10     1     7  516.1  474.3
+11     0     8  567.6  567.7
+12     1     8  518.8  534.1</code></pre>
 </div>
 <div class="section slide level1" id="school-means">
 <h1>School Means</h1>
 <ul class="incremental">
 <li>Consider the case we want to turn our student level data into school level data</li>
-<li>Who hasn’t had to do this?!?</li>
+<li>Who hasn't had to do this?!?</li>
 <li>In <code>aggregate</code> we do:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">z &lt;- <span class="kw">aggregate</span>(readSS ~ dist, <span class="dt">FUN =</span> mean, <span class="dt">data =</span> df)
 z</code></pre>
-<pre><code>##   dist readSS
-## 1  205  496.5
-## 2  402  500.5
-## 3  495  491.6</code></pre>
+<pre><code>  dist readSS
+1  205  496.5
+2  402  500.5
+3  495  491.6</code></pre>
 <ul class="incremental">
 <li>But I want more! I want to aggregate multiple variables. I want to do it across multiple groups. I want the output to be a dataframe I can work on.</li>
 <li>Thank you <code>plyr</code></li>
 </ul>
 </div>
 <div class="section slide level1" id="aggregate-isnt-enough">
-<h1>Aggregate Isn’t Enough</h1>
+<h1>Aggregate Isn't Enough</h1>
 <ul class="incremental">
-<li><code>aggregate</code> is cool, but it isn’t very flexible</li>
+<li><code>aggregate</code> is cool, but it isn't very flexible</li>
 <li>We can only use aggregate output as a table, which we have to convert to a data frame</li>
 <li>There is a better way; the <code>plyr</code> package</li>
-<li><code>plyr</code> is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type</li>
-<li>We will focus here on summarizing and aggregating a data frame, but later in the bootcamp we’ll apply functions to lists and turn lists into data frames as well</li>
+<li><code>plyr</code> is a set of routines/logical structure for transforming, summarizing, reshaping, and reorganizing data objects of one type in R into another type (or the same type)</li>
+<li>We will focus here on summarizing and aggregating a data frame, but later in the bootcamp we'll apply functions to lists and turn lists into data frames as well</li>
 <li>This is cool!</li>
 </ul>
 </div>
 <div class="section slide level1" id="the-logic-of-plyr">
 <h1>The Logic of plyr</h1>
 <ul class="incremental">
-<li>In R this is known as “split, apply, and combine”</li>
-<li>Why? First, we <strong>split</strong> the data into groups by</li>
-<li>Then we <strong>apply</strong> some function or another to that group (i.e. count the unique values of a variable)</li>
+<li>In R this is known as &quot;split, apply, and combine&quot;</li>
+<li>Why? First, we <strong>split</strong> the data into groups by some factor or logical operator</li>
+<li>Then we <strong>apply</strong> some function or another to that group (i.e. count the unique values of a variable, take the mean of a variable, etc.)</li>
 <li>Then we <strong>combine</strong> the data back together</li>
-<li>This has some advantages–unlike other methods, the data does not have to be ordered by our id variable for this to work</li>
+<li>This has some advantages--unlike other methods, the data does not have to be ordered by our ID variable for this to work</li>
 <li>The disadvantage is that this method is computationally expensive, even in R, and requires copying our data frame using up RAM</li>
 </ul>
 </div>
@@ -341,12 +356,12 @@ z</code></pre>
 <h1>An Aside about Split-Apply-Combine</h1>
 <ul class="incremental">
 <li>The <code>plyr</code> package has a number of utilities to help us split-apply-combine across data types for both input and output</li>
-<li>In R we can’t just use <code>for</code> loops to iterate over groups of students, because in R <code>for</code> loops are <a href="http://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r">slow, inefficient, and impractical</a></li>
+<li>In R we can't just use <code>for</code> loops to iterate over groups of students, because in R <code>for</code> loops are <a href="http://stackoverflow.com/questions/7142767/why-are-loops-slow-in-r">slow, inefficient, and impractical</a></li>
 <li><code>plyr</code> to the rescue, while not as fast as a compiled language, it is pretty dang good!</li>
 <li>And still readable</li>
 </ul>
 <p align="center">
-<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAooAAACWCAIAAADWnT4SAAAABGdBTUEAALGPC/xhBQAAOy1JREFUeF7tnXv8TlXa/x+dEAkRxSSRXpVEzCtMqBxKklJJipIYKSIkOungVTElHTRSkRzKNJoUBlORig4OKYlOqEgnckpqZp7386zfrN969n3fe699uO/v3vu+9h/f1/fee61rrfVZ11qfdbjWtUr9+9///i95BAFBQBAQBAQBQSBWCKxevfqBBx745JNP4Gl5BAFBQBAQBAQBQSAOCPzXpk2brrvuuqOOOopBw+mnny5UHYdakTyoRR3BQRAQBASBokXg//eAv/zyy4IFCxRVlypVSqi6aHUiJgUXeo5JRUg2BAFBoEQQyD5BUVTdv3//o48+Wqi6RCpGEhV6Fh0QBASBYkbAe/0Qql64cKFQdTy1ZO/evTNmzBgxYsSAAQMGDRr0xhtvxDOfAXIl9BwANIkiCAgCqUHAm57NokLV//jHP2CC2rVr77fffk2aNOnZs6eYlZWINvzrX/966qmnfv/73z/33HOQNHlYt25d8+bNqZF9+/aVSJaiTVToOVo8RZogIAgkCwF/9GyWDQ6YPn16x44dxays8FUOH1900UWnnXbajz/+aKb+/fffV6pU6eabbw6QpcmTJ5999tkBItpECSBc6NkGWAkjCAgCaUUgOD07ZtViVlYwFfn11187dOhw7LHHbt++PTPRvn37lilTBp72m59WrVqdf/75fmNZhg8gXOjZElsJJggIAqlEIBp6zqRq2avOn7rceuutUFeubeZHH32Ur88++6yvDDAdL1269NixY33FsgwcTLjQsyW8EkwQEARSiUD09OygajEri1ZvVq1ahS39ueeem0vs448/DrHdfffdvtJdsmQJsVasWOErlmXgYMKFni3hlWCCgCCQSgTyS88OqhazsvA6dN5558Fb8+bNyyUKYibALbfcogJMnTp12LBh119//W+//aajPPLII++88476OXTo0D/+8Y9sYxPr6quv5n9MzHi/e/duIvbq1eu11177+eef77333ptuuql37974sdFyAgu3wUHo2QYlCSMICAJpRaBw9GwiKGZlwfTp66+/hrQqVqzoYpvdpUsXwkDAJPHyyy+PGzeOfw4//PCXXnpJJbp161YCPPPMM+rnli1bvvzyy1NPPfWcc87hHx5F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" height="150" width="650">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAooAAACWCAIAAADWnT4SAAAABGdBTUEAALGPC/xhBQAAOy1JREFUeF7tnXv8TlXa/x+dEAkRxSSRXpVEzCtMqBxKklJJipIYKSIkOungVTElHTRSkRzKNJoUBlORig4OKYlOqEgnckpqZp7386zfrN969n3fe699uO/v3vu+9h/f1/fee61rrfVZ11qfdbjWtUr9+9///i95BAFBQBAQBAQBQSBWCKxevfqBBx745JNP4Gl5BAFBQBAQBAQBQSAOCPzXpk2brrvuuqOOOopBw+mnny5UHYdakTyoRR3BQRAQBASBokXg//eAv/zyy4IFCxRVlypVSqi6aHUiJgUXeo5JRUg2BAFBoEQQyD5BUVTdv3//o48+Wqi6RCpGEhV6Fh0QBASBYkbAe/0Qql64cKFQdTy1ZO/evTNmzBgxYsSAAQMGDRr0xhtvxDOfAXIl9BwANIkiCAgCqUHAm57NokLV//jHP2CC2rVr77fffk2aNOnZs6eYlZWINvzrX/966qmnfv/73z/33HOQNHlYt25d8+bNqZF9+/aVSJaiTVToOVo8RZogIAgkCwF/9GyWDQ6YPn16x44dxays8FUOH1900UWnnXbajz/+aKb+/fffV6pU6eabbw6QpcmTJ5999tkBItpECSBc6NkGWAkjCAgCaUUgOD07ZtViVlYwFfn11187dOhw7LHHbt++PTPRvn37lilTBp72m59WrVqdf/75fmNZhg8gXOjZElsJJggIAqlEIBp6zqRq2avOn7rceuutUFeubeZHH32Ur88++6yvDDAdL1269NixY33FsgwcTLjQsyW8EkwQEARSiUD09OygajEri1ZvVq1ahS39ueeem0vs448/DrHdfffdvtJdsmQJsVasWOErlmXgYMKFni3hlWCCgCCQSgTyS88OqhazsvA6dN5558Fb8+bNyyUKYibALbfcogJMnTp12LBh119//W+//aajPPLII++88476OXTo0D/+8Y9sYxPr6quv5n9MzHi/e/duIvbq1eu11177+eef77333ptuuql37974sdFyAgu3wUHo2QYlCSMICAJpRaBw9GwiKGZlwfTp66+/hrQqVqzoYpvdpUsXwkDAJPHyyy+PGzeOfw4//PCXXnpJJbp161YCPPPMM+rnli1bvvzyy1NPPfWcc87hHx5F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" height="200" width="650">
 </p>
 
 </div>
@@ -360,8 +375,8 @@ z</code></pre>
 </p>
 
 </div>
-<div class="section slide level1" id="how-plyr-works-on-dataframes-like-what-we-will-be-doing">
-<h1>How plyr works on dataframes like what we will be doing</h1>
+<div class="section slide level1" id="how-plyr-works-on-dataframes">
+<h1>How plyr works on dataframes</h1>
 <ul class="incremental">
 <li>And this shows the output <code>ddply</code> has before it combines it back for us when we do the call <code>ddply(df,.(sex,age),&quot;nrow&quot;)</code></li>
 </ul>
@@ -374,7 +389,7 @@ z</code></pre>
 <h1>Using plyr</h1>
 <ul class="incremental">
 <li><code>plyr</code> has a straightforward syntax</li>
-<li>All <code>plyr</code> functions are in the format <strong>XX</strong>ply. The two X’s specify what the input file we are applying a function to is, and then what way we would like it outputted.</li>
+<li>All <code>plyr</code> functions are in the format <strong>XX</strong>ply. The two X's specify what the input file we are applying a function to is, and then what way we would like it outputted.</li>
 <li>In <code>plyr</code> d = dataframe, l= list, m=matrix, and a=array. By far the most common usage is <code>ddply</code></li>
 <li>From a dataframe, to a dataframe.</li>
 <li>We will see more of <code>plyr</code> in Tutorial 4 as well</li>
@@ -382,32 +397,39 @@ z</code></pre>
 </div>
 <div class="section slide level1" id="plyr-in-action">
 <h1>plyr in Action</h1>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(plyr)
-myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS))
-<span class="kw">head</span>(myag)</code></pre>
-<pre><code>##   dist grade mean_read mean_math sd_read sd_math count_read
-## 1  205     3     451.7     406.1   93.52   72.45        200
-## 2  205     4     438.9     459.9   77.76   79.10        100
-## 3  205     5     487.9     462.6   85.30   75.10        200
-## 4  205     6     514.7     526.8   76.83   66.04        100
-## 5  205     7     530.0     521.5   84.82   74.85        200
-## 6  205     8     575.5     581.2   79.58   83.45        100
-##   count_math
-## 1        200
-## 2        100
-## 3        200
-## 4        100
-## 5        200
-## 6        100</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">  <span class="kw">library</span>(plyr)
+myag&lt;-<span class="kw">ddply</span>(df, .(dist,grade),summarize,
+            <span class="dt">mean_read=</span><span class="kw">mean</span>(readSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">mean_math=</span><span class="kw">mean</span>(mathSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">sd_read=</span><span class="kw">sd</span>(readSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">sd_math=</span><span class="kw">sd</span>(mathSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">count_read=</span><span class="kw">length</span>(readSS),
+            <span class="dt">count_math=</span><span class="kw">length</span>(mathSS))</code></pre>
 <ul class="incremental">
 <li>This looks complex, but it only has a few components.</li>
 <li>The first argument is the dataframe we are working on, the next argument is the level of identification we want to aggregate to</li>
 <li><code>summarize</code> tells <code>ddply</code> what we are doing to the data frame</li>
 <li>Then we make a list of new variable names, and how to calculate them on each of the subsets in our large data frame</li>
-<li>That’s it!</li>
+<li>That's it!</li>
 </ul>
+</div>
+<div class="section slide level1" id="results">
+<h1>Results</h1>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(myag)</code></pre>
+<pre><code>  dist grade mean_read mean_math sd_read sd_math count_read
+1  205     3     451.7     406.1   93.52   72.45        200
+2  205     4     438.9     459.9   77.76   79.10        100
+3  205     5     487.9     462.6   85.30   75.10        200
+4  205     6     514.7     526.8   76.83   66.04        100
+5  205     7     530.0     521.5   84.82   74.85        200
+6  205     8     575.5     581.2   79.58   83.45        100
+  count_math
+1        200
+2        100
+3        200
+4        100
+5        200
+6        100</code></pre>
 </div>
 <div class="section slide level1" id="more-plyr">
 <h1>More plyr</h1>
@@ -415,19 +437,23 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 <li>This is great, we can quickly build a summary dataset from individual records</li>
 <li>A few advanced tricks. How do we build counts and percentages into our dataset?</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r">myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, <span class="dt">na.rm =</span> T), 
-    <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), 
-    <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == 
-        <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
-<span class="kw">summary</span>(myag[, <span class="dv">7</span>:<span class="dv">10</span>])</code></pre>
-<pre><code>##    count_read    count_math   count_black     per_black    
-##  Min.   :100   Min.   :100   Min.   :36.0   Min.   :0.360  
-##  1st Qu.:100   1st Qu.:100   1st Qu.:41.2   1st Qu.:0.386  
-##  Median :150   Median :150   Median :60.5   Median :0.412  
-##  Mean   :150   Mean   :150   Mean   :61.7   Mean   :0.411  
-##  3rd Qu.:200   3rd Qu.:200   3rd Qu.:82.0   3rd Qu.:0.439  
-##  Max.   :200   Max.   :200   Max.   :92.0   Max.   :0.480</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">myag&lt;-<span class="kw">ddply</span>(df, .(dist,grade),summarize,
+            <span class="dt">mean_read=</span><span class="kw">mean</span>(readSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">mean_math=</span><span class="kw">mean</span>(mathSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">sd_read=</span><span class="kw">sd</span>(readSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">sd_math=</span><span class="kw">sd</span>(mathSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">count_read=</span><span class="kw">length</span>(readSS),
+            <span class="dt">count_math=</span><span class="kw">length</span>(mathSS),
+            <span class="dt">count_black=</span><span class="kw">length</span>(race[race==<span class="st">'B'</span>]),
+            <span class="dt">per_black=</span><span class="kw">length</span>(race[race==<span class="st">'B'</span>])/<span class="kw">length</span>(readSS))
+<span class="kw">summary</span>(myag[,<span class="dv">7</span>:<span class="dv">10</span>])            </code></pre>
+<pre><code>   count_read    count_math   count_black     per_black    
+ Min.   :100   Min.   :100   Min.   :36.0   Min.   :0.360  
+ 1st Qu.:100   1st Qu.:100   1st Qu.:41.2   1st Qu.:0.386  
+ Median :150   Median :150   Median :60.5   Median :0.412  
+ Mean   :150   Mean   :150   Mean   :61.7   Mean   :0.411  
+ 3rd Qu.:200   3rd Qu.:200   3rd Qu.:82.0   3rd Qu.:0.439  
+ Max.   :200   Max.   :200   Max.   :92.0   Max.   :0.480  </code></pre>
 </div>
 <div class="section slide level1" id="note-for-sql-junkies">
 <h1>Note for SQL Junkies</h1>
@@ -451,20 +477,24 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 </div>
 <div class="section slide level1" id="answer-iii">
 <h1>Answer III</h1>
-<pre class="sourceCode r"><code class="sourceCode r">myag2 &lt;- <span class="kw">ddply</span>(df, .(dist, grade, ell), summarize, <span class="dt">mean_read =</span> <span class="kw">mean</span>(readSS, 
-    <span class="dt">na.rm =</span> T), <span class="dt">mean_math =</span> <span class="kw">mean</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">sd_read =</span> <span class="kw">sd</span>(readSS, 
-    <span class="dt">na.rm =</span> T), <span class="dt">sd_math =</span> <span class="kw">sd</span>(mathSS, <span class="dt">na.rm =</span> T), <span class="dt">count_read =</span> <span class="kw">length</span>(readSS), 
-    <span class="dt">count_math =</span> <span class="kw">length</span>(mathSS), <span class="dt">count_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>]), 
-    <span class="dt">per_black =</span> <span class="kw">length</span>(race[race == <span class="st">&quot;B&quot;</span>])/<span class="kw">length</span>(readSS))
-<span class="kw">subset</span>(myag2, ell == <span class="dv">1</span> &amp; grade == <span class="dv">4</span>)</code></pre>
-<pre><code>##    dist grade ell mean_read mean_math sd_read sd_math count_read
-## 4   205     4   1     403.0     392.9   64.52   39.09         16
-## 16  402     4   1     443.1     388.7   79.52   53.28         29
-## 28  495     4   1     408.8     431.9   77.47   70.77         13
-##    count_math count_black per_black
-## 4          16           2   0.12500
-## 16         29           6   0.20690
-## 28         13           1   0.07692</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">myag2&lt;-<span class="kw">ddply</span>(df, .(dist,grade,ell),summarize,
+            <span class="dt">mean_read=</span><span class="kw">mean</span>(readSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">mean_math=</span><span class="kw">mean</span>(mathSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">sd_read=</span><span class="kw">sd</span>(readSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">sd_math=</span><span class="kw">sd</span>(mathSS,<span class="dt">na.rm=</span>T),
+            <span class="dt">count_read=</span><span class="kw">length</span>(readSS),
+            <span class="dt">count_math=</span><span class="kw">length</span>(mathSS),
+            <span class="dt">count_black=</span><span class="kw">length</span>(race[race==<span class="st">'B'</span>]),
+            <span class="dt">per_black=</span><span class="kw">length</span>(race[race==<span class="st">'B'</span>])/<span class="kw">length</span>(readSS))
+<span class="kw">subset</span>(myag2,ell==<span class="dv">1</span>&amp;grade==<span class="dv">4</span>)        </code></pre>
+<pre><code>   dist grade ell mean_read mean_math sd_read sd_math count_read
+4   205     4   1     403.0     392.9   64.52   39.09         16
+16  402     4   1     443.1     388.7   79.52   53.28         29
+28  495     4   1     408.8     431.9   77.47   70.77         13
+   count_math count_black per_black
+4          16           2   0.12500
+16         29           6   0.20690
+28         13           1   0.07692</code></pre>
 </div>
 <div class="section slide level1" id="sorting">
 <h1>Sorting</h1>
@@ -475,48 +505,47 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">df.badsort &lt;- <span class="kw">order</span>(df$readSS, df$mathSS)
 <span class="kw">head</span>(df.badsort)</code></pre>
-<pre><code>## [1]  106 1026    2   56  122  118</code></pre>
+<pre><code>[1]  106 1026    2   56  122  118</code></pre>
 <ul class="incremental">
-<li>Why is this wrong?</li>
-<li>What is R giving us?</li>
-<li>Rownames…</li>
+<li>Why is this wrong? What is R giving us?</li>
+<li>Rownames...</li>
 </ul>
 </div>
 <div class="section slide level1" id="correct-example">
 <h1>Correct Example</h1>
 <ul class="incremental">
-<li>To fix it, we need to tell R to reorder the rownames in the order we want</li>
+<li>To fix it, we need to tell R to reorder the dataframe using the rownames in the order we want</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">df.sort &lt;- df[<span class="kw">order</span>(df$readSS, df$mathSS, df$attday), ]
 <span class="kw">head</span>(df[, <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">30</span>)])</code></pre>
-<pre><code>##    stuid attday readSS mathSS
-## 1 149995    180  357.3  387.3
-## 2  13495    180  263.9  302.6
-## 3 106495    160  369.7  365.5
-## 4  45205    168  346.6  344.5
-## 5 142705    156  373.1  441.2
-## 6  14995    157  436.8  463.4</code></pre>
+<pre><code>   stuid attday readSS mathSS
+1 149995    180  357.3  387.3
+2  13495    180  263.9  302.6
+3 106495    160  369.7  365.5
+4  45205    168  346.6  344.5
+5 142705    156  373.1  441.2
+6  14995    157  436.8  463.4</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df.sort[, <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">30</span>)])</code></pre>
-<pre><code>##       stuid attday readSS mathSS
-## 106  106705    160  251.5  277.0
-## 1026  80995    176  263.2  377.8
-## 2     13495    180  263.9  302.6
-## 56   122402    180  264.3  271.7
-## 122   79705    168  266.4  318.7
-## 118   40495    173  266.9  275.0</code></pre>
+<pre><code>      stuid attday readSS mathSS
+106  106705    160  251.5  277.0
+1026  80995    176  263.2  377.8
+2     13495    180  263.9  302.6
+56   122402    180  264.3  271.7
+122   79705    168  266.4  318.7
+118   40495    173  266.9  275.0</code></pre>
 </div>
 <div class="section slide level1" id="lets-clean-it-up-a-bit-more">
-<h1>Let’s clean it up a bit more</h1>
+<h1>Let's clean it up a bit more</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df[<span class="kw">with</span>(df, <span class="kw">order</span>(-readSS, -attday)), <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">30</span>)])</code></pre>
-<pre><code>##       stuid attday readSS mathSS
-## 1631 145205    137  833.2  828.4
-## 1462 107705    180  773.3  746.6
-## 2252 122902    180  744.0  621.6
-## 2341  44902    175  741.7  676.3
-## 1482 134705    180  739.2  705.4
-## 1630  14495    162  738.9  758.2</code></pre>
+<pre><code>      stuid attday readSS mathSS
+1631 145205    137  833.2  828.4
+1462 107705    180  773.3  746.6
+2252 122902    180  744.0  621.6
+2341  44902    175  741.7  676.3
+1482 134705    180  739.2  705.4
+1630  14495    162  738.9  758.2</code></pre>
 <ul class="incremental">
-<li>Here we find the high performing students, note that the <code>-</code> denotes we want descending order, R’s default is ascending order</li>
+<li>Here we find the high performing students, note that the <code>-</code> denotes we want descending order, R's default is ascending order</li>
 <li>This is easy to correct</li>
 </ul>
 </div>
@@ -528,33 +557,33 @@ myag &lt;- <span class="kw">ddply</span>(df, .(dist, grade), summarize, <span cl
 <pre class="sourceCode r"><code class="sourceCode r">M &lt;- <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="dv">4</span>, <span class="dv">2</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>, <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="ot">NULL</span>, 
     <span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>)))
 M[<span class="kw">order</span>(M[, <span class="st">&quot;a&quot;</span>], -M[, <span class="st">&quot;b&quot;</span>]), ]</code></pre>
-<pre><code>##      a b
-## [1,] 1 3
-## [2,] 2 6
-## [3,] 2 5
-## [4,] 2 4</code></pre>
+<pre><code>     a b
+[1,] 1 3
+[2,] 2 6
+[3,] 2 5
+[4,] 2 4</code></pre>
 <ul class="incremental">
 <li>Tables are familiar</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">mytab &lt;- <span class="kw">table</span>(df$grade, df$year)
 mytab[<span class="kw">order</span>(mytab[, <span class="dv">1</span>]), ]</code></pre>
-<pre><code>##    
-##     2000 2001 2002
-##   4  100  200  100
-##   6  100  200  100
-##   8  100  200  100
-##   3  200  100  200
-##   5  200  100  200
-##   7  200  100  200</code></pre>
+<pre><code>   
+    2000 2001 2002
+  4  100  200  100
+  6  100  200  100
+  8  100  200  100
+  3  200  100  200
+  5  200  100  200
+  7  200  100  200</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">mytab[<span class="kw">order</span>(mytab[, <span class="dv">2</span>]), ]</code></pre>
-<pre><code>##    
-##     2000 2001 2002
-##   3  200  100  200
-##   5  200  100  200
-##   7  200  100  200
-##   4  100  200  100
-##   6  100  200  100
-##   8  100  200  100</code></pre>
+<pre><code>   
+    2000 2001 2002
+  3  200  100  200
+  5  200  100  200
+  7  200  100  200
+  4  100  200  100
+  6  100  200  100
+  8  100  200  100</code></pre>
 </div>
 <div class="section slide level1" id="filtering-data">
 <h1>Filtering Data</h1>
@@ -564,39 +593,41 @@ mytab[<span class="kw">order</span>(mytab[, <span class="dv">1</span>]), ]</code
 <li>Filtering is like a mini-sort</li>
 <li>Always, always, always check your work</li>
 <li>And remember, this is the place the NAs do the most damage</li>
-<li>Let’s look at some examples</li>
+<li>Let's look at some examples</li>
 </ul>
 </div>
 <div class="section slide level1" id="basic-filtering-a-column">
 <h1>Basic Filtering a Column</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all rows that meet this requirement</span>
 df[df$readSS &gt; <span class="dv">800</span>, ]</code></pre>
-<pre><code>##            X school  stuid grade schid dist white black hisp indian
-## 1631 1281061    852 145205     8    15  205     1     0    0      0
-##      asian econ female ell disab sch_fay dist_fay luck ability
-## 1631     0    0      1   0     0       0        0    0   108.3
-##      measerr teachq year attday schoolscore district schoolhigh
-## 1631   6.325  155.7 2001    137       227.7       19          0
-##      schoolavg schoollow readSS mathSS  proflvl race
-## 1631         1         0  833.2  828.4 advanced    W</code></pre>
+<pre><code>           X school  stuid grade schid dist white black hisp indian
+1631 1281061    852 145205     8    15  205     1     0    0      0
+     asian econ female ell disab sch_fay dist_fay luck ability
+1631     0    0      1   0     0       0        0    0   108.3
+     measerr teachq year attday schoolscore district schoolhigh
+1631   6.325  155.7 2001    137       227.7       19          0
+     schoolavg schoollow readSS mathSS  proflvl race
+1631         1         0  833.2  828.4 advanced    W</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">df$grade[df$mathSS &gt; <span class="dv">800</span>]</code></pre>
-<pre><code>## [1] 8</code></pre>
+<pre><code>[1] 8</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Gives all values of grade that meet this requirement</span></code></pre>
 <ul class="incremental">
-<li>This seems basic enough, let’s filter on multiple dimensions</li>
 <li>Before the brackets we specify what we want returned, and within the brackets we present the logical expression to evaluate</li>
 <li>Behind the scenes R does a logical test and gets the row numbers that match the logical expression</li>
 <li>It then combines them back with the object in front of the brackets to return the values</li>
-<li>So great we don’t have to do that!</li>
+<li>So great we don't have to do that!</li>
+<li>This seems basic enough, let's filter on multiple dimensions</li>
 </ul>
 </div>
 <div class="section slide level1" id="multiple-filters">
 <h1>Multiple filters</h1>
 <pre class="sourceCode r"><code class="sourceCode r">df$grade[df$black == <span class="dv">1</span> &amp; df$readSS &gt; <span class="dv">650</span>]</code></pre>
-<pre><code>##  [1] 8 7 8 6 6 7 8 7 8 8 8 4</code></pre>
+<pre><code> [1] 8 7 8 6 6 7 8 7 8 8 8 4</code></pre>
 <ul class="incremental">
+<li>The <strong>&amp;</strong> operator tells R we want rows where <strong>both</strong> of these are true</li>
+<li>How would we tell R we wanted rows where <strong>either</strong> were true?</li>
 <li>What happens if we type <code>df$black=1</code> or <code>black==1</code>?</li>
-<li>Why won’t this work?</li>
+<li>Why won't this work?</li>
 </ul>
 </div>
 <div class="section slide level1" id="using-filters-to-assign-values">
@@ -604,15 +635,18 @@ df[df$readSS &gt; <span class="dv">800</span>, ]</code></pre>
 <ul class="incremental">
 <li>We can also use filters to assign values as well</li>
 <li>This is how you recode variables and create new ones</li>
-<li>Let’s create a variable <code>spread</code> indicating whether a district has high or low spread among its student scores</li>
+<li>Let's create a variable <code>spread</code> indicating whether a district has high or low spread among its student scores</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$spread &lt;- <span class="ot">NA</span>  <span class="co"># create variable</span>
 myag$spread[myag$sd_read &lt; <span class="dv">75</span>] &lt;- <span class="st">&quot;low&quot;</span>
 myag$spread[myag$sd_read &gt; <span class="dv">75</span>] &lt;- <span class="st">&quot;high&quot;</span>
 myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)
 <span class="kw">summary</span>(myag$spread)</code></pre>
-<pre><code>## high  low 
-##   15    3</code></pre>
+<pre><code>high  low 
+  15    3 </code></pre>
+<ul class="incremental">
+<li>How did we define <strong>spread</strong> in this block of code?</li>
+</ul>
 </div>
 <div class="section slide level1" id="how-does-it-work">
 <h1>How does it work?</h1>
@@ -638,42 +672,42 @@ myag$spread &lt;- <span class="kw">as.factor</span>(myag$spread)</code></pre>
 <tr class="odd">
 <td align="left">3</td>
 <td align="left">&gt;425</td>
-<td align="right">“Hi”</td>
+<td align="right">&quot;Hi&quot;</td>
 </tr>
 <tr class="even">
 <td align="left">4</td>
 <td align="left">&gt;450</td>
-<td align="right">“Hi”</td>
+<td align="right">&quot;Hi&quot;</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
 <td align="left">&gt;475</td>
-<td align="right">“Hi”</td>
+<td align="right">&quot;Hi&quot;</td>
 </tr>
 <tr class="even">
 <td align="left">6</td>
 <td align="left">&gt;500</td>
-<td align="right">“Hi”</td>
+<td align="right">&quot;Hi&quot;</td>
 </tr>
 <tr class="odd">
 <td align="left">7</td>
 <td align="left">&gt;525</td>
-<td align="right">“Hi”</td>
+<td align="right">&quot;Hi&quot;</td>
 </tr>
 <tr class="even">
 <td align="left">8</td>
 <td align="left">&gt;575</td>
-<td align="right">“Hi”</td>
+<td align="right">&quot;Hi&quot;</td>
 </tr>
 </tbody>
 </table>
 <ul class="incremental">
-<li>All other values are coded as “low”</li>
-<li>How many “high” and “low” observations do we have?</li>
+<li>All other values are coded as &quot;lo&quot;</li>
+<li>How many &quot;high&quot; and &quot;lo&quot; observations do we have?</li>
 <li>By <code>dist</code>?</li>
 </ul>
 </div>
-<div class="section slide level1" id="results">
+<div class="section slide level1" id="results-1">
 <h1>Results</h1>
 <pre class="sourceCode r"><code class="sourceCode r">myag$schoolperf &lt;- <span class="st">&quot;lo&quot;</span>
 myag$schoolperf[myag$grade == <span class="dv">3</span> &amp; myag$mean_math &gt; <span class="dv">425</span>] &lt;- <span class="st">&quot;hi&quot;</span>
@@ -684,34 +718,34 @@ myag$schoolperf[myag$grade == <span class="dv">7</span> &amp; myag$mean_math &gt
 myag$schoolperf[myag$grade == <span class="dv">8</span> &amp; myag$mean_math &gt; <span class="dv">575</span>] &lt;- <span class="st">&quot;hi&quot;</span>
 myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <span class="kw">summary</span>(myag$schoolperf)</code></pre>
-<pre><code>## hi lo 
-##  9  9</code></pre>
+<pre><code>hi lo 
+ 9  9 </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(myag$dist, myag$schoolperf)</code></pre>
-<pre><code>##      
-##       hi lo
-##   205  3  3
-##   402  3  3
-##   495  3  3</code></pre>
+<pre><code>     
+      hi lo
+  205  3  3
+  402  3  3
+  495  3  3</code></pre>
 </div>
 <div class="section slide level1" id="lets-replace-data">
-<h1>Let’s replace data</h1>
+<h1>Let's replace data</h1>
 <ul class="incremental">
-<li>For district 6 let’s negate the grade 3 scores by replacing them with missing data</li>
+<li>For district 6 let's negate the grade 3 scores by replacing them with missing data</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
-<pre><code>##   dist grade mean_read mean_math
-## 1  205     3     451.7     406.1
-## 2  205     4     438.9     459.9</code></pre>
+<pre><code>  dist grade mean_read mean_math
+1  205     3     451.7     406.1
+2  205     4     438.9     459.9</code></pre>
 <ul class="incremental">
-<li>Let’s replace one data element with another</li>
+<li>Let's replace one data element with another</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$dist == <span class="dv">6</span> &amp; myag$grade == <span class="dv">3</span>] &lt;- myag$mean_read[myag$dist == 
     <span class="dv">6</span> &amp; myag$grade == <span class="dv">4</span>]
 <span class="kw">head</span>(myag[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">2</span>)</code></pre>
-<pre><code>##   dist grade mean_read mean_math
-## 1  205     3     451.7     406.1
-## 2  205     4     438.9     459.9</code></pre>
+<pre><code>  dist grade mean_read mean_math
+1  205     3     451.7     406.1
+2  205     4     438.9     459.9</code></pre>
 <ul class="incremental">
 <li>Voila</li>
 </ul>
@@ -719,35 +753,35 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <div class="section slide level1" id="why-do-nas-matter-so-much">
 <h1>Why do NAs matter so much?</h1>
 <ul class="incremental">
-<li>Let’s consider the case above but insert some NA values for all 3rd grade tests</li>
+<li>Let's consider the case above but insert some NA values for all 3rd grade tests</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$mean_read[myag$grade == <span class="dv">3</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">head</span>(myag[<span class="kw">order</span>(myag$grade), <span class="dv">1</span>:<span class="dv">4</span>])</code></pre>
-<pre><code>##    dist grade mean_read mean_math
-## 1   205     3        NA     406.1
-## 7   402     3        NA     431.9
-## 13  495     3        NA     405.5
-## 2   205     4     438.9     459.9
-## 8   402     4     474.9     432.8
-## 14  495     4     447.8     469.1</code></pre>
+<pre><code>   dist grade mean_read mean_math
+1   205     3        NA     406.1
+7   402     3        NA     431.9
+13  495     3        NA     405.5
+2   205     4     438.9     459.9
+8   402     4     474.9     432.8
+14  495     4     447.8     469.1</code></pre>
 </div>
 <div class="section slide level1" id="nas-ii">
 <h1>NAs II</h1>
 <ul class="incremental">
-<li>Now let’s calculate a few statistics:</li>
+<li>Now let's calculate a few statistics:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math)</code></pre>
-<pre><code>## [1] 490.7</code></pre>
+<pre><code>[1] 490.7</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_read)</code></pre>
-<pre><code>## [1] NA</code></pre>
+<pre><code>[1] NA</code></pre>
 <ul class="incremental">
 <li>Remember, NA values propogate, so R assumes an NA value could take literally any value, and as such it is impossible to know the <code>mean</code> of a vector with NA</li>
 <li>We can override this though:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_math, <span class="dt">na.rm =</span> T)</code></pre>
-<pre><code>## [1] 490.7</code></pre>
+<pre><code>[1] 490.7</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(myag$mean_read, <span class="dt">na.rm =</span> T)</code></pre>
-<pre><code>## [1] 507.5</code></pre>
+<pre><code>[1] 507.5</code></pre>
 </div>
 <div class="section slide level1" id="beyond-the-mean">
 <h1>Beyond the Mean</h1>
@@ -756,16 +790,16 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>What if we want to know the number of rows that have a <code>mean_read</code> of less than 500?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$dist[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
-<pre><code>## [1] 10</code></pre>
+<pre><code>[1] 10</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">500</span>])</code></pre>
-<pre><code>## [1]    NA 438.9 487.9    NA 474.9 472.5</code></pre>
+<pre><code>[1]    NA 438.9 487.9    NA 474.9 472.5</code></pre>
 <ul class="incremental">
 <li>And what if we want to add the standard deviation to these vectors?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">badvar &lt;- myag$mean_read + myag$sd_read
 <span class="kw">summary</span>(badvar)</code></pre>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
-##     517     566     592     587     614     655       3</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+    517     566     592     587     614     655       3 </code></pre>
 </div>
 <div class="section slide level1" id="so-we-need-to-filter-nas-explicitly">
 <h1>So we need to filter NAs explicitly</h1>
@@ -774,9 +808,9 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">myag$sd_read[myag$count_read &lt; <span class="dv">100</span> &amp; myag$mean_read &lt; <span class="dv">550</span>] &lt;- <span class="ot">NA</span>
 <span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span>])</code></pre>
-<pre><code>## [1] 16</code></pre>
+<pre><code>[1] 16</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(myag$mean_read[myag$mean_read &lt; <span class="dv">550</span> &amp; !<span class="kw">is.na</span>(myag$mean_read)])</code></pre>
-<pre><code>## [1] 13</code></pre>
+<pre><code>[1] 13</code></pre>
 <ul class="incremental">
 <li>What is <code>!is.na()</code> ?</li>
 <li><code>is.na()</code> is a helpful function to identify TRUE if a value is missing</li>
@@ -788,8 +822,8 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <h1>Merging Data</h1>
 <ul class="incremental">
 <li>It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources</li>
-<li>R makes this easy, but that simplicity comes at a cost–it can be easy to make mistakes if you don’t specify things carefully</li>
-<li>Let’s merge attributes about a student’s school with the student row data</li>
+<li>R makes this easy, but that simplicity comes at a cost--it can be easy to make mistakes if you don't specify things carefully</li>
+<li>Let's merge attributes about a student's school with the student row data</li>
 <li>We might want to do that if we want to evaluate the performance of students in different school climates, and school climate was measured in part by the mean performance</li>
 </ul>
 </div>
@@ -800,45 +834,45 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>What are the variables that <strong>link</strong> these two together?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(myag)</code></pre>
-<pre><code>##  [1] &quot;dist&quot;        &quot;grade&quot;       &quot;mean_read&quot;   &quot;mean_math&quot;  
-##  [5] &quot;sd_read&quot;     &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot; 
-##  [9] &quot;count_black&quot; &quot;per_black&quot;   &quot;spread&quot;      &quot;schoolperf&quot;</code></pre>
+<pre><code> [1] &quot;dist&quot;        &quot;grade&quot;       &quot;mean_read&quot;   &quot;mean_math&quot;  
+ [5] &quot;sd_read&quot;     &quot;sd_math&quot;     &quot;count_read&quot;  &quot;count_math&quot; 
+ [9] &quot;count_black&quot; &quot;per_black&quot;   &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df[, <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>)])</code></pre>
-<pre><code>## [1] &quot;school&quot; &quot;stuid&quot;  &quot;grade&quot;  &quot;dist&quot;</code></pre>
+<pre><code>[1] &quot;school&quot; &quot;stuid&quot;  &quot;grade&quot;  &quot;dist&quot;  </code></pre>
 <ul class="incremental">
 <li>It looks like <code>dist</code> and <code>grade</code> are in common. Is this ok?</li>
 <li>Why might we want to consider re-aggregating with <code>year</code> as well?</li>
-<li>For this example we won’t just yet</li>
-</ul>
-</div>
-<div class="section slide level1" id="merging-3">
-<h1>Merging 3</h1>
-<ul class="incremental">
-<li>We have a few options with <code>merge</code> we want to consider with <code>?merge</code></li>
-<li>In the simple case we let <code>merge</code> <strong>automagically</strong></li>
-</ul>
-<pre class="sourceCode r"><code class="sourceCode r">simple_merge &lt;- <span class="kw">merge</span>(df, myag)
-<span class="kw">names</span>(simple_merge)</code></pre>
-<pre><code>##  [1] &quot;grade&quot;       &quot;dist&quot;        &quot;X&quot;           &quot;school&quot;     
-##  [5] &quot;stuid&quot;       &quot;schid&quot;       &quot;white&quot;       &quot;black&quot;      
-##  [9] &quot;hisp&quot;        &quot;indian&quot;      &quot;asian&quot;       &quot;econ&quot;       
-## [13] &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;       &quot;sch_fay&quot;    
-## [17] &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
-## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot;
-## [25] &quot;district&quot;    &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;  
-## [29] &quot;readSS&quot;      &quot;mathSS&quot;      &quot;proflvl&quot;     &quot;race&quot;       
-## [33] &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;     &quot;sd_math&quot;    
-## [37] &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
-## [41] &quot;spread&quot;      &quot;schoolperf&quot;</code></pre>
-<ul class="incremental">
-<li>It looks like it did a good job</li>
+<li>For this example we won't just yet</li>
 </ul>
 </div>
 <div class="section slide level1" id="merge-options">
 <h1>Merge Options</h1>
 <ul class="incremental">
+<li>We have a few options with <code>merge</code> we want to consider with <code>?merge</code></li>
+<li>In the simple case we let <code>merge</code> <strong>automagically</strong> combine the data</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">simple_merge &lt;- <span class="kw">merge</span>(df, myag)
+<span class="kw">names</span>(simple_merge)</code></pre>
+<pre><code> [1] &quot;grade&quot;       &quot;dist&quot;        &quot;X&quot;           &quot;school&quot;     
+ [5] &quot;stuid&quot;       &quot;schid&quot;       &quot;white&quot;       &quot;black&quot;      
+ [9] &quot;hisp&quot;        &quot;indian&quot;      &quot;asian&quot;       &quot;econ&quot;       
+[13] &quot;female&quot;      &quot;ell&quot;         &quot;disab&quot;       &quot;sch_fay&quot;    
+[17] &quot;dist_fay&quot;    &quot;luck&quot;        &quot;ability&quot;     &quot;measerr&quot;    
+[21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot;
+[25] &quot;district&quot;    &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;  
+[29] &quot;readSS&quot;      &quot;mathSS&quot;      &quot;proflvl&quot;     &quot;race&quot;       
+[33] &quot;mean_read&quot;   &quot;mean_math&quot;   &quot;sd_read&quot;     &quot;sd_math&quot;    
+[37] &quot;count_read&quot;  &quot;count_math&quot;  &quot;count_black&quot; &quot;per_black&quot;  
+[41] &quot;spread&quot;      &quot;schoolperf&quot; </code></pre>
+<ul class="incremental">
+<li>It looks like it did a good job</li>
+</ul>
+</div>
+<div class="section slide level1" id="merge-options-1">
+<h1>Merge Options</h1>
+<ul class="incremental">
 <li>In complicated cases, merge has some important options we should review</li>
-<li>First is the simple sounding ‘by’ argument:</li>
+<li>First is the simple sounding 'by' argument:</li>
 <li><code>simple_merge(df1,df2,by=c(&quot;id1&quot;,&quot;id2&quot;))</code></li>
 <li>We can also specify <code>simple_merge(df1,df2,by.x=c(&quot;id1&quot;,&quot;id2&quot;),by.y=c(&quot;id1_a&quot;,&quot;id2_a&quot;))</code></li>
 <li>This allows us to have different names for our ID variables</li>
@@ -851,29 +885,29 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <h1>Reshaping Data</h1>
 <ul class="incremental">
 <li>Reshaping data is a slightly different issue than aggregating data</li>
-<li>Let’s review the two data types: long and wide</li>
+<li>Let's review the two data types: long and wide</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(df[, <span class="dv">1</span>:<span class="dv">10</span>], <span class="dv">3</span>)</code></pre>
-<pre><code>##     X school  stuid grade schid dist white black hisp indian
-## 1  44      1 149995     3   105  495     0     1    0      0
-## 2  53      1  13495     3    45  495     0     1    0      0
-## 3 116      1 106495     3    45  495     0     1    0      0</code></pre>
+<pre><code>    X school  stuid grade schid dist white black hisp indian
+1  44      1 149995     3   105  495     0     1    0      0
+2  53      1  13495     3    45  495     0     1    0      0
+3 116      1 106495     3    45  495     0     1    0      0</code></pre>
 <ul class="incremental">
-<li>Now let’s look at wide:</li>
+<li>Now let's look at wide:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(widedf[, <span class="dv">28</span>:<span class="dv">40</span>], <span class="dv">3</span>)</code></pre>
-<pre><code>##   readSS.2000 mathSS.2000 proflvl.2000 race.2000  X.2001 school.2001
-## 1       357.3       387.3        basic         B  441000           1
-## 2       263.9       302.6  below basic         B  531000           1
-## 3       369.7       365.5        basic         B 1161000           1
-##   grade.2001 schid.2001 dist.2001 white.2001 black.2001 hisp.2001
-## 1          4        105       495          0          1         0
-## 2          4         45       495          0          1         0
-## 3          4         45       495          0          1         0
-##   indian.2001
-## 1           0
-## 2           0
-## 3           0</code></pre>
+<pre><code>  readSS.2000 mathSS.2000 proflvl.2000 race.2000  X.2001 school.2001
+1       357.3       387.3        basic         B  441000           1
+2       263.9       302.6  below basic         B  531000           1
+3       369.7       365.5        basic         B 1161000           1
+  grade.2001 schid.2001 dist.2001 white.2001 black.2001 hisp.2001
+1          4        105       495          0          1         0
+2          4         45       495          0          1         0
+3          4         45       495          0          1         0
+  indian.2001
+1           0
+2           0
+3           0</code></pre>
 <ul class="incremental">
 <li>How did we do this?</li>
 </ul>
@@ -884,7 +918,6 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>The great debate</li>
 <li>Most econometrics, panel, and time series datasets come wide and so these seem familiar</li>
 <li>R for most cases prefers long data, including for most graphing and analysis functions</li>
-<li>But, not all</li>
 <li>So we have to learn both</li>
 </ul>
 </div>
@@ -905,6 +938,7 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <ul class="incremental">
 <li><code>idvar</code> represents the unit we want to represent a single row, in this case each unique student gets a single row</li>
 <li>In this simple case <code>timevar</code> is the variable that differenaties between two rows with the same student ID</li>
+<li>Note that <code>timevar</code> needn't always represent time!</li>
 <li><code>direction</code> tells R we are going to move to wide data</li>
 <li>As written all data will move, but using the <code>varying</code> argument we can tell R explicitly which items we want to move wide</li>
 </ul>
@@ -925,11 +959,11 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <h1>Subsetting Data</h1>
 <ul class="incremental">
 <li>We have already seen a lot of subsetting examples above, which is what filtering is, but R provides some great shortcuts to this</li>
-<li>Let’s look at the <code>subset</code> function to get only 4th grade scores</li>
+<li>Let's look at the <code>subset</code> function to get only 4th grade scores</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">g4 &lt;- <span class="kw">subset</span>(df, grade == <span class="dv">4</span>)
 <span class="kw">dim</span>(g4)</code></pre>
-<pre><code>## [1] 400  32</code></pre>
+<pre><code>[1] 400  32</code></pre>
 <ul class="incremental">
 <li>This is equivalent to:</li>
 </ul>
@@ -938,13 +972,13 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <li>These two elements are the same:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">identical</span>(g4, g4_b)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>[1] TRUE</code></pre>
 </div>
 <div class="section slide level1" id="thats-it">
-<h1>That’s it</h1>
+<h1>That's it</h1>
 <ul class="incremental">
 <li>Now you can filter, subset, sort, recode, and aggregate data!</li>
-<li>Let’s look at a few exercises to test these skills</li>
+<li>Let's look at a few exercises to test these skills</li>
 <li>Once these skills are mastered, we can begin to understand how to automate R to clean data with known errors, and to recode data in R so it is ready to be used for analysis</li>
 <li>Then we can really take off!</li>
 </ul>
@@ -952,7 +986,7 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 <div class="section slide level1" id="exercises">
 <h1>Exercises</h1>
 <ol class="incremental" style="list-style-type: decimal">
-<li><p>Say we are unhappy about attributing the school/grade mean score across years to student-year observations like we did in this lesson. Let’s fix it by <strong>first</strong> aggregating our student data frame to a school/grade/year data frame, and <strong>second</strong> by merging that new data frame with our student level data.</p></li>
+<li><p>Say we are unhappy about attributing the school/grade mean score across years to student-year observations like we did in this lesson. Let's fix it by <strong>first</strong> aggregating our student data frame to a school/grade/year data frame, and <strong>second</strong> by merging that new data frame with our student level data.</p></li>
 <li><p>Sort the student-level data frame on <code>attday</code> and <code>ability</code> in descending order.</p></li>
 <li><p>Find the highest proportion of black students in any school/grade/year combination.</p></li>
 </ol>
@@ -969,26 +1003,29 @@ myag$schoolperf &lt;- <span class="kw">as.factor</span>(myag$schoolperf)
 </div>
 <div class="section slide level1" id="session-info">
 <h1>Session Info</h1>
-<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
+<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
-<pre><code>## R version 2.15.2 (2012-10-26)
-## Platform: i386-w64-mingw32/i386 (32-bit)
-## 
-## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods  
-## [7] base     
-## 
-## other attached packages:
-## [1] plyr_1.7.1      ggplot2_0.9.2.1 lmtest_0.9-30   zoo_1.7-9      
-## [5] knitr_0.8      
-## 
-## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-0   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.2       
-##  [7] gtable_0.1.1       labeling_0.1       lattice_0.20-10   
-## [10] MASS_7.3-22        memoise_0.1        munsell_0.4       
-## [13] proto_0.3-9.2      RColorBrewer_1.0-5 reshape2_1.2.1    
-## [16] scales_0.2.2       stringr_0.6.1      tools_2.15.1</code></pre>
+<pre><code>R version 2.15.2 (2012-10-26)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets 
+[7] methods   base     
+
+other attached packages:
+ [1] eeptools_0.1    mapproj_1.1-8.3 maps_2.2-6      proto_0.3-9.2  
+ [5] stringr_0.6.1   mgcv_1.7-22     plyr_1.7.1      gridExtra_0.9.1
+ [9] quantreg_4.91   SparseM_0.96    sandwich_2.2-9  ggplot2_0.9.2.1
+[13] lmtest_0.9-30   zoo_1.7-9       knitr_0.8      
+
+loaded via a namespace (and not attached):
+ [1] codetools_0.2-8    colorspace_1.2-0   dichromat_1.2-4   
+ [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
+ [7] gtable_0.1.1       labeling_0.1       lattice_0.20-10   
+[10] MASS_7.3-22        Matrix_1.0-9       memoise_0.1       
+[13] munsell_0.4        nlme_3.1-105       RColorBrewer_1.0-5
+[16] Rcpp_0.10.0        reshape2_1.2.1     scales_0.2.2      
+[19] tools_2.15.2      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

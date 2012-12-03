@@ -73,7 +73,7 @@ John Chambers, in describing the logic behind the S language said:
 
 
 # R Advantages Continued
-- R is platform agnostic--Linux, Mac, PC, server, desktop, etc.
+- R is platform agnostic - Linux, Mac, PC, server, desktop, etc.
 - R can output results in a variety of formats
 - R can build routines straight out of a database for common and universal reporting
 
@@ -82,14 +82,7 @@ R Can Compliment Other Tools
 - R plays nicely with data from Stata, SPSS, SAS and others
 - R can check work, produce output, visualize results from other programs
 - R can do bleeding edge analyses that aren't available in proprietary packages yet
-- R is becoming more prevalent in undergraduate statistics courses--more and more potential employees are learning it each year
-
-# R's Drawbacks
-- R is based on S, which is close to 40 years old
-- R only has features that the community contributes
-- Not the ideal solution to all problems
-- R is a programming language and not a software package--steeper learning curve
-- R can be much slower than compiled languages
+- R is becoming more prevalent in undergraduate statistics courses - more and more potential employees are learning it each year
 
 # R's Popularity
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS
@@ -112,6 +105,13 @@ Usage of the R listserv for help has really exploded recently
 <p align="center"><img src="img/rlistserv.png" height="500" width="700"></p>
 
 Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity/)
+
+# R's Drawbacks
+- R is based on S, which is close to 40 years old
+- R only has features that the community contributes
+- Not the ideal solution to all problems
+- R is a programming language and not a software package--steeper learning curve
+- R can be much slower than compiled languages
 
 # R Vocabulary
 - **packages** are add on features to R that include data, new functions and methods, and extended capabilities. Think of them as ``apps'' on your phone. We've already installed several!
@@ -161,7 +161,7 @@ Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity
 # Self-help (2)
 - Sometimes R Help can be a bit prickly and unfriendly...
 - The most important part of getting help is being able to ask your question with a reproducible example (i.e. some short simulated data and code that doesn't do what you want)
-- For R Help etiquette (for the tough problems) see [the great advice here](https://github.com/hadley/devtools/wiki/Reproducibility)
+- Like this:
 
 ```{r echo=TRUE,error=TRUE}
 foo<-c(1,"b",5,7,0)
@@ -169,8 +169,11 @@ bar<-c(1,2,3,4,5)
 foo+bar
 ```
 
-# Let's Open RStudio
-- Go ahead and open RStudio now and let's see what we get
+- For R Help etiquette (for the tough problems) see [the great advice here](https://github.com/hadley/devtools/wiki/Reproducibility)
+
+# Let's Look at RStudio
+- RStudio has made R more accessible and easy to use than ever!
+- Open up **Tutorial1.R**
 - 4 panels, various tabs
 - Help, plots, file structure
 - Workspace, history, version control
@@ -178,7 +181,6 @@ foo+bar
 - The R Console
 
 # The Data Frame
-
 - What happens when you type:
 
 ```{r dataframeintro,echo=TRUE,results='hide'}
@@ -190,6 +192,8 @@ mtcars
 ```{r dataframeintro2,echo=FALSE,results='markup'}
 mtcars[1:8,]
 ```
+
+- This is how we'll look at R commands and their results the rest of the way
 
 # A Data Frame
 - A data frame is a lot like a traditional spreadsheet and is the central feature of data analysis in R
@@ -257,6 +261,7 @@ myplot(readSS,mathSS,data=df)
   - e.g. `rnorm(100)` or `rbinom(100)`
 
 - This comes in handy when writing examples and building analyses because it is trivial to generate a synthetic piece of data to use as an example
+- Go ahead, try typing `hist(rnorm(10000))` into RStudio
 
 
 # Using the Workspace
@@ -320,7 +325,6 @@ identical(c,d) # Test equality
 
 # More Language ~~Bugs~~ Features
 - R is maddeningly inconsistent in it's naming conventions
-
   * Some functions are `camelCase`; others `are.dot.separated`; others `use_underscores`
   * Function results are stored in a variety of ways across function implementations
   * R has multiple graphics packages that different functions use for default plot construction (`base`, `grid`, `lattice`, and `ggplot2`)
@@ -333,9 +337,9 @@ load("data/smalldata.rda")
 ```
 
 # Objects
-- Everything in R is an object--even functions
+- Everything in R is an object - even functions
 - Objects can be manipulated many ways
-- A common example is applying the `summary' function to a variety of object types and seeing how it adapts
+- A common example is applying the `summary` function to a variety of object types and seeing how it adapts
 ```{r}
 summary(df[,28:31]) #summary look at df object
 summary(df$readSS) #summary of a single column
@@ -346,6 +350,7 @@ summary(df$readSS) #summary of a single column
 
 ```{r graphics1,message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=7.8, fig.height=4.5,tidy=FALSE,warning=FALSE}
 library(ggplot2) # Load graphics Package
+library(eeptools)
 qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_dpi()+
   opts(title='Test Score Relationship')+
   geom_smooth()
@@ -514,11 +519,15 @@ defac
 - Be careful! The best way to unpack a factor is to convert it to a character first.
 
 # Defactor
-```{r fac3}
+```{r fac2.1,eval=FALSE,echo=TRUE}
+# From the eeptools package
 defac<-function(x){
   x<-as.character(x)
   x
 }
+```
+
+```{r fac3}
 defac(myfac_o)
 defac<-defac(myfac_o)
 defac
@@ -542,7 +551,7 @@ as.numeric(myfac)
 
 # Dates
 - R has built-in ways to handle dates
-- See `lubridate` package for more advanced functionality
+- See `lubridate` package for more advanced functionality including mathematical operations on dates
 
 ```{r dates}
 mydate<-as.Date("7/20/2012",format="%m/%d/%Y")
@@ -586,8 +595,8 @@ class(mymod)
 
 # Why care so much about classes?
 - Classes determine what you can and can't do with objects
-- Classes have different computational times associated with them, for optimization
-- Classes allow you to keep projects/data organized and following business rules
+- Different classes have different computational times associated with them, so the choice can affect the optimization of the code
+- Classes allow you to keep projects/data organized
 - **Because R makes you care**
 
 # Data Structures in R
@@ -649,7 +658,7 @@ length(myvec) # What happens when you do dim(myvec)?
 newmat<-cbind(mymat,myvec)
 newmat
 ```
-- Dataframes work similar
+- Dataframes work similarly
 
 # Matrix Functions
 - We can do some basic math to matrices as well, like correlations
@@ -742,7 +751,7 @@ str(df[ ,25:32])
 - Data frames must have consistent dimensions
 - Dataframes are what we use most commonly as a "dataset" for analysis
 - Dataframes are what sets R apart from other programming languages like C, C++, Python, and Perl. 
-- The dataframe structure is much more complex and much easier to use than any datastructure in these languages--though Python is catching up!
+- The dataframe structure is much more complex and much easier to use than any datastructure in these languages - though Python is catching up!
 
 # Converting Between Types
 - R has built in functions to allow you to force objects to move between types

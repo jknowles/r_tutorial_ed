@@ -4,7 +4,6 @@
 
 # Overview
 - Loading Packages
-- Data import is incredibly flexible and once you are used to it, it is easy
 - Understand data types
 - Load a CSV file
 - Organize an analysis project
@@ -42,12 +41,11 @@ update.packages() # Gonna update them all
 
 # Finding Packages
 - Official packages are found on CRAN (Comprehensive R A Network)
-- Unofficial packages or **beta** versions of packages are found on RForge and GitHub mostly
+- Unofficial packages or **beta** versions of packages are found on [RForge](http://r-forge.r-project.org/) and [GitHub](http://www.github.com)
 - To find out what packages are out there that do a specific function, try:
   * Google "doing X in R package"
   * Look at CRAN taskviews
-- CRAN taskviews are great to find a bunch of packages related to a problem you are trying to solve
-- You can find [all CRAN taskviews here](http://cran.r-project.org/web/views/)
+- [CRAN taskviews](http://cran.r-project.org/web/views/) are great to find a bunch of packages related to a problem you are trying to solve
 
 # Some Must Have Packages
 `plyr` `ggplot2` `lme4` `sp` `knitr`
@@ -85,7 +83,7 @@ update.packages() # Gonna update them all
 
 # RStudio Shortcuts
 - RStudio makes this so much easier!
-- RStudio can set the working directory to the Files pane in the bottom right, or to the source file in the top left
+- RStudio can set the working directory to the **Files** pane in the bottom right, or to the **Source** file in the top left
 - The source file is the most likely path, but sometimes we need to access data in a separate folder and store results in another
 - So RStudio shortcuts can't help there
 
@@ -93,6 +91,7 @@ update.packages() # Gonna update them all
 - A great feature of RStudio is that it allows us to create a **project** which allows us to quickly jump from folder to folder, store data, and keep open tasks and scripts
 - If you have multiple R tasks at once (how lucky!) you have to use projects
 - Let's walkthrough creating a Project in RStudio and understand it a little bit
+- **DEMO**
 
 # Manipulating Project Paths
 - Paths are strings that tell R where to find files on your computer
@@ -112,7 +111,7 @@ update.packages() # Gonna update them all
 # Ground Rules
 - Get used to plain text input files
   * R can handle other formats, but your error rate increases as does the tweaking necessary
-- R has a limited set of special characters (symbols) you can use in your data input to be translated correctly 
+- R has a limited set of special characters (symbols) you cannot use in your data input to be translated correctly 
 - These symbols are reserved and will be interpreted in strange ways if you include them in your plain text data file
 - Most of them are fairly obvious operators, see [Paul Murrell's excellent summary](http://www.stat.auckland.ac.nz/~paul/ItDT/HTML/node75.html)
 
@@ -127,7 +126,6 @@ print(a[4])
 ```
 - But what is the difference between `NA` and `NULL`?
 ```{r nulldata}
-ls() # get objects
 a<-c(a,NULL) # Append NULL onto a
 print(a)
 # Notice no change
@@ -145,7 +143,7 @@ b<-sqrt(-b)
 print(b)
 pi/0
 ```
-- Inf is a special case as well representing an infinite value
+- **Inf** is a special case as well representing an infinite value
 - Just for fun `sin(Inf)` = `NaN`
 
 # Beginning Analysis
@@ -166,9 +164,9 @@ pi/0
 - **Always keep your raw data**
 
 # Create our Project
-- Make an "RBootcamp" folder on your machine
-- Underneath this make a "data" and a "figure" folder
-- Create an R script in the "RBootcamp" folder called "myscriptname.R"
+- Open the "bootcamp" folder on your machine
+- Underneath this make a a "figure" folder to go with the "data" folder
+- Create an R script in the "bootcamp" folder called "myscriptname.R"
 - Put all the data files in the "data" folder
 
 # Read in Data
@@ -300,7 +298,7 @@ length(unique(messdf$dist))
 ```
 
 # Checking for Coding
-- Data is coded using numeric or character representations of attributes--commonly things are coded using a 1 and 0 scheme or an A,B,C scheme
+- Data is coded using numeric or character representations of attributes - commonly things are coded using a 1 and 0 scheme or an A,B,C scheme
 - With R we can check how our variables are coded very easily
 
 ```{r checkcoding}

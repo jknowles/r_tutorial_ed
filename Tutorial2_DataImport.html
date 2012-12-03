@@ -39,9 +39,8 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="overview">
 <h1>Overview</h1>
-<ul class="incremental">
+<ul>
 <li>Loading Packages</li>
-<li>Data import is incredibly flexible and once you are used to it, it is easy</li>
 <li>Understand data types</li>
 <li>Load a CSV file</li>
 <li>Organize an analysis project</li>
@@ -54,7 +53,7 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="a-quick-note-on-r-packages">
 <h1>A quick note on R <code>packages</code></h1>
-<ul class="incremental">
+<ul>
 <li><code>packages</code> are essentially free and open source add-ons for R</li>
 <li>There are over 3,000 packages available for R that add all sorts of functionality</li>
 <li>A few examples (from the mundane to the crazy)</li>
@@ -76,29 +75,28 @@ DPI R Bootcamp
 <span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;foo&quot;</span>, <span class="st">&quot;foo1&quot;</span>, <span class="st">&quot;foo2&quot;</span>))
 <span class="co"># Packages get updated FREQUENTLY</span>
 <span class="kw">update.packages</span>()  <span class="co"># Gonna update them all</span></code></pre>
-<ul class="incremental">
+<ul>
 <li>Note, on Windows Vista and later R either needs to be run as an administrator to install packages, or you have to fiddle with where the packages are installed</li>
 <li>Packages are stored in something called the <strong>library</strong> which is just a collection of packages</li>
 <li>Sometimes folks call packages <strong>libraries</strong></li>
-<li>Loading a package couldn’t be easier <code>library(ggplot2)</code> and you’re done!</li>
+<li>Loading a package couldn't be easier <code>library(ggplot2)</code> and you're done!</li>
 </ul>
 </div>
 <div class="section slide level1" id="finding-packages">
 <h1>Finding Packages</h1>
-<ul class="incremental">
+<ul>
 <li>Official packages are found on CRAN (Comprehensive R A Network)</li>
-<li>Unofficial packages or <strong>beta</strong> versions of packages are found on RForge and GitHub mostly</li>
+<li>Unofficial packages or <strong>beta</strong> versions of packages are found on <a href="http://r-forge.r-project.org/">RForge</a> and <a href="http://www.github.com">GitHub</a></li>
 <li>To find out what packages are out there that do a specific function, try:</li>
-<li>Google “doing X in R package”</li>
+<li>Google &quot;doing X in R package&quot;</li>
 <li>Look at CRAN taskviews</li>
-<li>CRAN taskviews are great to find a bunch of packages related to a problem you are trying to solve</li>
-<li>You can find <a href="http://cran.r-project.org/web/views/">all CRAN taskviews here</a></li>
+<li><a href="http://cran.r-project.org/web/views/">CRAN taskviews</a> are great to find a bunch of packages related to a problem you are trying to solve</li>
 </ul>
 </div>
 <div class="section slide level1" id="some-must-have-packages">
 <h1>Some Must Have Packages</h1>
 <p><code>plyr</code> <code>ggplot2</code> <code>lme4</code> <code>sp</code> <code>knitr</code></p>
-<ul class="incremental">
+<ul>
 <li>These packages come with data, code, functions, and utilities that you can access</li>
 <li>If you want to learn about them, check them out in the RStudio Packages tab, which gives an index of their help files and handy links to their help documentation</li>
 <li>Some packages also have <code>vignettes</code> which walk you through use cases for the package</li>
@@ -107,20 +105,20 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="data-management">
 <h1>Data Management</h1>
-<ul class="incremental">
+<ul>
 <li>Data management in R used to be managed by the <code>ls()</code> command</li>
 <li>Go ahead, type it.</li>
-<li>Now you can look at the Workspace tab in RStudio and have a complete list of the data in R’s memory that is accessible to you</li>
+<li>Now you can look at the Workspace tab in RStudio and have a complete list of the data in R's memory that is accessible to you</li>
 <li>All data objects have names</li>
-<li>All object names are unique (not strictly so, but let’s not violate this)</li>
+<li>All object names are unique (not strictly so, but let's not violate this)</li>
 <li>To reference items within an object type we need to give it an address like in <code>mydata$thingIwant</code> or <code>mydata@thingIwant</code></li>
 <li>The <code>$</code> and <code>@</code> distinction depends on whether this is an S3 or an S4 class</li>
-<li>R will warn you if you do it wrong, so just remember when <code>$</code> doesn’t work, use <code>@</code></li>
+<li>R will warn you if you do it wrong, so just remember when <code>$</code> doesn't work, use <code>@</code></li>
 </ul>
 </div>
 <div class="section slide level1" id="the-working-directory">
 <h1>The Working Directory</h1>
-<ul class="incremental">
+<ul>
 <li>The working directory, lovingly denoted by <code>wd</code> is both your friend and enemy</li>
 <li>R needs to know where it is in your file system to be able to access data and write output</li>
 <li>Check this by typing <code>getwd()</code></li>
@@ -130,36 +128,37 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="preliminaries">
 <h1>Preliminaries</h1>
-<ul class="incremental">
+<ul>
 <li>Get and set the working directory</li>
 <li>Understand file system paths</li>
 <li>Understand relative and full paths</li>
 <li>Find out where things are</li>
-<li>To start, we’ll download the Bootcamp files and open up “Tutorial 2.R”</li>
-<li>We’ll notice that in the Bootcamp folder we have a number of subfolders for things like <code>data</code> and <code>handouts</code></li>
+<li>To start, we'll download the Bootcamp files and open up &quot;Tutorial 2.R&quot;</li>
+<li>We'll notice that in the Bootcamp folder we have a number of subfolders for things like <code>data</code> and <code>handouts</code></li>
 <li>When you do an R project, it really helps to put it into a self-contained folder so you can reference everything you need easily within the file system</li>
 </ul>
 </div>
 <div class="section slide level1" id="rstudio-shortcuts">
 <h1>RStudio Shortcuts</h1>
-<ul class="incremental">
+<ul>
 <li>RStudio makes this so much easier!</li>
-<li>RStudio can set the working directory to the Files pane in the bottom right, or to the source file in the top left</li>
+<li>RStudio can set the working directory to the <strong>Files</strong> pane in the bottom right, or to the <strong>Source</strong> file in the top left</li>
 <li>The source file is the most likely path, but sometimes we need to access data in a separate folder and store results in another</li>
-<li>So RStudio shortcuts can’t help there</li>
+<li>So RStudio shortcuts can't help there</li>
 </ul>
 </div>
 <div class="section slide level1" id="rstudio-projects">
 <h1>RStudio Projects</h1>
-<ul class="incremental">
+<ul>
 <li>A great feature of RStudio is that it allows us to create a <strong>project</strong> which allows us to quickly jump from folder to folder, store data, and keep open tasks and scripts</li>
 <li>If you have multiple R tasks at once (how lucky!) you have to use projects</li>
-<li>Let’s walkthrough creating a Project in RStudio and understand it a little bit</li>
+<li>Let's walkthrough creating a Project in RStudio and understand it a little bit</li>
+<li><strong>DEMO</strong></li>
 </ul>
 </div>
 <div class="section slide level1" id="manipulating-project-paths">
 <h1>Manipulating Project Paths</h1>
-<ul class="incremental">
+<ul>
 <li>Paths are strings that tell R where to find files on your computer</li>
 <li>R uses both full and relative paths</li>
 <li>When we want to call files from different directories or write to different directories, we can use relative paths within the project</li>
@@ -169,28 +168,28 @@ DPI R Bootcamp
 </div>
 <div class="section slide level1" id="when-to-use-a-full-path">
 <h1>When to use a full path</h1>
-<ul class="incremental">
+<ul>
 <li>Never</li>
 <li>It breaks the ability to pass a project directory to a coauthor/collaborator</li>
-<li>But when you must…</li>
+<li>But when you must...</li>
 <li>When you have something on a whole different drive or network store</li>
-<li>When you don’t think you’ll migrate your code to a new operating system or a different machine/network environment</li>
+<li>When you don't think you'll migrate your code to a new operating system or a different machine/network environment</li>
 <li>When the project is simple</li>
 </ul>
 </div>
 <div class="section slide level1" id="ground-rules">
 <h1>Ground Rules</h1>
-<ul class="incremental">
+<ul>
 <li>Get used to plain text input files</li>
 <li>R can handle other formats, but your error rate increases as does the tweaking necessary</li>
-<li>R has a limited set of special characters (symbols) you can use in your data input to be translated correctly</li>
+<li>R has a limited set of special characters (symbols) you cannot use in your data input to be translated correctly</li>
 <li>These symbols are reserved and will be interpreted in strange ways if you include them in your plain text data file</li>
-<li>Most of them are fairly obvious operators, see <a href="http://www.stat.auckland.ac.nz/~paul/ItDT/HTML/node75.html">Paul Murrell’s excellent summary</a></li>
+<li>Most of them are fairly obvious operators, see <a href="http://www.stat.auckland.ac.nz/~paul/ItDT/HTML/node75.html">Paul Murrell's excellent summary</a></li>
 </ul>
 </div>
 <div class="section slide level1" id="missing-data-symbols">
 <h1>Missing Data Symbols</h1>
-<ul class="incremental">
+<ul>
 <li>Missing data has the symbols <code>NA</code> or <code>NaN</code> or <code>NULL</code> depending on the context.</li>
 <li>Consider:</li>
 </ul>
@@ -198,11 +197,9 @@ DPI R Bootcamp
 <span class="co"># Ask R for element 4</span>
 <span class="kw">print</span>(a[<span class="dv">4</span>])</code></pre>
 <pre><code>## [1] NA</code></pre>
-<ul class="incremental">
+<ul>
 <li>But what is the difference between <code>NA</code> and <code>NULL</code>?</li>
 </ul>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()  <span class="co"># get objects</span></code></pre>
-<pre><code>## [1] &quot;a&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">a &lt;- <span class="kw">c</span>(a, <span class="ot">NULL</span>)  <span class="co"># Append NULL onto a</span>
 <span class="kw">print</span>(a)</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
@@ -210,15 +207,15 @@ DPI R Bootcamp
 a &lt;- <span class="kw">c</span>(a, <span class="ot">NA</span>)
 <span class="kw">print</span>(a)</code></pre>
 <pre><code>## [1]  1  2  3 NA</code></pre>
-<ul class="incremental">
+<ul>
 <li><code>NA</code> can hold a place, <code>NULL</code> cannot</li>
 </ul>
 </div>
 <div class="section slide level1" id="what-the-heck-is-not-a-number">
 <h1>What the heck is Not a Number?</h1>
-<ul class="incremental">
+<ul>
 <li><code>NaN</code> is even more special, and only holds things like imaginary numbers</li>
-<li><code>NaN</code> stands for “Not a Number”</li>
+<li><code>NaN</code> stands for &quot;Not a Number&quot;</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">b &lt;- <span class="dv">1</span>
 b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
@@ -227,28 +224,28 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <pre><code>## [1] NaN</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">pi/<span class="dv">0</span></code></pre>
 <pre><code>## [1] Inf</code></pre>
-<ul class="incremental">
-<li>Inf is a special case as well representing an infinite value</li>
+<ul>
+<li><strong>Inf</strong> is a special case as well representing an infinite value</li>
 <li>Just for fun <code>sin(Inf)</code> = <code>NaN</code></li>
 </ul>
 </div>
 <div class="section slide level1" id="beginning-analysis">
 <h1>Beginning Analysis</h1>
-<ul class="incremental">
-<li>Now let’s set up our analysis project</li>
+<ul>
+<li>Now let's set up our analysis project</li>
 <li>It is best to keep projects discrete in directories</li>
 <li>Create a few subdirectories</li>
 <li>Data</li>
 <li>Functions / R src</li>
 <li>Figures / Plots</li>
 <li>Cleaned Data</li>
-<li>We’ve already done this in the Bootcamp folder itself!</li>
+<li>We've already done this in the Bootcamp folder itself!</li>
 <li>See the <code>ProjectTemplate</code> package for a more detailed philosophy about organizing projects</li>
 </ul>
 </div>
 <div class="section slide level1" id="organization-of-a-project-is-key">
 <h1>Organization of a project is key</h1>
-<ul class="incremental">
+<ul>
 <li>Separate data from scripts</li>
 <li>Separate automatic scripts from interactive scripts</li>
 <li>Put figures apart from both of these</li>
@@ -257,16 +254,16 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 </div>
 <div class="section slide level1" id="create-our-project">
 <h1>Create our Project</h1>
-<ul class="incremental">
-<li>Make an “RBootcamp” folder on your machine</li>
-<li>Underneath this make a “data” and a “figure” folder</li>
-<li>Create an R script in the “RBootcamp” folder called “myscriptname.R”</li>
-<li>Put all the data files in the “data” folder</li>
+<ul>
+<li>Open the &quot;bootcamp&quot; folder on your machine</li>
+<li>Underneath this make a a &quot;figure&quot; folder to go with the &quot;data&quot; folder</li>
+<li>Create an R script in the &quot;bootcamp&quot; folder called &quot;myscriptname.R&quot;</li>
+<li>Put all the data files in the &quot;data&quot; folder</li>
 </ul>
 </div>
 <div class="section slide level1" id="read-in-data">
 <h1>Read in Data</h1>
-<ul class="incremental">
+<ul>
 <li>Reading in data is one of the trickiest issues for R</li>
 <li>This is because R is incredibly flexible and can handle data in almost any form including <code>.csv</code> <code>.dta</code> <code>.sas</code> <code>.spss</code> <code>.dat</code> and even <code>.xls</code> and <code>.xlsx</code> with some care</li>
 <li>So we have to carefully specify the data types to R so it can understand what form the data needs to take</li>
@@ -275,7 +272,7 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 </div>
 <div class="section slide level1" id="csv-is-our-friend">
 <h1>CSV is Our Friend</h1>
-<ul class="incremental">
+<ul>
 <li>The easiest data type is .csv though Excel files can be read as well <code>df</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set working directory to the tutorial directory In RStudio can do this</span>
@@ -286,7 +283,7 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 <span class="co"># Note if we don't assign data to 'df' R just prints contents of table</span></code></pre>
 </div>
 <div class="section slide level1" id="lets-check-what-we-got">
-<h1>Let’s Check What We Got</h1>
+<h1>Let's Check What We Got</h1>
 <pre><code>## 'data.frame':    2700 obs. of  6 variables:
 ##  $ schoolavg: int  1 1 1 1 1 1 1 1 1 1 ...
 ##  $ schoollow: int  0 0 0 0 0 0 0 0 0 0 ...
@@ -297,12 +294,12 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 </div>
 <div class="section slide level1" id="always-check-your-data">
 <h1>Always Check Your Data</h1>
-<ul class="incremental">
+<ul>
 <li>A few great commands:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dim</span>(df)</code></pre>
 <pre><code>## [1] 2700   32</code></pre>
-<ul class="incremental">
+<ul>
 <li><code>summary</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(df[, <span class="dv">1</span>:<span class="dv">5</span>])</code></pre>
@@ -323,7 +320,7 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 </div>
 <div class="section slide level1" id="checking-your-data-ii">
 <h1>Checking your data II</h1>
-<ul class="incremental">
+<ul>
 <li><code>names</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(df)</code></pre>
@@ -334,20 +331,20 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 ## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
 ## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
 ## [31] &quot;proflvl&quot;     &quot;race&quot;</code></pre>
-<ul class="incremental">
+<ul>
 <li><code>attributes</code> and <code>class</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">names</span>(<span class="kw">attributes</span>(df))</code></pre>
 <pre><code>## [1] &quot;names&quot;     &quot;row.names&quot; &quot;class&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(df)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<ul class="incremental">
+<ul>
 <li><code>str</code> which lists all data elements in an object and their type</li>
 </ul>
 </div>
 <div class="section slide level1" id="data-warehouses-oracle-sql-and-rodbc">
 <h1>Data Warehouses, Oracle, SQL and RODBC</h1>
-<ul class="incremental">
+<ul>
 <li>Do you have data in a warehouse?</li>
 <li>RODBC can help</li>
 <li>You can query the data directly and bring it into R, saving time and hassle</li>
@@ -357,7 +354,7 @@ df &lt;- <span class="kw">read.csv</span>(<span class="st">&quot;data/smalldata.
 </div>
 <div class="section slide level1" id="an-example-from-dpi">
 <h1>An Example From DPI</h1>
-<ul class="incremental">
+<ul>
 <li>The basics of the RODBC package are easy to understand</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RODBC)  <span class="co"># interface driver for R</span>
@@ -376,46 +373,46 @@ datapull &lt;- <span class="kw">sqlQuery</span>(channel, <span class="st">&quot;
 </div>
 <div class="section slide level1" id="missing-data">
 <h1>Missing Data</h1>
-<ul class="incremental">
-<li>Let’s add some missing data to our dataframe so we can see how missing data works</li>
+<ul>
+<li>Let's add some missing data to our dataframe so we can see how missing data works</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">random &lt;- <span class="kw">sample</span>(<span class="kw">unique</span>(df$stuid), <span class="dv">100</span>)
 random2 &lt;- <span class="kw">sample</span>(<span class="kw">unique</span>(df$stuid), <span class="dv">120</span>)
 messdf &lt;- df
 messdf$readSS[messdf$stuid %in% random] &lt;- <span class="ot">NA</span>
 messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code></pre>
-<ul class="incremental">
+<ul>
 <li>What is this code doing?</li>
 <li>How can we find out?</li>
-<li>Don’t try this at home!</li>
+<li>Don't try this at home!</li>
 </ul>
 </div>
 <div class="section slide level1" id="checking-for-missing-data">
 <h1>Checking for Missing Data</h1>
-<ul class="incremental">
+<ul>
 <li>The <code>summary</code> function helps identify missing data</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(messdf[, <span class="kw">c</span>(<span class="st">&quot;stuid&quot;</span>, <span class="st">&quot;readSS&quot;</span>, <span class="st">&quot;mathSS&quot;</span>)])</code></pre>
 <pre><code>##      stuid            readSS        mathSS   
 ##  Min.   :   205   Min.   :252   Min.   :210  
-##  1st Qu.: 44205   1st Qu.:430   1st Qu.:417  
-##  Median : 88205   Median :495   Median :479  
+##  1st Qu.: 44205   1st Qu.:429   1st Qu.:417  
+##  Median : 88205   Median :495   Median :480  
 ##  Mean   : 99229   Mean   :496   Mean   :483  
-##  3rd Qu.:132205   3rd Qu.:562   3rd Qu.:544  
+##  3rd Qu.:132205   3rd Qu.:562   3rd Qu.:543  
 ##  Max.   :324953   Max.   :833   Max.   :828  
-##                   NA's   :219   NA's   :264</code></pre>
+##                   NA's   :221   NA's   :264</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(messdf[!<span class="kw">complete.cases</span>(messdf), ])  <span class="co"># number of rows with missing data</span></code></pre>
-<pre><code>## [1] 471</code></pre>
-<ul class="incremental">
+<pre><code>## [1] 462</code></pre>
+<ul>
 <li>To get rid of missing data, we can copy our data with all missing cases dropped using the <code>na.omit</code> function</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">cleandf &lt;- <span class="kw">na.omit</span>(messdf)
 <span class="kw">nrow</span>(cleandf)</code></pre>
-<pre><code>## [1] 2229</code></pre>
+<pre><code>## [1] 2238</code></pre>
 </div>
 <div class="section slide level1" id="now-we-have-the-data">
 <h1>Now we have the data</h1>
-<ul class="incremental">
+<ul>
 <li>What next?</li>
 <li>We need to do some basic diagnostics on our data to understand the look and feel of it before we proceed</li>
 <li>Here are a few examples of scripts we could run to understand our data object</li>
@@ -444,7 +441,7 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 ## [21] &quot;teachq&quot;      &quot;year&quot;        &quot;attday&quot;      &quot;schoolscore&quot; &quot;district&quot;   
 ## [26] &quot;schoolhigh&quot;  &quot;schoolavg&quot;   &quot;schoollow&quot;   &quot;readSS&quot;      &quot;mathSS&quot;     
 ## [31] &quot;proflvl&quot;     &quot;race&quot;</code></pre>
-<ul class="incremental">
+<ul>
 <li>It looks like we have a number of <code>id</code> variables, this is useful and it is good to check if these variables have multiple rows per id or not and we do this using <code>length</code> and <code>unique</code></li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">unique</span>(messdf$stuid))</code></pre>
@@ -456,8 +453,8 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 </div>
 <div class="section slide level1" id="checking-for-coding">
 <h1>Checking for Coding</h1>
-<ul class="incremental">
-<li>Data is coded using numeric or character representations of attributes–commonly things are coded using a 1 and 0 scheme or an A,B,C scheme</li>
+<ul>
+<li>Data is coded using numeric or character representations of attributes - commonly things are coded using a 1 and 0 scheme or an A,B,C scheme</li>
 <li>With R we can check how our variables are coded very easily</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$grade)</code></pre>
@@ -469,21 +466,21 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 ## Levels: A B H I W</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(messdf$disab)</code></pre>
 <pre><code>## [1] 0 1</code></pre>
-<ul class="incremental">
+<ul>
 <li>Which are factors?</li>
 <li>Which are not?</li>
 </ul>
 </div>
 <div class="section slide level1" id="next-steps">
 <h1>Next Steps</h1>
-<ul class="incremental">
+<ul>
 <li>In the next section we will learn to aggregate, explore, reshape, and recode data</li>
 <li>Questions?</li>
 </ul>
 </div>
 <div class="section slide level1" id="exercises">
 <h1>Exercises</h1>
-<ol class="incremental" style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li><p>Read in the CSV file from the T drive or the project folder</p></li>
 <li><p>Read in the R data file from the T drive or the project folder</p></li>
 <li><p>Read in the sample datafile. Find the <code>readSS</code> (reading scale score) for student 205 in grade 4.</p></li>
@@ -493,7 +490,7 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 </div>
 <div class="section slide level1" id="other-references">
 <h1>Other References</h1>
-<ul class="incremental">
+<ul>
 <li><a href="http://www.ats.ucla.edu/stat/r/pages/raw_data.htm">UCLA Academic Technology Services: Reading in Raw Data</a></li>
 <li><a href="http://www.statmethods.net/input/importingdata.html">Quick-R: Data Import</a></li>
 <li><a href="http://www.twotorials.com/">Video Tutorials</a></li>
@@ -502,25 +499,29 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 </div>
 <div class="section slide level1" id="session-info">
 <h1>Session Info</h1>
-<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
+<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.2 (2012-10-26)
-## Platform: i386-w64-mingw32/i386 (32-bit)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] ggplot2_0.9.2.1 lmtest_0.9-30   zoo_1.7-9       knitr_0.8      
+##  [1] eeptools_0.1    mapproj_1.1-8.3 maps_2.2-6      proto_0.3-9.2  
+##  [5] stringr_0.6.1   mgcv_1.7-22     plyr_1.7.1      gridExtra_0.9.1
+##  [9] quantreg_4.91   SparseM_0.96    sandwich_2.2-9  ggplot2_0.9.2.1
+## [13] lmtest_0.9-30   zoo_1.7-9       knitr_0.8      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-0   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.2       
+##  [1] codetools_0.2-8    colorspace_1.2-0   dichromat_1.2-4   
+##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
 ##  [7] gtable_0.1.1       labeling_0.1       lattice_0.20-10   
-## [10] MASS_7.3-22        memoise_0.1        munsell_0.4       
-## [13] plyr_1.7.1         proto_0.3-9.2      RColorBrewer_1.0-5
-## [16] reshape2_1.2.1     scales_0.2.2       stringr_0.6.1     
-## [19] tools_2.15.1</code></pre>
+## [10] MASS_7.3-22        Matrix_1.0-9       memoise_0.1       
+## [13] munsell_0.4        nlme_3.1-105       RColorBrewer_1.0-5
+## [16] Rcpp_0.10.0        reshape2_1.2.1     scales_0.2.2      
+## [19] tools_2.15.2</code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

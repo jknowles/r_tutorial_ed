@@ -1,11 +1,19 @@
-% Basic Statistical Concepts
+% A Crash Course in Programming
 % R Bootcamp HTML Slides
-% Jared Knowles
+% Jared Knowles and Nathan Calverley
 
 ```{r loading, include=FALSE}
 library(ggplot2)
 opts_knit$get(animation.fun = hook_scianimator)
 opts_chunk$set(fig.path='figure/slidesXX-', cache.path='cache/slidesXX-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='600px',out.height='350px')
+
+## Prepare the mtcars data
+for(i in 1:15)
+{
+  TEMP <- mtcars
+  mtcars <- rbind(mtcars,TEMP)
+}
+
 ```
 
 # Introduction
@@ -73,7 +81,9 @@ In this session we will be learning a little about what computer programming is 
 # Algorithms
   - Conceptual and can be written in *psuedo code* (if this, then this)
   - Or as flow charts
-  
+
+<p align="center"><img src="img/cakealgo.gif" height="300" width="425"></p>
+
 # Models
 - A model is an abstract (usually simplified) representation of something
   * Formulas that model physical processes
@@ -110,19 +120,198 @@ In this session we will be learning a little about what computer programming is 
 - http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf
 - http://www.python.org/doc/essays/cp4e.html
 
-# R Example
-- I want to include this code, but not evaluate it
+# Sound Computing Tactics, Lesson 1: Elegance and Efficiency
+- For any given coding task, there will always be many solutions.
+- Some solutions are more elegant than others.
+- Some solutions are more efficient than other.
+- Some solutions are both; these are the best solutions.
 
-```{r,eval=FALSE}
-5*5
-```
+# What is computational elegance?
+- The term "elegance" refers to the simplicity and clarity of a piece of code.
+- Generally speaking, simpler chunks of code are preferable to more complex ones.
+- However, simple code is not always the most efficient.
+- But for now, let's focus on elegance.
 
-# R Example 2
-- Do evaluate this and show me the results
+# Example 1 - Elegance in Repeated Tasks
+- Scenario: You are given a set of data that contains information about different cars.
+- You want to look at the average miles-per-gallon of the cars by number of cylinders.
+- We also want to do this by the transmission of the car (manual vs. auto)
+- How should we tackle this task?
+
+# Solution 1: The "Brute Force" method
+- The "Brute Force" method of programming is one in which the programmer relies on the 
+computer's processing power, rather than first simplifying the problem before solving it.
+- Example:
 
 ```{r}
-2+2
+mean(mtcars$mpg[mtcars$cyl==4 & mtcars$am==0])
+mean(mtcars$mpg[mtcars$cyl==4 & mtcars$am==1])
+mean(mtcars$mpg[mtcars$cyl==6 & mtcars$am==0])
+mean(mtcars$mpg[mtcars$cyl==6 & mtcars$am==1])
+mean(mtcars$mpg[mtcars$cyl==8 & mtcars$am==0])
+mean(mtcars$mpg[mtcars$cyl==8 & mtcars$am==1])
+
+median(mtcars$mpg[mtcars$cyl==4 & mtcars$am==0])
+median(mtcars$mpg[mtcars$cyl==4 & mtcars$am==1])
+median(mtcars$mpg[mtcars$cyl==6 & mtcars$am==0])
+median(mtcars$mpg[mtcars$cyl==6 & mtcars$am==1])
+median(mtcars$mpg[mtcars$cyl==8 & mtcars$am==0])
+median(mtcars$mpg[mtcars$cyl==8 & mtcars$am==1])
+
+min(mtcars$mpg[mtcars$cyl==4 & mtcars$am==0])
+min(mtcars$mpg[mtcars$cyl==4 & mtcars$am==1])
+min(mtcars$mpg[mtcars$cyl==6 & mtcars$am==0])
+min(mtcars$mpg[mtcars$cyl==6 & mtcars$am==1])
+min(mtcars$mpg[mtcars$cyl==8 & mtcars$am==0])
+min(mtcars$mpg[mtcars$cyl==8 & mtcars$am==1])
+
+max(mtcars$mpg[mtcars$cyl==4 & mtcars$am==0])
+max(mtcars$mpg[mtcars$cyl==4 & mtcars$am==1])
+max(mtcars$mpg[mtcars$cyl==6 & mtcars$am==0])
+max(mtcars$mpg[mtcars$cyl==6 & mtcars$am==1])
+max(mtcars$mpg[mtcars$cyl==8 & mtcars$am==0])
+max(mtcars$mpg[mtcars$cyl==8 & mtcars$am==1])
+
 ```
+
+# What are the problems with this method?
+- It's clunky.
+- It was probably written using some copy-paste action. In programming, copy-pasting can be
+very dangerous.
+- It's difficult to read from a programming perspective.
+
+# Solution 2: Create a function
+- Whenever you are performing a repeated task many times over, functions can help to
+simplify your code, and to reduce the possibility of error from copy-pasting.
+
+```{r}
+## Here we define our function.
+summarize_mtcars <- function(data,cyl){
+    print(mean(data$mpg[data$cyl==cyl]))
+    print(median(data$mpg[data$cyl==cyl]))
+    print(min(data$mpg[data$cyl==cyl]))
+    print(max(data$mpg[data$cyl==cyl]))}
+
+## Now let's write a loop that calls the function
+for(i in 1:length(unique(mtcars$cyl)))
+{
+  ## Isolate the manual transmission cars and auto transmission cars
+  manual <- subset(mtcars,am==1)
+  auto <- subset(mtcars,am==0)
+    ## Send the data through the function
+    summarize_mtcars(manual,i)
+    summarize_mtcars(auto,i)
+}
+
+```
+
+# How has the code been improved?
+- Less code: The new code is 12 lines versus 24 lines in the original code.
+- Less prone to error: Less code and less copy-pasting will translate to a smaller probability of error.
+- More consistency: The use of a function means the repeated task will always be completed in exactly the same manner.
+- This solution is much more elegant than the brute force method.
+
+# Example 1 - Efficiency: mtcars
+- Scenario: You are given a set of data that contains information about different cars.
+- We want to look at the average miles-per-gallon of the cars by number of cylinders.
+- We want to do this **for manual transmission cars only**
+- How should we tackle this task?
+
+# Solution 1: Write a ddply statement
+- This will give us the desired result in just one line of code.
+
+```{r,eval=TRUE}
+
+ptime <- proc.time()[[3]]
+
+average_scores <- ddply(mtcars, .(cyl),summarise,average_mpg=mean(mpg[am==1],na.rm=TRUE))
+
+print(paste("Runtime: ",round(proc.time()[[3]]-ptime,digits=2)," seconds.",sep=""))
+
+```
+
+# ~2.4 seconds is a pretty short run-time considering the data set has over a million records. But how can we improve this?
+
+# Solution 2: Subset the data, and then run the ddply.
+
+```{r,eval=TRUE}
+
+ptime <- proc.time()[[3]]
+
+## Isolate the manual transmission cars in a temporary data frame
+mtcars_temp <- subset(mtcars,am==1)
+
+## Number of Records in original data: 1,048,576
+## Number of Records in temporary data: 425,984
+
+## Run the ddply on the temporary data frame
+average_scores <- ddply(mtcars_temp, .(cyl),summarise,average_mpg=mean(mpg,na.rm=TRUE))
+
+## Don't forget to remove the temporary data frame when we are done with it.
+rm(mtcars_temp)
+
+print(paste("Runtime: ",round(proc.time()[[3]]-ptime,digits=2)," seconds.",sep=""))
+
+```
+
+- By strategically managing our data set, we have cut the computational time nearly in half.
+
+# Balancing Efficiency and Elegance
+- In the previous example, we made computational time more efficient by making the code a little less elegant. 
+- When dealing with large data sets, efficiency will sometimes be more important than elegance.
+- Finding the right balance is key to writing good code.
+
+# Sound Computing Tactics, Lesson 2: Global Variables
+- A global variable is a data object whose value remains constant throughout the program.
+- Global variables are a great way to centralize control of data
+
+# Example 1 - Global Variables: mtcars
+- Scenario: You are given a set of data that contains information about different cars.
+- We want to look at various summary stats the cars by number of cylinders.
+- We want to do this separately for cars with 4, 6, and 8 cylinders.
+- How would this work WITHOUT global variables?
+
+```{r,eval=TRUE}
+
+mean(mtcars$mpg[mtcars$cyl==4])
+mean(mtcars$mpg[mtcars$cyl==6])
+mean(mtcars$mpg[mtcars$cyl==8])
+
+median(mtcars$mpg[mtcars$cyl==4])
+median(mtcars$mpg[mtcars$cyl==6])
+median(mtcars$mpg[mtcars$cyl==8])
+
+min(mtcars$mpg[mtcars$cyl==4])
+min(mtcars$mpg[mtcars$cyl==6])
+min(mtcars$mpg[mtcars$cyl==8])
+
+max(mtcars$mpg[mtcars$cyl==4])
+max(mtcars$mpg[mtcars$cyl==6])
+max(mtcars$mpg[mtcars$cyl==8])
+
+```
+
+# What's wrong with this approach?
+- It's clunky (brute force method.)
+- Reading the output is difficult (which line is which??)
+- Let's try using a global variable
+
+```{r,eval=TRUE}
+## Step 1: Create the global variable
+cyl <- 4
+
+## Step 2: Propogate the global variable throughout the conditional statements
+mean(mtcars$mpg[mtcars$cyl==cyl])
+median(mtcars$mpg[mtcars$cyl==cyl])
+min(mtcars$mpg[mtcars$cyl==cyl])
+max(mtcars$mpg[mtcars$cyl==cyl])
+
+```
+
+# How has this made our code better?
+- The number of cylinders now only has to be specified in one place. Changes propogate automatically (centralized control.)
+- Output is very easy to read.
+- Significantly more elegant.
 
 # Session Info
 
@@ -142,4 +331,3 @@ print(sessionInfo(), locale=FALSE)
 <br />
 This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
 </p>
-

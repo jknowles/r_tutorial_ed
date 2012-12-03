@@ -14,7 +14,8 @@ In this lesson we hope to learn about:
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides4-', cache.path='cache/slides4-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,cache=TRUE,autodep=TRUE)
+opts_chunk$set(fig.path='figure/slides4-', cache.path='cache/slides4-',fig.width=8,fig.height=6,
+               message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,cache=TRUE,autodep=TRUE,comment=NA)
 ```
 
 # Data Setup
@@ -40,14 +41,14 @@ head(stuatt[,1:4],7)
   2. Valid and reliable data analysis significantly improves the quality of decision making
   
 - Their focus is on bringing together the right people, assembling the right data, and performing the right analysis because this will improve decisions made by leadership
-- They are smart folks who have done a lot of the unexciting work of systematically identifying how to clean, document, and transparently evaluate datasets
+- They are smart folks who have done a lot of the important but unexciting work of systematically identifying how to clean, document, and transparently evaluate datasets
 
 <p align="center"><img src="img/sdp.gif" height="112" width="329"></p>
 
-# Toolkit--Data Cleaning
+# Toolkit - Data Cleaning
 - The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data
-- This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here (Clean Data Building)
-- You can get the toolkit lesson that this tutorial is adapted from [online](http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf)
+- This was written in Stata, we are porting it to R (you can contribute to this effort if you like), and are going to walk through just a single lesson of it here (Clean Data Building)
+- You can get the toolkit lesson that this tutorial is adapted from [online](http://www.gse.harvard.edu/~pfpie/index.php/sdp/tools)
 - There are five toolkits in addition to a data guide that are incredibly helpful, so we are just touching the tip of the iceberg
 - Other modules include:
 
@@ -138,7 +139,7 @@ print(subset(tempdf[,c(1,2,3,10,11)],sid==12506))
 ```{r reconcilegender2}
 print(subset(tempdf[,c(1,2,3,10,11,12)],sid==12506))
 ```
-- Our next business rule is to assign the most recent value of gender from the `gender_recent` variable when there is not `gender_mode` that is valid
+- Our next business rule is to assign the most recent value of gender from the `gender_recent` variable when there is not a value of `gender_mode` that is valid
 - This seems like a pretty simple job for `recoding` our variable!
 
 # Recode Gender
@@ -292,9 +293,9 @@ head(stuatt[,c("sid","school_year","race_ethnicity")])
 
 # So...
 
-## What do we do?
+### What do we do?
 
-## Try it on your own
+### Try it on your own
 
 ### Remember, this is tough stuff, so feel free to ask for help!
 

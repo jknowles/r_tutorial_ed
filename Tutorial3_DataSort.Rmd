@@ -14,7 +14,7 @@ In this lesson we hope to learn:
 
 ```{r setup, include=FALSE}
 # set global chunk options
-opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg',size='tiny')
+opts_chunk$set(fig.path='figure/slides3-', cache.path='cache/slides3-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg',comment=NA,size='tiny')
 options(width=70)
 library(plyr)
 ```
@@ -34,7 +34,7 @@ load("data/smalldata.rda")
 # Aggregation
 
 - Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset
-- To do this quickly and easily--the `table` function is our friend
+- To do this quickly and easily - the `table` function is our friend
 - Let's look at our observations by year and grade
 
 ```{r table}
@@ -117,10 +117,16 @@ round(prop.table(table(df$race,df$proflvl),1),digits=3)
 - `round` tells R to cut off some digits for us
 - Proportions are just that, not in percentage terms (we need to multiply by 100 for this)
 - Can you make this table express percentages instead of proportions? How might that code look?
-- A few more problems arise--this pools all observations, including students across years
+- A few more problems arise - this pools all observations, including students across years
+- To avoid these, we need to aggregate the data somehow
+
+# Checking Understanding
+- We have seen how to chain functions together
+- We have also seen how to examine a dataframe by looking at the observations in it
+- We are now going to move on to aggregating data so we can look at unique cases when we have more than one observation for each unit
 
 # Aggregating Data
-- One of the most common questions will be to compute aggregates of data
+- One of the most common questions you need to answer is to compute aggregates of data
 - R has an `aggregate` function that can be used and helps us avoid the clustering problems above
 - This works great for simple aggregation like scale score by race, we just need a `formula` (think I want variable X **by** grouping factor Y) and the statistic we want to compute
 
@@ -142,7 +148,6 @@ aggregate(cbind(readSS,mathSS)~race,data=df,mean)
 ```{r aggregate3}
 head(aggregate(cbind(readSS,mathSS)~race+grade,data=df,mean),8)
 ```
-- `head` or `tail` just tell R to present us the firxt **X** items in an object, in this case **8** objects
 
 # Crosstabs
 - We can build a systematic cross-tab now
@@ -202,7 +207,7 @@ z
 - Why? First, we **split** the data into groups by some factor or logical operator
 - Then we **apply** some function or another to that group (i.e. count the unique values of a variable, take the mean of a variable, etc.) 
 - Then we **combine** the data back together 
-- This has some advantages--unlike other methods, the data does not have to be ordered by our ID variable for this to work
+- This has some advantages - unlike other methods, the data does not have to be ordered by our ID variable for this to work
 - The disadvantage is that this method is computationally expensive, even in R, and requires copying our data frame using up RAM
 
 # An Aside about Split-Apply-Combine
@@ -346,6 +351,8 @@ M<-matrix(c(1,2,2,2,3,6,4,5),4,2,byrow=FALSE,dimnames=list(NULL,c("a","b")))
 M[order(M[,"a"],-M[,"b"]),] # can't use "with"
 ```
 
+# About Sorting
+
 - Tables are familiar
 ```{r sorttable}
 mytab<-table(df$grade,df$year)
@@ -357,7 +364,7 @@ mytab[order(mytab[,2]),]
 # Filtering Data
 - Filtering data is an incredibly powerful feature and we have already seen it used to do some interesting things
 - Filtering data in R is loaded with trouble though, because the filtering arguments must be very carefully specified
-- Filtering is like a mini-sort
+- Filtering is like a mini-sort, and we've done it already
 - Always, always, always check your work
 - And remember, this is the place the NAs do the most damage
 - Let's look at some examples
@@ -374,7 +381,6 @@ df$grade[df$mathSS>800]
 - Before the brackets we specify what we want returned, and within the brackets we present the logical expression to evaluate
 - Behind the scenes R does a logical test and gets the row numbers that match the logical expression
 - It then combines them back with the object in front of the brackets to return the values
-- So great we don't have to do that!
 - This seems basic enough, let's filter on multiple dimensions
 
 # Multiple filters
@@ -512,7 +518,7 @@ length(myag$mean_read[myag$mean_read<550 & !is.na(myag$mean_read)])
 
 # Merging Data
 - It is unlikely all the data we will want resides in a single dataset and often we have to combine data from several sources
-- R makes this easy, but that simplicity comes at a cost--it can be easy to make mistakes if you don't specify things carefully
+- R makes this easy, but that simplicity comes at a cost - it can be easy to make mistakes if you don't specify things carefully
 - Let's merge attributes about a student's school with the student row data
 - We might want to do that if we want to evaluate the performance of students in different school climates, and school climate was measured in part by the mean performance
 
@@ -560,11 +566,11 @@ head(df[,1:10],3)
 ```
 - Now let's look at wide:
 ```{r widepreview}
-head(widedf[,28:40],3)
+head(widedf[,c(1,28:40)],3)
 ```
-- How did we do this?
+- How did we reshape this data?
 
-# Wide data v. Long Data 
+# Wide Data v. Long Data 
 - The great debate
 - Most econometrics, panel, and time series datasets come wide and so these seem familiar
 - R for most cases prefers long data, including for most graphing and analysis functions
