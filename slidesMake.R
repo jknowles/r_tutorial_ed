@@ -32,8 +32,8 @@ system("pandoc -s -i -t slidy Tutorial5_BasicAnalytics.md -o Tutorial5_BasicAnal
 system("pandoc -s -i -t slidy Tutorial6_Visualization.md -o Tutorial6_Visualization.html --self-contained")
 system("pandoc -s -i -t slidy Tutorial7_ExportingWork.md -o Tutorial7_ExportingWork.html --self-contained")
 system("pandoc -s -i -t slidy Tutorial8_AdvancedTopics.md -o Tutorial8_AdvancedTopics.html --self-contained")
-system("pandoc -s -S -i -t slidy TutorialX_StatisticsRefresher.md -o TutorialX_StatisticsRefresher.html --self-contained")
-system("pandoc -s -S -i -t slidy TutorialXX_IntroToProgramming.md -o TutorialXX_IntroToProgramming.html --self-contained")
+system("pandoc -s -i -S -t slidy TutorialX_StatisticsRefresher.md -o TutorialX_StatisticsRefresher.html --self-contained")
+system("pandoc -s -S -t slidy TutorialXX_IntroToProgramming.md -o TutorialXX_IntroToProgramming.html --self-contained")
 
 
 

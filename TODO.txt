@@ -17,3 +17,4 @@
 - More consistent alignment with data files and R script
 - Name df<-smalldata
 - Make a references page
+- Fix intro to programming so it evaluates correctly

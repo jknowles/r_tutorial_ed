@@ -72,8 +72,9 @@ We will review the following statistical concepts here through the lens of R:
 - Data spread describes how scattered a data set is
 - One type of data, categorical data, describes groups
 
-```{r barplot}
-qplot(factor(cyl),data=mtcars)+labs(x='cylinder',title='Car models by Cylinder Count')
+```{r barplot,echo=FALSE}
+qplot(factor(cyl),data=mtcars)+
+  labs(x='cylinder',title='Car models by Cylinder Count')+theme_dpi()
 ```
 
 - What can we learn here?
@@ -81,26 +82,26 @@ qplot(factor(cyl),data=mtcars)+labs(x='cylinder',title='Car models by Cylinder C
 # Let's try another
 - What can we learn from this chart type about the data?
 
-```{r diamondplot}
+```{r diamondplot,echo=FALSE}
 data(diamonds)
-qplot(factor(cut),data=diamonds)+labs(x='Cut',title='Diamonds by Cut Quality')
+qplot(factor(cut),data=diamonds)+labs(x='Cut',title='Diamonds by Cut Quality')+theme_dpi()
 ```
 
 - What else might we want to learn?
 
 # How about?
 
-```{r diamondplot2}
+```{r diamondplot2,echo=FALSE}
 qplot(factor(color),data=diamonds)+
   labs(x='Color',title='Diamonds by Color and Clarity')+
-  facet_wrap(~clarity,nrow=2)
+  facet_wrap(~clarity,nrow=2)+theme_dpi()
 ```
 
 # Still more
 - With diamonds we immediately want to look at price
 
-```{r diamondplot3}
-qplot(carat,price,data=diamonds,color=color)+geom_smooth(aes(group=1))
+```{r diamondplot3,echo=FALSE}
+qplot(carat,price,data=diamonds,color=color)+geom_smooth(aes(group=1))+theme_dpi()
 ```
 - What do you see?
 - Outliers?
@@ -155,13 +156,13 @@ Continuous        geometric mean, harmonic mean, logarithms
   * Mode
 - How are these different? What properties do they have? Why does this matter?
 
-```{r centraltend}
+```{r centraltend,echo=FALSE}
 qplot(hwy,data=mpg,geom='density')+geom_vline(xintercept=median(mpg$hwy),color=I("blue"),size=I(1.1))+
   geom_vline(xintercept=mean(mpg$hwy),color=I("gold"),size=I(1.1))+
   geom_vline(xintercept=26,color=I("orange"),size=I(1.1))+
   geom_text(aes(x=median(mpg$hwy)+1.5,y=0.08,label="Median"),size=I(4.5))+
   geom_text(aes(x=mean(mpg$hwy)-1.5,y=0.06,label="Mean"),size=I(4.5))+
-  geom_text(aes(x=26+1.5,y=0.05,label="Mode"),size=I(4.5))
+  geom_text(aes(x=26+1.5,y=0.05,label="Mode"),size=I(4.5))+theme_dpi()
 ```
 
 ```{r mpgtable,results='asis'}
@@ -208,8 +209,10 @@ print(xtable(table(mpg$hwy)),type="html")
 - Variance measures how far away from the mean the data can be and can be easily calculated by subtracting each element of data from the mean, squaring that difference, adding them together, and dividing by the number of elements
 
 # Skew
-- **DEMO**
-- These parameters define distributions (there are others as well), but you can see what a distribution does--it summarizes data
+- Skew describes the symmetry of the distribution
+- Is it balanced? Are there clusters?
+- Skew is in reference to a norm - most often the normal distribution, but not always
+
 
 # Distributions of Data
 - All of the above are the concepts we use to describe a univariate group of data
@@ -223,6 +226,7 @@ print(xtable(table(mpg$hwy)),type="html")
 # Pictures of distributions
 - Let's look at some distributions of data and talk about what they might represent
 - Different distributions describe different data generating processes, and these processes can be used to represent a large array of data types
+
 
 # Normal
 - The bell curve
@@ -259,10 +263,18 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 
 ```
 
+# Distribution Demo
+- **DEMO**
+- These parameters define distributions (there are others as well), but you can see what a distribution does--it summarizes data
+
+
 # Sampling
 - Much of traditional statistics is based on the idea of samples
 - Sampling is the process of picking observations out of a population in a way that makes the smaller set of observations reflective of the population
 - How we sample determines what conclusions we can draw in the population from our data
+- The size of the sample relative to the population we are making inference about determines our confidence / precision
+- Let's look at a demo at some different types of sampling-
+- **DEMO**
 
 
 # Measures of association
@@ -316,6 +328,7 @@ t.test(wt,mu=187,alternative="two.sided")
 - If our *p* is **less than** the pre-specified *p value* we set, then we say the observed value is **statistically significant**
 
 # Let's look at an example
+
 **DEMO**
 
 # Some practical advice about statistical signficance
@@ -341,7 +354,3 @@ print(sessionInfo(), locale=FALSE)
 <br />
 This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
 </p>
-
-
-
-

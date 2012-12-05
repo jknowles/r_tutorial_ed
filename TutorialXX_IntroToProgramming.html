@@ -39,11 +39,17 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="introduction">
 <h1>Introduction</h1>
-<p>In this session we will be learning a little about what computer programming is through the following topics - History - Basic Principles - Syntax - Memory Management</p>
+<p>In this session we will be learning a little about what computer programming is through the following topics:</p>
+<ul>
+<li>History</li>
+<li>Basic Principles</li>
+<li>Syntax</li>
+<li>Memory Management</li>
+</ul>
 </div>
 <div class="section slide level1" id="what-is-a-programming-language">
 <h1>What is a programming language?</h1>
-<ul class="incremental">
+<ul>
 <li>“A language intended for use by a person to express a process by which a computer can solve a problem” ~ Hope and Jiping</li>
 <li>“A set of conventions for communicating an algorithm” ~ E. Horowitz</li>
 <li>“the art of programming is the art of organizing complexity” ~ Dijkstra 1972</li>
@@ -51,7 +57,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="history-ancient">
 <h1>History (Ancient)</h1>
-<ul class="incremental">
+<ul>
 <li>300 BC – First algorithm developed by Euclid (greatest common divisor)</li>
 <li>1820-1850 – Charles Babbage invents mechanical computational devices</li>
 <li>Difference Engine</li>
@@ -63,7 +69,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="history-less-ancient">
 <h1>History (less ancient)</h1>
-<ul class="incremental">
+<ul>
 <li>1940s – ENIAC developed to calculate trajectories by US DOD</li>
 <li>1950s – First high level programming language invented</li>
 <li>John Backus</li>
@@ -79,7 +85,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="history-recent">
 <h1>History (recent)</h1>
-<ul class="incremental">
+<ul>
 <li>1985 – C++ developed at Bell Labs by Bjorne Stroustrup</li>
 <li>type-safe object oriented language</li>
 <li>compile-time type checking</li>
@@ -90,13 +96,15 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="history">
 <h1>HistoRy</h1>
-<ul class="incremental">
+<ul>
 <li>R plays nicely with many of these languages including Python, C++, Java, and of course C and Fortran</li>
+<li>R also plays nice with new technologies like HTML5 and CSS</li>
+<li>There are possibilities that R will be connected to newer web technologies as well like Ruby, JavaScript (some of this exists), and Processing</li>
 </ul>
 </div>
 <div class="section slide level1" id="basic-principles">
 <h1>Basic Principles</h1>
-<ul class="incremental">
+<ul>
 <li>A computer program (or software) is:</li>
 <li>A set of instructions which a computer can interpret to solve problems, make calculations, perform tasks</li>
 <li>A programming language is:</li>
@@ -108,7 +116,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="programs-and-algorithms">
 <h1>Programs and Algorithms</h1>
-<ul class="incremental">
+<ul>
 <li>A computer program is the specific set of instructions that tells the hardward how to complete a particular algorithm</li>
 <li>Different instructions can use different methods (mathematically equivalent) to reach the same end</li>
 <li>2+2 = 4</li>
@@ -117,14 +125,18 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="algorithms">
 <h1>Algorithms</h1>
-<ul class="incremental">
+<ul>
 <li>Conceptual and can be written in <em>psuedo code</em> (if this, then this)</li>
 <li>Or as flow charts</li>
 </ul>
+<p align="center">
+<img src="data:image/gif;base64,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" height="300" width="425">
+</p>
+
 </div>
 <div class="section slide level1" id="models">
 <h1>Models</h1>
-<ul class="incremental">
+<ul>
 <li>A model is an abstract (usually simplified) representation of something</li>
 <li>Formulas that model physical processes</li>
 <li>A line representing a trend in a data</li>
@@ -134,7 +146,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="desired-features">
 <h1>Desired Features</h1>
-<ul class="incremental">
+<ul>
 <li>Readable</li>
 <li>Comments</li>
 <li>Names</li>
@@ -150,33 +162,118 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="compilation-vs.interpretation">
 <h1>Compilation vs. Interpretation</h1>
-<ul class="incremental">
+<ul>
 <li>Compiled languages are translated into machine executable language</li>
 <li>Interpreted languages have programs translated and executed one step at a time by a “virtual machine”</li>
+<li>Compiling may take time, but it is often a one time cost</li>
+<li>There are also “just in time” compilers, these compile the code before it is run and behave like an interpreted language, but operate much faster (a new language, Julia, is a good example)</li>
 </ul>
 </div>
 <div class="section slide level1" id="syntax-and-rules">
 <h1>Syntax and Rules</h1>
+<ul>
+<li>We need to ensure that the instructions we give the computer are never ambiguous, and to ensure this there is a formalized structure we employ</li>
+<li>This is not unlike language we use in speech or writing</li>
+<li>The problem is that the computer in many cases cannot interpret our mistakes for us and only responds to commands that it expects</li>
+</ul>
 </div>
 <div class="section slide level1" id="formalization">
 <h1>Formalization</h1>
-<ul class="incremental">
+<ul>
 <li>Syntax and grammar of computer program languages force us to specify what we want the computer to do very carefully</li>
 <li>Example: Calculate the mean reading score for a school</li>
-<li>Use words to explain how the computer should do this?</li>
+<li>Use words to explain how the computer should do this</li>
+<li>The code might look something like <code>mean(readingscore[school=x])</code></li>
 </ul>
 </div>
-<div class="section slide level1" id="references">
-<h1>References</h1>
-<ul class="incremental">
-<li>http://nlp.cs.nyu.edu/meyers/V22.0002/class%20slide%20pdfs/Intro-talk.pdf</li>
-<li>http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf</li>
-<li>http://www.python.org/doc/essays/cp4e.html</li>
+<div class="section slide level1" id="readability">
+<h1>Readability</h1>
+<ul>
+<li>Believe it or not, when you are writing computer code, you are writing a document</li>
+<li>R script files or any source code should be <strong>readable</strong> and understandable with little context</li>
+<li>This means we need to employ a style guide (and like English, we have multiple choices)</li>
+<li>We need to employ some conventions in things like wrapping text in our source file</li>
+<li>Most importantly we need to give meaning to our code using comments</li>
+</ul>
+</div>
+<div class="section slide level1" id="readability-example">
+<h1>Readability Example</h1>
+<ul>
+<li>Consider this block of code:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r">df$a4 &lt;- df$a1 + df$a2
+df$a5 &lt;- df$a1/df$a4
+df$a6 &lt;- df$a5 * <span class="dv">100</span></code></pre>
+<ul>
+<li>There is no way to read or understand this without context</li>
+</ul>
+</div>
+<div class="section slide level1" id="example-2">
+<h1>Example 2</h1>
+<ul>
+<li>Consider:</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Sum counts of male and female to get total</span>
+df$total &lt;- df$male + df$female
+<span class="co"># Get proporion</span>
+df$prop_male &lt;- df$male/df$total
+<span class="co"># Scale to percentages</span>
+df$percent_male &lt;- df$prop_male * <span class="dv">100</span></code></pre>
+</div>
+<div class="section slide level1" id="tradeoffs">
+<h1>Tradeoffs</h1>
+<ul>
+<li>Readable code takes longer to write</li>
+<li>It requires some judgment about how often you will use the code how much commenting and naming you need to do</li>
+<li>Sometimes, as you work, this will change! It is important for work that will be shared or used by others to make the code reusable and clean</li>
+<li>Working with others and sharing code actively is a great way to encourage this practice</li>
+</ul>
+</div>
+<div class="section slide level1" id="other-things-you-need">
+<h1>Other things you need</h1>
+<ul>
+<li>Your script should have an author and a title wrapped in comments</li>
+<li>A date is good to include as well if the script is finished up</li>
+<li>References to outside resources are useful to include as well</li>
+<li>Formatting this so it sticks out is good</li>
+<li>Let’s see:</li>
+</ul>
+</div>
+<div class="section slide level1" id="example">
+<h1>Example</h1>
+<pre class="sourceCode r"><code class="sourceCode r">###################################### Title: My Super Script Author:
+###################################### Super Mario Date: 1980 Subject: A
+###################################### script to master finding and
+###################################### raiding castles
+
+<span class="co"># Read data:</span>
+<span class="kw">load</span>(<span class="st">&quot;data/mydat.rda&quot;</span>)
+
+<span class="co"># Clean data...</span></code></pre>
+</div>
+<div class="section slide level1" id="coding-and-recipes">
+<h1>Coding and Recipes</h1>
+<ul>
+<li>The difference with code and writing a text document is that the code is recipe to make something</li>
+<li>Recipes imply order - we cannot unscramble eggs once we break the yokes</li>
+<li>Code also implies order - we need to do things in a prespecified sequence to arrive at the result we desire</li>
+<li>Our code may need additional documentation to allow others to recreate this order</li>
+<li>The way we write it for ourselves, may not be sufficient for others</li>
+<li>“Two big spoons of sugar” does not have the same meaning in different contexts</li>
+<li>“150 grams of sugar” does</li>
+</ul>
+</div>
+<div class="section slide level1" id="writing-code-is-writing">
+<h1>Writing Code Is Writing</h1>
+<ul>
+<li>It is technical and requires a focus on details</li>
+<li>Considering your audience is very important</li>
+<li>Considering the scope of your project is important too</li>
 </ul>
 </div>
 <div class="section slide level1" id="sound-computing-tactics-lesson-1-elegance-and-efficiency">
 <h1>Sound Computing Tactics, Lesson 1: Elegance and Efficiency</h1>
-<ul class="incremental">
+<ul>
 <li>For any given coding task, there will always be many solutions.</li>
 <li>Some solutions are more elegant than others.</li>
 <li>Some solutions are more efficient than other.</li>
@@ -185,7 +282,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="what-is-computational-elegance">
 <h1>What is computational elegance?</h1>
-<ul class="incremental">
+<ul>
 <li>The term “elegance” refers to the simplicity and clarity of a piece of code.</li>
 <li>Generally speaking, simpler chunks of code are preferable to more complex ones.</li>
 <li>However, simple code is not always the most efficient.</li>
@@ -194,7 +291,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="example-1---elegance-in-repeated-tasks">
 <h1>Example 1 - Elegance in Repeated Tasks</h1>
-<ul class="incremental">
+<ul>
 <li>Scenario: You are given a set of data that contains information about different cars.</li>
 <li>You want to look at the average miles-per-gallon of the cars by number of cylinders.</li>
 <li>We also want to do this by the transmission of the car (manual vs. auto)</li>
@@ -203,7 +300,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="solution-1-the-brute-force-method">
 <h1>Solution 1: The “Brute Force” method</h1>
-<ul class="incremental">
+<ul>
 <li>The “Brute Force” method of programming is one in which the programmer relies on the computer’s processing power, rather than first simplifying the problem before solving it.</li>
 <li>Example:</li>
 </ul>
@@ -261,7 +358,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="what-are-the-problems-with-this-method">
 <h1>What are the problems with this method?</h1>
-<ul class="incremental">
+<ul>
 <li>It’s clunky.</li>
 <li>It was probably written using some copy-paste action. In programming, copy-pasting can be very dangerous.</li>
 <li>It’s difficult to read from a programming perspective.</li>
@@ -269,7 +366,7 @@ R Bootcamp HTML Slides
 </div>
 <div class="section slide level1" id="solution-2-create-a-function">
 <h1>Solution 2: Create a function</h1>
-<ul class="incremental">
+<ul>
 <li>Whenever you are performing a repeated task many times over, functions can help to simplify your code, and to reduce the possibility of error from copy-pasting.</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">## Here we define our function.
@@ -316,7 +413,7 @@ for (i in <span class="dv">1</span>:<span class="kw">length</span>(<span class="
 </div>
 <div class="section slide level1" id="how-has-the-code-been-improved">
 <h1>How has the code been improved?</h1>
-<ul class="incremental">
+<ul>
 <li>Less code: The new code is 12 lines versus 24 lines in the original code.</li>
 <li>Less prone to error: Less code and less copy-pasting will translate to a smaller probability of error.</li>
 <li>More consistency: The use of a function means the repeated task will always be completed in exactly the same manner.</li>
@@ -325,7 +422,7 @@ for (i in <span class="dv">1</span>:<span class="kw">length</span>(<span class="
 </div>
 <div class="section slide level1" id="example-1---efficiency-mtcars">
 <h1>Example 1 - Efficiency: mtcars</h1>
-<ul class="incremental">
+<ul>
 <li>Scenario: You are given a set of data that contains information about different cars.</li>
 <li>We want to look at the average miles-per-gallon of the cars by number of cylinders.</li>
 <li>We want to do this <strong>for manual transmission cars only</strong></li>
@@ -334,7 +431,7 @@ for (i in <span class="dv">1</span>:<span class="kw">length</span>(<span class="
 </div>
 <div class="section slide level1" id="solution-1-write-a-ddply-statement">
 <h1>Solution 1: Write a ddply statement</h1>
-<ul class="incremental">
+<ul>
 <li>This will give us the desired result in just one line of code.</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">
@@ -345,7 +442,7 @@ average_scores &lt;- <span class="kw">ddply</span>(mtcars, .(cyl), summarise, <s
 
 <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Runtime: &quot;</span>, <span class="kw">round</span>(<span class="kw">proc.time</span>()[[<span class="dv">3</span>]] - ptime, <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot; seconds.&quot;</span>, 
     <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</code></pre>
-<pre><code>## [1] &quot;Runtime: 0 seconds.&quot;</code></pre>
+<pre><code>## [1] &quot;Runtime: 2.87 seconds.&quot;</code></pre>
 </div>
 <div class="section slide level1" id="seconds-is-a-pretty-short-run-time-considering-the-data-set-has-over-a-million-records.-but-how-can-we-improve-this">
 <h1>~2.4 seconds is a pretty short run-time considering the data set has over a million records. But how can we improve this?</h1>
@@ -371,14 +468,14 @@ average_scores &lt;- <span class="kw">ddply</span>(mtcars_temp, .(cyl), summaris
 
 <span class="kw">print</span>(<span class="kw">paste</span>(<span class="st">&quot;Runtime: &quot;</span>, <span class="kw">round</span>(<span class="kw">proc.time</span>()[[<span class="dv">3</span>]] - ptime, <span class="dt">digits =</span> <span class="dv">2</span>), <span class="st">&quot; seconds.&quot;</span>, 
     <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>))</code></pre>
-<pre><code>## [1] &quot;Runtime: 0.99 seconds.&quot;</code></pre>
-<ul class="incremental">
+<pre><code>## [1] &quot;Runtime: 1.23 seconds.&quot;</code></pre>
+<ul>
 <li>By strategically managing our data set, we have cut the computational time nearly in half.</li>
 </ul>
 </div>
 <div class="section slide level1" id="balancing-efficiency-and-elegance">
 <h1>Balancing Efficiency and Elegance</h1>
-<ul class="incremental">
+<ul>
 <li>In the previous example, we made computational time more efficient by making the code a little less elegant.</li>
 <li>When dealing with large data sets, efficiency will sometimes be more important than elegance.</li>
 <li>Finding the right balance is key to writing good code.</li>
@@ -386,14 +483,14 @@ average_scores &lt;- <span class="kw">ddply</span>(mtcars_temp, .(cyl), summaris
 </div>
 <div class="section slide level1" id="sound-computing-tactics-lesson-2-global-variables">
 <h1>Sound Computing Tactics, Lesson 2: Global Variables</h1>
-<ul class="incremental">
+<ul>
 <li>A global variable is a data object whose value remains constant throughout the program.</li>
 <li>Global variables are a great way to centralize control of data</li>
 </ul>
 </div>
 <div class="section slide level1" id="example-1---global-variables-mtcars">
 <h1>Example 1 - Global Variables: mtcars</h1>
-<ul class="incremental">
+<ul>
 <li>Scenario: You are given a set of data that contains information about different cars.</li>
 <li>We want to look at various summary stats the cars by number of cylinders.</li>
 <li>We want to do this separately for cars with 4, 6, and 8 cylinders.</li>
@@ -430,7 +527,7 @@ average_scores &lt;- <span class="kw">ddply</span>(mtcars_temp, .(cyl), summaris
 </div>
 <div class="section slide level1" id="whats-wrong-with-this-approach">
 <h1>What’s wrong with this approach?</h1>
-<ul class="incremental">
+<ul>
 <li>It’s clunky (brute force method.)</li>
 <li>Reading the output is difficult (which line is which??)</li>
 <li>Let’s try using a global variable</li>
@@ -451,7 +548,7 @@ cyl &lt;- <span class="dv">4</span>
 </div>
 <div class="section slide level1" id="how-has-this-made-our-code-better">
 <h1>How has this made our code better?</h1>
-<ul class="incremental">
+<ul>
 <li>The number of cylinders now only has to be specified in one place. Changes propogate automatically (centralized control.)</li>
 <li>Output is very easy to read.</li>
 <li>Significantly more elegant.</li>
@@ -465,19 +562,30 @@ cyl &lt;- <span class="dv">4</span>
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
 ## 
 ## attached base packages:
-## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## [1] grid      stats     graphics  grDevices utils     datasets  methods  
+## [8] base     
 ## 
 ## other attached packages:
-## [1] ggplot2_0.9.2.1 knitr_0.8      
+##  [1] xtable_1.7-0     mgcv_1.7-22      gridExtra_0.9.1  vcd_1.2-13      
+##  [5] colorspace_1.2-0 MASS_7.3-22      eeptools_0.1     mapproj_1.1-8.3 
+##  [9] maps_2.2-6       proto_0.3-9.2    plyr_1.7.1       ggplot2_0.9.2.1 
+## [13] stringr_0.6.1    knitr_0.8       
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-0   dichromat_1.2-4    digest_0.5.2      
-##  [4] evaluate_0.4.2     formatR_0.6        grid_2.15.2       
-##  [7] gtable_0.1.1       labeling_0.1       MASS_7.3-22       
-## [10] memoise_0.1        munsell_0.4        plyr_1.7.1        
-## [13] proto_0.3-9.2      RColorBrewer_1.0-5 Rcpp_0.10.0       
-## [16] reshape2_1.2.1     scales_0.2.2       stringr_0.6.1     
-## [19] tools_2.15.2</code></pre>
+##  [1] dichromat_1.2-4    digest_0.6.0       evaluate_0.4.2    
+##  [4] formatR_0.6        gtable_0.1.1       labeling_0.1      
+##  [7] lattice_0.20-10    Matrix_1.0-9       memoise_0.1       
+## [10] munsell_0.4        nlme_3.1-105       RColorBrewer_1.0-5
+## [13] Rcpp_0.10.0        reshape2_1.2.1     scales_0.2.2      
+## [16] tools_2.15.2</code></pre>
+</div>
+<div class="section slide level1" id="references">
+<h1>References</h1>
+<ul>
+<li>http://nlp.cs.nyu.edu/meyers/V22.0002/class%20slide%20pdfs/Intro-talk.pdf</li>
+<li>http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf</li>
+<li>http://www.python.org/doc/essays/cp4e.html</li>
+</ul>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

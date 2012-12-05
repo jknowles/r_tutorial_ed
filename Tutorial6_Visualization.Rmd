@@ -109,7 +109,7 @@ p5<-qplot(mathSS,readSS,data=df)+theme_dpi(base_size=12)
 library(plyr)
 df2<-ddply(df,.(schid),summarize,mean_math=mean(mathSS,na.rm=T))
 p6<-qplot(factor(schid),mean_math,data=df2,geom='bar',stat='identity')+theme_dpi(base_size=12)
-grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
+print(grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2))
 ```
 
 
@@ -117,13 +117,12 @@ grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
 ```{r ggplot2plottypesadv,echo=FALSE,out.width='850px',out.height='520px'}
 p1<-qplot(factor(grade),readSS,data=df,geom='boxplot')+theme_dpi(base_size=12)+ stat_summary(fun.data = "mean_cl_boot", colour = "red",size=(1.2))
 p2<-qplot(readSS,data=df,geom='density',fill=race)+theme_dpi(base_size=12)+opts(legend.position='bottom')
-p3<-qplot(readSS,data=df,fill=factor(female),position='stack')+theme_dpiPNG(base_size=12)+opts(legend.position='bottom')
+p3<-qplot(readSS,data=df,fill=factor(female),position='stack')+theme_dpi(base_size=12)+opts(legend.position='bottom')
 p4<-qplot(grade,readSS,data=df,geom='line',group=1,stat='quantile')+theme_dpi(base_size=12)+geom_jitter(alpha=(.2))
 p5<-qplot(mathSS,readSS,data=df,alpha=I(.25))+theme_dpi(base_size=12)+stat_density2d(aes(color=factor(df$disab)),size=I(1.03))+opts(legend.position='bottom')
-library(plyr)
 df2<-ddply(df,.(schid),summarize,mean_math=mean(mathSS,na.rm=T),sd_math=sd(mathSS,na.rm=T))
 p6<-ggplot(df2,aes(x=factor(schid),y=mean_math,ymin=mean_math-2*sd_math,ymax=mean_math+2*sd_math))+geom_pointrange()+geom_errorbar(size=I(1.03),width=.25,color='grey40')+theme_dpi(base_size=12)
-grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2)
+print(grid.arrange(p1,p2,p3,p4,p5,p6,nrow=2))
 ```
 
 # 

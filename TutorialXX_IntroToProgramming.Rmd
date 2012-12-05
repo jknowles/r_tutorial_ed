@@ -4,6 +4,7 @@
 
 ```{r loading, include=FALSE}
 library(ggplot2)
+library(eeptools)
 opts_knit$get(animation.fun = hook_scianimator)
 opts_chunk$set(fig.path='figure/slidesXX-', cache.path='cache/slidesXX-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='600px',out.height='350px')
 
@@ -17,12 +18,12 @@ for(i in 1:15)
 ```
 
 # Introduction
-In this session we will be learning a little about what computer programming is through the following topics
+In this session we will be learning a little about what computer programming is through the following topics:
+
 - History
 - Basic Principles
 - Syntax
 - Memory Management
-
 
 # What is a programming language?
 - "A language intended for use by a person to express a process by which a computer can solve a problem" ~ Hope and Jiping
@@ -61,6 +62,8 @@ In this session we will be learning a little about what computer programming is 
 
 # HistoRy
 - R plays nicely with many of these languages including Python, C++, Java, and of course C and Fortran
+- R also plays nice with new technologies like HTML5 and CSS
+- There are possibilities that R will be connected to newer web technologies as well like Ruby, JavaScript (some of this exists), and Processing
 
 
 # Basic Principles
@@ -107,18 +110,91 @@ In this session we will be learning a little about what computer programming is 
 # Compilation vs. Interpretation
 - Compiled languages are translated into machine executable language
 - Interpreted languages have programs translated and executed one step at a time by a "virtual machine"
+- Compiling may take time, but it is often a one time cost
+- There are also "just in time" compilers, these compile the code before it is run and behave like an interpreted language, but operate much faster (a new language, Julia, is a good example)
 
 # Syntax and Rules
+- We need to ensure that the instructions we give the computer are never ambiguous, and to ensure this there is a formalized structure we employ
+- This is not unlike language we use in speech or writing
+- The problem is that the computer in many cases cannot interpret our mistakes for us and only responds to commands that it expects
 
 # Formalization
 - Syntax and grammar of computer program languages force us to specify what we want the computer to do very carefully
 - Example: Calculate the mean reading score for a school
-- Use words to explain how the computer should do this?
+- Use words to explain how the computer should do this
+- The code might look something like `mean(readingscore[school=x])`
 
-# References
-- http://nlp.cs.nyu.edu/meyers/V22.0002/class%20slide%20pdfs/Intro-talk.pdf
-- http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf
-- http://www.python.org/doc/essays/cp4e.html
+# Readability
+- Believe it or not, when you are writing computer code, you are writing a document
+- R script files or any source code should be **readable** and understandable with little context
+- This means we need to employ a style guide (and like English, we have multiple choices)
+- We need to employ some conventions in things like wrapping text in our source file
+- Most importantly we need to give meaning to our code using comments
+
+# Readability Example
+- Consider this block of code:
+
+```{r eval=FALSE,echo=TRUE}
+df$a4<-df$a1 + df$a2 
+df$a5<-df$a1/df$a4
+df$a6<-df$a5*100
+```
+
+- There is no way to read or understand this without context
+
+# Example 2
+- Consider:
+```{r eval=FALSE,echo=TRUE}
+# Sum counts of male and female to get total
+df$total<-df$male+df$female
+# Get proporion
+df$prop_male<-df$male/df$total
+# Scale to percentages
+df$percent_male<-df$prop_male * 100
+```
+
+# Tradeoffs
+- Readable code takes longer to write
+- It requires some judgment about how often you will use the code how much commenting and naming you need to do
+- Sometimes, as you work, this will change! It is important for work that will be shared or used by others to make the code reusable and clean
+- Working with others and sharing code actively is a great way to encourage this practice
+
+# Other things you need
+- Your script should have an author and a title wrapped in comments
+- A date is good to include as well if the script is finished up
+- References to outside resources are useful to include as well
+- Formatting this so it sticks out is good
+- Let's see:
+
+# Example
+```{r eval=FALSE,echo=TRUE}
+######################################
+# Title: My Super Script
+# Author: Super Mario
+# Date: 1980
+# Subject: A script to master finding and raiding
+#         castles
+###################################
+
+# Read data:
+load("data/mydat.rda")
+
+# Clean data...
+```
+
+# Coding and Recipes
+- The difference with code and writing a text document is that the code is recipe to make something
+- Recipes imply order - we cannot unscramble eggs once we break the yokes
+- Code also implies order - we need to do things in a prespecified sequence to arrive at the result we desire
+- Our code may need additional documentation to allow others to recreate this order
+- The way we write it for ourselves, may not be sufficient for others
+- "Two big spoons of sugar" does not have the same meaning in different contexts
+- "150 grams of sugar" does
+
+# Writing Code Is Writing
+- It is technical and requires a focus on details
+- Considering your audience is very important
+- Considering the scope of your project is important too
 
 # Sound Computing Tactics, Lesson 1: Elegance and Efficiency
 - For any given coding task, there will always be many solutions.
@@ -320,6 +396,11 @@ It is good to include the session info, e.g. this document is produced with **kn
 ```{r session-info}
 print(sessionInfo(), locale=FALSE)
 ```
+
+# References
+- http://nlp.cs.nyu.edu/meyers/V22.0002/class%20slide%20pdfs/Intro-talk.pdf
+- http://www.cs.rutgers.edu/~lou/314-f04-slides/topic01_intro.post.pdf
+- http://www.python.org/doc/essays/cp4e.html
 
 
 # Attribution and License
