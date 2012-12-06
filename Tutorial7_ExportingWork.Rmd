@@ -5,8 +5,9 @@
 ```{r setup, include=FALSE}
 # set global chunk options
 opts_chunk$set(fig.path='figure/slides7-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg')
-source('ggplot2themes.R')
+#source('ggplot2themes.R')
 load('data/smalldata.rda')
+library(eeptools)
 ```
 
 # Overview
@@ -147,6 +148,7 @@ knit2html(o,envir=new.env())
 
 # A plot and some text
 library(ggplot2)
+library(xtable)
 load('PATH/TO/MY/DATA')
 qplot(readSS,mathSS,data=df,alpha=I(.2))+geom_smooth()
 
@@ -236,6 +238,20 @@ And because I am awesome, I am done.
 knit("PATH/TO/myscript.Rmd",envir=new.env())
 knit2html("Path/To/Myscript.md")
 ```
+
+# Global options
+- **knitr** has global options we can set for our whole document
+- This allows us to customize our reports
+- This is an example block of knitr options:
+```{r eval=FALSE,echo=TRUE}
+opts_chunk$set(fig.path='figure/slides7-', cache.path='cache/slides7-',fig.width=8,fig.height=6,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,dev='svg')
+```
+
+# Chunk Options
+- We can choose a number of options about our chunks--whether to include them or not
+- We can set the output of our graphics to be a certain size
+- We can store or cache results of chunks so they do not have to be rerun with cache
+- We can even print code that does not run but just gets displayed
 
 # Making the Report a Bit Prettier
 - A frustrating thing about R reports can be that they don't fit into our institutional reporting requirements

@@ -38,7 +38,6 @@ In this lesson we hope to learn:
 - A few tips help though
 
 
-
 # For Looping
 - Don't do it for reasons we have discussed, R is very slow at these
 - Sometimes it is inevitable, so here is how to do it:
@@ -110,6 +109,7 @@ extractN<-function(x){
   x<-x[!is.na(x)]
   x
 }
+foo<-c(1,4,3,NA,5,60,NA)
 extractN(foo)
 A<-extractN(foo)
 ```
