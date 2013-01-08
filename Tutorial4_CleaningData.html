@@ -61,14 +61,14 @@ DPI R Bootcamp
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">load</span>(<span class="st">&quot;data/Student_Attributes.rda&quot;</span>)
 <span class="kw">head</span>(stuatt[, <span class="dv">1</span>:<span class="dv">4</span>], <span class="dv">7</span>)</code></pre>
-<pre><code>##   sid school_year male race_ethnicity
-## 1   1        2004    1              B
-## 2   1        2005    1              H
-## 3   1        2006    1              H
-## 4   1        2007    1              H
-## 5   2        2006    0              W
-## 6   2        2007    0              B
-## 7   3        2006    1              H</code></pre>
+<pre><code>  sid school_year male race_ethnicity
+1   1        2004    1              B
+2   1        2005    1              H
+3   1        2006    1              H
+4   1        2007    1              H
+5   2        2006    0              W
+6   2        2007    0              B
+7   3        2006    1              H</code></pre>
 <ul class="incremental">
 <li>What's wrong with this?</li>
 </ul>
@@ -94,19 +94,19 @@ DPI R Bootcamp
 </ol>
 <ul class="incremental">
 <li>Their focus is on bringing together the right people, assembling the right data, and performing the right analysis because this will improve decisions made by leadership</li>
-<li>They are smart folks who have done a lot of the unexciting work of systematically identifying how to clean, document, and transparently evaluate datasets</li>
+<li>They are smart folks who have done a lot of the important but unexciting work of systematically identifying how to clean, document, and transparently evaluate datasets</li>
 </ul>
 <p align="center">
 <img src="data:image/gif;base64,R0lGODlhSQFwAPcAAAAAAPzv8cO6dLWqUsAAAEFCQtHR0oaIiNY6URseHrm6uq2urmpra80MKfXz5+SOjd7ZswsNDu3q1lZYWLuwYS4xMZmZmd5kc+PfvtPMmHd5eeucp/fX3P///8kAGc8iL/Lx4+Hi4klKSvG+xQQGBtpNYsvEh8XGxd/btTU3N9TOnCQnJ5CSkl5fYOFxgqWmpf38+dMpQscAEBMVFdna2vP09LGysvDu3n+BgeHduvjg5MG4cc/IkW5wcE1PUN1dcLasWcXOzuiSns0aLD0/P8UACOfjxvbU2MsEIe+1vdrUqKipqtpcYv329ygqKu6ttyAhIb+1awgJCfTx5MnBg+BrfOR9jDk7O9QuRVlaWhgZGemWotjTpvPGzQ8QEPf398MAAEVHR+7s2NhDWOeMmrS1tWZmZsK4cebm5s4PK3p7ezMzM9xVaZSUldbW1txaavnm6FFTU8wII9AcNvf3/9HLlcDBwfn48YuMjHJzc2trc8zMzNUySunmzvLy89fRo+mbpN7e3ryyY87Gjerq64OEhMoAG84SLuaGk8nChMa9e9ZBUvfv3gAACO/v77y9vdEgOs4XMeThwv/v9/rp69Y6SuFwf9zWrfTJz9YpSttQZffc4OaOlM7W1tlLXeugq97m5vf//wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAHAP8ALAAAAABJAXAAAAj/ADsIHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXMmypcuXMGPKnEmzps2bOHPq3Mmzp8+fQIMKHUq0qNGjSJMqFXhDgtOnT2EsnUq1qsI7g4Bo3cpVEQirYMMuVTHgD4azaM9eokBFqti3cH/CiJJIIRcgU+Lq3XtzLg+FKIDc4Eu4sEu/CiEINsy4cUnECRUPrujghuXLlx1rZgwZoWSKMDJQ4EqaioPNqPV2Pvh54p8BdVDIni37D5C2qXOHXW2wtcQzVBTa/qq7+FTeBX1DRE4w8GTj0I8yH6j84XSB1aNrB3q9Q/aG3b9v/x+vM/xiieafD4TBvj178vBfpp84X6CDDGd26N+v34SY+ACmVF9E9cGgCBCJDGLCggyaIIgg6gUoIUgDLhfFX5GdZ8QAKCQkBhAqTCgihRcmdh6BJWY4WQ4nHhTFICPGyFGF1qXo2Xks/odQdzL26BCNP9rIGo5A6HgQjz6KeIcYTDbZ5GnrCdlbizVieOOKRSaEZJIBGhHFAKRtRQEEUVo5ZIRBmjkllkYatCWX8IFAgQAo5GDnnXZSMUAfAgEJnpTJEdlmQW/COR4KA0iQ0B0UhNiBnwzVl6OWgBo6oWLEHRlFBn1WSh2VaZrIJqVqWnopqAPdsWmnpRIk3kKSZv+5o6emxveqqpw+Sqt3qEa6a2uTztpqrbb22gGurIpK36+CkkrsiLeuquuw2BmrUKyDElTos7pFm+uAMFwyyLjkkvsHlNMq20GwmlLLrXbeJqtinyYMEIUAZ+Sr7xlAnAElts6+G2C86c7bQR8DKOHewpIkLO+VArHr5q4CG0dwrGhGWcfDZ0Ysa7sVA3gxs6MihGzBEK/78cTuhtytsScDbLK0MoPsMnkjuwvsygXFTLLH2ZZ5M84w0/yzykEL5LPOzQo79Hg5qytxz0YzXbLNT0cXtcFTE7S01DxrS3HWjm2dctepVg120iiTXZzZHSO9qNpchy202xYX/e3RaCv/TffZdnOMd2pwrwn03HtbfbjTg7+csd+Jr4244IFezXLjjk/etuFyzxx53Wxvi/lbhVe++EFfgx7w6JuV7mrTqP8dd9+bs86Y659aTvXngIc+tu1w4V6t7l7LzjntogNflfC8Ep8277MHXrvyfDG/M9up97469YVZD7tB2Ufve8vch+W985BT/jr605cfvN7q5346+Mab3jnW7u91/vy7xz88/2IjX/6oginNdcc5HnvcserXnO8RagcCHOBSIDAABcJAEHuDUUIuAQTi5KCCWhLExnSlwbMNgG0d+J0ElSIBIAxCDJjBzGtyMJBBUEASMbxMH6JwBrd86IU5tMwM/2sIBAwE8QZ90I8PXQjDIHKBQyvcy13CtJUB8MAtHQDBDsBExQEIgk8DUQIVqzgILE7hDFwM0wAoAEaBiHGMQBhAGaO4FwnQ5o5tTBUG7kgbdA3EjnyUTR6VhgEIBBIFfhQIIANpBDo68pGQjKQkJ0nJSlrykpjMpCbx5gYW5EENL0CDQAyABxaY8pQssMAXOrCEUp5yATU4CBrwYAEslsGVqGSBDQTSylyy4AUECYQncaCAgtyylgQ5QSHywAI3HGQDZIgmGQDRBYSM4AEjGEgThCDNbnKCAwMJQDSbcBAa4DKVBiDIC865AD8YxA8v0IAGlrBKgzjClCcQSCDOef9KZw5kD3jIAx72MBA38POUjhgPDkgAgIYCwAsH6AAeHErRhhKiAxWoKACgYAeD4KChHRWICDTa0CsIxAkk1cJA8CAFihbgoiIFQARi2YEvtKCiajBIA8BQBDD4VAaLgINBIEEASAwEDjLwaRGW6lMwbGAgG/DpEw7yApIyYCAr0ChHCWIHKFDUCeksCA0a2gOBLICkAGjDQHpQ0at2wAJoBQANtrOEhmohDESIAAA00IEXJGAFK5ACCWawAiisIaFEeChgvfpQURIEpQBwawd68NcEkIAElTWDQK4gU8ACNgEiEEhVZUqErAKgAG7JwkbreVMAJOAKXmioWgkCCRn/NAASkGiADIrAByx2oAsyMIQhqtkBSmABtw3wABJw+4EkDGQMMpBBCQ5SV8wCVq8AwIFAUqDYwjbUC46lAXbXsAa7OnYggWhpTjtQBgCQQAueXUECFiAQDdj1ClpoaE5t8NfAksALhXVCCLYTBgCsYMAdMIAFBvKFL6BhBgDoQYPrmVgiNLgGB2goHrjqUC3QtKZfUEBDFzDhzQIgBRMucQdQqgWC2rShSxCIaqGwSjc09KUdcEN+I+DOgUCiCJoQCBw8Ed2pDqQKRfBAEapgkB8UYQ4BeI9ANiFcQ8hBqAWpKwBs0GAasDiW3LXwFzCsYYEwoKEL7kCGAVCIgqQX/wDrbS8AXpDiL0iFEHqtwIBDANkBN9gRCQBAFlSsnYz6QCGOgHAeCpLYAhAktpLtwJm9oFf6cnjLBeGsSQ0SAr2WVSCOiIMI0jzjVY52l2bNQhYCQdsisGEgHFCyC7QZCRmkwQORICdBnDwHXQ8EEUWQgxyKIASDaLmYAimEe1kdZgZD2sQVIEigDx1M9QpEzqguyCPQPJBHqDqsNQ10C+Iz0gjg4AQILgghFM3o0w7kBQxts0BqEOgexAEAcdD2iDMNgArQ4N80YHWCGRpRhJS6AyxoaD4V8uNXCyQAaSjCBQbyhOBuoAFFMPJAeO1rgWABDD+oAhgQYGyQDmSkXv+4KHcdLdp4nxQAoR1Is6sN52s3lAUApwFMtVwGhdAbAOOGj5wbGgEnaODDHVg3ABZNkMRqQQQiIAJDIyDwDpwVAAaoagTO24FtA8DSA+GsYC+72oEDYMMnaIHaW0DqsiecBP5MSMNpLfGBaAIMMegAAsAQ5F0/ueOYUHISupDkI2TZvSJgAAMSC4AJbBcAM4C61GUqcJTG3MSbRq+12evey5Jdu6xsKLIR8vOgw2cJa2ipQ/M9EKUzfSCMp2gFHkGQe68g6XqdrUC8DnYTM7TDqzQAQzcMV4dmQcZud2/cETJ3gTQhEnUv7rCt0AEhBJsSfu81QSxRhDQ0AQaRAAP/9QlSV9U7VMCPr2gFQrpimBNE027efHt/71C+hh4Aoz9I6SUUCDtYALLg5nrttgIsYAZlNhBooFf2N1KZ13X79n79dgISeAIEZXYRZQDyBGGa1QEHl3AAUIFy52rhFHET1wFbUHgdoAPDtgXZ52tNMAdF8AMCcQFgAAm+VV0VUAAF4AN40GMdwF0EaIBn91juJ3MA0IAdEAh6FWcNVQh7MIEIxnM+J24j4nXZJoBNBwBhIBBepQUJJRBwRQIrUAEVYFlw120PGHZHWE6bJxAQ9mkHV3y0N0oWYAEwJRDNl4JIUASzpncygARYEIhyIAMkt3F/NxBJIAMeMAeBOAce/yAD2TQQWjaHBrFyXAgAXmiEKUAQWXV5AhEC8tdQ2UYQcgZM+lSHVbd/8IEGLPBhHkiJWAh77oZwDQV6HRB7OIWGX8dvSCgQX+BVTtBjEzVnyEdjHbAHDRV0X5BRAMB1P/YGA2EJu/UJHRBrj7hUS+UBHgBOAsFxA8EG0YWNSSYDJchLDdVzBzFzHmiLqiUFC7cADMV0CNYG3MZ5mGYQgcBQl1cADRV3qjgeaIBSK9AC9tZSUOCDsSgQjTZvgZZyOcZQE7AEErkEGbUCbsF7/KYFE7CRExAHTKdsAOAEDOADDZUAX3hwt3hjDMCM9udjMjAHb/AGfBBdkRAAHWAFRf9gCELwBDwpBIZQBOPXAd7YAQGAcWPAkzw5BkVwCDZpjgCAjpUIAETAkJAHU3bwXWbQAi0FdzVgBl5gBlnQUg5pj1fAkR0ZUhNQUgzAWUBHEP+4HWjAjxWlBQsnEITQUBs4EOW1BiuFl5PVUOBGi/coZzFGhBo1AwPRWg6VACBIkl5AUyHAjA7lA/U0EBHXU0o1BNXUBIdAAHlHEDFAAIega5pAAHKga2RAAATgXBTnUywoWmlYEFkVbQIxjHnZBvQHAFIQY1dJUV4AlTaAVrNFCLgolV8oEH6gV6wndAwQdXGAB3eInAyQBaY4EIWQBQXXAX4AlgzwBTiQBa/3iWrCZ4puoGogKBDfuXZrt14CYQMtQAQicADR2QZZIGEM1gY+QATUeRAu8AY/8J8XsAXYl4JvwAQaJxBPwARvoAMCsQVMUAWoyQQX0HEBcAFMUGwCcQLfhhDfKW/ayZ2VuQc9oIMaEHcnYAYFEAZqUHUJlgXquXZ1+VZxQAQTgEwE8QU9kAVptkk82qM++qNAGqRCOqREWqRGeqRImqRKuqRM2qRO+qRQGqVSOqVUWqVWeqVYmqVauqVc2qVe+qVgGqbFERAAOw==" height="112" width="329">
 </p>
 
 </div>
-<div class="section slide level1" id="toolkit--data-cleaning">
-<h1>Toolkit--Data Cleaning</h1>
+<div class="section slide level1" id="toolkit---data-cleaning">
+<h1>Toolkit - Data Cleaning</h1>
 <ul class="incremental">
 <li>The SDP has come up with a great tutorial and guided analyses using a great synthetic data set to help walk through the process of cleaning data</li>
-<li>This was written in Stata, we have ported it to R, and are going to walk through just a single lesson of it here (Clean Data Building)</li>
-<li>You can get the toolkit lesson that this tutorial is adapted from <a href="http://www.gse.harvard.edu/~pfpie/pdf/SDP_Data_Building_Tasks.pdf">online</a></li>
+<li>This was written in Stata, we are porting it to R (you can contribute to this effort if you like), and are going to walk through just a single lesson of it here (Clean Data Building)</li>
+<li>You can get the toolkit lesson that this tutorial is adapted from <a href="http://www.gse.harvard.edu/~pfpie/index.php/sdp/tools">online</a></li>
 <li>There are five toolkits in addition to a data guide that are incredibly helpful, so we are just touching the tip of the iceberg</li>
 <li>Other modules include:</li>
 </ul>
@@ -134,9 +134,9 @@ DPI R Bootcamp
 <li>Is gender unique for each student?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">unique</span>(stuatt$sid))</code></pre>
-<pre><code>## [1] 21803</code></pre>
+<pre><code>[1] 21803</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">unique</span>(stuatt$sid, stuatt$male))</code></pre>
-<pre><code>## [1] 21806</code></pre>
+<pre><code>[1] 21806</code></pre>
 <ul class="incremental">
 <li>Nah, we have 21,803 unique students in our dataset, but <em>21,806</em> unique combinations of gender and student</li>
 </ul>
@@ -151,11 +151,11 @@ DPI R Bootcamp
     <span class="kw">length</span>(<span class="kw">unique</span>(id)) == <span class="kw">length</span>(<span class="kw">unique</span>(id, group))
 }  <span class="co"># Need better varname and some optimization to the speed of this code</span>
 <span class="kw">testuniqueness</span>(stuatt$sid, stuatt$male)</code></pre>
-<pre><code>## [1] FALSE</code></pre>
+<pre><code>[1] FALSE</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">testuniqueness</span>(stuatt$sid, stuatt$race_ethnicity)</code></pre>
-<pre><code>## [1] FALSE</code></pre>
+<pre><code>[1] FALSE</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">testuniqueness</span>(stuatt$sid, stuatt$birth_date)</code></pre>
-<pre><code>## [1] FALSE</code></pre>
+<pre><code>[1] FALSE</code></pre>
 <ul class="incremental">
 <li>Messy...</li>
 </ul>
@@ -163,12 +163,12 @@ DPI R Bootcamp
 <div class="section slide level1" id="where-is-the-data-messy">
 <h1>Where is the data messy?</h1>
 <pre class="sourceCode r"><code class="sourceCode r">stuatt[<span class="dv">17</span>:<span class="dv">21</span>, <span class="dv">1</span>:<span class="dv">3</span>]</code></pre>
-<pre><code>##    sid school_year male
-## 17   7        2004    1
-## 18   7        2005    1
-## 19   7        2006    1
-## 20   7        2007    0
-## 21   7        2008    1</code></pre>
+<pre><code>   sid school_year male
+17   7        2004    1
+18   7        2005    1
+19   7        2006    1
+20   7        2007    0
+21   7        2008    1</code></pre>
 <ul class="incremental">
 <li>Student 7 has an inconsistently reported gender in our data</li>
 <li>We need a business rule to handle fixing this, and a way to implement it</li>
@@ -185,9 +185,9 @@ DPI R Bootcamp
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(plyr)
 sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span class="dt">nvals_gender =</span> <span class="kw">length</span>(<span class="kw">unique</span>(male)))
 <span class="kw">table</span>(sturow$nvals_gender)</code></pre>
-<pre><code>## 
-##     1     2 
-## 21799     4</code></pre>
+<pre><code>
+    1     2 
+21799     4 </code></pre>
 <ul class="incremental">
 <li>So 4 students have more than one unique value for gender</li>
 </ul>
@@ -204,11 +204,11 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span class="dt">nvals_gender =</span> <span class="kw">length</span>(<span class="kw">unique</span>(male)), 
     <span class="dt">gender_mode =</span> <span class="kw">statamode</span>(male), <span class="dt">gender_recent =</span> <span class="kw">tail</span>(male, <span class="dv">1</span>))
 <span class="kw">head</span>(sturow[<span class="dv">7</span>:<span class="dv">10</span>, ])</code></pre>
-<pre><code>##    sid nvals_gender gender_mode gender_recent
-## 7    7            2           1             1
-## 8    8            1           1             1
-## 9    9            1           1             1
-## 10  10            1           1             1</code></pre>
+<pre><code>   sid nvals_gender gender_mode gender_recent
+7    7            2           1             1
+8    8            1           1             1
+9    9            1           1             1
+10  10            1           1             1</code></pre>
 </div>
 <div class="section slide level1" id="fixing-observations-ii">
 <h1>Fixing observations II</h1>
@@ -219,16 +219,16 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">tempdf &lt;- <span class="kw">merge</span>(stuatt, sturow)  <span class="co"># R finds the linking variable already</span>
 <span class="kw">head</span>(tempdf[<span class="dv">17</span>:<span class="dv">21</span>, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">11</span>)])</code></pre>
-<pre><code>##    sid school_year male nvals_gender gender_mode
-## 17   7        2004    1            2           1
-## 18   7        2005    1            2           1
-## 19   7        2006    1            2           1
-## 20   7        2007    0            2           1
-## 21   7        2008    1            2           1</code></pre>
+<pre><code>   sid school_year male nvals_gender gender_mode
+17   7        2004    1            2           1
+18   7        2005    1            2           1
+19   7        2006    1            2           1
+20   7        2007    0            2           1
+21   7        2008    1            2           1</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">subset</span>(tempdf[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">11</span>)], sid == <span class="dv">12506</span>))</code></pre>
-<pre><code>##         sid school_year male nvals_gender gender_mode
-## 50064 12506        2004    1            2           .
-## 50065 12506        2005    0            2           .</code></pre>
+<pre><code>        sid school_year male nvals_gender gender_mode
+50064 12506        2004    1            2           .
+50065 12506        2005    0            2           .</code></pre>
 <ul class="incremental">
 <li>We fixed observation 7, but not observation 12506</li>
 </ul>
@@ -236,11 +236,11 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 <div class="section slide level1" id="fixing-where-the-mode-does-not-work">
 <h1>Fixing where the mode does not work</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">subset</span>(tempdf[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>)], sid == <span class="dv">12506</span>))</code></pre>
-<pre><code>##         sid school_year male nvals_gender gender_mode gender_recent
-## 50064 12506        2004    1            2           .             0
-## 50065 12506        2005    0            2           .             0</code></pre>
+<pre><code>        sid school_year male nvals_gender gender_mode gender_recent
+50064 12506        2004    1            2           .             0
+50065 12506        2005    0            2           .             0</code></pre>
 <ul class="incremental">
-<li>Our next business rule is to assign the most recent value of gender from the <code>gender_recent</code> variable when there is not <code>gender_mode</code> that is valid</li>
+<li>Our next business rule is to assign the most recent value of gender from the <code>gender_recent</code> variable when there is not a value of <code>gender_mode</code> that is valid</li>
 <li>This seems like a pretty simple job for <code>recoding</code> our variable!</li>
 </ul>
 </div>
@@ -258,7 +258,7 @@ sturow &lt;- <span class="kw">ddply</span>(stuatt, .(sid), summarize, <span clas
 tempdf$male[tempdf$male == <span class="st">&quot;.&quot;</span>] &lt;- tempdf$gender_recent[tempdf$male == <span class="st">&quot;.&quot;</span>]
 <span class="co"># we have to put the filter on both sides of the assignment operator</span>
 <span class="kw">testuniqueness</span>(tempdf$id, tempdf$male)</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<pre><code>[1] TRUE</code></pre>
 <ul class="incremental">
 <li>Now let's clean up our workspace, we created a lot of temporary variables that we don't need</li>
 </ul>
@@ -290,8 +290,8 @@ stuatt$gender_recent &lt;- <span class="ot">NULL</span>
 <li>What's wrong with our race variable?</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(stuatt$race_ethnicity)</code></pre>
-<pre><code>##     A     B     H   M/O     W  NA's 
-##  7303 25321 30444  2809 20528  1129</code></pre>
+<pre><code>    A     B     H   M/O     W  NA's 
+ 7303 25321 30444  2809 20528  1129 </code></pre>
 <ul class="incremental">
 <li>How do we do this?</li>
 </ul>
@@ -305,13 +305,13 @@ stuatt$race_ethnicity[<span class="kw">is.na</span>(stuatt$race_ethnicity)] &lt;
 <div class="section slide level1" id="correct-conversion">
 <h1>Correct conversion</h1>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(stuatt$race_ethnicity[<span class="kw">is.na</span>(stuatt$race_ethnicity)])</code></pre>
-<pre><code>## [1] 1129</code></pre>
+<pre><code>[1] 1129</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">stuatt$race_ethnicity &lt;- <span class="kw">as.character</span>(stuatt$race_ethnicity)
 stuatt$race_ethnicity[<span class="kw">is.na</span>(stuatt$race_ethnicity)] &lt;- <span class="st">&quot;AI&quot;</span>
 stuatt$race_ethnicity &lt;- <span class="kw">factor</span>(stuatt$race_ethnicity)
 <span class="kw">summary</span>(stuatt$race_ethnicity)</code></pre>
-<pre><code>##     A    AI     B     H   M/O     W 
-##  7303  1129 25321 30444  2809 20528</code></pre>
+<pre><code>    A    AI     B     H   M/O     W 
+ 7303  1129 25321 30444  2809 20528 </code></pre>
 <ul class="incremental">
 <li>Factors are pesky, even though they are useful and keep us from having to remember numeric representations of our data</li>
 <li>In fact, if you read the toolkit, this is a big drawback of <em>Stata</em> because you must constantly refer back to the numbers to remember what number corresponds to &quot;hispanic&quot;</li>
@@ -323,10 +323,10 @@ stuatt$race_ethnicity &lt;- <span class="kw">factor</span>(stuatt$race_ethnicity
 <li>Let's consider student 3 in our dataset</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">stuatt[<span class="dv">7</span>:<span class="dv">9</span>, <span class="kw">c</span>(<span class="st">&quot;sid&quot;</span>, <span class="st">&quot;school_year&quot;</span>, <span class="st">&quot;race_ethnicity&quot;</span>)]</code></pre>
-<pre><code>##   sid school_year race_ethnicity
-## 7   3        2006              H
-## 8   3        2006              B
-## 9   3        2007              B</code></pre>
+<pre><code>  sid school_year race_ethnicity
+7   3        2006              H
+8   3        2006              B
+9   3        2007              B</code></pre>
 <ul class="incremental">
 <li>How is this different from our prior problem?</li>
 <li>Since student 3 was recorded twice in the same year and given a different <em>race/ethnicity</em> we now have to figure out some rules for assigning a consistent value</li>
@@ -362,24 +362,24 @@ tempdf &lt;- tempdf[<span class="kw">order</span>(tempdf$sid, tempdf$school_year
 </div>
 <div class="section slide level1" id="compare-them">
 <h1>Compare them</h1>
-<pre><code>##         sid school_year race_ethnicity
-## 56201     3        2006              H
-## 56202     3        2006              H
-## 81064  8552        2005              W
-## 81065  8552        2006            M/O
-## 81066  8552        2006            M/O
-## 6162  11382        2005              H
-## 6163  11382        2005              H
-## 6164  11382        2006              H</code></pre>
-<pre><code>##         sid school_year race_ethnicity
-## 7         3        2006              H
-## 8         3        2006              B
-## 34290  8552        2005              W
-## 34291  8552        2006              A
-## 34292  8552        2006              W
-## 45674 11382        2005              H
-## 45675 11382        2005            M/O
-## 45676 11382        2006              H</code></pre>
+<pre><code>        sid school_year race_ethnicity
+56201     3        2006              H
+56202     3        2006              H
+81064  8552        2005              W
+81065  8552        2006            M/O
+81066  8552        2006            M/O
+6162  11382        2005              H
+6163  11382        2005              H
+6164  11382        2006              H</code></pre>
+<pre><code>        sid school_year race_ethnicity
+7         3        2006              H
+8         3        2006              B
+34290  8552        2005              W
+34291  8552        2006              A
+34292  8552        2006              W
+45674 11382        2005              H
+45675 11382        2005            M/O
+45676 11382        2006              H</code></pre>
 </div>
 <div class="section slide level1" id="ok">
 <h1>OK</h1>
@@ -417,21 +417,21 @@ tempdf$temp_ishispanic[tempdf$race_ethnicity == <span class="st">&quot;H&quot;</
 <li>No, our data still has messiness across years:</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(stuatt[, <span class="kw">c</span>(<span class="st">&quot;sid&quot;</span>, <span class="st">&quot;school_year&quot;</span>, <span class="st">&quot;race_ethnicity&quot;</span>)])</code></pre>
-<pre><code>##       sid school_year race_ethnicity
-## 1       1        2004              B
-## 2       1        2005              H
-## 3       1        2006              H
-## 4       1        2007              H
-## 44618   2        2006              W
-## 44619   2        2007              B</code></pre>
+<pre><code>      sid school_year race_ethnicity
+1       1        2004              B
+2       1        2005              H
+3       1        2006              H
+4       1        2007              H
+44618   2        2006              W
+44619   2        2007              B</code></pre>
 <ul class="incremental">
 <li>Student 1 and 2 are both listed as black and hispanic at alternate times</li>
 </ul>
 </div>
 <div class="section slide level1" id="so...">
 <h1>So...</h1>
-<h2 id="what-do-we-do">What do we do?</h2>
-<h2 id="try-it-on-your-own">Try it on your own</h2>
+<h3 id="what-do-we-do">What do we do?</h3>
+<h3 id="try-it-on-your-own">Try it on your own</h3>
 <h3 id="remember-this-is-tough-stuff-so-feel-free-to-ask-for-help">Remember, this is tough stuff, so feel free to ask for help!</h3>
 </div>
 <div class="section slide level1" id="answer">
@@ -446,14 +446,14 @@ tempdf$race2[tempdf$var_temp == <span class="st">&quot;.&quot;</span>] &lt;- <sp
 
 tempdf &lt;- <span class="kw">merge</span>(stuatt, tempdf)
 <span class="kw">head</span>(tempdf[, <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">14</span>)], <span class="dv">7</span>)</code></pre>
-<pre><code>##   sid school_year race_ethnicity race2
-## 1   1        2004              B     H
-## 2   1        2005              H     H
-## 3   1        2006              H     H
-## 4   1        2007              H     H
-## 5   2        2006              W     B
-## 6   2        2007              B     B
-## 7   3        2006              H     H</code></pre>
+<pre><code>  sid school_year race_ethnicity race2
+1   1        2004              B     H
+2   1        2005              H     H
+3   1        2006              H     H
+4   1        2007              H     H
+5   2        2006              W     B
+6   2        2007              B     B
+7   3        2006              H     H</code></pre>
 <ul class="incremental">
 <li>Why do we have to do a paste command?</li>
 <li>What other parts of this code are important to remember?</li>
@@ -493,29 +493,28 @@ tempdf &lt;- <span class="kw">task1</span>(stuatt, stuatt$sid, stuatt$school_yea
 </div>
 <div class="section slide level1" id="session-info">
 <h1>Session Info</h1>
-<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
+<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version 0.9.6. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
-<pre><code>## R version 2.15.2 (2012-10-26)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## 
-## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
-## 
-## other attached packages:
-##  [1] eeptools_0.1    mapproj_1.1-8.3 maps_2.2-6      proto_0.3-9.2  
-##  [5] stringr_0.6.1   mgcv_1.7-22     plyr_1.7.1      gridExtra_0.9.1
-##  [9] quantreg_4.91   SparseM_0.96    sandwich_2.2-9  ggplot2_0.9.2.1
-## [13] lmtest_0.9-30   zoo_1.7-9       knitr_0.8      
-## 
-## loaded via a namespace (and not attached):
-##  [1] codetools_0.2-8    colorspace_1.2-0   dichromat_1.2-4   
-##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
-##  [7] gtable_0.1.1       labeling_0.1       lattice_0.20-10   
-## [10] MASS_7.3-22        Matrix_1.0-9       memoise_0.1       
-## [13] munsell_0.4        nlme_3.1-105       RColorBrewer_1.0-5
-## [16] Rcpp_0.10.0        reshape2_1.2.1     scales_0.2.2      
-## [19] tools_2.15.2</code></pre>
+<pre><code>R version 2.15.2 (2012-10-26)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] sandwich_2.2-9  quantreg_4.94   SparseM_0.96    gridExtra_0.9.1
+ [5] mgcv_1.7-22     eeptools_0.1    mapproj_1.2-0   maps_2.3-0     
+ [9] proto_0.3-10    plyr_1.8        stringr_0.6.2   ggplot2_0.9.3  
+[13] lmtest_0.9-30   zoo_1.7-9       knitr_0.9.6    
+
+loaded via a namespace (and not attached):
+ [1] codetools_0.2-8    colorspace_1.2-0   dichromat_1.2-4   
+ [4] digest_0.6.0       evaluate_0.4.3     formatR_0.7       
+ [7] gtable_0.1.2       labeling_0.1       lattice_0.20-10   
+[10] MASS_7.3-22        Matrix_1.0-10      munsell_0.4       
+[13] nlme_3.1-106       RColorBrewer_1.0-5 reshape2_1.2.2    
+[16] scales_0.2.3       tools_2.15.2      </code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>
