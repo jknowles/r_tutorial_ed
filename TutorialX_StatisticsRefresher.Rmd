@@ -5,7 +5,6 @@
 ```{r loading, include=FALSE}
 library(ggplot2)
 library(eeptools)
-opts_knit$get(animation.fun = hook_scianimator)
 opts_chunk$set(fig.path='figure/slidesX-', cache.path='cache/slidesX-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='650px',out.height='370px')
 ```
 
@@ -59,7 +58,7 @@ We will review the following statistical concepts here through the lens of R:
 - Coins are obviously independent in their flipping (though we can think of conditions where this is not true)
 - Other events have probability that varies based on other factors - joint probabilities
 - Let's look at a simple example of this
-- **DEMO**
+- [Coin Flip Demo](http://glimmer.rstudio.com/wisconsindpi/coin/)
 
 
 # Describing Data
@@ -116,17 +115,17 @@ qplot(carat,price,data=diamonds,color=color)+geom_smooth(aes(group=1))+theme_dpi
 
 # Levels of Measurement
 - Any given dimension may be measured at different [levels of measure](http://en.wikipedia.org/wiki/Level_of_measurement)
-- Nominal: unordered categories of data
-- Ordinal: ordered categories of data, relative size and degree of difference between categories is unknown
-- Interval: ordered categories of data, fixed width, like discrete temperature scales
-- Continuous (ratio): a measurement scale in a continuous space with a meaningful zero--physical measurements
+- **Nominal:** unordered categories of data
+- **Ordinal:** ordered categories of data, relative size and degree of difference between categories is unknown
+- **Interval:** ordered categories of data, fixed width, like discrete temperature scales
+- **Continuous (ratio):** a measurement scale in a continuous space with a meaningful zero--physical measurements
 - This classification was derived by Stanley Smith Stevens in the 1940s and 50s
 
 # Quiz 1
 - Color (of diamonds) is what level of measurement?
-- Nominal
+- **Nominal**
 - Carats are what level of measurement?
-- Continuous
+- **Continuous**
 
 
 # Levels of measurement matter
@@ -264,7 +263,7 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 ```
 
 # Distribution Demo
-- **DEMO**
+- [Drawing Distributions](http://glimmer.rstudio.com/wisconsindpi/distribution/)
 - These parameters define distributions (there are others as well), but you can see what a distribution does--it summarizes data
 
 
@@ -274,7 +273,7 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 - How we sample determines what conclusions we can draw in the population from our data
 - The size of the sample relative to the population we are making inference about determines our confidence / precision
 - Let's look at a demo at some different types of sampling-
-- **DEMO**
+- [Sampling Demo](http://glimmer.rstudio.com/wisconsindpi/sampling/)
 
 
 # Measures of association
@@ -284,7 +283,7 @@ qplot(rweibull(3000,shape=18,scale=1),geom='density')+theme_dpi()
 - Rank correlation is an option as well using [Spearman's rank correlation coefficient](http://en.wikipedia.org/wiki/Spearman%27s_rank_correlation_coefficient) or [Kendall's tau rank correlation coefficient](http://en.wikipedia.org/wiki/Kendall_tau_rank_correlation_coefficient)
 
 # Let's look at Pearson's Coefficient
-- **DEMO**
+- [Visualizing Correlations](http://glimmer.rstudio.com/wisconsindpi/correlation/)
 
 # We can identify other types of correlation though:
 ```{r sophcorr,echo=FALSE}
