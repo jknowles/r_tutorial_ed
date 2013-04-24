@@ -1,5 +1,17 @@
-# R Tutorial 
+## R Tutorial 
 
-These are the materials used for DPI's first annual R bootcamp August 2nd and 3rd 2012 in Madison Wisconsin.
+These are the materials used for DPI's R bootcamp held in Madison, Wisconsin.
 
-The bootcamp is intended to help non-R users in education policy/research get up to speed on how to use R to do their work, share their results, and collaborate on projects with each other across district and state lines.
+The bootcamp is intended to help non-R users in education policy/research get up to speed on how to use R to do their work, share their results, and collaborate on projects with each other across district and state lines. The topics covered include:
+
+* Setting Up R
+* Introduction to R
+* Getting Data In
+* Sorting and Reshaping Data
+* Cleaning Education Data
+* Regression and Basic Analytics in R
+* Visualizing Data
+* Exporting Your Work
+* Advanced Topics
+* A Statistics Refresher (beta)
+* Programming Principles (for beginning R useRs)

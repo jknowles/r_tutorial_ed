@@ -273,7 +273,7 @@ b &lt;- <span class="kw">sqrt</span>(-b)</code></pre>
 <div class="section slide level1" id="csv-is-our-friend">
 <h1>CSV is Our Friend</h1>
 <ul>
-<li>The easiest data type is .csv though Excel files can be read as well <code>df</code></li>
+<li>The easiest data type is .csv though Excel files can be read as well</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Set working directory to the tutorial directory In RStudio can do this</span>
 <span class="co"># in 'Tools' tab</span>
@@ -395,20 +395,20 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(messdf[, <span class="kw">c</span>(<span class="st">&quot;stuid&quot;</span>, <span class="st">&quot;readSS&quot;</span>, <span class="st">&quot;mathSS&quot;</span>)])</code></pre>
 <pre><code>##      stuid            readSS        mathSS   
 ##  Min.   :   205   Min.   :252   Min.   :210  
-##  1st Qu.: 44205   1st Qu.:429   1st Qu.:417  
-##  Median : 88205   Median :495   Median :480  
-##  Mean   : 99229   Mean   :496   Mean   :483  
-##  3rd Qu.:132205   3rd Qu.:562   3rd Qu.:543  
+##  1st Qu.: 44205   1st Qu.:431   1st Qu.:418  
+##  Median : 88205   Median :497   Median :480  
+##  Mean   : 99229   Mean   :497   Mean   :484  
+##  3rd Qu.:132205   3rd Qu.:564   3rd Qu.:543  
 ##  Max.   :324953   Max.   :833   Max.   :828  
-##                   NA's   :221   NA's   :264</code></pre>
+##                   NA's   :223   NA's   :288</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">nrow</span>(messdf[!<span class="kw">complete.cases</span>(messdf), ])  <span class="co"># number of rows with missing data</span></code></pre>
-<pre><code>## [1] 462</code></pre>
+<pre><code>## [1] 494</code></pre>
 <ul>
 <li>To get rid of missing data, we can copy our data with all missing cases dropped using the <code>na.omit</code> function</li>
 </ul>
 <pre class="sourceCode r"><code class="sourceCode r">cleandf &lt;- <span class="kw">na.omit</span>(messdf)
 <span class="kw">nrow</span>(cleandf)</code></pre>
-<pre><code>## [1] 2238</code></pre>
+<pre><code>## [1] 2206</code></pre>
 </div>
 <div class="section slide level1" id="now-we-have-the-data">
 <h1>Now we have the data</h1>
@@ -499,7 +499,7 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 </div>
 <div class="section slide level1" id="session-info">
 <h1>Session Info</h1>
-<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version <code>0.8</code>. Here is my session info:</p>
+<p>It is good to include the session info, e.g. this document is produced with <strong>knitr</strong> version 0.9.6. Here is my session info:</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">sessionInfo</span>(), <span class="dt">locale =</span> <span class="ot">FALSE</span>)</code></pre>
 <pre><code>## R version 2.15.2 (2012-10-26)
 ## Platform: x86_64-w64-mingw32/x64 (64-bit)
@@ -509,19 +509,18 @@ messdf$mathSS[messdf$stuid %in% random2] &lt;- <span class="ot">NA</span></code>
 ## [8] base     
 ## 
 ## other attached packages:
-##  [1] eeptools_0.1    mapproj_1.1-8.3 maps_2.2-6      proto_0.3-9.2  
-##  [5] stringr_0.6.1   mgcv_1.7-22     plyr_1.7.1      gridExtra_0.9.1
-##  [9] quantreg_4.91   SparseM_0.96    sandwich_2.2-9  ggplot2_0.9.2.1
-## [13] lmtest_0.9-30   zoo_1.7-9       knitr_0.8      
+##  [1] sandwich_2.2-9  quantreg_4.94   SparseM_0.96    gridExtra_0.9.1
+##  [5] mgcv_1.7-22     eeptools_0.1    mapproj_1.2-0   maps_2.3-0     
+##  [9] proto_0.3-10    plyr_1.8        stringr_0.6.2   ggplot2_0.9.3  
+## [13] lmtest_0.9-30   zoo_1.7-9       knitr_0.9.6    
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] codetools_0.2-8    colorspace_1.2-0   dichromat_1.2-4   
-##  [4] digest_0.5.2       evaluate_0.4.2     formatR_0.6       
-##  [7] gtable_0.1.1       labeling_0.1       lattice_0.20-10   
-## [10] MASS_7.3-22        Matrix_1.0-9       memoise_0.1       
-## [13] munsell_0.4        nlme_3.1-105       RColorBrewer_1.0-5
-## [16] Rcpp_0.10.0        reshape2_1.2.1     scales_0.2.2      
-## [19] tools_2.15.2</code></pre>
+##  [1] colorspace_1.2-0   dichromat_1.2-4    digest_0.6.0      
+##  [4] evaluate_0.4.3     formatR_0.7        gtable_0.1.2      
+##  [7] labeling_0.1       lattice_0.20-10    MASS_7.3-22       
+## [10] Matrix_1.0-10      munsell_0.4        nlme_3.1-106      
+## [13] RColorBrewer_1.0-5 reshape2_1.2.2     scales_0.2.3      
+## [16] tools_2.15.2</code></pre>
 </div>
 <div class="section slide level1" id="attribution-and-license">
 <h1>Attribution and License</h1>

@@ -5,16 +5,20 @@
 - Add to the resources : http://dss.princeton.edu/training/
 - Description of how to read and build slides
 - Add non R figures where necessary
-- Figure out how to convert animations from SWF to VIDEO
-- Statistics refresher
 - Shiny demos updated soon
-- Finish Tutorial 6 and 7 in terms of content slides
-- Fix error in tutorial 3 with naming consistency
-- Complete content in Tutorial 5
-- Better explain the Tutorial 6 grammar
-- Introduction to computer programming principles at the beginning
-- Intro to RStudio
-- More consistent alignment with data files and R script
-- Name df<-smalldata
+- Finish Tutorial 6 and 7 in terms of content slides - get more specific about ggplot2
+- Complete content in Tutorial 5, less regression diagnostics, more non-regression methods leveraging graphics
+- Make Tutorial 6 be Tutorial 3 (reorganize)
+- Intro to RStudio - add some slides about this (using ctrl+ enter to run lines, code completion, code highlighting, etc.)
 - Make a references page
 - Fix intro to programming so it evaluates correctly
+- Publish all Shiny demos on the web for others to run and play along with
+- To Tutorial 8 add Shiny programming, add information about LaTeX, more advanced loops (simplify loop example)
+- Add information about animations, but simplify this
+- Add information about compiling functions
+- Put LME4 and **caret** package into a separate advanced regression model series
+- In exporting your work, focus more on outputting tables, knitr, and exporting images using both RStudio and command line
+- In Tutorial 8, add more about how R can be used like a programming language (system commands, etc.)
+- Also add information about maintaining an R installation and tips and tricks for using R
+- Extend Tutorial 4 with more examples
+- Include examples to speed up code in Tutorial 8 (data.table, parallel, compiling functions in a secion called optimization)
