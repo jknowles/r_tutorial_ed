@@ -1,5 +1,6 @@
 # ggplot2 Themes
 # DPI, Presentation, Dissertation
+# Redundant now, think about deleting
 library(gridExtra)
 
 theme_dpi<-function (base_size = 16, base_family = "") 
