@@ -118,6 +118,9 @@ A<-extractN(foo)
 - Functions can have many arguments and be much more complex
 - They can also be incredibly specialized--remember we are writing code for us!
 
+# Debugging Functions
+- 
+
 # Mixed Effect Models
 - Mixed effect models, or random effect models, are a staple for analyzing data that exists in groups (like students in classrooms)
 - The underlying belief is that observations in the same group, to some degree, look more like one another than would be randomly expected (or than members of the other group)
