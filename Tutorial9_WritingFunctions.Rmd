@@ -1,0 +1,26 @@
+% Tutorial 8: Advanced Topics
+% DPI R Bootcamp 
+% Jared Knowles
+
+```{r setuph, include=FALSE}
+# set global chunk options
+opts_knit$set(animation.fun=hook_r2swf)
+opts_chunk$set(fig.path='figure/slides8-', cache.path='cache/slides8-',fig.width=12,fig.height=9,message=FALSE,error=FALSE,warning=FALSE,echo=TRUE,size='tiny',dev='png',out.width='700px',out.height='500px',cache=TRUE)
+library(eeptools)
+library(ggplot2)
+load('data/smalldata.rda')
+```
+
+# Overview
+In this lesson we hope to learn:
+- How to write a basic function
+- How to include error checking within a function
+- User specified options within a function
+- Writing your own R method
+- Writing generic functions for R methods
+
+# Why write a function?
+- Aren't current R functions perfectly good?
+- Can't I find a package to do this for me?
+- If I write the function wrong won't R crash or my analysis be incorrect?
+- 
