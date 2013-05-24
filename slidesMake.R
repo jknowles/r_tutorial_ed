@@ -88,7 +88,7 @@ library(eeptools)
 library(ggplot2)
 
 slidify(inputFile="TutorialX_Probability.Rmd")
-
+slidify(inputFile="Tutorial1_Intro.Rmd")
 
 
 

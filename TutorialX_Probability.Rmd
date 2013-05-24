@@ -1,18 +1,54 @@
 ---
-title       : Probability and Statistics
+title       : Probability Refresher
 subtitle    : DPI StatChat
 author      : Jared Knowles
 job         : Research Analyst, Wisconsin DPI
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : prettify  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-widgets     : []            # {mathjax, quiz, bootstrap}
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : standalone # {standalone, draft}
+--- bg:lightblue
+
+## Some Motivation for Probability
+
+- Probability is around us every day
+- Probability underpins phenomena in the world around us everyday
+- In fact, the most basic particles of matter are governed by probability
+- Probability is literally everywhere
+
+---
+## But what does probability mean?
+
+<p align="center"><img src="img/Doubleslit3Dspectrum.gif" height="300" width="300"></p>
+
+- A probability is quantified statement about how likely something will happen, ranging between 0 (absolutely certain not to happen), and 1 (absolutely certain to happen)
+- In practicality, proving a probability of 0 or 1 is quite difficult, except the probability you will enjoy this session!
+- Probabilities are inherently tied to the concept of repeatability, a probability represents the proportion of times we expect something to be successful over a reasonable number of trials
+
+---
+
+## The OP - Double Slit Electron Experiments
+
+<p align="center"><img src="img/Double-slit_experiment_results_Tanamura_four.jpg" height="450" width="750"></p>
+
+--- quote
+
+## Edward Gibbon
+
+The laws of probability, so true in general, so fallacious in particular.
+
+---
+
+## Andy Rooney
+
+The 50-50-90 rule: Anytime you have a 50-50 chance of getting something right, there's a 90% probability you'll get it wrong. 
+
 ---
 
 ## Probability
 
-- Some words here
+- $P(A \cap B) = P(A)P(B)$
 - They make sense
 
 ---

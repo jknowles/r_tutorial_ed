@@ -1,6 +1,14 @@
-% Tutorial 1: Getting Started
-% DPI R Bootcamp
-% Jared Knowles
+---
+title       : Tutorial 1- Getting Started
+subtitle    : DPI R Bootcamp / 2013
+author      : Jared Knowles
+job         : Research Analyst, Wisconsin DPI
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : prettify  # {highlight.js, prettify, highlight}
+hitheme     : hemisu-light      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : standalone # {standalone, draft}
+---
 
 ```{r setup, include=FALSE}
 # set global chunk options
@@ -10,7 +18,7 @@ opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE
 #opts_knit$set(upload.fun = imgur_upload)
 ```
 
-# Overview
+## Overview
 - What is R?
 - What is RStudio?
 - How does it work?
@@ -18,36 +26,35 @@ opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE
 - Why learn it?
 <p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
-# R
+--- bg:black
+
+## R
 - R is an Open Source (and freely available) environment for statistical computing and graphics
 - Available for Windows, Mac OS X, and Linux
 - R is being actively developed with two major releases per year and dozens of releases of add on packages
 - R can be extended with 'packages' that contain data, code, and documentation to add new functionality
 
-# What Does it Look Like?
+---
+
+## What Does it Look Like?
 The R workspace in RStudio
 
 <p align="center"><img src="img/workspacescreen.png" height="500" width="700"></p>
 
-# A Bit of Histo**R**y
+---
+## A Bit of Histo**R**y
 - R is a flavor of the **S** computer language
 - S was developed by John Chambers at Bell Labs in the late 1970s
 - In 1988 it was rewritten from a Fortran base to a C base
 - Version 4 of S, the latest version, was finished in 1998, and won several awards
 
-### The Philosophy
-John Chambers, in describing the logic behind the S language said:
+--- quote
+## John Chambers on the Philosophy of S
+<p><q>[W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as <span class = 'red'>programming</span>. Then as their needs became  clearer and their sophistication increased, they should be  able to <span class = 'red'>slide gradually</span> into programming, when the language and system aspects would become more important.</p></q>
 
-> [W]e wanted users to be able to begin in an interactive
-> environment, where they did not consciously think of
-> themselves as programming. Then as their needs became
-> clearer and their sophistication increased, they should be
-> able to slide gradually into programming, when the
-> language and system aspects would become more
-> important.
+---
 
-
-# R is Born
+## R is Born
 - 1991 in New Zealand Ross Ihaka and Robert Gentleman create R
 - Named for their first initials
 - R is made public in 1993, and in 1995 Martin Maechler convinces the creators to make it open source with the GNU General Public License
@@ -55,8 +62,9 @@ John Chambers, in describing the logic behind the S language said:
 - 2000 version 1.0.0 ships
 - 2012 version 2.15.2 is available (2.16.0 is due out early in 2013)
 
+---
 
-# Why Use R
+## Why Use R
 - R is a common tool among data experts at major universities
 - No need to go through procurement, R can be installed in any environment on any machine and used with no licensing or agreements needed
 - R source code is very readable to increase transparency of processes
@@ -64,56 +72,71 @@ John Chambers, in describing the logic behind the S language said:
 - R is incredibly flexible and can be adapted to specific local needs
 - R is under incredibly active development, improving greatly, and supported wildly by both professional and academic developers
 
-# Thoughts on Free
+---
+
+## Thoughts on Free
 - R is free in many senses
   1. R can be run and used for any purpose, commercial or non-commercial, profit or not-for-profit
   2. R's source code is freely available so you can study how it works and adapt it to your needs.
   3. R is free to redistribute so you can share it with your ~~enemies~~  friends
   4. R is free to modify and those modifications are free to redistribute and may be adopted by the rest of the community!
 
+---
 
-# R Advantages Continued
+## R Advantages Continued
 - R is platform agnostic - Linux, Mac, PC, server, desktop, etc.
 - R can output results in a variety of formats
 - R can build routines straight out of a database for common and universal reporting
 
-R Can Compliment Other Tools
-------------------------------------
+### R Can Compliment Other Tools
+
 - R plays nicely with data from Stata, SPSS, SAS and others
 - R can check work, produce output, visualize results from other programs
 - R can do bleeding edge analyses that aren't available in proprietary packages yet
 - R is becoming more prevalent in undergraduate statistics courses - more and more potential employees are learning it each year
 
-# R's Popularity
+---
+
+## R's Popularity
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS
 
 <p align="center"><img src="img/googlescholar.png" height="500" width="700"></p>
 
-# R Has an Active Web Presence
+---
+
+## R Has an Active Web Presence
 R is linked to from more and more sites 
 
 <p align="center"><img src="img/sitelinks.png" height="500" width="700"></p>
 
-# R Extensions
+---
+
+## R Extensions
 These links come from the explosion of add-on packages to R
 
 <p align="center"><img src="img/addons.png" height="500" width="700"></p>
 
-# R Has an Active Community 
+---
+
+## R Has an Active Community 
 Usage of the R listserv for help has really exploded recently
 
 <p align="center"><img src="img/rlistserv.png" height="500" width="700"></p>
 
 Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity/)
 
-# R's Drawbacks
+---
+
+## R's Drawbacks
 - R is based on S, which is close to 40 years old
 - R only has features that the community contributes
 - Not the ideal solution to all problems
 - R is a programming language and not a software package--steeper learning curve
 - R can be much slower than compiled languages
 
-# R Vocabulary
+---
+
+## R Vocabulary
 - **packages** are add on features to R that include data, new functions and methods, and extended capabilities. Think of them as ``apps'' on your phone. We've already installed several!
 - **terminal** this is the main window of R where you enter commands
 - **scripts** these are where you store commands to be run in the terminal later, like syntax files in SPSS or .do files in Stata
@@ -124,32 +147,42 @@ Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity
 - **symbols** used to name and store objects or to designate operations/functions
 - **attributes** determine how functions act on objects
 
-# Components of an R Setup
+---
+
+## Components of an R Setup
 - **R** - R works in the command line of any OS, but also comes with a basic GUI to operate on its own in Windows and Mac [download](http://cran.r-project.org/)
 - **RStudio** - a much better way to work in R that allows editing of scripts, operation of R, viewing of the workspace, and R help all on one screen [download](http://rstudio.org/download/)
 - We've already installed and configured these, but what might you want to use to go further after the Bootcamp is complete?
 
-# Advanced R Setup
+---
+
+## Advanced R Setup
 - **LaTeX** - for producing documents using R this is less necessary, but still useful. download [WIN](http://miktex.org/2.9/setup) [MAC](http://www.tug.org/mactex/2011/)
 - **Dev Tools for R** - on Windows this is Rtools, on Linux and Mac it is installing the development mode of R download [WIN](http://www.stats.ox.ac.uk/pub/Rtools/R215x.html) [MAC](http://cran.r-project.org/bin/macosx/tools/)
 - **Git** - for version control, sharing code, and collaboration this is essential. It integrates well with RStudio. [download](http://git-scm.com/download)
 - **pandoc** - for converting output into other formats for sharing with non-user**R**s! [download](http://johnmacfarlane.net/pandoc/installing.html)
 - **ImageMagick** - for creating more flexible graphics in R, including animations! [download](http://www.imagemagick.org/script/index.php) [alternate](http://www.graphicsmagick.org/)
 
-# Open Source Toolchain
+---
+
+## Open Source Toolchain
 - This really represents a completely open source toolchain to going from a data analysis idea, to a full fledged professional report
 - These tools are free, updated regularly, and available on **any** platform **today**
 - This toolchain is scriptable, reproducible, and has been around for quite some time so it is stable and robust
 - Lots of other programming languages use aspects of this toolchain
 
-# Some Notes about Maintaining R
+---
+
+## Some Notes about Maintaining R
 - Adding packages onto R means you also have to update them with the `update.packages()` command
 - Package updates are at the whim of the package developer which may be a corporation, an R Core Member, an academic, or me
 - Upgrading R on Windows, which is on a 6 month release cycle, is not straightforward yet, but there are lots of how-to guides online
 - Generally, upgrading is recommended as there are usually a lot of performance enhancements, even with minor (2.15.X) releases
 - We will walk through this a bit later, but remember that the flexibility in R means that users probably need to be self-supported in your organization
 
-# Self-help
+---
+
+## Self-help
 - In the spirit of open-source R is very much a self-guided tool
 - Let's see, type: `?summary`
 - Now type: `??regression`
@@ -158,7 +191,9 @@ Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity
 - StackOverflow has become a great resource with many questions for many specific packages in R, and a rating system for answers
 - A number of R Core members contribute there
 
-# Self-help (2)
+---
+
+## Self-help (2)
 - Sometimes R Help can be a bit prickly and unfriendly...
 - The most important part of getting help is being able to ask your question with a reproducible example (i.e. some short simulated data and code that doesn't do what you want)
 - Like this:
@@ -171,7 +206,9 @@ foo+bar
 
 - For R Help etiquette (for the tough problems) see [the great advice here](https://github.com/hadley/devtools/wiki/Reproducibility)
 
-# Let's Look at RStudio
+---
+
+## Let's Look at RStudio
 - RStudio has made R more accessible and easy to use than ever!
 - Open up **Tutorial1.R**
 - 4 panels, various tabs
@@ -180,7 +217,9 @@ foo+bar
 - Working files
 - The R Console
 
-# The Data Frame
+---
+
+## The Data Frame
 - What happens when you type:
 
 ```{r dataframeintro,echo=TRUE,results='hide'}
@@ -195,24 +234,30 @@ mtcars[1:8,]
 
 - This is how we'll look at R commands and their results the rest of the way
 
-# A Data Frame
+---
+
+## A Data Frame
 - A data frame is a lot like a traditional spreadsheet and is the central feature of data analysis in R
 - You'll see we have names, stored with numbers, which other programming languages are not so keen on doing
 - This is really handy, and data frames are the primary method we use to store data, manipulate data, etc.
 - The difference between a data frame and spreadsheet in Excel is that in almost all cases, everything we do to the data frame will either be by entire row, or by entire column
 - This sounds limiting, but in fact, it is incredibly powerful!
 
-# R As A Calculator
+---
+
+## R As A Calculator
 
 ```{r computing,echo=TRUE,results='markup'}
-2+2 # add numbers
+2+2 ## add numbers
 2*pi #multiply by a constant
 7+runif(1,min=0,max=1) #add a random variable
 4^4 # powers
 sqrt(4^4) # functions
 ```
 
-# Arithmetic Operators
+---
+
+## Arithmetic Operators
 - In addition to the obvious `+` `-` `=` `/` `*` and exponential `^`, there is also integer division `%/%` and remainder in integer division (known as modulo arithmetic) `%%`
 ```{r arithmetic}
 2+2
@@ -224,7 +269,9 @@ sqrt(4^4) # functions
 23 %% 2
 ```
 
-# Other Key Symbols
+---
+
+## Other Key Symbols
 - `<-` is the assignment operator, it declares something is something else
 ```{r}
 foo<-3
@@ -239,7 +286,9 @@ a
 ```
 - **This is handy**
 
-# Comments in R
+---
+
+## Comments in R
 - **#** denotes a comment in R
 - Anything after the **#** is not evaluated and ignored in R
 - This is handy for making things reproducible
@@ -253,7 +302,9 @@ a
 myplot(readSS,mathSS,data=df)
 ```
 
-# R Advanced Math
+---
+
+## R Advanced Math
 - R also supports advanced mathematical features and expressions
 - R can take integrals and derivatives and express complex functions
 - Easiest of all, R can generate distributions of data very easily
@@ -263,14 +314,17 @@ myplot(readSS,mathSS,data=df)
 - This comes in handy when writing examples and building analyses because it is trivial to generate a synthetic piece of data to use as an example
 - Go ahead, try typing `hist(rnorm(10000))` into RStudio
 
+---
 
-# Using the Workspace
+## Using the Workspace
 - To do more we need to learn how to manipulate the 'workspace'.
 - This includes all the vectors, datasets, and functions stored in memory.
 - All R objects are stored in the memory of the computer, limiting the available space for calculation to the size of the RAM on your machine.
 - R makes organizing the workspace easy.
 
-# Using the Workspace (2)
+---
+
+## Using the Workspace (2)
 ```{r}
 x<-5 #store a variable with <-
 x    #print the variable
@@ -281,7 +335,9 @@ rm(x)    # delete a variable
 ls()
 ```
 
-# R as a Language
+---
+
+## R as a Language
 - R is more than statistical software, it is a computer language
 - Like any language it has rules (some poorly enforced), and conventions
 - You will learn more as you go, but we'll go over a few to start
@@ -295,7 +351,9 @@ print(c(a,A))
   * <font color="red">**a** &#8800; **A**</font> 
 2. What happens if I type **print(a,A)**?
 
-# `c` is our friend
+---
+
+## `c` is our friend
 - So what does **c** do?
 ```{r}
 A<-c(3,4)
@@ -305,7 +363,9 @@ print(A)
 - If you ever need two elements in a vector, you need to wrap it up in `c`, which is one of the most used functions you will ever use
 - `c` is important to put any vector together, but remember that objects within a vector must all be of the same type
 
-# Language
+---
+
+## Language
 - In language there are a number of ways to say the same thing
   *  <font color="green">The dog chased the cat.</font> 
   *  <font color ="blue">The cat was chased by the dog.</font>
@@ -323,7 +383,8 @@ identical(c,d) # Test equality
 ```
 - Which is nicer? **c** or **d**?
 
-# More Language ~~Bugs~~ Features
+---
+## More Language ~~Bugs~~ Features
 - R is maddeningly inconsistent in it's naming conventions
   * Some functions are `camelCase`; others `are.dot.separated`; others `use_underscores`
   * Function results are stored in a variety of ways across function implementations
@@ -332,11 +393,12 @@ identical(c,d) # Test equality
   * Be flexible and be aware of R's flexibility
   
 
+
 ```{r eval=TRUE,echo=FALSE}
 load("data/smalldata.rda")
 ```
-
-# Objects
+---
+## Objects
 - Everything in R is an object - even functions
 - Objects can be manipulated many ways
 - A common example is applying the `summary` function to a variety of object types and seeing how it adapts
@@ -346,9 +408,11 @@ summary(df$readSS) #summary of a single column
 ```
 -The `$` says to look for object **readSS** in object **df**
 
-# Graphics too
+---
 
-```{r graphics1,message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=7.8, fig.height=4.5,tidy=FALSE,warning=FALSE}
+## Graphics too
+
+```{r graphics1,message=FALSE,dev='svg',fig.cap='Student Test Scores', fig.width=8.2, fig.height=4.3,tidy=FALSE,warning=FALSE}
 library(ggplot2) # Load graphics Package
 library(eeptools)
 qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_dpi()+
@@ -356,7 +420,9 @@ qplot(readSS,mathSS,data=df,geom='point',alpha=I(0.3))+theme_dpi()+
   geom_smooth()
 ```
 
-# Handling Data in R
+---
+
+## Handling Data in R
 - R handles data differently than many other statistical packages
 - In R, all elements are objects
 ```{r}
@@ -367,8 +433,9 @@ uniqstu
 ```
 - Results of function calls can be stored
 
+---
 
-# Special Operators
+## Special Operators
 - The comparison operators `<`, `>`, `<=`, `>=`, `==`, and `!=` are used to compare values across vectors
 ```{r vectorcomp}
 big<-c(9,12,15,25)
@@ -382,7 +449,9 @@ print(small)
 ```
 - Comparison operators can be tricky, so to keep it straight never use `=` or `==` to assign anything, always use `<-`
 
-# Special Operators II
+---
+
+## Special Operators II
 - The best way to evaluate these objects is to use brackets `[]` to avoid confusion
 
 ```{r brackets}
@@ -393,7 +462,9 @@ big[big>small]
 big[big<small] # Returns an empty set
 ```
 
-# Special operators (III)
+---
+
+## Special operators (III)
 - The `%in%` operator determines whether each value in the left operand can be matched with one of the values in the right operand.
 ```{r specialoperand}
 big<-c(9,12,15,25)
@@ -407,7 +478,9 @@ big[big %in% small]
 ```
 - No `NA`
 
-# Special operators (IV)
+---
+
+## Special operators (IV)
 - The logical operators `|` (or) and `&` (and) can be used to combine two logical values and produce another logical value as the result. The operator `!` (not) negates a logical value. These operators allow complex conditions to be constructed.
 ```{r vectorlogic}
 foo<-c('a',NA,4,9,8.7)
@@ -418,7 +491,9 @@ a
 class(a)
 ```
 
-# Special operators (V)
+---
+
+## Special operators (V)
 - The operators `||` and `&&` are similar, but they combine two logical vectors. The comparison is performed element by element, so the result is also a logical vector.
 
 ```{r vectorlogic2}
@@ -427,17 +502,23 @@ zap[zap>2 | zap<8]
 zap[zap>2 & zap<8]
 ```
 
-# Regular Expressions
+---
+
+## Regular Expressions
 - R also supports a full suite of regular expressions
 - This could be material for a full tutorial in a more advanced bootcamp
 - If you know and use regex, then rest assured you can keep using it in R
 
-# R Data Modes
+---
+
+## R Data Modes
 - R allows users to implement a number of different types of data
 - The three basic data types are numeric data, character data, and logical data
 - Vectors must be of one consistent type of data, so if you make a vector with multiple types, it generally defaults to being a character vector
 
-# Data Modes in R (numeric)
+---
+
+## Data Modes in R (numeric)
 - **numeric** vectors contain, as you would guess, numbers!
 
 ```{r}
@@ -446,7 +527,9 @@ class(A)
 print(A)
 ```
 
-# Data Modes (Character)
+---
+
+## Data Modes (Character)
 - **character** is known as strings in other software, any characters that have no numeric meaning
 
 ```{r}
@@ -455,7 +538,9 @@ print(b)
 is.numeric(b)
 ```
 
-# Data Modes (Logical)
+---
+
+## Data Modes (Logical)
 - **logical** is TRUE or FALSE values, useful for logical testing and programming
 - We've already seen these returned when we have asked R a question before
 
@@ -463,10 +548,12 @@ is.numeric(b)
 c<-c(TRUE,TRUE,TRUE,FALSE,FALSE,TRUE)
 is.numeric(c)
 is.character(c)
-is.logical(c) # Results in a logical value
+is.logical(c) ## Results in a logical value
 ```
 
-# Easier way
+---
+
+## Easier way
 - Just ask R using the `class` function
 
 ```{r class}
@@ -475,7 +562,9 @@ class(b)
 class(c)
 ```
 
-# A Note on Vectors
+---
+
+## A Note on Vectors
 - Vectors are collections of consistent data types
 - **numeric** can either be double or integer depending on the *bytes* size
 - **logical**
@@ -484,7 +573,9 @@ class(c)
 - **raw**
 - All vectors must be consistent among types, but some data objects like data frames can combine multiple vectors of different types
 
-# Factor
+---
+
+## Factor
 - A factor is a very special and sometimes frustrating data type in R
 
 ```{r fac}
@@ -494,7 +585,9 @@ myfac # What order are the factors in?
 ```
 - What if we don't like the order these are in? Factor order is important for all kinds of things like plot type, regression output, and more
 
-# Ordering the Factor
+---
+
+## Ordering the Factor
 - Ordered factors simply have an additional attribute explaining the order of the levels of a factor
 - This is a useful shortcut when we want to preserve some of the meaning provided by the order
 - Think cardinal data
@@ -505,7 +598,9 @@ myfac_o
 summary(myfac_o)
 ```
 
-# Reclassifying Factors
+---
+
+## Reclassifying Factors
 - Turning factors into other data types can be tricky. All factor levels have an underlying numeric structure.
 
 ```{r fac2}
@@ -518,7 +613,9 @@ defac
 - What is wrong with this? Well--why would `minimal` be `2` and `basic` be `3`?
 - Be careful! The best way to unpack a factor is to convert it to a character first.
 
-# Defactor
+---
+
+## Defactor
 ```{r fac2.1,eval=FALSE,echo=TRUE}
 # From the eeptools package
 defac<-function(x){
@@ -533,7 +630,9 @@ defac<-defac(myfac_o)
 defac
 ```
 
-# Convert to Numeric?
+---
+
+## Convert to Numeric?
 - What if we do want it to be numeric?
 - The best way to do this is to recode the variable manually--we'll discuss this later
 - You can try to convert it to numeric though, but do at your own risk:
@@ -549,7 +648,9 @@ myfac
 as.numeric(myfac)
 ```
 
-# Dates
+---
+
+## Dates
 - R has built-in ways to handle dates
 - See `lubridate` package for more advanced functionality including mathematical operations on dates
 
@@ -561,7 +662,9 @@ weekdays(mydate) # what day of the week is it?
 mydate+30 # Operate on dates
 ```
 
-# More Dates
+---
+
+## More Dates
 
 ```{r moredates1}
 # We can parse other formats of dates
@@ -572,7 +675,9 @@ mydate-mydate2
 # Can add and subtract two date objects
 ```
 
-# A few notes on dates
+---
+
+## A few notes on dates
 - R converts all dates to numeric values, like Excel and other languages
 - The origin date in R is January 1, 1970
 
@@ -581,7 +686,9 @@ as.numeric(mydate) # days since 1-1-1970
 as.Date(56,origin="2013-4-29") # we can set our own origin
 ```
 
-# Other Classes
+---
+
+## Other Classes
 - R classes can be specified for any special purpose
 - Like linear models
 
@@ -593,20 +700,26 @@ mymod<-lm(a~b)
 class(mymod)
 ```
 
-# Why care so much about classes?
+---
+
+## Why care so much about classes?
 - Classes determine what you can and can't do with objects
 - Different classes have different computational times associated with them, so the choice can affect the optimization of the code
 - Classes allow you to keep projects/data organized
 - **Because R makes you care**
 
-# Data Structures in R
+---
+
+## Data Structures in R
 - R has a number of basic data classes as well as arbitrary specialized object types for various purposes
 - **vectors** are the basic data class in R and can be thought of as a single column of data (even a column of length 1)
 - **matrices and arrays** are rows and columns of all the same mode data
 - **dataframes** are rows and columns where the columns can represent different data types
 - **lists** are arbitrary combinations of disparate object types in R
 
-# Vectors 
+---
+
+## Vectors 
 - Everything is a vector in R, even single numbers
 - Single objects are "atomic" vectors
 
@@ -617,7 +730,9 @@ print("This tutorial is awesome")
 # This is a vector of length 1 consisting of a single "string of characters"
 ```
 
-# Vectors 2
+---
+
+## Vectors 2
 ```{r vectors2}
 print(LETTERS) 
 # This vector has 26 character elements
@@ -627,7 +742,9 @@ length(LETTERS[6])
 # The length of that element is a number with length 1
 ```
 
-# Matrices
+---
+
+## Matrices
 - Matrices are combinations of vectors of the same length and data type
 - We can have numeric matrices, character matrices, or logical matrices
 - Can't mix types
@@ -639,7 +756,9 @@ colnames(mymat)<-LETTERS[7:12]
 class(mymat)
 ```
 
-# Matrices II
+---
+
+## Matrices II
 
 ```{r matrix2}
 rownames(mymat)
@@ -647,8 +766,9 @@ colnames(mymat)
 mymat
 ```
 
+---
 
-# More Matrices
+## More Matrices
 - We can add to matrices
 
 ```{r matrix3}
@@ -660,7 +780,9 @@ newmat
 ```
 - Dataframes work similarly
 
-# Matrix Functions
+---
+
+## Matrix Functions
 - We can do some basic math to matrices as well, like correlations
 
 ```{r matrix4}
@@ -671,7 +793,9 @@ cor(foo.mat)
 
 - The result is a matrix itself, but we can force it to be something else
 
-# Converting Matrices
+---
+
+## Converting Matrices
 - Let's make a matrix be a dataframe
 ```{r matrixdance}
 mycorr<-cor(foo.mat)
@@ -681,7 +805,9 @@ class(mycorr2)
 mycorr2
 ```
 
-# Arrays
+---
+
+## Arrays
 - Arrays are a set of matrices of the same `dim` and `class`
 - Arrays allow dimensions to be named
 
@@ -693,14 +819,18 @@ class(myarray)
 dim(myarray)
 ```
 
-# Arrays II
+---
+
+## Arrays II
 
 ```{r array2}
 dimnames(myarray)
 myarray
 ```
 
-# Lists
+---
+
+## Lists
 - Lists are arbitrary collections of objects. 
 - The objects do not have to be of the same type or same element or same dimensions
 
@@ -711,12 +841,16 @@ length(mylist)
 names(mylist)
 ```
 
-# Print a List
+---
+
+## Print a List
 ```{r listprint}
 str(mylist)
 ```
 
-# Lists (II)
+---
+
+## Lists (II)
 - R has two object classification schemes S3 and S4
   - For S3 use `$` or `[[]]` to extract elements
   - For S4 use `@` to extract elements
@@ -728,7 +862,9 @@ mylist[[2]][1,3]
 
 - Where are we getting the object in the second row from?
 
-# So what?
+---
+
+## So what?
 - Matrices, lists, and arrays are useful for storing analyses results, generating reports, and doing analysis on many objects types
 - We'll see examples of list and array manipulation later
 - A useful tip is to use the `attributes` function to learn about the object
@@ -740,8 +876,9 @@ attributes(myarray)[1:2][2]
 
 - They also provide simplified ways to get used to operating on dataframes by reducing complexity
 
+---
 
-# Dataframes
+## Dataframes
 - Dataframes are combinations of vectors of the same length, but can be of different types
 
 ```{r dataframetypes,echo=TRUE,results='markup'}
@@ -753,13 +890,17 @@ str(df[ ,25:32])
 - Dataframes are what sets R apart from other programming languages like C, C++, Python, and Perl. 
 - The dataframe structure is much more complex and much easier to use than any datastructure in these languages - though Python is catching up!
 
-# Converting Between Types
+---
+
+## Converting Between Types
 - R has built in functions to allow you to force objects to move between types
 - These follow the general form `as.whatIwant` as in `as.factor` or `as.table` or `as.data.frame`
 - You will use these commands a lot to convert output from various functions into a form you can input into a different function
 - A good example is converting correlation matrices into dataframes so we can plot them
 
-# Summing it Up
+---
+
+## Summing it Up
 - Vectors are used to store bits of data
 - Matrices are combinations of vectors of the same length and type
 - Matrices are most commonly used in statistical models (in the background), and for computation
@@ -767,7 +908,9 @@ str(df[ ,25:32])
 - Lists are groups of R objects commonly used to combine function output in useful ways (like store model results and model data together)
 
 
-# Exercises
+---
+
+## Exercises
 
 1. Create a matrix of 5x6 dimensions. Add a vector to it (as either a row or column). Identify element 2,3. 
 
@@ -775,7 +918,9 @@ str(df[ ,25:32])
 
 3. Look at the difference between data frames and matrices.
 
-# Other References
+---
+
+## Other References
 - [An R Vocabulary for Starting Out](https://github.com/hadley/devtools/wiki/vocabulary)
 - [UCLA Academic Technology Services: R Starter Kit](http://www.ats.ucla.edu/stat/r/sk/)
 - [Quick R: Getting Started](http://www.statmethods.net/)
@@ -786,7 +931,9 @@ str(df[ ,25:32])
 - [JSM 2012 R Introduction by Jay Emerson](http://www.stat.yale.edu/~jay/JSM2012/PDFs/intro.pdf)
 - [Notes on R for Programmers by John Cook](http://www.johndcook.com/R_language_for_programmers.html)
 
-# Books
+---
+
+## Books
 - There are a number of great R books available for learning the beginnings of R and for learning specific statistical techniques
 - "Discovering Statistics Using R" by Andy Field
 - "Applied Econometrics with R" by Achim Zeileis and Christian Kleiber
@@ -795,7 +942,9 @@ str(df[ ,25:32])
 - The R Book by Michael J. Crawley (new version imminent)
 - The R Cookbook
 
-# Session Info
+---
+
+## Session Info
 
 It is good to include the session info, e.g. this document is produced with **knitr** version `r packageVersion('knitr')`. Here is my session info:
 
@@ -804,7 +953,9 @@ print(sessionInfo(), locale=FALSE)
 ```
 
 
-# Attribution and License
+---
+
+## Attribution and License
 This work (<span property="dct:title">R Tutorial for Education</span>, by <a href="www.jaredknowles.com" rel="dct:creator"><span property="dct:title">Jared E. Knowles</span></a>), in service of the <a href="http://www.dpi.wi.gov" rel="dct:publisher"><span property="dct:title">Wisconsin Department of Public Instruction</span></a>, is free of known copyright restrictions.
 </p>
 <p xmlns:dct="http://purl.org/dc/terms/">

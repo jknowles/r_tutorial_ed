@@ -12,7 +12,6 @@
 - Intro to RStudio - add some slides about this (using ctrl+ enter to run lines, code completion, code highlighting, etc.)
 - Make a references page
 - Fix intro to programming so it evaluates correctly
-- Publish all Shiny demos on the web for others to run and play along with
 - To Tutorial 8 add Shiny programming, add information about LaTeX, more advanced loops (simplify loop example)
 - Add information about animations, but simplify this
 - Add information about compiling functions
@@ -22,3 +21,5 @@
 - Also add information about maintaining an R installation and tips and tricks for using R
 - Extend Tutorial 4 with more examples
 - Include examples to speed up code in Tutorial 8 (data.table, parallel, compiling functions in a secion called optimization)
+- SLIDIFY slides
+- In Tutorial 1 convert some slides to using two columns
