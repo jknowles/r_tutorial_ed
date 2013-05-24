@@ -1,0 +1,39 @@
+---
+title       : Probability and Statistics
+subtitle    : DPI StatChat
+author      : Jared Knowles
+job         : Research Analyst, Wisconsin DPI
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : prettify  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : standalone # {standalone, draft}
+---
+
+## Probability
+
+- Some words here
+- They make sense
+
+---
+
+## Here is something interesting
+
+### My name 
+
+--- &twocol w1:50% w2:50%
+
+## Why?
+
+***left
+### Very interesting
+>- Points to make
+>- That you will like
+
+***right
+### Pay attention
+>- To this
+>- and this
+
+---
+

@@ -69,4 +69,28 @@ purl("Tutorial8_AdvancedTopics.Rmd",output="handouts/scripts/Tutorial8.R")
 purl("rsetup.Rmd",output="handouts/scripts/settingupR.R")
 purl("TutorialX_StatisticsRefresher.Rmd",output="handouts/scripts/TutorialX.R")
 
+################################################################################
+# slidify
+
+library(devtools)
+install_github("slidify", "ramnathv")
+install_github("slidifyLibraries", "ramnathv")
+install_github("knitr", "yihui")
+install_github("whisker", "edwindj")
+install_github("markdown", "rstudio")
+
+library(slidify)
+library(whisker)
+library(markdown)
+library(slidifyLibraries)
+library(knitr)
+library(eeptools)
+library(ggplot2)
+
+slidify(inputFile="TutorialX_Probability.Rmd")
+
+
+
+
+
 
