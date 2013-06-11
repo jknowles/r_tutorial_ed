@@ -94,12 +94,17 @@ N <- length(unique(sim$ball1))
 K <- 3
 P <- length(unique(sim$powerball))
 
+# n = number to draw from (e.g. pick 1-6)
+# k = number of draws
+# p = number of choices in the bonus ball pool
+# b = balls to match overall
+
 lottoExp <- function(n, k, p, b){
   ((1/p) * choose(k, b) * choose(n-k, k-b)) / choose(n, k)
 }
 
 
-lottoExp(6, 3, 5, 3)
+lottoExp(6, 4, 5, 3)
 
 
 

@@ -12,10 +12,10 @@ mode        : standalone # {standalone, draft}
 
 ## Some Motivation for Probability
 
-- Probability is around us every day
-- Probability underpins phenomena in the world around us everyday
-- In fact, the most basic particles of matter are governed by probability
-- Probability is literally everywhere
+>- Probability is a mathematical tool to express uncertainty about events in the world 
+around us
+>- The most basic particles of matter are governed by probability
+>- Probability is literally everywhere
 
 ---
 ## But what does probability mean?
@@ -38,7 +38,7 @@ mode        : standalone # {standalone, draft}
 
 The laws of probability, so true in general, so fallacious in particular.
 
----
+--- quote
 
 ## Andy Rooney
 
@@ -47,9 +47,67 @@ The 50-50-90 rule: Anytime you have a 50-50 chance of getting something right, t
 ---
 
 ## Probability
+Three simple formulas
 
 - $P(A \cap B) = P(A)P(B)$
-- They make sense
+- $P(A \cup B) = P(A) + P(B)$ - mutually exclusive A and B
+- $P(A \cup B) = P(A) + P(B) - P(A and B)$ - not mutually exclusive
+- They make sense and we use them everday.
+- The first describes independent events -- like the chance two cards drawn from separate decks are the same suit. 
+- The second describes mutually exclusive events, such as the chance of drawing **either** a single heart or a spade card from a single deck of cards. 
+- The third describes events that are not mutually exlusive. The probability of drawing one card from a deck that is either a heart or a face card or both. 
+
+---
+
+## Meanwhile, in the real world
+
+- We are familiar with these examples from school, but how about the real world?
+- Events are not sequenced in the real world, we often have multiple conditions beyond A and B, and we often have different probabilities for different events. We may want to know the probability of event A, given a fixed outcome of probability B.
+- We need conditional probability formulas:
+- $P(A | B) = \frac{P(A \cap B)}{P(B)}$
+- When drawing two aces from the same deck, the probability of drawing an ace on the first draw is $\frac{4}{52}$, but the probability of drawing a second ace conditional on already drawing an ace is $\frac{\frac{4}{52} * \frac{3}{51}}{\frac{4}{52}}$. Why?
+
+---
+
+## Real world
+
+- Conditional probabilities are all around us, and are the most interesting to us
+- What is the chance a student graduates high school, conditional on having a test score of X?
+- What is the chance a student develops an alcohol problem, conditional on having Z type of friends?
+- What is the chance a school meets AYP, conditional on receiving additional state and federal aid to improve instruction?
+- Probability is often framed alternatively in terms of risk or odds
+
+---
+
+## Lotteries
+
+- The lottery is one of the most classic cases of a conditional probability
+- Let's run our own lottery
+- Everyone pick 3 numbers from 1 to 6; and 1 powerball from 1 to 4
+- Order does not matter except for the powerball
+- Write them down on a piece of paper with your name and hand them in
+
+---
+
+## Exercise
+
+- While I input your picks, think about what your odds of winning are
+- Remember, after a number is drawn, it is not replaced so there is a $\frac{1}{6}$ then $\frac{1}{5}$, then $\frac{1}{4}$ choice set for three balls, plus the $\frac{1}{4}$ for the powerball.
+- Why or why not do you think the answer you have is correct?
+
+---
+
+## 
+
+---
+
+## How do we apply this to our work?
+
+>- What is the probability a student in Wisconsin will graduate from high school?
+>- Is this a useful question? 
+>- What additional information would help answer the question better? 
+>- The list of conditional probabilities is quite large!
+>- This is the basis for statistical modeling and statistical analysis
 
 ---
 
