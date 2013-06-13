@@ -73,11 +73,12 @@ purl("TutorialX_StatisticsRefresher.Rmd",output="handouts/scripts/TutorialX.R")
 # slidify
 
 library(devtools)
-install_github("slidify", "ramnathv")
-install_github("slidifyLibraries", "ramnathv")
+install_github("slidify", "ramnathv", ref="dev")
+install_github("slidifyLibraries", "ramnathv", ref="dev")
 install_github("knitr", "yihui")
 install_github("whisker", "edwindj")
 install_github("markdown", "rstudio")
+
 
 library(slidify)
 library(whisker)
@@ -89,7 +90,7 @@ library(ggplot2)
 
 slidify(inputFile="TutorialX_Probability.Rmd")
 slidify(inputFile="Tutorial1_Intro.Rmd")
-
+#slidify(inputFile="emphasisMWE.Rmd")
 
 
 

@@ -7,3 +7,4 @@ handouts
 *.md
 .md
 img/Thumbs.db
+.cache*

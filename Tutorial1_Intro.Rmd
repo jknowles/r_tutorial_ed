@@ -4,11 +4,20 @@ subtitle    : DPI R Bootcamp / 2013
 author      : Jared Knowles
 job         : Research Analyst, Wisconsin DPI
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : prettify  # {highlight.js, prettify, highlight}
+highlighter : highlight  # {highlight.js, prettify, highlight}
 hitheme     : hemisu-light      # 
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : standalone # {standalone, draft}
 ---
+
+<style>
+em {
+  font-style: italic
+}
+strong {
+  font-weight: bold;
+}
+</style>
 
 ```{r setup, include=FALSE}
 # set global chunk options
@@ -26,7 +35,7 @@ opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE
 - Why learn it?
 <p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
---- bg:black
+--- .dark
 
 ## R
 - R is an Open Source (and freely available) environment for statistical computing and graphics
@@ -228,7 +237,7 @@ mtcars
 ```
 
 
-```{r dataframeintro2,echo=FALSE,results='markup'}
+```{r dataframeintro2,echo=FALSE,results='asis'}
 mtcars[1:8,]
 ```
 

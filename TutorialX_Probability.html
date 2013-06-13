@@ -43,10 +43,10 @@
     <h2>Some Motivation for Probability</h2>
   </hgroup>
   <article>
-    <ul>
-<li>Probability is around us every day</li>
-<li>Probability underpins phenomena in the world around us everyday</li>
-<li>In fact, the most basic particles of matter are governed by probability</li>
+    <ul class = "build">
+<li>Probability is a mathematical tool to express uncertainty about events in the world 
+around us</li>
+<li>The most basic particles of matter are governed by probability</li>
 <li>Probability is literally everywhere</li>
 </ul>
 
@@ -82,21 +82,220 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-4" style="background:;">
+      <slide class="quote" id="slide-4" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <p>The laws of probability, so true in general, so fallacious in particular. Edward Gibbon</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="quote dark" id="slide-5" style="background:;">
+  <hgroup>
+    
+  </hgroup>
+  <article>
+    <p>The 50-50-90 rule: Anytime you have a 50-50 chance of getting something right, there&#39;s a 90% probability you&#39;ll get it wrong. Andy Rooney</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Probability</h2>
   </hgroup>
   <article>
-    <ul>
+    <p>Three simple formulas</p>
+
+<ul>
 <li>\(P(A \cap B) = P(A)P(B)\)</li>
-<li>They make sense</li>
+<li>\(P(A \cup B) = P(A) + P(B)\) - mutually exclusive A and B</li>
+<li>\(P(A \cup B) = P(A) + P(B) - P(A and B)\) - not mutually exclusive</li>
+<li>They make sense and we use them everday.</li>
+<li>The first describes independent events -- like the chance two cards drawn from separate decks are the same suit. </li>
+<li>The second describes mutually exclusive events, such as the chance of drawing <strong>either</strong> a single heart or a spade card from a single deck of cards. </li>
+<li>The third describes events that are not mutually exlusive. The probability of drawing one card from a deck that is either a heart or a face card or both. </li>
 </ul>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-5" style="background:;">
+      <slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Meanwhile, in the real world</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>We are familiar with these examples from school, but how about the real world?</li>
+<li>Events are not sequenced in the real world, we often have multiple conditions beyond A and B, and we often have different probabilities for different events. We may want to know the probability of event A, given a fixed outcome of probability B.</li>
+<li>We need conditional probability formulas:</li>
+<li>\(P(A | B) = \frac{P(A \cap B)}{P(B)}\)</li>
+<li>When drawing two aces from the same deck, the probability of drawing an ace on the first draw is \(\frac{4}{52}\), but the probability of drawing a second ace conditional on already drawing an ace is \(\frac{\frac{4}{52} * \frac{3}{51}}{\frac{4}{52}}\). Why?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-8" style="background:;">
+  <hgroup>
+    <h2>Real world</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Conditional probabilities are all around us, and are the most interesting to us</li>
+<li>What is the chance a student graduates high school, conditional on having a test score of X?</li>
+<li>What is the chance a student develops an alcohol problem, conditional on having Z type of friends?</li>
+<li>What is the chance a school meets AYP, conditional on receiving additional state and federal aid to improve instruction?</li>
+<li>Probability is often framed alternatively in terms of risk or odds</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-9" style="background:;">
+  <hgroup>
+    <h2>Lotteries</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>The lottery is one of the most classic cases of a conditional probability</li>
+<li>Let&#39;s run our own lottery</li>
+<li>Everyone pick 3 numbers from 1 to 6; and 1 powerball from 1 to 4</li>
+<li>Order does not matter except for the powerball</li>
+<li>Write them down on a piece of paper with your name and hand them in</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-10" style="background:;">
+  <hgroup>
+    <h2>Exercise</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>While I input your picks, think about what your odds of winning are</li>
+<li>Remember, after a number is drawn, it is not replaced so there is a \(\frac{1}{6}\) then \(\frac{1}{5}\), then \(\frac{1}{4}\) choice set for three balls, plus the \(\frac{1}{4}\) for the powerball.</li>
+<li>Why or why not might your answer be correct?</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-11" style="background:;">
+  <hgroup>
+    <h2>Answers</h2>
+  </hgroup>
+  <article>
+    <ul class = "build">
+<li>Chaining together multiple probabilities really complicates things!</li>
+<li>If we had to get the balls correctly in order, then the probability would be 
+very straightforward: \(\frac{1}{6} x \frac{1}{5} x \frac{1}{4} x \frac{1}{4}\)</li>
+<li>This is \(\frac{1}{480}\), is that too low or too high?</li>
+<li>But we can get them right in any order -- why does this matter?</li>
+<li>How many unique combinations of your three numbers are there? </li>
+<li>6</li>
+<li>So out of 120 possibilities for those three numbers, you have a chance at 6, and out of the powerball you have the same chance, 1 in 4</li>
+<li>What&#39;s the new probability?</li>
+<li>\(\frac{6}{120} x \frac{1}{4}\) or 0.0125 or \(\frac{1}{80}\)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-12" style="background:;">
+  <hgroup>
+    <h2>Let&#39;s see how much you won!</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>For each of you, we&#39;ll assume you picked the same numbers each time for 1,000 separate lottery drawings</li>
+<li>We&#39;ll see how long it took you to win your first lottery, how many times you won, and how many times you would have won without the powerball being included</li>
+<li>Demo</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-13" style="background:;">
+  <hgroup>
+    <h2>How do we apply this to our work?</h2>
+  </hgroup>
+  <article>
+    <ul class = "build">
+<li>What is the probability a student in Wisconsin will graduate from high school?</li>
+<li>Is this a useful question? </li>
+<li>What additional information would help answer the question better? </li>
+<li>The list of conditional probabilities is quite large!</li>
+<li>This is the basis for statistical modeling and statistical analysis</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      NULL
+      <slide class="" id="slide-15" style="background:;">
+  <hgroup>
+    <h2>Exploring Distributions</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Write down your estimate of the following three things on a piece of paper and hand them in, make a copy for yourself, keep your estimate to yourself for now:
+
+<ul>
+<li>How tall in inches (to the nearest quarter inch) is Jared?</li>
+<li>What is the US Census estimate of the median household income in Illinois from 2007-2011, in dollars?</li>
+<li>What is the current world record time in the women&#39;s marathon, in minutes?</li>
+</ul></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-16" style="background:;">
+  <hgroup>
+    <h2>Graphing your Answers</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>While we input your answers, talk with your neighbor about your estimates. Was your neighbor higher or lower than you? Would you change your estimate based on sharing information with your neighbor?</li>
+<li>Talk to another neighbor, would you change your estimate further? </li>
+<li>Let&#39;s look at the responses from the group!</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-17" style="background:;">
+  <hgroup>
+    <h2>Look at the answers</h2>
+  </hgroup>
+  <article>
+    <ul>
+<li>Jared is 68.25 inches tall</li>
+<li>Illinois household income is $56,576 (<a href="http://quickfacts.census.gov/qfd/states/17000.html">http://quickfacts.census.gov/qfd/states/17000.html</a>)</li>
+<li>Marathon time is 2:15:25, or 135.42 minutes (<code>http://en.wikipedia.org/wiki/Marathon_world_record_progression</code>)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Here is something interesting</h2>
   </hgroup>
@@ -107,7 +306,7 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-6" style="background:;">
+      <slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Why?</h2>
   </hgroup>
@@ -136,7 +335,7 @@
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-7" style="background:;">
+      <slide class="" id="slide-20" style="background:;">
   <hgroup>
     
   </hgroup>
