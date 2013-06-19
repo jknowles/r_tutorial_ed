@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="C:/Program Files/R/R-2.15.2/library/slidifyLibraries/libraries/frameworks/io2012/css/phone.css" 
     media="only screen and (max-device-width: 480px)" >
   <link rel="stylesheet" href="C:/Program Files/R/R-2.15.2/library/slidifyLibraries/libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="C:/Program Files/R/R-2.15.2/library/slidifyLibraries/libraries/highlighters/highlight/css/hemisu-light.css" />
+  <link rel="stylesheet" href="C:/Program Files/R/R-2.15.2/library/slidifyLibraries/libraries/highlighters/highlight.js/css/zenburn.css" />
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  
   
   <!-- Grab CDN jQuery, fall back to local if offline -->
@@ -49,6 +49,10 @@ em {
 strong {
   font-weight: bold;
 }
+pre {
+  font-size: 18px;
+  line-height: 20px;
+}
 </style>
 
 <h2>Overview</h2>
@@ -58,15 +62,16 @@ strong {
 <li>What is RStudio?</li>
 <li>How does it work?</li>
 <li>What makes the language different?</li>
-<li>Why learn it?
-<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p></li>
+<li>Why learn it?</li>
 </ul>
+
+<p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="dark" id="slide-2" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>R</h2>
   </hgroup>
@@ -116,7 +121,7 @@ strong {
     <h2>John Chambers on the Philosophy of S</h2>
   </hgroup>
   <article data-timings="">
-    <p><p><q>[W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as <span class = 'red'>programming</span>. Then as their needs became  clearer and their sophistication increased, they should be  able to <span class = 'red'>slide gradually</span> into programming, when the language and system aspects would become more important.</p></q></p>
+    <p><p><q>[W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as <span class = 'red'>programming</span>. Then ... they should be  able to <span class = 'red'>slide gradually</span> into programming, when the language and system aspects would become more important.</p></q></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -209,7 +214,7 @@ strong {
   <article data-timings="">
     <p>R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS</p>
 
-<p align="center"><img src="img/googlescholar.png" height="500" width="700"></p>
+<p align="center"><img src="img/googlescholar.png" height="450" width="625"></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -222,7 +227,7 @@ strong {
   <article data-timings="">
     <p>R is linked to from more and more sites </p>
 
-<p align="center"><img src="img/sitelinks.png" height="500" width="700"></p>
+<p align="center"><img src="img/sitelinks.png" height="500" width="600"></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -235,7 +240,7 @@ strong {
   <article data-timings="">
     <p>These links come from the explosion of add-on packages to R</p>
 
-<p align="center"><img src="img/addons.png" height="500" width="700"></p>
+<p align="center"><img src="img/addons.png" height="500" width="600"></p>
 
   </article>
   <!-- Presenter Notes -->
@@ -248,7 +253,7 @@ strong {
   <article data-timings="">
     <p>Usage of the R listserv for help has really exploded recently</p>
 
-<p align="center"><img src="img/rlistserv.png" height="500" width="700"></p>
+<p align="center"><img src="img/rlistserv.png" height="400" width="560"></p>
 
 <p>Data from Bob Muenchen <a href="http://r4stats.com/articles/popularity/">available online</a></p>
 
@@ -437,17 +442,16 @@ foo + bar
 mtcars
 </code></pre>
 
-<pre><code>               mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+<pre><code>##                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
 </code></pre>
-
-<p>Mazda RX4         21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-Mazda RX4 Wag     21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-Datsun 710        22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-Hornet 4 Drive    21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-Valiant           18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-Duster 360        14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</p>
 
 <ul>
 <li>This is how we&#39;ll look at R commands and their results the rest of the way</li>
@@ -474,7 +478,7 @@ Merc 240D         24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2</p>
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="" id="slide-25" style="background:;">
+<slide class="" id="slide-25" style="background:black;">
   <hgroup>
     <h2>R As A Calculator</h2>
   </hgroup>
@@ -2740,5 +2744,9 @@ class(mylist)
 </body>
   <!-- Load Javascripts for Widgets -->
   
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="C:/Program Files/R/R-2.15.2/library/slidifyLibraries/libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
    
   </html>

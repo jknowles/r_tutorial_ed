@@ -4,8 +4,8 @@ subtitle    : DPI R Bootcamp / 2013
 author      : Jared Knowles
 job         : Research Analyst, Wisconsin DPI
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
-highlighter : highlight  # {highlight.js, prettify, highlight}
-hitheme     : hemisu-light      # 
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : monokai       # 
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : standalone # {standalone, draft}
 ---
@@ -16,6 +16,10 @@ em {
 }
 strong {
   font-weight: bold;
+}
+pre {
+  font-size: 18px;
+  line-height: 20px;
 }
 </style>
 
@@ -33,9 +37,11 @@ opts_chunk$set(fig.path='figure/slides-', cache.path='cache/slides-', cache=TRUE
 - How does it work?
 - What makes the language different?
 - Why learn it?
+
+
 <p align="center"><img src="img/dpilogo.png" height="81" width="138"></p>
 
---- .dark
+--- 
 
 ## R
 - R is an Open Source (and freely available) environment for statistical computing and graphics
@@ -59,7 +65,7 @@ The R workspace in RStudio
 
 --- quote
 ## John Chambers on the Philosophy of S
-<p><q>[W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as <span class = 'red'>programming</span>. Then as their needs became  clearer and their sophistication increased, they should be  able to <span class = 'red'>slide gradually</span> into programming, when the language and system aspects would become more important.</p></q>
+<p><q>[W]e wanted users to be able to begin in an interactive environment, where they did not consciously think of themselves as <span class = 'red'>programming</span>. Then ... they should be  able to <span class = 'red'>slide gradually</span> into programming, when the language and system aspects would become more important.</p></q>
 
 ---
 
@@ -109,28 +115,28 @@ The R workspace in RStudio
 ## R's Popularity
 R has recently passed Stata on Google Scholar hits and it is catching up to the two major players SPSS and SAS
 
-<p align="center"><img src="img/googlescholar.png" height="500" width="700"></p>
+<p align="center"><img src="img/googlescholar.png" height="450" width="625"></p>
 
 ---
 
 ## R Has an Active Web Presence
 R is linked to from more and more sites 
 
-<p align="center"><img src="img/sitelinks.png" height="500" width="700"></p>
+<p align="center"><img src="img/sitelinks.png" height="500" width="600"></p>
 
 ---
 
 ## R Extensions
 These links come from the explosion of add-on packages to R
 
-<p align="center"><img src="img/addons.png" height="500" width="700"></p>
+<p align="center"><img src="img/addons.png" height="500" width="600"></p>
 
 ---
 
 ## R Has an Active Community 
 Usage of the R listserv for help has really exploded recently
 
-<p align="center"><img src="img/rlistserv.png" height="500" width="700"></p>
+<p align="center"><img src="img/rlistserv.png" height="400" width="560"></p>
 
 Data from Bob Muenchen [available online](http://r4stats.com/articles/popularity/)
 
@@ -237,7 +243,7 @@ mtcars
 ```
 
 
-```{r dataframeintro2,echo=FALSE,results='asis'}
+```{r dataframeintro2,echo=FALSE,results='markup'}
 mtcars[1:8,]
 ```
 
@@ -252,7 +258,7 @@ mtcars[1:8,]
 - The difference between a data frame and spreadsheet in Excel is that in almost all cases, everything we do to the data frame will either be by entire row, or by entire column
 - This sounds limiting, but in fact, it is incredibly powerful!
 
----
+--- bg:black
 
 ## R As A Calculator
 
