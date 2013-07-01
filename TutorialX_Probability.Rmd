@@ -1,4 +1,5 @@
----
+--- 
+
 title       : Probability Refresher
 subtitle    : DPI StatChat
 author      : Jared Knowles
@@ -6,19 +7,38 @@ job         : Research Analyst, Wisconsin DPI
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : prettify  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
-widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+widgets     : [mathjax, bootstrap]            # {mathjax, quiz, bootstrap}
 mode        : standalone # {standalone, draft}
---- bg:lightblue
 
-## Some Motivation for Probability
+--- bg:white
 
->- Probability is a mathematical tool to express uncertainty about events in the world 
-around us
->- The most basic particles of matter are governed by probability
->- Probability is literally everywhere
+## Goals for Today
+
+> - Provide an overview of probability
+> - Demonstrate probability in effect
+> - Discuss why probability matters
+> - Demonstrate statistical distributions
+> - Discuss their implications
+
+--- bg:white
+
+<p><q> Why does probability <span class = 'red'>matter to me</span>? </q></p>
 
 ---
-## But what does probability mean?
+
+<q class='shout'>The laws of probability, so true in general, <span class = 'key'>so fallacious in particular.</q>
+
+Edward Gibbon
+
+--- 
+
+<q class='shout'>The 50-50-90 rule: Anytime you have a 50-50 chance of getting something right, there's a 90% probability you'll get it wrong. </q>
+
+Andy Rooney
+
+---
+
+## Definitions
 
 <p align="center"><img src="img/Doubleslit3Dspectrum.gif" height="300" width="300"></p>
 
@@ -26,42 +46,94 @@ around us
 - In practicality, proving a probability of 0 or 1 is quite difficult, except the probability you will enjoy this session!
 - Probabilities are inherently tied to the concept of repeatability, a probability represents the proportion of times we expect something to be successful over a reasonable number of trials
 
+--- bg:white
+
+# Some Motivation for Probability
+
+> - Probability is a mathematical tool to express uncertainty about events in the world 
+around us
+> - The most basic particles of matter are governed by probability
+> - Probability is literally everywhere
+
 ---
 
 ## The OP - Double Slit Electron Experiments
 
 <p align="center"><img src="img/Double-slit_experiment_results_Tanamura_four.jpg" height="450" width="750"></p>
 
---- .quote
-
-The laws of probability, so true in general, so fallacious in particular. Edward Gibbon
-
---- .quote .dark
-
-The 50-50-90 rule: Anytime you have a 50-50 chance of getting something right, there's a 90% probability you'll get it wrong. Andy Rooney
-
 ---
 
 ## Probability
-Three simple formulas
 
-- $P(A \cap B) = P(A)P(B)$
-- $P(A \cup B) = P(A) + P(B)$ - mutually exclusive A and B
-- $P(A \cup B) = P(A) + P(B) - P(A and B)$ - not mutually exclusive
-- They make sense and we use them everday.
-- The first describes independent events -- like the chance two cards drawn from separate decks are the same suit. 
-- The second describes mutually exclusive events, such as the chance of drawing **either** a single heart or a spade card from a single deck of cards. 
-- The third describes events that are not mutually exlusive. The probability of drawing one card from a deck that is either a heart or a face card or both. 
+Five simple formulas
+> - $P(A \cap B) = P(A)P(B)$ (if A and B are independent)
+> - $P(A \cup B) = P(A) + P(B)$ (mutually exclusive A and B)
+> - $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ (not mutually exclusive)
+> - $P(A|B) = \cfrac{P(A \cap B)}{P(B)} = \cfrac{P(B|A)P(A)}{P(B)}$
+> - $P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)$ (if A and B are dependent)
+
+We use them everday.
 
 ---
 
-## Meanwhile, in the real world
+## Independent Events (Joint Probability)
 
-- We are familiar with these examples from school, but how about the real world?
+$$P(A \cap B) = P(A)P(B)$$
+
+- We simply multiply the probabilities of independent events together. 
+- Rolling a 3 and a coin landing on tails = $\cfrac{1}{6} \times \cfrac{1}{2}$
+- What is another example?
+
+---
+
+## Probability of A or B (mutually exclusive events)
+
+$$P(A \cup B) =  P(A) + P(B)$$
+
+- We can simply add probabilities in these cases. 
+- Rolling a 3 or a 4 = $\cfrac{1}{6} + \cfrac{1}{6}$
+- What is another example of mutually exclusive events?
+
+---
+
+## Probability of A or B (non-mutually exclusive events)
+
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+- Just like above we add the probabilities, but we must subtract the probability 
+off both events occurring. 
+- Rolling a 3 or a coin landing on tails = $\cfrac{1}{6} + \cfrac{1}{2} - (\cfrac{1}{6} \times \cfrac{1}{2})$
+- What is another example of events that are not mutually exclusive?
+
+---
+
+## Conditional Probability aka the Real World
+
+$$P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}$$
+
 - Events are not sequenced in the real world, we often have multiple conditions beyond A and B, and we often have different probabilities for different events. We may want to know the probability of event A, given a fixed outcome of probability B.
-- We need conditional probability formulas:
-- $P(A | B) = \frac{P(A \cap B)}{P(B)}$
-- When drawing two aces from the same deck, the probability of drawing an ace on the first draw is $\frac{4}{52}$, but the probability of drawing a second ace conditional on already drawing an ace is $\frac{\frac{4}{52} \times  \frac{3}{51}}{\frac{4}{52}}$. Why?
+- When drawing two aces from the same deck, the probability of drawing an ace on the first draw is $\cfrac{4}{52}$ 
+- but the probability of drawing a second ace conditional on already drawing an ace is $\cfrac{\frac{3}{51} \times \frac{4}{52}}{\frac{4}{52}}$. 
+- What is another example?
+
+---
+
+## Probability of A and B (dependent events)
+
+$$P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)$$
+
+- Just like the previous example about the probability of the second ace. However, 
+this does not take into account the probability of drawing an ace in the first place!
+- Thus the probability reduces to: $\cfrac{\frac{4}{52} \times  \frac{3}{51}}{\frac{4}{52}} \times \cfrac{4}{52}$
+- First each draw from the deck we would have a 7.8% chance of an ace. Then, once we drew that first ace, we would have a 5.88% chance at another ace. 
+- Together, we have a 0.45% chance of drawing two aces sequentially.
+
+---
+
+## Deal or No Deal
+
+- [Let's Play](http://www.nbc.com/Deal_or_No_Deal/game/flash.shtml)
+- Discussion
 
 ---
 
@@ -75,10 +147,11 @@ Three simple formulas
 
 ---
 
-## Lotteries
+## Demonstrate this Through A Lottery
 
 - The lottery is one of the most classic cases of a conditional probability
 - Let's run our own lottery
+- We'll 'draw' 3 numbers from a pool of numbers 1-6 without replacing the numbers. And we'll draw one "powerball" from a pool of numbers 1-4. 
 - Everyone pick 3 numbers from 1 to 6; and 1 powerball from 1 to 4
 - Order does not matter except for the powerball
 - Write them down on a piece of paper with your name and hand them in
@@ -87,8 +160,8 @@ Three simple formulas
 
 ## Exercise
 
-- While I input your picks, think about what your odds of winning are
-- Remember, after a number is drawn, it is not replaced so there is a $\frac{1}{6}$ then $\frac{1}{5}$, then $\frac{1}{4}$ choice set for three balls, plus the $\frac{1}{4}$ for the powerball.
+- While we input your picks, think about what your odds of winning are
+- Remember, after a number is drawn, it is not replaced so there is a $\cfrac{1}{6}$ then $\cfrac{1}{5}$, then $\cfrac{1}{4}$ choice set for three balls, plus the $\cfrac{1}{4}$ for the powerball.
 - Why or why not might your answer be correct?
 
 ---
@@ -108,6 +181,15 @@ very straightforward: $\frac{1}{6} \times  \frac{1}{5} \times  \frac{1}{4} \time
 
 ---
 
+## An Aside on Combinations
+
+- Calculating complex conditional probabilities relies on a type of math known as combinatorics
+- To figure out the number of ways to arrange **k** choices drawn from **n** objects, 
+a simple formula exists: $\cfrac{n!}{(n-k)!}$
+- where: ! represents the **factorial** operator: $4! = 4 \times 3 \times 2 \times 1$
+
+---
+
 ## Let's see how much you won!
 
 - For each of you, we'll assume you picked the same numbers each time for 1,000 separate lottery drawings
@@ -124,14 +206,15 @@ very straightforward: $\frac{1}{6} \times  \frac{1}{5} \times  \frac{1}{4} \time
 > - The list of conditional probabilities is quite large!
 > - This is the basis for statistical modeling and statistical analysis
 
---- &quote
+---
 
-Probabilistic events generate data in particular patterns, these are called distributions
+<q class='shout'> Probabilistic events generate data <span class = 'red'>in particular patterns</span>, these are called distributions. </q>
 
 ---
 
 ## Exploring Distributions
 
+- One way to think of distributions is that they capture uncertainty in cases of measurement error. Let's look at some examples of measurement error: 
 - Write down your estimate of the following three things on a piece of paper and hand them in, make a copy for yourself, keep your estimate to yourself for now:
  * How tall in inches (to the nearest quarter inch) is Jared?
  * What is the US Census estimate of the median household income in Illinois from 2007-2011, in dollars?
@@ -143,35 +226,21 @@ Probabilistic events generate data in particular patterns, these are called dist
 
 - While we input your answers, talk with your neighbor about your estimates. Was your neighbor higher or lower than you? Would you change your estimate based on sharing information with your neighbor?
 - Talk to another neighbor, would you change your estimate further? 
-- Let's look at the responses from the group!
+> - How many of you would change your answers now?
+> - Let's look at the responses from the group!
 
 ---
 
 ## Look at the answers
 
-- Jared is 68.25 inches tall
-- Illinois household income is $56,576 (http://quickfacts.census.gov/qfd/states/17000.html)
-- Marathon time is 2:15:25, or 135.42 minutes (`http://en.wikipedia.org/wiki/Marathon_world_record_progression`)
+> - Jared is 68.25 inches tall
+> - Illinois household income is $56,576 [source](http://quickfacts.census.gov/qfd/states/17000.html)
+> - Marathon time is 2:15:25, or 135.42 minutes [source](http://en.wikipedia.org/wiki/Marathon_world_record_progression)
 
 ---
 
-## Here is something interesting
+## Defining Distributions
 
-### My name 
+- [Hey Look a Web App!](http://glimmer.rstudio.com/wisconsindpi/distribution)
 
---- &twocol w1:50% w2:50%
-
-## Why?
-
-***left
-### Very interesting
-> - Points to make
-> - That you will like
-
-***right
-### Pay attention
-> - To this
-> - and this
-
----
 

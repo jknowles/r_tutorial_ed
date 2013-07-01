@@ -73,6 +73,7 @@ purl("TutorialX_StatisticsRefresher.Rmd",output="handouts/scripts/TutorialX.R")
 # slidify
 
 library(devtools)
+dev_mode()
 install_github("slidify", "ramnathv", ref="dev")
 install_github("slidifyLibraries", "ramnathv", ref="dev")
 install_github("knitr", "yihui")

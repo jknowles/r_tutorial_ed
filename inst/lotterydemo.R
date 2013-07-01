@@ -81,7 +81,7 @@ checkWin <- function(name, N, lookup, sim){
 }
 
 
-checkWin("John", 10000, lookup=class)
+checkWin("John", 1000, lookup=class)
 
 # Expected probability
 length(unique(sim$ball1))
