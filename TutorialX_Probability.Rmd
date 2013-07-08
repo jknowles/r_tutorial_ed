@@ -89,24 +89,22 @@ Andy Rooney
 ## Definitions
 
 - $$p = \dfrac{X Occurs}{X Could Occur}$$
-- A probability is quantified statement about how likely something will happen, ranging between 0 (absolutely certain not to happen), and 1 (absolutely certain to happen)
+- A probability is quantified statement about **how likely** something will happen, ranging between 0 (absolutely certain not to happen), and 1 (absolutely certain to happen)
 - To create this ratio we need to know the numerator (how many times X occurred) and the denominator (the universe of possibile trials in which X could have occurred)
 - Sometimes the universe is simply a measure of time, others there are rules that describe the discrete universe of events
 - In practicality, proving a probability of 0 or 1 is quite difficult, except the probability that you will enjoy this session!
-
-
 
 --- bg:white
 
 
 ## Some Motivation for Probability
 
-- Probabilities are inherently tied to the concept of repeatability, a probability represents the proportion of times we expect something to be successful over a reasonable number of trials
-- Probability allows us to quantify how rare rare events really are, especially in cases when we cannot observe a long run of outcomes
-- Probability also allows us to quantify how surprised or unusual the occurrence of a rare event is when we do observe them
-- Probability is used to identify a signal within a noisy measurement
+- Probabilities are inherently tied to the concept of **repeatability**, a probability represents the proportion of times we expect something to be successful over a reasonable number of trials
+- Probability allows us to **quantify** how rare **rare events** really are, especially in cases when we cannot observe a long run of outcomes
+- Probability also allows us to quantify how surprised or **unusual** the occurrence of a rare event is when we do observe them
+- Probability is used to identify a **signal** within a noisy measurement
 - The fundamental particles of physics behave according to properties of probability
-- Probability is often framed alternatively in terms of risk or odds
+- Probability is often framed alternatively in terms of **risk** or odds
 
 --- bg:white
 
@@ -171,7 +169,7 @@ off both events occurring.
 
 $$P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{P(B|A)P(A)}{P(B)}$$
 
-- Events are not sequenced in the real world, we often have multiple conditions beyond A and B, and we often have different probabilities for different events. We may want to know the probability of event A, given a fixed outcome of probability B.
+- We may want to know the probability of event A, given a fixed outcome of probability B.
 - When drawing two aces from the same deck, the probability of drawing an ace on the first draw is $\cfrac{4}{52}$ 
 - but the probability of drawing a second ace conditional on already drawing an ace is $\cfrac{\frac{3}{51} \times \frac{4}{52}}{\frac{4}{52}}$. 
 - What is another example?
@@ -184,7 +182,7 @@ $$P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)$$
 
 - Just like the previous example about the probability of the second ace. However, 
 this does not take into account the probability of drawing an ace in the first place!
-- Thus the probability reduces to: $\cfrac{\frac{4}{52} \times  \frac{3}{51}}{\frac{4}{52}} \times \cfrac{4}{52}$
+- Thus the probability reduces to: $\cfrac{\frac{4}{52} \times  \frac{3}{51}}{\frac{4}{52}} \times \cfrac{4}{52} = \frac{4}{52} \times  \frac{3}{51}$
 - First each draw from the deck we would have a 7.8% chance of an ace. Then, once we drew that first ace, we would have a 5.88% chance at another ace. 
 - Together, we have a 0.45% chance of drawing two aces sequentially.
 
@@ -208,23 +206,23 @@ this does not take into account the probability of drawing an ace in the first p
 
 > - What are some policy recommendations or priorities that might be recommended after such a tragedy?
 > - What is the probability of a commercial airline crash in the US?
-> - There are .466 crashes per 100,000 departures on average from 1983-2000 [NTSB Report](http://www.ntsb.gov/doclib/safetystudies/SR0101.pdf)
-> - There were .000076 accidents per 100 million miles flown (roughly 7 billion miles flown per year nationwide) 
+> - There are **.466** crashes per 100,000 departures on average from 1983-2000 [NTSB Report](http://www.ntsb.gov/doclib/safetystudies/SR0101.pdf)
+> - There were **.0076** accidents per 1 million miles flown (roughly 7 billion miles flown per year nationwide) 
 > - Given an airline crash, what is the probability that there are fatalities? 
-> - 0.125
+> - **0.125**
 > - What percentage of airline crash occupants survive? 
 > - 95.7%
 
 ---
 
-## Highway Safety 
+## Compare to Automobiles 
 
 > - What is the probability of an automobile crash in Wisconsin? 
-> - 189.12 crashes per 100 million miles driven [DOT Report](http://www.dot.wisconsin.gov/safety/motorist/crashfacts/docs/crash-crashes.pdf)
+> - **2** crashes per 1 million miles driven [DOT Report](http://www.dot.wisconsin.gov/safety/motorist/crashfacts/docs/crash-crashes.pdf)
 > - Given a crash in Wisconsin, what is the chance that it is fatal?
-> - 0.0062 
-> - What is the survivability of crashes that are severe enough to cause injury?
-> - 0.014 
+> - **0.004577**
+> - How many fatal accidents occur per 100 million miles?
+> - **0.8518**
 > - What is the probability of a highway fatality in Wisconsin? [NHTSA Report](http://www-nrd.nhtsa.dot.gov/departments/nrd-30/ncsa/STSI/55_WI/2011/55_WI_2011.htm)
 > - About 1 per 100 million miles driven
 
@@ -235,15 +233,17 @@ this does not take into account the probability of drawing an ace in the first p
 ```{r, message=FALSE, echo=FALSE, warning=FALSE, comment=NA, fig.width=8, fig.height=4, fig.align='center'}
 library(eeptools)
 names <- c("Airline Crashes", "Airline Fatal | Crash", "Auto Crashes", "Auto Fatality | Crash")
-probs <- c(.000076, .125, .0062, .014)
+probs <- c(7.6e-09, .125, 2e-05, .00457)
 
 qplot(names, probs, geom='bar') + theme_dpi() + 
   labs(title="Probability of Event", 
-       x="Event", y="Probability")
+       x="Event", y="Probability") + scale_y_sqrt() + 
+  geom_text(label=probs, vjust=-1)
 
 ```
 
 - Which mode of transportation is safer? 
+- Per million miles there are 100 fatal car accidents and .0004 fatal air crashes
 - If you knew you were going to be in a crash, which would you prefer?
 - What extra information would help you make this decision?
 
