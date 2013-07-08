@@ -10,15 +10,63 @@ hitheme     : tomorrow      #
 widgets     : [mathjax, bootstrap]            # {mathjax, quiz, bootstrap}
 mode        : standalone # {standalone, draft}
 
+---
+
+<style>
+.title-slide {
+  background-color: #FFFFFF;
+  /* background-image:url(http://goo.gl/EpXln); */
+}
+
+.title-slide hgroup > h1{
+ font-family: 'Oswald', 'Helvetica', sanserif; 
+}
+
+.title-slide hgroup > h1, 
+.title-slide hgroup > h2 {
+  color: #EF5150; /* ; #EF5150*/
+}
+em {
+  font-style: italic
+}
+strong {
+  font-weight: bold;
+}
+pre {
+  font-size: 18px;
+  line-height: 20px;
+}
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}
+.center{
+    text-align:center;
+}
+</style>
+
+## StatChat!
+
+<div class="center">
+   <img class="acentre" src="img/StatChat.png" height="240" width="280"/>
+</div>
+
+- Probability Refresher (today)
+- Moving from Data to Analysis (moved to July 29th)
+- Designing Evaluations - Getting the Comparison Right (moved to August 5th)
+
 --- bg:white
 
 ## Goals for Today
 
-> - Provide an overview of probability
-> - Demonstrate probability in effect
-> - Discuss why probability matters
-> - Demonstrate statistical distributions
-> - Discuss their implications
+- Provide an overview of probability theory 
+- A brief refresher on the math of probabilities
+- Demonstrate probability in effect
+- Discuss why probability is relevant in decision making and problem solving
+- Demonstrate statistical distributions
+- Discuss their implications for policy making
 
 --- bg:white
 
@@ -40,26 +88,38 @@ Andy Rooney
 
 ## Definitions
 
-<p align="center"><img src="img/Doubleslit3Dspectrum.gif" height="300" width="300"></p>
-
+- $$p = \dfrac{X Occurs}{X Could Occur}$$
 - A probability is quantified statement about how likely something will happen, ranging between 0 (absolutely certain not to happen), and 1 (absolutely certain to happen)
-- In practicality, proving a probability of 0 or 1 is quite difficult, except the probability you will enjoy this session!
-- Probabilities are inherently tied to the concept of repeatability, a probability represents the proportion of times we expect something to be successful over a reasonable number of trials
+- To create this ratio we need to know the numerator (how many times X occurred) and the denominator (the universe of possibile trials in which X could have occurred)
+- Sometimes the universe is simply a measure of time, others there are rules that describe the discrete universe of events
+- In practicality, proving a probability of 0 or 1 is quite difficult, except the probability that you will enjoy this session!
+
+
 
 --- bg:white
 
-# Some Motivation for Probability
 
-> - Probability is a mathematical tool to express uncertainty about events in the world 
-around us
-> - The most basic particles of matter are governed by probability
-> - Probability is literally everywhere
+## Some Motivation for Probability
 
----
+- Probabilities are inherently tied to the concept of repeatability, a probability represents the proportion of times we expect something to be successful over a reasonable number of trials
+- Probability allows us to quantify how rare rare events really are, especially in cases when we cannot observe a long run of outcomes
+- Probability also allows us to quantify how surprised or unusual the occurrence of a rare event is when we do observe them
+- Probability is used to identify a signal within a noisy measurement
+- The fundamental particles of physics behave according to properties of probability
+- Probability is often framed alternatively in terms of risk or odds
 
-## The OP - Double Slit Electron Experiments
+--- bg:white
 
-<p align="center"><img src="img/Double-slit_experiment_results_Tanamura_four.jpg" height="450" width="750"></p>
+## Chained Probabilities
+
+<div class="center">
+   <img class="acentre" src="img/G42009tree.png" height="375" width="750"/>
+</div>
+
+
+--- bg:white
+
+<p><q> What's wrong with a little <span class = 'red'>math</span>? </q></p>
 
 ---
 
@@ -128,12 +188,9 @@ this does not take into account the probability of drawing an ace in the first p
 - First each draw from the deck we would have a 7.8% chance of an ace. Then, once we drew that first ace, we would have a 5.88% chance at another ace. 
 - Together, we have a 0.45% chance of drawing two aces sequentially.
 
----
+--- bg:white
 
-## Deal or No Deal
-
-- [Let's Play](http://www.nbc.com/Deal_or_No_Deal/game/flash.shtml)
-- Discussion
+<p><q> What do cards and dice have to do with <span class = 'red'>policy</span>? </q></p>
 
 ---
 
@@ -143,7 +200,126 @@ this does not take into account the probability of drawing an ace in the first p
 - What is the chance a student graduates high school, conditional on having a test score of X?
 - What is the chance a student develops an alcohol problem, conditional on having Z type of friends?
 - What is the chance a school meets AYP, conditional on receiving additional state and federal aid to improve instruction?
-- Probability is often framed alternatively in terms of risk or odds
+- EXAMPLE
+
+---
+
+## Asiana Airlines Flight 214 Tragedy
+
+> - What are some policy recommendations or priorities that might be recommended after such a tragedy?
+> - What is the probability of a commercial airline crash in the US?
+> - There are .466 crashes per 100,000 departures on average from 1983-2000 [NTSB Report](http://www.ntsb.gov/doclib/safetystudies/SR0101.pdf)
+> - There were .000076 accidents per 100 million miles flown (roughly 7 billion miles flown per year nationwide) 
+> - Given an airline crash, what is the probability that there are fatalities? 
+> - 0.125
+> - What percentage of airline crash occupants survive? 
+> - 95.7%
+
+---
+
+## Highway Safety 
+
+> - What is the probability of an automobile crash in Wisconsin? 
+> - 189.12 crashes per 100 million miles driven [DOT Report](http://www.dot.wisconsin.gov/safety/motorist/crashfacts/docs/crash-crashes.pdf)
+> - Given a crash in Wisconsin, what is the chance that it is fatal?
+> - 0.0062 
+> - What is the survivability of crashes that are severe enough to cause injury?
+> - 0.014 
+> - What is the probability of a highway fatality in Wisconsin? [NHTSA Report](http://www-nrd.nhtsa.dot.gov/departments/nrd-30/ncsa/STSI/55_WI/2011/55_WI_2011.htm)
+> - About 1 per 100 million miles driven
+
+---
+
+## Graph It!
+
+```{r, message=FALSE, echo=FALSE, warning=FALSE, comment=NA, fig.width=8, fig.height=4, fig.align='center'}
+library(eeptools)
+names <- c("Airline Crashes", "Airline Fatal | Crash", "Auto Crashes", "Auto Fatality | Crash")
+probs <- c(.000076, .125, .0062, .014)
+
+qplot(names, probs, geom='bar') + theme_dpi() + 
+  labs(title="Probability of Event", 
+       x="Event", y="Probability")
+
+```
+
+- Which mode of transportation is safer? 
+- If you knew you were going to be in a crash, which would you prefer?
+- What extra information would help you make this decision?
+
+---
+
+## Exercise
+
+<p><q> Imagine you are from the National Transportation Safety Board and you are reviewing 
+the crash. Your agency knows the long run safety information above. What are some 
+<span class = 'red'>policy actions</span> or questions you should be asking?</q></p>
+
+---
+
+
+## How do we apply this to our work?
+
+> - What is the probability a student in Wisconsin will graduate from high school?
+> - Is this a useful question? 
+> - What additional information would help answer the question better? 
+> - The list of conditional probabilities is quite large!
+> - This is the basis for statistical modeling and statistical analysis
+
+---
+
+<q class='shout'> Probabilistic events generate data <span class = 'red'>in particular patterns</span>, these are called distributions. </q>
+
+---
+
+## Exploring Distributions
+
+- One way to think of distributions is that they capture uncertainty in cases of measurement error. Let's look at some examples of measurement error: 
+- Write down your estimate of the following three things on a piece of paper and hand them in, make a copy for yourself, keep your estimate to yourself for now:
+ * How tall in inches (to the nearest quarter inch) is Jared?
+ * What is the US Census estimate of the median household income in Illinois from 2007-2011, in dollars?
+ * What is the current world record time in the women's marathon, in minutes?
+
+--- 
+
+## Graphing your Answers
+
+- While we input your answers, talk with your neighbor about your estimates. Was your neighbor higher or lower than you? Would you change your estimate based on sharing information with your neighbor?
+- Talk to another neighbor, would you change your estimate further? 
+> - How many of you would change your answers now?
+> - Let's look at the responses from the group!
+
+---
+
+## Look at the answers
+
+> - Jared is 68.25 inches tall
+> - Illinois household income is $56,576 [source](http://quickfacts.census.gov/qfd/states/17000.html)
+> - Marathon time is 2:15:25, or 135.42 minutes [source](http://en.wikipedia.org/wiki/Marathon_world_record_progression)
+
+---
+
+## Defining Distributions
+
+- [Hey Look a Web App!](http://glimmer.rstudio.com/wisconsindpi/distribution)
+
+---
+
+## Why do distributions matter? 
+
+---
+
+## Further Examples
+
+<p><q> Gameshows and lotteries!</q></p>
+
+---
+
+## Deal or No Deal
+
+- [Let's Play](http://www.nbc.com/Deal_or_No_Deal/game/flash.shtml)
+- Discussion
+
 
 ---
 
@@ -198,49 +374,6 @@ a simple formula exists: $\cfrac{n!}{(n-k)!}$
 
 ---
 
-## How do we apply this to our work?
+## The OP - Double Slit Electron Experiments
 
-> - What is the probability a student in Wisconsin will graduate from high school?
-> - Is this a useful question? 
-> - What additional information would help answer the question better? 
-> - The list of conditional probabilities is quite large!
-> - This is the basis for statistical modeling and statistical analysis
-
----
-
-<q class='shout'> Probabilistic events generate data <span class = 'red'>in particular patterns</span>, these are called distributions. </q>
-
----
-
-## Exploring Distributions
-
-- One way to think of distributions is that they capture uncertainty in cases of measurement error. Let's look at some examples of measurement error: 
-- Write down your estimate of the following three things on a piece of paper and hand them in, make a copy for yourself, keep your estimate to yourself for now:
- * How tall in inches (to the nearest quarter inch) is Jared?
- * What is the US Census estimate of the median household income in Illinois from 2007-2011, in dollars?
- * What is the current world record time in the women's marathon, in minutes?
-
---- 
-
-## Graphing your Answers
-
-- While we input your answers, talk with your neighbor about your estimates. Was your neighbor higher or lower than you? Would you change your estimate based on sharing information with your neighbor?
-- Talk to another neighbor, would you change your estimate further? 
-> - How many of you would change your answers now?
-> - Let's look at the responses from the group!
-
----
-
-## Look at the answers
-
-> - Jared is 68.25 inches tall
-> - Illinois household income is $56,576 [source](http://quickfacts.census.gov/qfd/states/17000.html)
-> - Marathon time is 2:15:25, or 135.42 minutes [source](http://en.wikipedia.org/wiki/Marathon_world_record_progression)
-
----
-
-## Defining Distributions
-
-- [Hey Look a Web App!](http://glimmer.rstudio.com/wisconsindpi/distribution)
-
-
+<p align="center"><img src="img/Double-slit_experiment_results_Tanamura_four.jpg" height="450" width="750"></p>
