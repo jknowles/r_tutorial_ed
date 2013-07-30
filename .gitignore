@@ -4,7 +4,9 @@
 cache
 figure
 handouts
+<<<<<<< HEAD
 *.md
 .md
 img/Thumbs.db
 .cache*
+
